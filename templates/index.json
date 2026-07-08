@@ -11,19 +11,30 @@
   "sections": {
     "featured-collection-switcher": {
       "type": "featured-collection-switcher",
+      "disabled": true,
       "settings": {
         "title": "Top picks",
         "collection1": "mens",
-        "collection2": "womens"
+        "collection2": "womens",
+        "per_row": 4,
+        "view_all": true,
+        "divider": false
       }
     },
     "collection-callout": {
       "type": "collection-callout",
+      "disabled": true,
       "settings": {
+        "collection": "",
+        "subtitle": "Brand new",
         "title": "Summer wear",
         "text": "Check out our comfy crewnecks, lightweight khakis, breathable tanktops and more.",
         "cta_text1": "Shop Tops",
-        "cta_text2": "Shop All Womens"
+        "cta_link1": "",
+        "cta_text2": "Shop All Womens",
+        "cta_link2": "",
+        "layout": "right",
+        "divider": false
       }
     },
     "rich-text": {
@@ -32,11 +43,14 @@
         "heading": {
           "type": "heading",
           "disabled": true,
-          "settings": {}
+          "settings": {
+            "title": "Rich text"
+          }
         },
         "text": {
           "type": "text",
           "settings": {
+            "enlarge_text": true,
             "text": "<p>We design durable travel apparel with a conscience — 100% made in America. <br/>Products by <a href=\"http://unitedbyblue.com\" title=\"http://unitedbyblue.com\">United By Blue</a>."
           }
         }
@@ -45,23 +59,44 @@
         "heading",
         "text"
       ],
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "align_text": "center",
+        "narrow_column": true,
+        "divider": false
+      }
     },
     "text-and-image": {
       "type": "text-and-image",
+      "disabled": true,
       "settings": {
+        "image_mask": "none",
+        "image2_mask": "none",
         "subtitle": "Gift cards",
         "title": "Support your neighborhood",
         "text": "<p>We believe that local businesses are an integral part of a neighborhood's character. Help keep us local by buying a gift card!</p>",
         "button_label": "Shop gift cards",
-        "image_width": "66"
+        "button_link": "",
+        "button_style": "primary",
+        "align_text": "left",
+        "image_width": "66",
+        "layout": "right",
+        "divider": false,
+        "top_padding": true,
+        "bottom_padding": true,
+        "lazyload_images": true
       }
     },
     "featured-collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "title": "Just restocked",
-        "home_featured_products": "pullovers"
+        "home_featured_products": "pullovers",
+        "per_row": 4,
+        "rows": 1,
+        "view_all": true,
+        "divider": false
       }
     },
     "featured-product": {
@@ -102,7 +137,8 @@
           "type": "tab",
           "settings": {
             "title": "Size chart",
-            "content": ""
+            "content": "",
+            "page": ""
           }
         },
         "contact": {
@@ -122,6 +158,7 @@
         "tab",
         "contact"
       ],
+      "disabled": true,
       "settings": {
         "featured_product": "wenlock-chambray-button-down",
         "divider": false,
@@ -139,11 +176,16 @@
       "blocks": {
         "title": {
           "type": "title",
-          "settings": {}
+          "settings": {
+            "title": "Sign up and save",
+            "heading_size": "h2"
+          }
         },
         "text": {
           "type": "text",
-          "settings": {}
+          "settings": {
+            "text": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>"
+          }
         },
         "form": {
           "type": "form",
@@ -155,7 +197,17 @@
         "text",
         "form"
       ],
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "align_text": "center",
+        "image_width": "33",
+        "image_mask": "none",
+        "image_position": "right",
+        "color_background": "#f9f9f9",
+        "color_text": "#1c1d1d",
+        "top_padding": true,
+        "bottom_padding": true
+      }
     }
   },
   "order": [

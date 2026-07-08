@@ -13,18 +13,30 @@
   "sections": {
     "announcement-bar": {
       "type": "announcement-bar",
+      "disabled": true,
       "settings": {
         "announcement_text": "Free shipping and returns over $50",
+        "announcement_link": "",
         "announcement_closable": false
       }
     },
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
+        "desktop_logo_width": 200,
+        "mobile_logo_width": 140,
+        "main_menu_link_list": "main-menu",
+        "hover_menu": true,
+        "main_menu_alignment": "left-center",
+        "header_sticky": true,
         "sticky_index": true,
         "sticky_collection": true
       }
     }
   },
-  "order": ["announcement-bar", "header"]
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
 }
