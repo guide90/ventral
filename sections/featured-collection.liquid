@@ -1,0 +1,156 @@
+{%- liquid
+  assign per_row = section.settings.per_row
+  assign product_limit = per_row | times: section.settings.rows
+  assign collection = collections[section.settings.home_featured_products]
+
+  capture gridView
+    render 'products_per_row', products_per_row: per_row, style: 'fractions'
+  endcapture
+-%}
+
+{% style %}
+  {% if section.settings.title == blank and section.settings.view_all %}
+    #CollectionSection-{{ section.id }} .section-header__link {
+      padding-bottom: 10px;
+    }
+  {% endif %}
+{% endstyle %}
+
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+
+<div id="CollectionSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="featured-collection">
+  {%- if section.settings.title != blank or section.settings.view_all -%}
+    <div class="page-width">
+      <div class="section-header">
+        <h2 class="section-header__title">
+          {% if section.settings.title != blank %}
+            {{ section.settings.title }}
+          {% endif %}
+          {% if section.settings.view_all and section.settings.rows == 1 %}
+            <a href="{{ collections[section.settings.home_featured_products].url }}" class="section-header__link">{{ 'collections.general.all_of_collection' | t }}</a>
+          {% endif %}
+        </h2>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="page-width page-width--flush-small">
+    <div class="grid-overflow-wrapper">
+      <div class="grid grid--uniform" data-aos="overflow__animation">
+
+        {% if section.settings.home_featured_products == blank or collections[section.settings.home_featured_products].empty? or collections[section.settings.home_featured_products].products_count == 0 %}
+
+          <div class="grid__item">
+            <div class="grid grid--uniform">
+              {%- for i in (1..product_limit) -%}
+                <div class="grid__item grid-product {{ gridView }}" data-aos="row-of-{{ per_row }}">
+                  <div class="grid-product__content">
+                    <a href="{{ product.url | within: collection }}" class="grid-product__link">
+                      <div class="grid-product__image-mask">
+                        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                        <div class="image-wrap">{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}</div>
+                      </div>
+                      <div class="grid-product__meta">
+                        <div class="grid-product__title">{{ 'home_page.onboarding.product_title' | t }}</div>
+                        <div class="grid-product__price">$29</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+
+        {% else %}
+
+          {%- for product in collections[section.settings.home_featured_products].products limit: product_limit -%}
+            {%- render 'product-grid-item',
+              product: product,
+              collection: collection,
+              per_row: per_row,
+              fallback: '66vw',
+            -%}
+          {%- endfor -%}
+
+          {% if section.settings.view_all %}
+
+            {% if section.settings.rows > 1 %}
+              <div class="grid__item small--hide text-center">
+                <a href="{{ collections[section.settings.home_featured_products].url }}" class="btn">{{ 'collections.general.all_of_collection' | t }}</a>
+              </div>
+            {% endif %}
+
+            <div class="grid__item grid__item--view-all text-center {{ gridView }} medium-up--hide">
+              <a href="{{ collections[section.settings.home_featured_products].url }}" class="grid-product__see-all">
+                {{ 'collections.general.view_all_products_html' | t: count: collection.products_count }}
+              </a>
+            </div>
+
+          {% endif %}
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.divider -%}</div>{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.featured-collection.name",
+  "class": "index-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.featured-collection.settings.title.label",
+      "default": "Featured collection"
+    },
+    {
+      "type": "collection",
+      "id": "home_featured_products",
+      "label": "t:sections.featured-collection.settings.home_featured_products.label"
+    },
+    {
+      "type": "range",
+      "id": "per_row",
+      "label": "t:sections.featured-collection.settings.per_row.label",
+      "default": 4,
+      "min": 1,
+      "max": 5,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "rows",
+      "label": "t:sections.featured-collection.settings.rows.label",
+      "default": 1,
+      "min": 1,
+      "max": 5,
+      "step": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "view_all",
+      "label": "t:sections.featured-collection.settings.view_all.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "divider",
+      "label": "t:sections.featured-collection.settings.divider.label",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.featured-collection.presets.featured_collection.name"
+    }
+  ],
+  "blocks": [],
+  "disabled_on": {
+    "groups": ["footer", "header", "custom.popups"]
+  }
+}
+{% endschema %}

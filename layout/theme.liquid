@@ -1,0 +1,546 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_button }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+  <link rel="dns-prefetch" href="https://productreviews.shopifycdn.com">
+  <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+  <link rel="dns-prefetch" href="https://maps.googleapis.com">
+  <link rel="dns-prefetch" href="https://maps.gstatic.com">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {%- endif -%}
+
+  {%- render 'seo-title' -%}
+
+  {%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  {%- render 'social-meta-tags' -%}
+  {%- render 'head.import-map' -%}
+  {%- render 'head.is-land' -%}
+
+  {%- render 'font-face' -%}
+  {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+  {%- if request.page_type == 'product' -%}
+    {{ 'ventral-product.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  {%- render 'css-variables' -%}
+
+  <script>
+    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+
+    window.theme = window.theme || {};
+    theme.routes = {
+      home: "{{ routes.root_url }}",
+      cart: "{{ routes.cart_url | append: '.js' }}",
+      cartPage: "{{ routes.cart_url }}",
+      cartAdd: "{{ routes.cart_add_url | append: '.js' }}",
+      cartChange: "{{ routes.cart_change_url | append: '.js' }}",
+      search: "{{ routes.search_url }}",
+      predictiveSearch: "{{ routes.predictive_search_url }}"
+    };
+    theme.strings = {
+      soldOut: {{ 'products.product.sold_out' | t | json }},
+      unavailable: {{ 'products.product.unavailable' | t | json }},
+      inStockLabel: {{ 'products.product.in_stock_label' | t | json }},
+      oneStockLabel: {{ 'products.product.stock_label.one' | t: count: '[count]' | json }},
+      otherStockLabel: {{ 'products.product.stock_label.other' | t: count: '[count]' | json }},
+      willNotShipUntil: {{ 'products.product.will_not_ship_until' | t: date: '[date]' | json }},
+      willBeInStockAfter: {{ 'products.product.will_be_in_stock_after' | t: date: '[date]' | json }},
+      waitingForStock: {{ 'products.product.waiting_for_stock' | t | json }},
+      cartSavings: {{ 'cart.general.savings_html' | t: savings: '[savings]' | json }},
+      cartEmpty: {{ 'cart.general.empty' | t | json }},
+      cartTermsConfirmation: {{ 'cart.general.terms_confirm' | t | json }},
+      searchCollections: {{ 'general.search.collections' | t | json }},
+      searchPages: {{ 'general.search.pages' | t | json }},
+      searchArticles: {{ 'general.search.articles' | t | json }},
+      maxQuantity: {{ 'cart.general.max_quantity' | t: quantity: '[quantity]', title: '[title]' | json }}
+    };
+    theme.settings = {
+      cartType: {{ settings.cart_type | json }},
+      isCustomerTemplate: {% if request.page_type contains 'customers/' %}true{% else %}false{% endif %},
+      moneyFormat: {{ shop.money_format | json }},
+      predictiveSearch: {{ settings.predictive_search_enabled }},
+      predictiveSearchType: {{ settings.search_type | json }},
+      quickView: {{ settings.quick_shop_enable }},
+      themeName: 'Motion',
+      themeVersion: "11.1.0"
+    };
+  </script>
+
+  {{ content_for_header }}
+
+  {% style %}
+    @font-face {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 300;
+      font-display: swap;
+      src: url("{{ 'roboto-300.ttf' | asset_url }}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url("{{ 'roboto-400.ttf' | asset_url }}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url("{{ 'roboto-500.ttf' | asset_url }}") format("truetype");
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url("{{ 'roboto-700.ttf' | asset_url }}") format("truetype");
+    }
+
+    :root {
+      --element-button-color-primary: red;
+      --element-button-color-secondary: blue;
+      --typeBasePrimary: Roboto, Arial, sans-serif;
+      --typeHeaderPrimary: Roboto, Arial, sans-serif;
+    }
+
+    body,
+    button,
+    input,
+    select,
+    textarea {
+      font-family: Roboto, Arial, sans-serif;
+    }
+
+    .header-wrapper,
+    .site-header {
+      background: #ffffff;
+    }
+
+    .site-header {
+      border-bottom: 1px solid #e6e6e6;
+      padding: 0;
+    }
+
+    .site-header.site-header--stuck,
+    .site-header.site-header--opening {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      transform: none;
+      transition: none;
+      animation: none;
+    }
+
+    .site-header > .page-width {
+      max-width: none;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .header-layout {
+      min-height: 46px;
+      height: 46px;
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr) 160px;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-layout[data-logo-align="left"] .site-header__logo {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      text-align: left;
+    }
+
+    .header-item--logo {
+      display: flex;
+      align-items: center;
+      height: 46px;
+    }
+
+    .site-header__logo {
+      display: flex;
+      align-items: center;
+      height: 46px;
+      line-height: 1;
+    }
+
+    .site-header__logo a.site-header__logo-link--ventral {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      max-width: 165px;
+      height: 46px;
+      padding: 0 !important;
+      line-height: 1;
+    }
+
+    .site-header__logo a.site-header__logo-link--ventral img {
+      display: block;
+      flex: 0 0 auto;
+      width: 165px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .header-item--navigation {
+      justify-self: center;
+    }
+
+    .site-navigation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      margin: 0;
+      height: 46px;
+    }
+
+    .site-navigation .site-nav__item {
+      margin: 0;
+    }
+
+    .site-nav__link,
+    .site-nav__details summary.site-nav__link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      outline: 0;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.28px;
+      line-height: 1;
+      text-transform: none;
+      color: #212121;
+    }
+
+    .site-nav__link:hover,
+    .site-nav__link:focus,
+    .site-nav__link:focus-visible,
+    .site-nav__details[open] > summary.site-nav__link,
+    .site-nav__details summary.site-nav__link:hover,
+    .site-nav__details summary.site-nav__link:focus,
+    .site-nav__details summary.site-nav__link:focus-visible {
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      outline: 0;
+      color: #212121;
+    }
+
+    .site-nav__details summary.site-nav__link::-webkit-details-marker {
+      display: none;
+    }
+
+    .site-nav__details summary.site-nav__link::marker {
+      content: "";
+    }
+
+    .site-nav__link--underline::after,
+    .site-nav__link--underline:hover::after,
+    .site-nav__details[open] > .site-nav__link--underline::after {
+      display: none;
+      content: none;
+    }
+
+    .site-nav__link .icon-chevron-down {
+      display: block;
+      width: 10px;
+      height: 6px;
+      margin-left: 6px;
+    }
+
+    .header-item--icons {
+      justify-self: end;
+    }
+
+    .site-nav__icons {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      height: 46px;
+    }
+
+    .site-nav__link--icon {
+      padding: 0;
+    }
+
+    .site-nav__link--icon .icon {
+      width: 28px;
+      height: 28px;
+      color: #212121;
+      stroke-width: 1.7;
+    }
+
+    .site-nav__link--icon.js-search-header {
+      display: none;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .site-header > .page-width {
+        padding: 0 16px;
+      }
+
+      .header-layout {
+        min-height: 46px;
+        height: 46px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .header-item--logo {
+        flex: 1 1 auto !important;
+      }
+
+      .site-header__logo a.site-header__logo-link--ventral {
+        max-width: 165px;
+        margin: 0;
+      }
+
+      .site-header__logo a.site-header__logo-link--ventral img {
+        width: 165px;
+        height: 28px;
+      }
+
+      .header-item--icons {
+        flex: 0 0 auto !important;
+      }
+
+      .site-nav__icons {
+        gap: 14px;
+      }
+
+      .site-nav__link--icon .icon {
+        width: 26px;
+        height: 26px;
+      }
+    }
+  {% endstyle %}
+
+  <script src="{{ 'vendor-scripts-v14.js' | asset_url | split: '?' | first }}" defer="defer"></script>
+
+  {%- if shop.enabled_currencies.size > 1 -%}
+    <link rel="stylesheet" href="{{ 'country-flags.css' | asset_url | split: '?' | first }}">
+  {%- endif -%}
+
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  {%- if request.page_type == 'product' -%}
+    <script src="{{ 'ventral-product.js' | asset_url }}" defer="defer"></script>
+  {%- endif -%}
+
+  {%- if request.page_type contains 'customers/' -%}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+  {%- endif -%}
+
+  {% if request.design_mode %}
+    <script>theme.settings.email = {{ shop.email | json }}</script>
+    <script src="https://api.archetypethemes.co/design-mode.js" defer="defer"></script>
+  {% endif %}
+
+  {% style %}
+    :root {
+      /* Root Variables */
+      /* ========================= */
+      --root-color-primary: {{ settings.color_body_text }};
+      --color-primary: {{ settings.color_body_text }};
+      --root-color-secondary: {{ settings.color_body_bg }};
+      --color-secondary: {{ settings.color_body_bg }};
+      --color-sale-tag: {{ settings.color_sale_tag }};
+      --color-sale-tag-text: {{ settings.color_sale_tag_text }};
+      --color-sale-price: {{ settings.color_sale_price }};
+      --layout-section-padding-block: 3rem;
+      --layout-section-max-inline-size: 1220px;
+
+      /* Text */
+      /* ========================= */
+      
+      /* Body Font Styles */
+      --element-text-font-family--body: {{ settings.type_base_font_family.family }};
+      --element-text-font-family-fallback--body: {{ settings.type_base_font_family.fallback_families }};
+      --element-text-font-weight--body: {{ settings.type_base_font_family.weight }};
+      --element-text-letter-spacing--body: {{ settings.type_base_spacing | default: '50' | divided_by: 1000.00 | append: 'em' }};
+      --element-text-text-transform--body: none;
+
+      /* Body Font Sizes */
+      --element-text-font-size--body: initial;
+      --element-text-font-size--body-xs: {{ settings.type_base_size | minus: 4 | default: 12 | append: 'px' }};
+      --element-text-font-size--body-sm: {{ settings.type_base_size | minus: 2 | default: 14 | append: 'px' }};
+      --element-text-font-size--body-md: {{ settings.type_base_size | default: 16 | append: 'px' }};
+      --element-text-font-size--body-lg: {{ settings.type_base_size | plus: 2 | default: 18 | append: 'px' }};
+      
+      /* Body Line Heights */
+      --element-text-line-height--body: {{ settings.type_base_line_height | default: 1.4 }};
+
+      /* Heading Font Styles */
+      --element-text-font-family--heading: {{ settings.type_header_font_family.family }};
+      --element-text-font-family-fallback--heading: {{ settings.type_header_font_family.fallback_families }};
+      --element-text-font-weight--heading: {{ settings.type_header_font_family.weight }};
+      --element-text-letter-spacing--heading: {{ settings.type_header_spacing | default: '25' | divided_by: 1000.00 | append: 'em' }};
+      
+      {% if settings.type_header_capitalize %}
+      --element-text-text-transform--heading: uppercase;
+      {% endif %} 
+      
+      
+      /* Heading Font Sizes */
+      --element-text-font-size--heading-2xl: {{ settings.type_header_base_size | plus: 16 | default: '48' | append: 'px' }};
+      --element-text-font-size--heading-xl: {{ settings.type_header_base_size | default: '32' | append: 'px' }};
+      --element-text-font-size--heading-lg: {{ settings.type_header_base_size | minus: 6 | default: '24' | append: 'px' }};
+      --element-text-font-size--heading-md: {{ settings.type_header_base_size | minus: 8 | default: '20' | append: 'px' }};
+      --element-text-font-size--heading-sm: {{ settings.type_header_base_size | minus: 14 | default: '18' | append: 'px' }};
+      --element-text-font-size--heading-xs: {{ settings.type_header_base_size | minus: 16 | default: '16' | append: 'px' }};
+      
+      /* Heading Line Heights */
+      --element-text-line-height--heading: {{ settings.type_header_line_height | default: 1.4 }};
+
+      /* Buttons */
+      /* ========================= */
+      {% if settings.button_style == 'round-slight' %}
+          --element-button-radius: 3px;
+      {% elsif settings.button_style == 'round' %}
+          --element-button-radius: 50px;
+      {% else %}
+          --element-button-radius: 0;
+      {% endif %}
+
+      --element-button-font-family: {{ settings.type_header_font_family.family }};
+      --element-button-font-family-fallback: {{ settings.type_header_font_family.fallback_families }};
+      --element-button-font-weight: {{ settings.type_header_font_family.weight }};
+      --element-button-letter-spacing: {{ settings.type_header_spacing | default: '25' | divided_by: 1000.00 | append: 'em' }};
+
+      {% if settings.type_header_capitalize %}
+      --element-button-text-transform: uppercase;
+      {% endif %} 
+
+      /* Base Color Variables */
+      --element-button-color-primary: {{ settings.color_button }};
+      --element-button-color-secondary: {{ settings.color_button_text }};
+      --element-button-box-shadow: inset 0 0 0 1px {{ settings.color_borders | default: "#1c1d1d" }};
+      --element-button-shade-border: 100%;
+
+      /* Hover State Variables */
+      --element-button-shade-background--hover: 0%;
+
+      /* Focus State Variables */
+      --element-button-color-focus: var(--color-focus);
+    }
+
+    .element-input {
+      box-shadow: inset 0 0 0 1px {{ settings.color_borders | default: "#1c1d1d" }};
+      background-color: {{ settings.color_body_bg }};
+    }
+
+    .element-input:hover {
+      box-shadow: inset 0 0 0 1px {{ settings.color_body_text }};
+    }
+
+    .element-input:focus {
+      border: none;
+      box-shadow: inset 0 0 0 1px {{ settings.color_body_text }};
+    }
+
+    .element-input:focus-visible {
+      border: none;
+      box-shadow: inset 0 0 0 2px var(--color-focus, #4a9afc);
+    }
+
+    .element-button:hover {
+      --element-button-box-shadow: inset 0 0 0 1px {{ settings.color_body_text }};
+    }
+
+    product-form label.element-text:is([class*=element-text])  {
+      font-family: var(--element-text-font-family--heading);
+    }
+
+    .element-radio .element-button {
+      --element-button-font-family: {{ settings.type_base_font_family.family }};
+    }
+
+    .element-radio input:checked ~ .element-button {
+      --element-button-shade-background--active: 0%;
+      --element-button-box-shadow: inset 0 0 0 2px {{ settings.color_body_text }};
+      --color-primary: {{ settings.color_body_bg }};
+      --color-secondary: {{ settings.color_body_text }};
+    }
+
+    .element-button.element-quantity-selector__button {
+      --element-button-box-shadow: outset 0 0 0 1px transparent;
+    }
+
+    quantity-selector:hover .element-quantity-selector__input {
+      box-shadow: inset 0 0 0 1px {{ settings.color_body_text }};
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        /* Heading Font Sizes */
+        --element-text-font-size--heading-2xl: calc({{ settings.type_header_base_size | plus: 16 | default: '48' | append: 'px' }} * 0.8);
+        --element-text-font-size--heading-xl: calc({{ settings.type_header_base_size | default: '32' | append: 'px' }} * 0.8);
+        --element-text-font-size--heading-lg: calc({{ settings.type_header_base_size | minus: 6 | default: '24' | append: 'px' }} * 0.8);
+        --element-text-font-size--heading-md: calc({{ settings.type_header_base_size | minus: 8 | default: '20' | append: 'px' }} * 0.8);
+        --element-text-font-size--heading-sm: calc({{ settings.type_header_base_size | minus: 14 | default: '18' | append: 'px' }} * 0.8);
+        --element-text-font-size--heading-xs: calc({{ settings.type_header_base_size | minus: 16 | default: '16' | append: 'px' }} * 0.8);
+      }
+    }
+  {% endstyle %}
+</head>
+
+<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if request.path == '/challenge' %} template-challange{% endif %}" data-transitions="{{ settings.animate_page_transitions }}" data-type_header_capitalize="{{ settings.type_header_capitalize }}" data-type_base_accent_transform="{{ settings.type_base_accent_transform }}" data-type_header_accent_transform="{{ settings.type_header_accent_transform }}" data-animate_sections="{{ settings.animate_sections }}" data-animate_underlines="{{ settings.animate_underlines }}" data-animate_buttons="{{ settings.animate_buttons }}" data-animate_images="{{ settings.animate_images }}" data-animate_page_transition_style="{{ settings.animate_page_transition_style }}" data-type_header_text_alignment="{{ settings.type_headers_align_text }}" data-animate_images_style="{{ settings.animate_images_style | default: "zoom-fade" }}">
+
+  {% if settings.animate_page_transitions %}
+    <script type="text/javascript">window.setTimeout(function() { document.body.className += " loaded"; }, 25);</script>
+  {% endif %}
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+  <div id="PageContainer" class="page-container">
+    <div class="transition-body">
+
+      {%- sections 'header-group' -%}
+
+      <main class="main-content" id="MainContent">
+        {{ content_for_layout }}
+      </main>
+
+      {%- sections 'footer-group' -%}
+
+    </div>
+  </div>
+
+  {%- liquid
+    render 'video-modal'
+    render 'photoswipe-template'
+    render 'tool-tip'
+  -%}
+
+  {% comment %} Image markup used when building product grid item via JS {% endcomment %}
+  <template id="predictiveImageMarkup">
+    <image-element>
+      <img width height src loading="lazy" sizes="(min-width: 769px) 100px, 60px">
+    </image-element>
+  </template>
+</body>
+</html>

@@ -1,0 +1,208 @@
+{% assign show_tab = section.blocks | where: "type", "nav" | size %}
+
+<div {% if section.settings.is_show == "false" %}class="uk-hidden"{% endif %}>
+  <div class="{{ section.settings.container_width }} page-width-narrow{% if show_tab > 0 %} show-list-contain{% endif %}">
+    {%- if section.settings.title != blank -%}
+      <h2 class="section-header__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    {% if show_tab > 0 %}
+      <div class="uk-flex uk-flex-center">
+        <ul class="faq-nav-list">
+          {%- for block in section.blocks -%}
+            {% if block.type == 'nav' %}
+              <li><a href="#">{{ block.settings.title }}</a></li>
+            {% endif %}
+          {%- endfor -%}
+        </ul>
+      </div>
+      <div class="nav-switcher-contain">
+        {%- for item in section.blocks -%}
+          {% if item.type == 'nav' %}
+            <div>
+              <ul class="uk-accordion-default faq-content-list">
+                {%- for block in section.blocks -%}
+                  {% if block.type == 'question' and item.settings.tab_type == block.settings.tab_type %}
+                    <li class="faq-item">
+                      <a class="uk-accordion-title" href="#">{{ block.settings.title }}</a>
+                      <div class="uk-accordion-content">{{ block.settings.text }}</div>
+                    </li>
+                  {% endif %}
+                {%- endfor -%}
+              </ul>
+            </div>
+          {% endif %}
+        {%- endfor -%}
+      </div>
+    {% elsif section.blocks.size > 0 %}
+      <ul class="uk-accordion-default faq-content-list">
+        {%- for block in section.blocks -%}
+          {% if block.type == 'question' %}
+            <li class="faq-item{% if forloop.index0 == 0 %} uk-open{% endif %}">
+              <a class="uk-accordion-title" href="#">{{ block.settings.title }}</a>
+              <div class="uk-accordion-content">{{ block.settings.text }}</div>
+            </li>
+          {% endif %}
+        {%- endfor -%}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product FAQ",
+  "class": "page-section-faq",
+  "settings": [
+    {
+      "type": "radio",
+      "id": "is_show",
+      "label": "Visibility",
+      "default": "true",
+      "options": [
+        {
+          "value": "true",
+          "label": "Show"
+        },
+        {
+          "value": "false",
+          "label": "Hide"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "FAQs"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container width",
+      "default": "uk-container",
+      "options": [
+        {
+          "value": "uk-container-xsmall",
+          "label": "Extra small"
+        },
+        {
+          "value": "uk-container-small",
+          "label": "Small"
+        },
+        {
+          "value": "uk-container-large",
+          "label": "Large"
+        },
+        {
+          "value": "uk-container",
+          "label": "Default"
+        },
+        {
+          "value": "uk-container-xlarge",
+          "label": "Extra large"
+        },
+        {
+          "value": "uk-container-expand",
+          "label": "Full width"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "select",
+          "id": "tab_type",
+          "label": "Group",
+          "default": "one",
+          "options": [
+            {
+              "value": "one",
+              "label": "Group 1"
+            },
+            {
+              "value": "two",
+              "label": "Group 2"
+            },
+            {
+              "value": "three",
+              "label": "Group 3"
+            },
+            {
+              "value": "four",
+              "label": "Group 4"
+            },
+            {
+              "value": "five",
+              "label": "Group 5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Question",
+          "default": "Frequently asked question"
+        },
+        {
+          "type": "liquid",
+          "id": "text",
+          "label": "Answer",
+          "default": "<p>Use this text to answer questions in as much detail as possible for your customers.</p>"
+        },
+        {
+          "type": "select",
+          "id": "tab_type",
+          "label": "Group",
+          "default": "one",
+          "options": [
+            {
+              "value": "one",
+              "label": "Group 1"
+            },
+            {
+              "value": "two",
+              "label": "Group 2"
+            },
+            {
+              "value": "three",
+              "label": "Group 3"
+            },
+            {
+              "value": "four",
+              "label": "Group 4"
+            },
+            {
+              "value": "five",
+              "label": "Group 5"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product FAQ"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["footer", "header"]
+  }
+}
+{% endschema %}

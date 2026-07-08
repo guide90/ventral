@@ -1,0 +1,239 @@
+{% comment %}
+  Parameters
+  context - used to determine whether on the featured product or main product template
+  sizes
+  sizeVariable
+  fallback
+{% endcomment %}
+
+{%- liquid
+  # Product images and thumbnails on the main product template should load early
+  if context == 'main-product'
+    assign loading = 'eager'
+  endif
+-%}
+
+{%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+
+{%- unless product.empty? -%}
+  <div
+    data-product-images
+    data-zoom="{{ product_zoom_enable }}"
+    data-has-slideshow="{% if product.media.size > 1 %}true{% else %}false{% endif %}">
+
+    <div class="product__photos product__photos-{{ section_id }} product__photos--{{ thumbnail_position }}">
+
+      <div class="product__main-photos" data-aos data-product-single-media-group>
+        <div
+          data-product-photos
+          data-zoom="{{ product_zoom_enable }}"
+          class="product-slideshow"
+          id="ProductPhotos-{{ section_id }}"
+        >
+          {%- for media in product.media -%}
+            {%- render 'media',
+              section_id: section_id,
+              media: media,
+              featured_media: featured_media,
+              loopIndex0: forloop.index0,
+              loopIndex: forloop.index,
+              product_zoom_enable: product_zoom_enable,
+              product_zoom_size: product_zoom_size,
+              product_image_size: product_image_size,
+              isModal: isModal,
+              video_looping: video_looping,
+              video_style: video_style,
+              sizes: sizes,
+              sizeVariable: sizeVariable,
+              fallback: fallback,
+              loading: loading,
+            -%}
+          {%- endfor -%}
+        </div>
+
+        {%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+
+        {%- if first_3d_model -%}
+          <button
+            aria-label="{{ 'products.product.view_in_space_label' | t }}"
+            class="product-single__view-in-space"
+            data-shopify-xr
+            data-shopify-model3d-id="{{ first_3d_model.id }}"
+            data-shopify-title="{{ product.title }}"
+            data-shopify-xr-hidden
+          >
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-3d" viewBox="18.24 17.35 24.52 28.3"><path fill="#3A3A3A" d="m30.5 17.35-12.26 7.07v14.16l12.26 7.07 12.26-7.08V24.42L30.5 17.35zM20.24 37.42V25.58l10.26-5.93 10.13 5.85-10.13 5.88v12l-10.26-5.96z"/></svg>
+            <span class='product-single__view-in-space-text'>
+              {{ 'products.product.view_in_space' | t }}
+            </span>
+          </button>
+        {%- endif -%}
+
+        <div class="product__photo-dots product__photo-dots--{{ section_id }}"></div>
+        {%- if product.media.size > 1 -%}
+          <button type="button" class="ventral-gallery-arrow ventral-gallery-arrow--desktop ventral-gallery-arrow--prev" data-ventral-gallery-prev aria-label="Previous product image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true" focusable="false">
+              <g filter="url(#ventral_gallery_prev_shadow_{{ section_id }})">
+                <path d="M10 40C10 23.4315 23.4315 10 40 10C56.5685 10 70 23.4315 70 40C70 56.5685 56.5685 70 40 70C23.4315 70 10 56.5685 10 40Z" fill="white"/>
+              </g>
+              <rect width="4.15192" height="16.6077" transform="matrix(0.681234 -0.732066 0.681234 0.732066 30.8594 40.5156)" fill="#666666"/>
+              <rect width="4.15192" height="16.6077" transform="matrix(-0.681234 -0.732066 0.681234 -0.732066 32.9805 42.7969)" fill="#666666"/>
+              <defs>
+                <filter id="ventral_gallery_prev_shadow_{{ section_id }}" x="0" y="0" width="80" height="80" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                  <feOffset/>
+                  <feGaussianBlur stdDeviation="5"/>
+                  <feComposite in2="hardAlpha" operator="out"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/>
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                </filter>
+              </defs>
+            </svg>
+          </button>
+          <button type="button" class="ventral-gallery-arrow ventral-gallery-arrow--desktop ventral-gallery-arrow--next" data-ventral-gallery-next aria-label="Next product image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" fill="none" aria-hidden="true" focusable="false">
+              <g filter="url(#ventral_gallery_next_shadow_{{ section_id }})">
+                <path d="M70 40C70 23.4315 56.5685 10 40 10C23.4315 10 10 23.4315 10 40C10 56.5685 23.4315 70 40 70C56.5685 70 70 56.5685 70 40Z" fill="white"/>
+              </g>
+              <rect width="4.15192" height="16.6077" transform="matrix(-0.681234 -0.732066 -0.681234 0.732066 49.1406 40.5156)" fill="#666666"/>
+              <rect width="4.15192" height="16.6077" transform="matrix(0.681234 -0.732066 -0.681234 -0.732066 47.0195 42.7969)" fill="#666666"/>
+              <defs>
+                <filter id="ventral_gallery_next_shadow_{{ section_id }}" x="0" y="0" width="80" height="80" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                  <feOffset/>
+                  <feGaussianBlur stdDeviation="5"/>
+                  <feComposite in2="hardAlpha" operator="out"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/>
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                </filter>
+              </defs>
+            </svg>
+          </button>
+          <button type="button" class="ventral-gallery-arrow ventral-gallery-arrow--mobile ventral-gallery-arrow--prev" data-ventral-gallery-prev aria-label="Previous product image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="52" viewBox="0 0 36 52" fill="none" aria-hidden="true" focusable="false">
+              <path opacity="0.25" d="M10 0C6.45639 0 3.07837 0.709419 0 1.99316V50.0059C3.07846 51.2897 6.45626 52 10 52C24.3593 51.9999 36 40.3593 36 26C36 11.6407 24.3593 0.000105561 10 0Z" fill="black"/>
+              <path d="M11.2656 26.6572L16.9219 32.3145L18.3369 30.9004L14.0947 26.6572L18.3369 22.415L16.9229 21L11.2656 26.6572Z" fill="white"/>
+            </svg>
+          </button>
+          <button type="button" class="ventral-gallery-arrow ventral-gallery-arrow--mobile ventral-gallery-arrow--next" data-ventral-gallery-next aria-label="Next product image">
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="52" viewBox="0 0 36 52" fill="none" aria-hidden="true" focusable="false">
+              <path opacity="0.25" d="M26 0C29.5436 0 32.9216 0.709419 36 1.99316V50.0059C32.9215 51.2897 29.5437 52 26 52C11.6407 51.9999 0 40.3593 0 26C0 11.6407 11.6407 0.000105561 26 0Z" fill="black"/>
+              <path d="M24.7344 26.6572L19.0781 32.3145L17.6631 30.9004L21.9053 26.6572L17.6631 22.415L19.0771 21L24.7344 26.6572Z" fill="white"/>
+            </svg>
+          </button>
+        {%- endif -%}
+      </div>
+
+      <div
+        data-product-thumbs
+        class="product__thumbs product__thumbs--{{ thumbnail_position }}{% if product.media.size == 1 %} hide{% endif %}"
+        data-position="{{ thumbnail_position }}"
+        data-aos>
+        {%- if thumbnail_arrows -%}
+          <button type="button" class="product__thumb-arrow product__thumb-arrow--prev hide">
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-chevron-left" viewBox="0 0 284.49 498.98"><title>icon-chevron-left</title><path d="M249.49 0a35 35 0 0 1 24.75 59.75L84.49 249.49l189.75 189.74a35.002 35.002 0 1 1-49.5 49.5L10.25 274.24a35 35 0 0 1 0-49.5L224.74 10.25A34.89 34.89 0 0 1 249.49 0Z"/></svg>
+          </button>
+        {%- endif -%}
+        <div class="product__thumbs--scroller">
+          {%- if product.media.size > 1 -%}
+            {%- for media in product.media -%}
+              {%- liquid
+                assign image_set = false
+                assign image_set_group = ''
+                if media.alt contains '#'
+                  assign image_set_full = media.alt | split: '#' | last
+                  if image_set_full contains '_'
+                    assign image_set = true
+                    assign image_set_group = image_set_full | split: '_' | first
+                  endif
+                endif
+              -%}
+              <div class="product__thumb-item"
+                data-index="{{ forloop.index0 }}"
+                {% if image_set %}
+                  data-set-name="{{image_set_group}}"
+                  data-group="{{image_set_full}}"
+                {% endif %}>
+
+                <a
+                  href="{{ media.preview_image | img_url: product_zoom_size }}"
+                  data-product-thumb
+                  class="product__thumb js-no-transition"
+                  data-index="{{ forloop.index0 }}"
+                  data-id="{{ media.id }}">
+                  <div class="image-wrap image-wrap__thumbnail" style="height: 0; padding-bottom: {{ 100 | divided_by: media.preview_image.aspect_ratio }}%;">
+                    {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                      <span class="product__thumb-icon">
+                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-play" viewBox="18.24 17.35 24.52 28.3"><path fill="#323232" d="M22.1 19.151v25.5l20.4-13.489-20.4-12.011z"/></svg>
+                      </span>
+                    {%- endif -%}
+                    {%- if media.media_type == 'model' -%}
+                      <span class="product__thumb-icon">
+                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-3d" viewBox="18.24 17.35 24.52 28.3"><path fill="#3A3A3A" d="m30.5 17.35-12.26 7.07v14.16l12.26 7.07 12.26-7.08V24.42L30.5 17.35zM20.24 37.42V25.58l10.26-5.93 10.13 5.85-10.13 5.88v12l-10.26-5.96z"/></svg>
+                      </span>
+                    {%- endif -%}
+
+                    {%- capture image_classes -%}
+                      appear-delay-{{ forloop.index | times: 3 }}
+                    {%- endcapture -%}
+
+                    {%- render 'image-element',
+                      img: media.preview_image,
+                      alt: media.alt | escape | split: '#' | first,
+                      widths: '100, 360, 540',
+                      classes: image_classes,
+                      sizeVariable: '80px',
+                      loading: loading,
+                    -%}
+                  </div>
+                </a>
+
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+        {%- if thumbnail_arrows -%}
+          <button type="button" class="product__thumb-arrow product__thumb-arrow--next">
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-chevron-right" viewBox="0 0 284.49 498.98"><title>icon-chevron</title><path d="M35 498.98a35 35 0 0 1-24.75-59.75l189.74-189.74L10.25 59.75a35.002 35.002 0 0 1 49.5-49.5l214.49 214.49a35 35 0 0 1 0 49.5L59.75 488.73A34.89 34.89 0 0 1 35 498.98Z"/></svg>
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {% if thumbnail_height == 'fixed' %}
+    {% style %}
+      .product__photos-{{ section_id }} .product__thumbs:not(.product__thumbs--below) {
+        min-height: 400px;
+        max-height: 400px;
+      }
+
+      @media screen and (max-width: 798px) {
+        .product__photos-{{ section_id }} .product__thumbs:not(.product__thumbs--below) {
+          min-height: 300px;
+          max-height: 300px;
+        }
+      }
+    {% endstyle %}
+  {% endif %}
+
+  <script type="application/json" id="ModelJson-{{ section_id }}">
+    {{ product.media | where: 'media_type', 'model' | json }}
+  </script>
+{%- else -%}
+  <div class="product__photos">
+    <div class="product__main-photos" style="width: 100%">
+      <div data-product-photos>
+        <div class="product-main-slide" data-index="{{ forloop.index0 }}">
+          <a href="#">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endunless -%}

@@ -1,0 +1,45 @@
+<div class="announcement{% if section.settings.announcement_closable %} announcement--closeable announcement--closed{% endif %}">
+  {%- if section.settings.announcement_link != blank -%}
+    <a href="{{ section.settings.announcement_link }}" class="announcement__link">
+  {%- endif -%}
+
+    <span class="announcement__text{% unless section.settings.announcement_closable %} announcement__text--open{% endunless %}" data-text="{{ section.settings.announcement_text | strip_html | handle }}">
+      {{ section.settings.announcement_text | strip_html }}
+    </span>
+
+  {%- if section.settings.announcement_link != blank -%}
+    </a>
+  {%- endif -%}
+
+  {%- if section.settings.announcement_closable -%}
+    <button type="button" class="text-link announcement__close">
+      <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64"><title>icon-X</title><path d="m19 17.61 27.12 27.13m0-27.12L19 44.74"/></svg>
+      <span class="icon__fallback-text">{{ 'general.accessibility.close' | t | json }}</span>
+    </button>
+  {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "t:sections.header.settings.header_announcement_bar",
+    "settings": [
+      {
+        "type": "text",
+        "id": "announcement_text",
+        "label": "t:sections.header.settings.announcement_text.label",
+        "default": "Free shipping and returns",
+        "info": "t:sections.header.settings.announcement_text.info"
+      },
+      {
+        "type": "url",
+        "id": "announcement_link",
+        "label": "t:sections.header.settings.announcement_link.label"
+      },
+      {
+        "type": "checkbox",
+        "id": "announcement_closable",
+        "label": "t:sections.header.settings.announcement_closable.label"
+      }
+    ]
+  }
+{% endschema %}

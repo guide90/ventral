@@ -1,0 +1,170 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "featured-collection-switcher": {
+      "type": "featured-collection-switcher",
+      "settings": {
+        "title": "Top picks",
+        "collection1": "mens",
+        "collection2": "womens"
+      }
+    },
+    "collection-callout": {
+      "type": "collection-callout",
+      "settings": {
+        "title": "Summer wear",
+        "text": "Check out our comfy crewnecks, lightweight khakis, breathable tanktops and more.",
+        "cta_text1": "Shop Tops",
+        "cta_text2": "Shop All Womens"
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {}
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We design durable travel apparel with a conscience — 100% made in America. <br/>Products by <a href=\"http://unitedbyblue.com\" title=\"http://unitedbyblue.com\">United By Blue</a>."
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {}
+    },
+    "text-and-image": {
+      "type": "text-and-image",
+      "settings": {
+        "subtitle": "Gift cards",
+        "title": "Support your neighborhood",
+        "text": "<p>We believe that local businesses are an integral part of a neighborhood's character. Help keep us local by buying a gift card!</p>",
+        "button_label": "Shop gift cards",
+        "image_width": "66"
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Just restocked",
+        "home_featured_products": "pullovers"
+      }
+    },
+    "featured-product": {
+      "type": "featured-product",
+      "blocks": {
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "variant_labels": true,
+            "picker_type": "button",
+            "product_dynamic_variants_enable": true,
+            "color_swatches": false
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "surface_pickup_enable": true,
+            "show_gift_card_recipient": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "is_tab": false
+          }
+        },
+        "tab": {
+          "type": "tab",
+          "settings": {
+            "title": "Size chart",
+            "content": ""
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "title": "Ask a question",
+            "phone": false
+          }
+        }
+      },
+      "block_order": [
+        "price",
+        "separator",
+        "variant_picker",
+        "buy_buttons",
+        "description",
+        "tab",
+        "contact"
+      ],
+      "settings": {
+        "featured_product": "wenlock-chambray-button-down",
+        "divider": false,
+        "sku_enable": false,
+        "image_size": "medium",
+        "product_zoom_enable": true,
+        "thumbnail_position": "beside",
+        "thumbnail_arrows": false,
+        "enable_video_looping": true,
+        "product_video_style": "muted"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "text": {
+          "type": "text",
+          "settings": {}
+        },
+        "form": {
+          "type": "form",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "title",
+        "text",
+        "form"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "featured-collection-switcher",
+    "collection-callout",
+    "rich-text",
+    "text-and-image",
+    "featured-collection",
+    "featured-product",
+    "newsletter"
+  ]
+}
