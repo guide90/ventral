@@ -8,7 +8,65 @@
  * ------------------------------------------------------------
  */
 {
-  "current": "Motion",
+  "current": {
+    "color_body_text": "#000000",
+    "color_borders": "#e8e8e1",
+    "color_button": "#111111",
+    "color_sale_tag": "#da3217",
+    "color_header": "#fff",
+    "color_header_text": "#000000",
+    "color_announcement_text": "#fff",
+    "color_footer": "#111111",
+    "color_drawer_background": "#ffffff",
+    "color_drawer_text": "#000000",
+    "color_drawer_border": "#e8e8e1",
+    "color_drawer_button": "#111111",
+    "color_modal_overlays": "#000",
+    "color_image_text": "#fff",
+    "color_image_2": "#000000",
+    "color_image_1_opacity": 46,
+    "color_small_image_bg": "#f4f4f4",
+    "color_large_image_bg": "#111111",
+    "type_header_font_family": "petrona_n3",
+    "type_header_spacing": "0",
+    "type_header_base_size": 30,
+    "type_header_line_height": 1.2,
+    "type_header_accent_transform": true,
+    "type_headers_align_text": false,
+    "type_base_font_family": "lato_n4",
+    "type_base_spacing": "25",
+    "type_base_size": 14,
+    "type_base_accent_transform": true,
+    "icon_weight": "4px",
+    "quick_shop_enable": true,
+    "enable_swatches": true,
+    "social_facebook_link": "https://www.facebook.com/shopify",
+    "social_twitter_link": "https://twitter.com/shopify",
+    "checkout_accent_color": "#111111",
+    "checkout_banner_background_color": "#fff",
+    "checkout_body_background_color": "#ffffff",
+    "checkout_body_background_image": "",
+    "checkout_body_font": "Helvetica Neue",
+    "checkout_button_color": "#111111",
+    "checkout_call_to_action_color": "#a26b25",
+    "checkout_error_color": "#ff2b2b",
+    "checkout_header_image": "",
+    "checkout_heading_font": "Helvetica Neue",
+    "checkout_input_background_color_mode": "white",
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_sidebar_background_image": "",
+    "checkout_use_header_image": false,
+    "blocks": {
+      "pagefly-page-builder": {
+        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  },
   "installed_preset_name": "Motion",
   "presets": {
     "Motion": {
@@ -61,7 +119,14 @@
       "checkout_logo_size": "medium",
       "checkout_sidebar_background_color": "#fafafa",
       "checkout_sidebar_background_image": "",
-      "checkout_use_header_image": false
+      "checkout_use_header_image": false,
+      "blocks": {
+        "pagefly-page-builder": {
+          "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
+          "disabled": false,
+          "settings": {}
+        }
+      }
     },
     "Satchel": {
       "color_body_text": "#1a1e33",
