@@ -181,13 +181,13 @@
 
   .index-design-audience__card-title {
     margin-bottom: 5px;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.02;
   }
 
   .index-design-audience__card-text {
-    font-size: 11px;
-    line-height: 1.05;
+    font-size: 12px;
+    margin: 0;
   }
 }
 

@@ -10,7 +10,6 @@
   #shopify-section-{{ section.id }} .header-new {
     background: {{ section.settings.background_color }};
     color: {{ section.settings.text_color }};
-    border-bottom: {{ section.settings.bottom_bar_height }}px solid {{ section.settings.bottom_bar_color }};
   }
 
   #shopify-section-{{ section.id }} .header-new__inner {
@@ -148,7 +147,7 @@
     #shopify-section-{{ section.id }} .header-new__button {
       min-height: 26px;
       padding: 7px 14px;
-      font-size: 10px;
+      font-size: 14px;
       border-radius: 6px;
     }
   }
@@ -367,12 +366,6 @@
       "id": "text_color",
       "label": "Text",
       "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "bottom_bar_color",
-      "label": "Bottom bar",
-      "default": "#f0dec2"
     },
     {
       "type": "color",
