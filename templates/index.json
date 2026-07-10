@@ -13,6 +13,7 @@
       "type": "header-new",
       "name": "Header new",
       "settings": {
+        "logo": "shopify://shop_images/Frame_126.png",
         "logo_width": 190,
         "mobile_logo_width": 150,
         "logo_max_height": 42,
@@ -37,7 +38,7 @@
       "name": "图片板块",
       "settings": {
         "pc_image": "shopify://shop_images/20260710-181253.png",
-        "mobile_image": "shopify://shop_images/20260710006.png"
+        "mobile_image": "shopify://shop_images/20260710-181406.png"
       }
     },
     "index_image_ULhhwn": {
