@@ -13,4 +13,26 @@
   {{ base_font_bold | font_face: font_display: 'swap' }}
   {{ base_font_italic | font_face: font_display: 'swap' }}
   {{ base_font_bold_italic | font_face: font_display: 'swap' }}
+
+ @font-face {
+        font-family: "Inter"; 
+        src: url({{ 'Inter_18pt-Regular.ttf' | asset_url }}) format("woff2");
+        font-weight: 400;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "Inter";
+        src: url({{ 'Inter_18pt-SemiBold.ttf' | asset_url }}) format("woff2");
+        font-weight: 600;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: "Inter";
+        src: url({{ 'Inter_18pt-Bold.ttf' | asset_url }}) format("woff2");
+        font-weight: 700;
+        font-display: swap;
+    }
+
+
 {%- endstyle -%}
+

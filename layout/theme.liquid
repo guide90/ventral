@@ -29,6 +29,7 @@
 
   {%- render 'font-face' -%}
   {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
+   {{ 'theme-base.css' | asset_url | stylesheet_tag: preload: true }}
   {%- if request.page_type == 'product' -%}
     {{ 'ventral-product.css' | asset_url | stylesheet_tag }}
   {%- endif -%}
