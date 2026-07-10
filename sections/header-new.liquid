@@ -3,157 +3,13 @@
   assign button_type = section.settings.button_type
   assign button_text = section.settings.button_text
   assign button_link = section.settings.button_link
+  assign anchor_id = section.settings.anchor_id | remove: '#'
   assign modal_id = 'HeaderNewModal-' | append: section.id
 -%}
 
-{%- style -%}
-  #shopify-section-{{ section.id }} .header-new {
-    background: {{ section.settings.background_color }};
-    color: {{ section.settings.text_color }};
-  }
-
-  #shopify-section-{{ section.id }} .header-new__inner {
-    min-height: {{ section.settings.height }}px;
-    max-width: {{ section.settings.page_width }}px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 0 72px;
-  }
-
-  #shopify-section-{{ section.id }} .header-new__logo-link,
-  #shopify-section-{{ section.id }} .header-new__logo-placeholder {
-    display: inline-flex;
-    align-items: center;
-    min-width: 0;
-  }
-
-  #shopify-section-{{ section.id }} .header-new__logo {
-    display: block;
-    width: auto;
-    max-width: {{ section.settings.logo_width }}px;
-    height: auto;
-    max-height: {{ section.settings.logo_max_height }}px;
-  }
-
-  #shopify-section-{{ section.id }} .header-new__logo-placeholder {
-    color: {{ section.settings.text_color }};
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  #shopify-section-{{ section.id }} .header-new__button {
-    min-height: 28px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 7px 20px;
-    border: 0;
-    border-radius: 7px;
-    background: {{ section.settings.button_background_color }};
-    color: {{ section.settings.button_text_color }};
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
-
-  #shopify-section-{{ section.id }} .header-new__button:hover {
-    color: {{ section.settings.button_text_color }};
-    opacity: .9;
-  }
-
-  #shopify-section-{{ section.id }} .header-new-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-
-  #shopify-section-{{ section.id }} .header-new-modal.is-open {
-    display: flex;
-  }
-
-  #shopify-section-{{ section.id }} .header-new-modal__overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, .58);
-  }
-
-  #shopify-section-{{ section.id }} .header-new-modal__dialog {
-    position: relative;
-    z-index: 1;
-    width: min(100%, 520px);
-    padding: 32px;
-    border-radius: 12px;
-    background: #fff;
-    color: #000;
-  }
-
-  #shopify-section-{{ section.id }} .header-new-modal__close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    border: 0;
-    border-radius: 50%;
-    background: #f1f1f1;
-    color: #000;
-    font-size: 22px;
-    line-height: 1;
-    cursor: pointer;
-  }
-
-  #shopify-section-{{ section.id }} .header-new-modal__title {
-    margin: 0 0 16px;
-    color: #000;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: 0;
-  }
-
-  #shopify-section-{{ section.id }} .header-new-modal__content {
-    color: #000;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  #shopify-section-{{ section.id }} .header-new-modal__content p {
-    margin: 0 0 12px;
-  }
-
-  @media only screen and (max-width: 767px) {
-    #shopify-section-{{ section.id }} .header-new__inner {
-      min-height: {{ section.settings.mobile_height }}px;
-      padding: 0 18px;
-    }
-
-    #shopify-section-{{ section.id }} .header-new__logo {
-      max-width: {{ section.settings.mobile_logo_width }}px;
-    }
-
-    #shopify-section-{{ section.id }} .header-new__button {
-      min-height: 26px;
-      padding: 7px 14px;
-      font-size: 14px;
-      border-radius: 6px;
-    }
-  }
-{%- endstyle -%}
-
-<header class="header-new">
+<header
+  class="header-new"
+  style="--header-new-bg: {{ section.settings.background_color }}; --header-new-text: {{ section.settings.text_color }}; --header-new-button-bg: {{ section.settings.button_background_color }}; --header-new-button-text: {{ section.settings.button_text_color }}; --header-new-page-width: {{ section.settings.page_width }}px; --header-new-desktop-height: {{ section.settings.height }}px; --header-new-mobile-height: {{ section.settings.mobile_height }}px; --header-new-logo-width: {{ section.settings.logo_width }}px; --header-new-mobile-logo-width: {{ section.settings.mobile_logo_width }}px; --header-new-logo-max-height: {{ section.settings.logo_max_height }}px;">
   <div class="header-new__inner">
     <a class="header-new__logo-link" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
       {%- if logo != blank -%}
@@ -176,6 +32,10 @@
         <button class="header-new__button" type="button" aria-haspopup="dialog" aria-controls="{{ modal_id }}" data-header-new-modal-open>
           {{ button_text | escape }}
         </button>
+      {%- elsif button_type == 'anchor' -%}
+        <a class="header-new__button" href="#{{ anchor_id | default: 'MainContent' }}">
+          {{ button_text | escape }}
+        </a>
       {%- else -%}
         <a class="header-new__button" href="{{ button_link | default: routes.root_url }}">
           {{ button_text | escape }}
@@ -184,6 +44,31 @@
     {%- endif -%}
   </div>
 </header>
+<div class="header-new__spacer" aria-hidden="true"></div>
+
+<script>
+  (function() {
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    var header = section.querySelector('.header-new');
+    if (!header) return;
+
+    var setHeaderHeight = function() {
+      section.style.setProperty('--header-new-height', header.offsetHeight + 'px');
+    };
+
+    var updateSticky = function() {
+      setHeaderHeight();
+      section.classList.toggle('is-sticky', window.scrollY > header.offsetHeight);
+    };
+
+    setHeaderHeight();
+    updateSticky();
+    window.addEventListener('scroll', updateSticky, { passive: true });
+    window.addEventListener('resize', updateSticky);
+  })();
+</script>
 
 {%- if button_type == 'modal' -%}
   <div class="header-new-modal" id="{{ modal_id }}" role="dialog" aria-modal="true" aria-labelledby="{{ modal_id }}-Title" data-header-new-modal>
@@ -295,6 +180,10 @@
         {
           "value": "modal",
           "label": "Popup"
+        },
+        {
+          "value": "anchor",
+          "label": "Anchor"
         }
       ]
     },
@@ -302,6 +191,12 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Enter the target element ID without #, for example: launch-updates"
     },
     {
       "type": "text",

@@ -20,6 +20,7 @@
         "button_text": "Find a dealer",
         "button_type": "link",
         "button_link": "",
+        "anchor_id": "",
         "modal_title": "Find a dealer",
         "modal_content": "<p>Add your popup content here.</p>",
         "page_width": 1440,
