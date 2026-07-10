@@ -100,8 +100,8 @@
       "type": "index-image",
       "name": "图片板块",
       "settings": {
-        "pc_image": "shopify://shop_images/20260710001.png",
-        "mobile_image": "shopify://shop_images/20260710002.png"
+        "pc_image": "shopify://shop_images/20260710-190233.png",
+        "mobile_image": "shopify://shop_images/20260710-190150.png"
       }
     },
     "index-event-card": {
