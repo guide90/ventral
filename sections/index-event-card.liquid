@@ -1,7 +1,11 @@
 {%- liquid
   assign pc_image = section.settings.pc_image
   assign mobile_image = section.settings.mobile_image
-  assign button_link = section.settings.button_link | default: '#'
+  assign button_anchor_id = section.settings.button_anchor_id | remove: '#'
+  assign button_href = section.settings.button_link | default: '#'
+  if section.settings.button_action == 'anchor'
+    assign button_href = button_anchor_id | prepend: '#'
+  endif
 -%}
 
 <div
@@ -83,7 +87,7 @@
         </div>
 
         {%- if section.settings.button_text != blank -%}
-          <a class="index-event-card__button" href="{{ button_link }}">
+          <a class="index-event-card__button" href="{{ button_href }}">
             {{ section.settings.button_text | escape }}
             <span class="index-event-card__button-icon" aria-hidden="true">
               <img src="{{ '20260710012.png' |  file_img_url }}" width="12" height="12" loading="lazy" />
@@ -130,9 +134,31 @@
       "default": "Join the Launch Updates"
     },
     {
+      "type": "select",
+      "id": "button_action",
+      "label": "Button action",
+      "default": "link",
+      "options": [
+        {
+          "value": "link",
+          "label": "Link"
+        },
+        {
+          "value": "anchor",
+          "label": "Anchor"
+        }
+      ]
+    },
+    {
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_anchor_id",
+      "label": "Button anchor ID",
+      "info": "Enter the target element ID without #, for example: launch-updates"
     },
     {
       "type": "color",
