@@ -42,6 +42,7 @@
     "enable_swatches": true,
     "social_facebook_link": "https://www.facebook.com/shopify",
     "social_twitter_link": "https://twitter.com/shopify",
+    "favicon": "shopify://shop_images/Frame_121.png",
     "checkout_accent_color": "#111111",
     "checkout_banner_background_color": "#fff",
     "checkout_body_background_color": "#ffffff",
@@ -59,6 +60,7 @@
     "checkout_sidebar_background_color": "#fafafa",
     "checkout_sidebar_background_image": "",
     "checkout_use_header_image": false,
+    "content_for_index": [],
     "blocks": {
       "pagefly-page-builder": {
         "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
