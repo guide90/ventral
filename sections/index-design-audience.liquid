@@ -1,0 +1,130 @@
+<section class="index-design-audience">
+  <div class="index-design-audience__inner">
+    {%- if section.settings.heading != blank or section.settings.text != blank -%}
+      <div class="index-design-audience__header">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="index-design-audience__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="index-design-audience__text">
+            {{ section.settings.text }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="index-design-audience__grid">
+      {%- for block in section.blocks -%}
+        <article class="index-design-audience__card" {{ block.shopify_attributes }}>
+          <div class="index-design-audience__media">
+            {%- if block.settings.image != blank -%}
+              {%- render 'image-element',
+                img: block.settings.image,
+                widths: '360, 540, 720, 900',
+                sizeVariable: '25vw',
+                fallback: '50vw',
+                classes: 'index-design-audience__image',
+                alt: block.settings.title
+              -%}
+            {%- else -%}
+              <div class="index-design-audience__placeholder" aria-hidden="true"></div>
+            {%- endif -%}
+          </div>
+
+          <div class="index-design-audience__content">
+            {%- if block.settings.title != blank -%}
+              <h3 class="index-design-audience__card-title">{{ block.settings.title | escape }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.text != blank -%}
+              <p class="index-design-audience__card-text">{{ block.settings.text | escape }}</p>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Index design audience",
+  "tag": "section",
+  "class": "index-design-audience-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Designed for xxx"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Ventral is engineered for anglers who want smarter, more confident inflatable craft -rigged carefully to hold its place in the water,and move freedom to explore what's next.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Weekend Anglers"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Easy to launch, stable to fishfrom, and simple to transport."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Index design audience",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Weekend Anglers",
+            "text": "Easy to launch, stable to fishfrom, and simple to transport."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Kayak Fishing Enthusiasts",
+            "text": "Easy to launch, stable to fishfrom, and simple to transport."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Tech-Forward Explorers",
+            "text": "Easy to launch, stable to fishfrom, and simple to transport."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Travel-Ready Outdoor Users",
+            "text": "Easy to launch, stable to fishfrom, and simple to transport."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

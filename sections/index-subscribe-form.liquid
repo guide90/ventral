@@ -1,0 +1,227 @@
+{%- liquid
+  assign logo_image = section.settings.logo_image
+-%}
+
+<div
+  class="index-subscribe-form"
+  style="--index-subscribe-form-bg: {{ section.settings.background_color }}; --index-subscribe-form-text: {{ section.settings.text_color }}; --index-subscribe-form-divider: {{ section.settings.divider_color }}; --index-subscribe-form-input-border: {{ section.settings.input_border_color }}; --index-subscribe-form-placeholder: {{ section.settings.placeholder_color }}; --index-subscribe-form-page-width: {{ section.settings.page_width }}px; --index-subscribe-form-height: {{ section.settings.section_height }}px; --index-subscribe-form-logo-width: {{ section.settings.logo_width }}px; --index-subscribe-form-mobile-logo-width: {{ section.settings.mobile_logo_width }}px; --index-subscribe-form-divider-height: {{ section.settings.divider_height }}px; --index-subscribe-form-padding-top: {{ section.settings.padding_top }}px; --index-subscribe-form-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="index-subscribe-form__inner">
+    <div class="index-subscribe-form__logo-wrap">
+      {%- if logo_image != blank -%}
+        {{
+          logo_image
+          | image_url: width: section.settings.logo_width
+          | image_tag:
+            class: 'index-subscribe-form__logo',
+            loading: 'lazy',
+            widths: '180, 260, 360, 480, 620',
+            sizes: '(max-width: 767px) 180px, 320px',
+            alt: shop.name
+        }}
+      {%- else -%}
+        <div class="index-subscribe-form__logo-placeholder">{{ shop.name }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="index-subscribe-form__divider" aria-hidden="true"></div>
+
+    <div class="index-subscribe-form__content">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="index-subscribe-form__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <div class="index-subscribe-form__text">
+          {{ section.settings.text }}
+        </div>
+      {%- endif -%}
+
+      {%- form 'customer', class: 'index-subscribe-form__form' -%}
+        <input type="hidden" name="contact[tags]" value="{{ section.settings.customer_tags | escape }}">
+        <div class="index-subscribe-form__field">
+          <label class="visually-hidden" for="IndexSubscribeEmail-{{ section.id }}">{{ section.settings.placeholder | escape }}</label>
+          <input
+            id="IndexSubscribeEmail-{{ section.id }}"
+            class="index-subscribe-form__input"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email }}"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            placeholder="{{ section.settings.placeholder | escape }}"
+            required>
+          <button class="index-subscribe-form__button" type="submit" aria-label="{{ section.settings.button_label | escape }}">
+           <img src="{{ '20260710012.png' |  file_img_url }}" width="12" height="12" loading="lazy" />
+          </button>
+        </div>
+
+        {%- if form.posted_successfully? -%}
+          <p class="index-subscribe-form__message">{{ section.settings.success_message | escape }}</p>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <div class="index-subscribe-form__message">
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "表单收集",
+  "tag": "section",
+  "class": "index-subscribe-form-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Subscribe for Launch Updates"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Be the first to know about new product drops, exclusive offers, and more from Ventral.</p>"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "customer_tags",
+      "label": "Customer tags",
+      "default": "newsletter, launch-updates"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thanks for subscribing."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "default": 300,
+      "min": 120,
+      "max": 520,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "label": "Mobile logo width",
+      "default": 180,
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "page_width",
+      "label": "Page width",
+      "default": 1100,
+      "min": 760,
+      "max": 1600,
+      "step": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Desktop min height",
+      "default": 200,
+      "min": 120,
+      "max": 420,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "label": "Divider height",
+      "default": 112,
+      "min": 40,
+      "max": 220,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "default": 36,
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "default": 36,
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#07101f"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#4d5664"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder",
+      "default": "#b8c0cc"
+    }
+  ],
+  "presets": [
+    {
+      "name": "表单收集"
+    }
+  ]
+}
+{% endschema %}

@@ -9,214 +9,175 @@
  */
 {
   "sections": {
-    "featured-collection-switcher": {
-      "type": "featured-collection-switcher",
-      "disabled": true,
+    "index_image_DXdJEA": {
+      "type": "index-image",
+      "name": "图片板块",
       "settings": {
-        "title": "Top picks",
-        "collection1": "mens",
-        "collection2": "womens",
-        "per_row": 4,
-        "view_all": true,
-        "divider": false
+        "pc_image": "shopify://shop_images/20260710005.png",
+        "mobile_image": "shopify://shop_images/20260710006.png"
       }
     },
-    "collection-callout": {
-      "type": "collection-callout",
-      "disabled": true,
+    "index_image_ULhhwn": {
+      "type": "index-image",
+      "name": "图片板块",
       "settings": {
-        "collection": "",
-        "subtitle": "Brand new",
-        "title": "Summer wear",
-        "text": "Check out our comfy crewnecks, lightweight khakis, breathable tanktops and more.",
-        "cta_text1": "Shop Tops",
-        "cta_link1": "",
-        "cta_text2": "Shop All Womens",
-        "cta_link2": "",
-        "layout": "right",
-        "divider": false
+        "pc_image": "shopify://shop_images/20260710003.png",
+        "mobile_image": "shopify://shop_images/20260710004.png"
       }
     },
-    "rich-text": {
-      "type": "rich-text",
+    "index-design-audience": {
+      "type": "index-design-audience",
       "blocks": {
-        "heading": {
-          "type": "heading",
-          "disabled": true,
+        "weekend-anglers": {
+          "type": "card",
           "settings": {
-            "title": "Rich text"
+            "image": "shopify://shop_images/20260710100.png",
+            "title": "Weekend Anglers",
+            "text": "Easy to launch, stable to fishfrom, and simple to transport."
           }
         },
-        "text": {
-          "type": "text",
+        "kayak-fishing-enthusiasts": {
+          "type": "card",
           "settings": {
-            "enlarge_text": true,
-            "text": "<p>We design durable travel apparel with a conscience — 100% made in America. <br/>Products by <a href=\"http://unitedbyblue.com\" title=\"http://unitedbyblue.com\">United By Blue</a>."
+            "image": "shopify://shop_images/20260710200.png",
+            "title": "Kayak Fishing Enthusiasts",
+            "text": "Easy to launch, stable to fishfrom, and simple to transport."
+          }
+        },
+        "tech-forward-explorers": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710300.png",
+            "title": "Tech-Forward Explorers",
+            "text": "Easy to launch, stable to fishfrom, and simple to transport."
+          }
+        },
+        "travel-ready-outdoor-users": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710400.png",
+            "title": "Travel-Ready Outdoor Users",
+            "text": "Easy to launch, stable to fishfrom, and simple to transport."
           }
         }
       },
       "block_order": [
-        "heading",
-        "text"
+        "weekend-anglers",
+        "kayak-fishing-enthusiasts",
+        "tech-forward-explorers",
+        "travel-ready-outdoor-users"
       ],
-      "disabled": true,
       "settings": {
-        "align_text": "center",
-        "narrow_column": true,
-        "divider": false
+        "heading": "Designed for xxx",
+        "text": "<p>Ventral is engineered for anglers who want smarter, more confident inflatable craft -rigged carefully to hold its place in the water,and move freedom to explore what's next.</p>"
       }
     },
-    "text-and-image": {
-      "type": "text-and-image",
-      "disabled": true,
+    "index_image_VmjCAk": {
+      "type": "index-image",
+      "name": "图片板块",
       "settings": {
-        "image_mask": "none",
-        "image2_mask": "none",
-        "subtitle": "Gift cards",
-        "title": "Support your neighborhood",
-        "text": "<p>We believe that local businesses are an integral part of a neighborhood's character. Help keep us local by buying a gift card!</p>",
-        "button_label": "Shop gift cards",
-        "button_link": "",
-        "button_style": "primary",
-        "align_text": "left",
-        "image_width": "66",
-        "layout": "right",
-        "divider": false,
-        "top_padding": true,
-        "bottom_padding": true,
-        "lazyload_images": true
+        "pc_image": "shopify://shop_images/20260710001.png",
+        "mobile_image": "shopify://shop_images/20260710002.png"
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
-      "disabled": true,
-      "settings": {
-        "title": "Just restocked",
-        "home_featured_products": "pullovers",
-        "per_row": 4,
-        "rows": 1,
-        "view_all": true,
-        "divider": false
-      }
-    },
-    "featured-product": {
-      "type": "featured-product",
+    "index-event-card": {
+      "type": "index-event-card",
       "blocks": {
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "separator": {
-          "type": "separator",
-          "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
+        "location": {
+          "type": "event_item",
           "settings": {
-            "variant_labels": true,
-            "picker_type": "button",
-            "product_dynamic_variants_enable": true,
-            "color_swatches": false
+            "icon": "location",
+            "label": "Location",
+            "value": "Orange County Convention Center, Orlando, Florida"
           }
         },
-        "buy_buttons": {
-          "type": "buy_buttons",
+        "date": {
+          "type": "event_item",
           "settings": {
-            "show_dynamic_checkout": true,
-            "surface_pickup_enable": true,
-            "show_gift_card_recipient": false
+            "icon": "date",
+            "label": "Date",
+            "value": "July 14-17, 2026"
           }
         },
-        "description": {
-          "type": "description",
+        "booth": {
+          "type": "event_item",
           "settings": {
-            "is_tab": false
-          }
-        },
-        "tab": {
-          "type": "tab",
-          "settings": {
-            "title": "Size chart",
-            "content": "",
-            "page": ""
+            "icon": "booth",
+            "label": "Booth",
+            "value": "#1147"
           }
         },
         "contact": {
-          "type": "contact",
+          "type": "event_item",
           "settings": {
-            "title": "Ask a question",
-            "phone": false
+            "icon": "contact",
+            "label": "Contact US",
+            "value": "pr@ventral.com"
           }
         }
       },
       "block_order": [
-        "price",
-        "separator",
-        "variant_picker",
-        "buy_buttons",
-        "description",
-        "tab",
+        "location",
+        "date",
+        "booth",
         "contact"
       ],
-      "disabled": true,
       "settings": {
-        "featured_product": "wenlock-chambray-button-down",
-        "divider": false,
-        "sku_enable": false,
-        "image_size": "medium",
-        "product_zoom_enable": true,
-        "thumbnail_position": "beside",
-        "thumbnail_arrows": false,
-        "enable_video_looping": true,
-        "product_video_style": "muted"
+        "pc_image": "shopify://shop_images/20260710010.png",
+        "mobile_image": "shopify://shop_images/20260710009.png",
+        "eyebrow": "COME SEE VENTRAL",
+        "heading": "Meet Ventral at ICAST 2026",
+        "button_text": "Join the Launch Updates",
+        "button_link": "",
+        "section_background": "#f7f7f7",
+        "accent_color": "#2e97df",
+        "page_width": 1440,
+        "border_radius": 14,
+        "padding_top": 92,
+        "padding_bottom": 92
       }
     },
-    "newsletter": {
-      "type": "newsletter",
-      "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {
-            "title": "Sign up and save",
-            "heading_size": "h2"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>"
-          }
-        },
-        "form": {
-          "type": "form",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "title",
-        "text",
-        "form"
-      ],
-      "disabled": true,
+    "index_image_pXG44W": {
+      "type": "index-image",
+      "name": "图片板块",
       "settings": {
-        "align_text": "center",
-        "image_width": "33",
-        "image_mask": "none",
-        "image_position": "right",
-        "color_background": "#f9f9f9",
-        "color_text": "#1c1d1d",
-        "top_padding": true,
-        "bottom_padding": true
+        "pc_image": "shopify://shop_images/20260710008.png",
+        "mobile_image": "shopify://shop_images/20260710007.png"
+      }
+    },
+    "index_subscribe_form_eBTNNL": {
+      "type": "index-subscribe-form",
+      "name": "表单收集",
+      "settings": {
+        "logo_image": "shopify://shop_images/20260710011.png",
+        "heading": "Subscribe for Launch Updates",
+        "text": "<p>Be the first to know about new product drops, exclusive offers, and more from Ventral.</p>",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "customer_tags": "newsletter, launch-updates",
+        "success_message": "Thanks for subscribing.",
+        "logo_width": 300,
+        "mobile_logo_width": 180,
+        "page_width": 1100,
+        "section_height": 200,
+        "divider_height": 112,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "background_color": "#07101f",
+        "text_color": "#ffffff",
+        "divider_color": "#4d5664",
+        "input_border_color": "#ffffff",
+        "placeholder_color": "#b8c0cc"
       }
     }
   },
   "order": [
-    "featured-collection-switcher",
-    "collection-callout",
-    "rich-text",
-    "text-and-image",
-    "featured-collection",
-    "featured-product",
-    "newsletter"
+    "index_image_DXdJEA",
+    "index_image_ULhhwn",
+    "index-design-audience",
+    "index_image_VmjCAk",
+    "index-event-card",
+    "index_image_pXG44W",
+    "index_subscribe_form_eBTNNL"
   ]
 }

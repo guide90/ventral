@@ -1,0 +1,64 @@
+{%- liquid
+  assign pc_image = section.settings.pc_image
+  assign mobile_image = section.settings.mobile_image
+-%}
+
+{%- if pc_image != blank or mobile_image != blank -%}
+  <section class="index-image">
+    <picture class="index-image__picture">
+      {%- if mobile_image != blank -%}
+        <source
+          media="(max-width: 767px)"
+          srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w"
+          sizes="100vw">
+      {%- endif -%}
+
+      {%- if pc_image != blank -%}
+        {{
+          pc_image
+          | image_url: width: 2200
+          | image_tag:
+            class: 'index-image__img',
+            loading: 'lazy',
+            widths: '750, 1100, 1500, 1800, 2200',
+            sizes: '100vw'
+        }}
+      {%- elsif mobile_image != blank -%}
+        {{
+          mobile_image
+          | image_url: width: 1100
+          | image_tag:
+            class: 'index-image__img',
+            loading: 'lazy',
+            widths: '375, 550, 750, 1100',
+            sizes: '100vw'
+        }}
+      {%- endif -%}
+    </picture>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "图片板块",
+  "tag": "section",
+  "class": "index-image-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "pc_image",
+      "label": "PC image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "图片板块"
+    }
+  ]
+}
+{% endschema %}

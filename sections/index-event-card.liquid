@@ -1,0 +1,274 @@
+{%- liquid
+  assign pc_image = section.settings.pc_image
+  assign mobile_image = section.settings.mobile_image
+  assign button_link = section.settings.button_link | default: '#'
+-%}
+
+<div
+  class="index-event-card"
+  style="--index-event-card-bg: {{ section.settings.section_background }}; --index-event-card-accent: {{ section.settings.accent_color }}; --index-event-card-page-width: {{ section.settings.page_width }}px; --index-event-card-radius: {{ section.settings.border_radius }}px; --index-event-card-padding-top: {{ section.settings.padding_top }}px; --index-event-card-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="index-event-card__inner">
+    <div class="index-event-card__panel">
+      <div class="index-event-card__media">
+        {%- if pc_image != blank or mobile_image != blank -%}
+          <picture class="index-event-card__picture">
+            {%- if mobile_image != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w"
+                sizes="100vw">
+            {%- endif -%}
+
+            {%- if pc_image != blank -%}
+              {{
+                pc_image
+                | image_url: width: 2200
+                | image_tag:
+                  class: 'index-event-card__image',
+                  loading: 'lazy',
+                  widths: '750, 1100, 1500, 1800, 2200',
+                  sizes: '100vw',
+                  alt: section.settings.heading
+              }}
+            {%- else -%}
+              {{
+                mobile_image
+                | image_url: width: 1100
+                | image_tag:
+                  class: 'index-event-card__image',
+                  loading: 'lazy',
+                  widths: '375, 550, 750, 1100',
+                  sizes: '100vw',
+                  alt: section.settings.heading
+              }}
+            {%- endif -%}
+          </picture>
+        {%- else -%}
+          <div class="index-event-card__placeholder" aria-hidden="true"></div>
+        {%- endif -%}
+      </div>
+
+      <div class="index-event-card__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="index-event-card__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="index-event-card__heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+
+        <div class="index-event-card__list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'event_item' and block.settings.value != blank -%}
+              <div class="index-event-card__item" {{ block.shopify_attributes }}>
+                <div class="index-event-card__meta">
+                  {%- case block.settings.icon -%}
+                    {%- when 'date' -%}
+                      <svg class="index-event-card__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M7 3v3M17 3v3M4.5 9h15M6 5h12a2 2 0 0 1 2 2v11.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.7"/><path d="M8 13h2M14 13h2M8 17h2M14 17h2" stroke="currentColor" stroke-width="1.7"/></svg>
+                    {%- when 'booth' -%}
+                      <svg class="index-event-card__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M4 7h16v11H4V7Z" stroke="currentColor" stroke-width="1.7"/><path d="M7 11h10M7 15h6" stroke="currentColor" stroke-width="1.7"/><path d="M8 7V5h8v2" stroke="currentColor" stroke-width="1.7"/></svg>
+                    {%- when 'contact' -%}
+                      <svg class="index-event-card__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="1.7"/><path d="m5 7 7 6 7-6" stroke="currentColor" stroke-width="1.7"/></svg>
+                    {%- else -%}
+                      <svg class="index-event-card__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M12 21s6-5.2 6-11a6 6 0 0 0-12 0c0 5.8 6 11 6 11Z" stroke="currentColor" stroke-width="1.7"/><path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" stroke="currentColor" stroke-width="1.7"/></svg>
+                  {%- endcase -%}
+                  {%- if block.settings.label != blank -%}
+                    <p class="index-event-card__label">{{ block.settings.label | escape }}</p>
+                  {%- endif -%}
+                </div>
+                <p class="index-event-card__value">{{ block.settings.value | escape }}</p>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.button_text != blank -%}
+          <a class="index-event-card__button" href="{{ button_link }}">
+            {{ section.settings.button_text | escape }}
+            <span class="index-event-card__button-icon" aria-hidden="true">
+              <img src="{{ '20260710012.png' |  file_img_url }}" width="12" height="12" loading="lazy" />
+            </span>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Index event card",
+  "tag": "section",
+  "class": "index-event-card-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "pc_image",
+      "label": "PC background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile background image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "COME SEE VENTRAL"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Meet Ventral at ICAST 2026"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Join the Launch Updates"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#2e97df"
+    },
+    {
+      "type": "range",
+      "id": "page_width",
+      "label": "Page width",
+      "default": 1440,
+      "min": 960,
+      "max": 1800,
+      "step": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "default": 14,
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "default": 92,
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "default": 92,
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "event_item",
+      "name": "Event item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "location",
+          "options": [
+            {
+              "value": "location",
+              "label": "Location"
+            },
+            {
+              "value": "date",
+              "label": "Date"
+            },
+            {
+              "value": "booth",
+              "label": "Booth"
+            },
+            {
+              "value": "contact",
+              "label": "Contact"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Location"
+        },
+        {
+          "type": "textarea",
+          "id": "value",
+          "label": "Value",
+          "default": "Orange County Convention Center, Orlando, Florida"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Index event card",
+      "blocks": [
+        {
+          "type": "event_item",
+          "settings": {
+            "icon": "location",
+            "label": "Location",
+            "value": "Orange County Convention Center, Orlando, Florida"
+          }
+        },
+        {
+          "type": "event_item",
+          "settings": {
+            "icon": "date",
+            "label": "Date",
+            "value": "July 14-17, 2026"
+          }
+        },
+        {
+          "type": "event_item",
+          "settings": {
+            "icon": "booth",
+            "label": "Booth",
+            "value": "#1147"
+          }
+        },
+        {
+          "type": "event_item",
+          "settings": {
+            "icon": "contact",
+            "label": "Contact US",
+            "value": "pr@ventral.com"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

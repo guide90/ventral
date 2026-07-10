@@ -1,0 +1,396 @@
+{%- liquid
+  assign logo = section.settings.logo
+  assign button_type = section.settings.button_type
+  assign button_text = section.settings.button_text
+  assign button_link = section.settings.button_link
+  assign modal_id = 'HeaderNewModal-' | append: section.id
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .header-new {
+    background: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    border-bottom: {{ section.settings.bottom_bar_height }}px solid {{ section.settings.bottom_bar_color }};
+  }
+
+  #shopify-section-{{ section.id }} .header-new__inner {
+    min-height: {{ section.settings.height }}px;
+    max-width: {{ section.settings.page_width }}px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 0 72px;
+  }
+
+  #shopify-section-{{ section.id }} .header-new__logo-link,
+  #shopify-section-{{ section.id }} .header-new__logo-placeholder {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .header-new__logo {
+    display: block;
+    width: auto;
+    max-width: {{ section.settings.logo_width }}px;
+    height: auto;
+    max-height: {{ section.settings.logo_max_height }}px;
+  }
+
+  #shopify-section-{{ section.id }} .header-new__logo-placeholder {
+    color: {{ section.settings.text_color }};
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .header-new__button {
+    min-height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 20px;
+    border: 0;
+    border-radius: 7px;
+    background: {{ section.settings.button_background_color }};
+    color: {{ section.settings.button_text_color }};
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .header-new__button:hover {
+    color: {{ section.settings.button_text_color }};
+    opacity: .9;
+  }
+
+  #shopify-section-{{ section.id }} .header-new-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .header-new-modal.is-open {
+    display: flex;
+  }
+
+  #shopify-section-{{ section.id }} .header-new-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .58);
+  }
+
+  #shopify-section-{{ section.id }} .header-new-modal__dialog {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 520px);
+    padding: 32px;
+    border-radius: 12px;
+    background: #fff;
+    color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .header-new-modal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: #f1f1f1;
+    color: #000;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .header-new-modal__title {
+    margin: 0 0 16px;
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .header-new-modal__content {
+    color: #000;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  #shopify-section-{{ section.id }} .header-new-modal__content p {
+    margin: 0 0 12px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .header-new__inner {
+      min-height: {{ section.settings.mobile_height }}px;
+      padding: 0 18px;
+    }
+
+    #shopify-section-{{ section.id }} .header-new__logo {
+      max-width: {{ section.settings.mobile_logo_width }}px;
+    }
+
+    #shopify-section-{{ section.id }} .header-new__button {
+      min-height: 26px;
+      padding: 7px 14px;
+      font-size: 10px;
+      border-radius: 6px;
+    }
+  }
+{%- endstyle -%}
+
+<header class="header-new">
+  <div class="header-new__inner">
+    <a class="header-new__logo-link" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {%- if logo != blank -%}
+        {{
+          logo
+          | image_url: width: section.settings.logo_width
+          | image_tag:
+            class: 'header-new__logo',
+            loading: 'eager',
+            widths: '120, 180, 240, 320, 420',
+            alt: shop.name
+        }}
+      {%- else -%}
+        <span class="header-new__logo-placeholder">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    {%- if button_text != blank -%}
+      {%- if button_type == 'modal' -%}
+        <button class="header-new__button" type="button" aria-haspopup="dialog" aria-controls="{{ modal_id }}" data-header-new-modal-open>
+          {{ button_text | escape }}
+        </button>
+      {%- else -%}
+        <a class="header-new__button" href="{{ button_link | default: routes.root_url }}">
+          {{ button_text | escape }}
+        </a>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</header>
+
+{%- if button_type == 'modal' -%}
+  <div class="header-new-modal" id="{{ modal_id }}" role="dialog" aria-modal="true" aria-labelledby="{{ modal_id }}-Title" data-header-new-modal>
+    <button class="header-new-modal__overlay" type="button" aria-label="Close" data-header-new-modal-close></button>
+    <div class="header-new-modal__dialog">
+      <button class="header-new-modal__close" type="button" aria-label="Close" data-header-new-modal-close>&times;</button>
+      {%- if section.settings.modal_title != blank -%}
+        <h2 class="header-new-modal__title" id="{{ modal_id }}-Title">{{ section.settings.modal_title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.modal_content != blank -%}
+        <div class="header-new-modal__content rte">
+          {{ section.settings.modal_content }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var section = document.getElementById('shopify-section-{{ section.id }}');
+      if (!section) return;
+
+      var modal = section.querySelector('[data-header-new-modal]');
+      var openButton = section.querySelector('[data-header-new-modal-open]');
+      var closeButtons = section.querySelectorAll('[data-header-new-modal-close]');
+      if (!modal || !openButton) return;
+
+      var openModal = function() {
+        modal.classList.add('is-open');
+        document.documentElement.classList.add('js-drawer-open');
+      };
+
+      var closeModal = function() {
+        modal.classList.remove('is-open');
+        document.documentElement.classList.remove('js-drawer-open');
+      };
+
+      openButton.addEventListener('click', openModal);
+      closeButtons.forEach(function(button) {
+        button.addEventListener('click', closeModal);
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Header new",
+  "tag": "section",
+  "class": "header-new-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "default": 190,
+      "min": 80,
+      "max": 360,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "label": "Mobile logo width",
+      "default": 150,
+      "min": 80,
+      "max": 260,
+      "step": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_height",
+      "label": "Logo max height",
+      "default": 42,
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Find a dealer"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "Button action",
+      "default": "link",
+      "options": [
+        {
+          "value": "link",
+          "label": "Link"
+        },
+        {
+          "value": "modal",
+          "label": "Popup"
+        }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "modal_title",
+      "label": "Popup title",
+      "default": "Find a dealer"
+    },
+    {
+      "type": "richtext",
+      "id": "modal_content",
+      "label": "Popup content",
+      "default": "<p>Add your popup content here.</p>"
+    },
+    {
+      "type": "range",
+      "id": "page_width",
+      "label": "Page width",
+      "default": 1440,
+      "min": 960,
+      "max": 1800,
+      "step": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Desktop height",
+      "default": 56,
+      "min": 44,
+      "max": 96,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "default": 52,
+      "min": 44,
+      "max": 80,
+      "step": 2,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "bottom_bar_height",
+      "label": "Bottom bar height",
+      "default": 4,
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "bottom_bar_color",
+      "label": "Bottom bar",
+      "default": "#f0dec2"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header new"
+    }
+  ]
+}
+{% endschema %}
