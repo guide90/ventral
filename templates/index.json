@@ -9,6 +9,29 @@
  */
 {
   "sections": {
+    "header_new_HPhhy7": {
+      "type": "header-new",
+      "name": "Header new",
+      "settings": {
+        "logo_width": 190,
+        "mobile_logo_width": 150,
+        "logo_max_height": 42,
+        "button_text": "Find a dealer",
+        "button_type": "link",
+        "button_link": "",
+        "modal_title": "Find a dealer",
+        "modal_content": "<p>Add your popup content here.</p>",
+        "page_width": 1440,
+        "height": 56,
+        "mobile_height": 52,
+        "bottom_bar_height": 4,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "bottom_bar_color": "#f0dec2",
+        "button_background_color": "#ffffff",
+        "button_text_color": "#000000"
+      }
+    },
     "index_image_DXdJEA": {
       "type": "index-image",
       "name": "图片板块",
@@ -68,7 +91,7 @@
         "travel-ready-outdoor-users"
       ],
       "settings": {
-        "heading": "Designed for xxx",
+        "heading": "Designed for Anglers",
         "text": "<p>Ventral is engineered for anglers who want smarter, more confident inflatable craft -rigged carefully to hold its place in the water,and move freedom to explore what's next.</p>"
       }
     },
@@ -172,6 +195,7 @@
     }
   },
   "order": [
+    "header_new_HPhhy7",
     "index_image_DXdJEA",
     "index_image_ULhhwn",
     "index-design-audience",
