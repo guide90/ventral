@@ -4,6 +4,10 @@
   padding: 78px 24px 92px;
 }
 
+
+.index-image .index-image__picture img{
+  width: 100%;
+}
 .index-design-audience__inner {
   max-width: 1260px;
   margin: 0 auto;
