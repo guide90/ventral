@@ -4,6 +4,7 @@
   assign button_text = section.settings.button_text
   assign button_link = section.settings.button_link
   assign anchor_id = section.settings.anchor_id | remove: '#'
+  assign floating_icon_image = section.settings.floating_icon_image
   assign modal_id = 'HeaderNewModal-' | append: section.id
 -%}
 
@@ -45,6 +46,46 @@
   </div>
 </header>
 <div class="header-new__spacer" aria-hidden="true"></div>
+
+{%- if floating_icon_image != blank -%}
+  {%- if button_type == 'modal' -%}
+    <button class="header-new__floating-icon" type="button" aria-label="{{ button_text | default: 'Open' | escape }}" aria-haspopup="dialog" aria-controls="{{ modal_id }}" data-header-new-modal-open>
+      {{
+        floating_icon_image
+        | image_url: width: 120
+        | image_tag:
+          class: 'header-new__floating-icon-image',
+          loading: 'lazy',
+          widths: '60, 120',
+          alt: button_text
+      }}
+    </button>
+  {%- elsif button_type == 'anchor' -%}
+    <a class="header-new__floating-icon" href="#{{ anchor_id | default: 'MainContent' }}" aria-label="{{ button_text | default: 'Jump' | escape }}">
+      {{
+        floating_icon_image
+        | image_url: width: 120
+        | image_tag:
+          class: 'header-new__floating-icon-image',
+          loading: 'lazy',
+          widths: '60, 120',
+          alt: button_text
+      }}
+    </a>
+  {%- else -%}
+    <a class="header-new__floating-icon" href="{{ button_link | default: routes.root_url }}" aria-label="{{ button_text | default: 'Open link' | escape }}">
+      {{
+        floating_icon_image
+        | image_url: width: 120
+        | image_tag:
+          class: 'header-new__floating-icon-image',
+          loading: 'lazy',
+          widths: '60, 120',
+          alt: button_text
+      }}
+    </a>
+  {%- endif -%}
+{%- endif -%}
 
 <script>
   (function() {
@@ -191,6 +232,11 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "floating_icon_image",
+      "label": "Floating icon image"
     },
     {
       "type": "text",

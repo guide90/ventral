@@ -1,0 +1,257 @@
+<div
+  class="index-who-we-are"
+  style="--index-who-bg: {{ section.settings.background_color }}; --index-who-text: {{ section.settings.text_color }}; --index-who-accent: {{ section.settings.accent_color }}; --index-who-card-bg: {{ section.settings.mobile_card_color }}; --index-who-page-width: {{ section.settings.page_width }}px; --index-who-padding-top: {{ section.settings.padding_top }}px; --index-who-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="index-who-we-are__inner">
+    <div class="index-who-we-are__heading-wrap">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="index-who-we-are__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="index-who-we-are__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+    </div>
+
+    <div class="index-who-we-are__body">
+      <div class="index-who-we-are__copy-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'copy' and block.settings.text != blank -%}
+            <div class="index-who-we-are__copy" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="index-who-we-are__social-column">
+        <div class="index-who-we-are__social-card">
+          {%- if section.settings.social_heading != blank -%}
+            <div class="index-who-we-are__social-title-row">
+              <h3 class="index-who-we-are__social-title">{{ section.settings.social_heading | escape }}</h3>
+              <span class="index-who-we-are__social-line" aria-hidden="true"></span>
+            </div>
+          {%- endif -%}
+
+          <div class="index-who-we-are__social-list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'social' and block.settings.label != blank and block.settings.icon != 'email' -%}
+                {%- assign social_href = block.settings.link | default: '#' -%}
+                <a class="index-who-we-are__social-link" href="{{ social_href }}" {{ block.shopify_attributes }}>
+                  {%- case block.settings.icon -%}
+                    {%- when 'facebook' -%}
+                      <svg class="index-who-we-are__social-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 5.2002C28.1736 5.2002 34.7998 11.8264 34.7998 20C34.7998 28.1736 28.1736 34.7998 20 34.7998C11.8264 34.7998 5.2002 28.1736 5.2002 20C5.2002 11.8264 11.8264 5.2002 20 5.2002Z" stroke="white" stroke-width="2.4"/>
+                        <path d="M20.5629 29V19.9879H23.3945L23.8419 17.0014H20.5629L20.5629 15.5039C20.5629 14.7246 20.8062 13.9808 21.8713 13.9808H24V11H20.9779C18.4369 11 17.7435 12.7573 17.7435 15.193V17H16V19.9879H17.7435V29H20.5629Z" fill="white"/>
+                      </svg>
+                    {%- else -%}
+                      <svg class="index-who-we-are__social-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="5" y="5" width="14" height="14" rx="4" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.7"/><circle cx="16.2" cy="7.8" r=".9" fill="currentColor"/></svg>
+                  {%- endcase -%}
+                  <span class="{% if block.settings.icon == 'email' %}email{% endif %}">{{ block.settings.label | escape }}</span>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <div class="index-who-we-are__desktop-contact-list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'social' and block.settings.label != blank and block.settings.icon == 'email' -%}
+                {%- assign contact_href = block.settings.link | default: '#' -%}
+                <a class="index-who-we-are__social-link" href="{{ contact_href }}" {{ block.shopify_attributes }}>
+                  <svg class="index-who-we-are__social-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="1.7"/><path d="m5 7 7 6 7-6" stroke="currentColor" stroke-width="1.7"/></svg>
+                  <span>{{ block.settings.label | escape }}</span>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="index-who-we-are__contact-card">
+          {%- if section.settings.contact_heading != blank -%}
+            <h3 class="index-who-we-are__social-title">{{ section.settings.contact_heading | escape }}</h3>
+          {%- endif -%}
+          <div class="index-who-we-are__contact-list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'social' and block.settings.label != blank and block.settings.icon == 'email' -%}
+                {%- assign contact_href = block.settings.link | default: '#' -%}
+                <a class="index-who-we-are__social-link" href="{{ contact_href }}" {{ block.shopify_attributes }}>
+                  <svg class="index-who-we-are__social-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="1.7"/><path d="m5 7 7 6 7-6" stroke="currentColor" stroke-width="1.7"/></svg>
+                  <span>{{ block.settings.label | escape }}</span>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Index who we are",
+  "tag": "section",
+  "class": "index-who-we-are-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Who we are ?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We are Ventral"
+    },
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Social heading",
+      "default": "JOIN US"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact heading",
+      "default": "CONTACT US"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#07101f"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#0f9bd8"
+    },
+    {
+      "type": "color",
+      "id": "mobile_card_color",
+      "label": "Mobile card background",
+      "default": "#39404b"
+    },
+    {
+      "type": "range",
+      "id": "page_width",
+      "label": "Page width",
+      "default": 1260,
+      "min": 760,
+      "max": 1600,
+      "step": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "default": 64,
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "default": 64,
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "copy",
+      "name": "Copy",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>You go to the water for clarity. To focus. To disconnect. But water never stays still. Wind shifts. Currents move. Your position drifts. And when your craft feels unsteady, so do you. Ventral changes that.</p>"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "instagram",
+          "options": [
+            {
+              "value": "instagram",
+              "label": "Instagram"
+            },
+            {
+              "value": "facebook",
+              "label": "Facebook"
+            },
+            {
+              "value": "email",
+              "label": "Email"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Instagram"
+        },
+        {
+          "type": "text",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Index who we are",
+      "blocks": [
+        {
+          "type": "copy"
+        },
+        {
+          "type": "copy",
+          "settings": {
+            "text": "<p>We design every vessel for greater control on the water. Intelligent systems help you manage your position in wind and current. Precision handling helps you stay where you want when the water won't.</p>"
+          }
+        },
+        {
+          "type": "copy",
+          "settings": {
+            "text": "<p>It responds instantly to your input-so every adjustment feels natural. When the platform feels steady, your focus returns to the mission, not the motion.</p>"
+          }
+        },
+        {
+          "type": "copy",
+          "settings": {
+            "text": "<p>We build for confidence on the water. To fish spots others skip. To explore places most never reach. Stand steady. Move freely. Go farther. Ventral. Level the Sea.</p>"
+          }
+        },
+        {
+          "type": "social"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
