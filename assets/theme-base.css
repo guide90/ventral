@@ -963,11 +963,11 @@
 .index-who-we-are-section .index-who-we-are {
   background: var(--index-who-bg, #07101f);
   color: var(--index-who-text, #fff);
-  padding: var(--index-who-padding-top, 64px) 24px var(--index-who-padding-bottom, 64px);
+  padding: var(--index-who-padding-top, 64px) 0 var(--index-who-padding-bottom, 64px);
 }
 
 .index-who-we-are-section .index-who-we-are__inner {
-  padding: 0 160px;
+  padding: 0 calc(160px * var(--scale-ratio));
   margin: 0 auto;
 }
 
@@ -1091,7 +1091,7 @@
 
 @media only screen and (max-width: 767px) {
   .index-who-we-are-section .index-who-we-are {
-    padding: 34px 14px;
+    padding: 34px 0;
   }
 
   .index-who-we-are-section .index-who-we-are__inner {
