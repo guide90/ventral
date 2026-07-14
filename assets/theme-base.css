@@ -1075,14 +1075,6 @@
   opacity: .82;
 }
 
-.index-who-we-are-section .index-who-we-are__social-link span {
-  display: none;
-}
-
-.index-who-we-are-section .index-who-we-are__desktop-contact-list span {
-  display: block;
-}
-
 .index-who-we-are-section .index-who-we-are__social-icon {
   width: 40px;
   height: 40px;
