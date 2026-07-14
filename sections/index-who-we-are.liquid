@@ -1,6 +1,6 @@
 <div
   class="index-who-we-are"
-  style="--index-who-bg: {{ section.settings.background_color }}; --index-who-text: {{ section.settings.text_color }}; --index-who-accent: {{ section.settings.accent_color }}; --index-who-card-bg: {{ section.settings.mobile_card_color }}; --index-who-page-width: {{ section.settings.page_width }}px; --index-who-padding-top: {{ section.settings.padding_top }}px; --index-who-padding-bottom: {{ section.settings.padding_bottom }}px;">
+  style="--index-who-bg: {{ section.settings.background_color }}; --index-who-text: {{ section.settings.text_color }}; --index-who-accent: {{ section.settings.accent_color }}; --index-who-card-bg: {{ section.settings.mobile_card_color }}; --index-who-padding-top: {{ section.settings.padding_top }}px; --index-who-padding-bottom: {{ section.settings.padding_bottom }}px;">
   <div class="index-who-we-are__inner">
     <div class="index-who-we-are__heading-wrap">
       {%- if section.settings.eyebrow != blank -%}
@@ -46,7 +46,7 @@
                     {%- else -%}
                       <svg class="index-who-we-are__social-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none"><rect x="5" y="5" width="14" height="14" rx="4" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.7"/><circle cx="16.2" cy="7.8" r=".9" fill="currentColor"/></svg>
                   {%- endcase -%}
-                  <span class="{% if block.settings.icon == 'email' %}email{% endif %}">{{ block.settings.label | escape }}</span>
+                  <span>{{ block.settings.label | escape }}</span>
                 </a>
               {%- endif -%}
             {%- endfor -%}
@@ -139,16 +139,6 @@
       "id": "mobile_card_color",
       "label": "Mobile card background",
       "default": "#39404b"
-    },
-    {
-      "type": "range",
-      "id": "page_width",
-      "label": "Page width",
-      "default": 1260,
-      "min": 760,
-      "max": 1600,
-      "step": 20,
-      "unit": "px"
     },
     {
       "type": "range",

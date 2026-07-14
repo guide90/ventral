@@ -967,7 +967,7 @@
 }
 
 .index-who-we-are-section .index-who-we-are__inner {
-  max-width: var(--index-who-page-width, 1260px);
+  padding: 0 160px;
   margin: 0 auto;
 }
 
@@ -1079,7 +1079,7 @@
   display: none;
 }
 
-.index-who-we-are-section .index-who-we-are__social-link span.email {
+.index-who-we-are-section .index-who-we-are__desktop-contact-list span {
   display: block;
 }
 
@@ -1092,6 +1092,10 @@
 @media only screen and (max-width: 767px) {
   .index-who-we-are-section .index-who-we-are {
     padding: 34px 14px;
+  }
+
+  .index-who-we-are-section .index-who-we-are__inner {
+    padding: 0 12px;
   }
 
   .index-who-we-are-section .index-who-we-are__heading-wrap {
