@@ -38,8 +38,8 @@
       "type": "index-image",
       "name": "图片板块",
       "settings": {
-        "pc_image": "shopify://shop_images/20260714006.png",
-        "mobile_image": "shopify://shop_images/20260714007.png"
+        "pc_image": "shopify://shop_images/20262714010.png",
+        "mobile_image": "shopify://shop_images/20262714011.png"
       }
     },
     "index-who-we-are": {
@@ -112,7 +112,6 @@
         "text_color": "#ffffff",
         "accent_color": "#0f9bd8",
         "mobile_card_color": "#39404b",
-        "page_width": 1260,
         "padding_top": 64,
         "padding_bottom": 64
       }
