@@ -1023,7 +1023,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .index-who-we-are-section .index-who-we-are__social-title {
@@ -1047,7 +1047,7 @@
 .index-who-we-are-section .index-who-we-are__social-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  gap: 10px;
 }
 
 .index-who-we-are-section .index-who-we-are__desktop-contact-list {
@@ -1065,7 +1065,7 @@
   gap: 8px;
   color: var(--index-who-text, #fff);
   font-family: "Inter";
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1;
   text-decoration: none;
 }
@@ -1076,9 +1076,9 @@
 }
 
 .index-who-we-are-section .index-who-we-are__social-icon {
-  width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
 }
 
 @media only screen and (max-width: 767px) {
