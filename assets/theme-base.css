@@ -761,7 +761,7 @@
   overflow: hidden;
   border: 1px solid rgba(157, 183, 199, .78);
   border-radius: 24px;
- background: linear-gradient(180deg, #132D41 0%, #071C30 100%);
+  background: linear-gradient(180deg, #132D41 0%, #071C30 100%);
   color: #fff;
   box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
 }
@@ -969,6 +969,12 @@
     font-size: 14px;
     border-radius: 6px;
   }
+
+  .header-new-section .header-new__floating-icon {
+    bottom: 90px;
+    right: 12px;
+  }
+
 
   .header-new-section .header-new-modal {
     align-items: center;
