@@ -205,6 +205,9 @@
     --story-navy: #001326;
     --story-ink: #06142e;
     --story-muted: #a5a9b7;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
     font-family: "Inter", Arial, sans-serif;
     overflow: hidden;
   }
@@ -230,7 +233,7 @@
   .story-page--{{ section.id }} .story-page__hero-title { font-family: "Inter", Arial, sans-serif; font-weight: 900; letter-spacing: 0; }
   .story-page--{{ section.id }} .story-page__intro { position: relative; isolation: isolate; overflow: hidden; color: #fff; background: var(--story-navy); }
   .story-page--{{ section.id }} .story-page__intro-background { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; }
-  .story-page--{{ section.id }} .story-page__intro-background > img { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__intro-background > img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
   .story-page--{{ section.id }} .story-page__intro-copy h2,
   .story-page--{{ section.id }} .story-page__mission-copy h2,
   .story-page--{{ section.id }} .story-page__technology-heading,
@@ -242,8 +245,9 @@
   .story-page--{{ section.id }} .story-page__anchor { color: var(--story-ink); background: #fff; }
   .story-page--{{ section.id }} .story-page__anchor-copy > p:last-child,
   .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { color: var(--story-muted); font-weight: 400; }
-  .story-page--{{ section.id }} .story-page__mission { position: relative; overflow: hidden; }
-  .story-page--{{ section.id }} .story-page__mission-background { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__mission { position: relative; isolation: isolate; overflow: hidden; background: #f5f7fb; }
+  .story-page--{{ section.id }} .story-page__mission-background { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__mission-background > img { object-position: center top; }
   .story-page--{{ section.id }} .story-page__eyebrow { color: var(--story-blue); font-size: 14px; font-weight: 700; line-height: 15px; }
   .story-page--{{ section.id }} .story-page__technology { color: #fff; background: #0c0e12; }
   .story-page--{{ section.id }} .story-page__technology-heading-mobile { display: none; }
@@ -255,6 +259,7 @@
   .story-page--{{ section.id }} .story-page__video { aspect-ratio: 16 / 9; background: #fff; }
   .story-page--{{ section.id }} .story-page__video-element { width: 100%; height: 100%; object-fit: cover; }
   .story-page--{{ section.id }} .story-page__cta { background: #002543; }
+  .story-page--{{ section.id }} .story-page__cta > .story-page__media > img { object-position: center 65%; }
   .story-page--{{ section.id }} .story-page__cta-overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,37,67,.96), rgba(1,12,21,.08)); }
   .story-page--{{ section.id }} .story-page__cta-content p { color: rgba(255,255,255,.8); font-weight: 500; }
   .story-page--{{ section.id }} .story-page__cta-button { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; color: #fff; background: #0c0e12; font-weight: 600; line-height: 1; text-decoration: none; }
@@ -262,6 +267,7 @@
   .story-page--{{ section.id }} .story-page__hero { min-height: 0; display: grid; aspect-ratio: 16 / 9; place-items: center; }
   .story-page--{{ section.id }} .story-page__hero-title { position: static; transform: none; margin: 0; padding: 0 24px; text-align: center; white-space: normal; }
   .story-page--{{ section.id }} .story-page__intro-grid { position: relative; z-index: 1; display: grid; height: auto; }
+  .story-page--{{ section.id }} .story-page__mission-grid { position: relative; z-index: 1; }
   .story-page--{{ section.id }} .story-page__intro-copy,
   .story-page--{{ section.id }} .story-page__intro-image,
   .story-page--{{ section.id }} .story-page__anchor-image,
@@ -326,6 +332,7 @@
   }
 
   @media screen and (max-width: 749px) {
+    .story-page--{{ section.id }} .story-page__cta > .story-page__media > img { object-position: center; }
     .story-page--{{ section.id }} .story-page__rounded-image,
     .story-page--{{ section.id }} .story-page__feature-image { border-radius: 12px; }
     .story-page--{{ section.id }} .story-page__hero { min-height: 812px; aspect-ratio: auto; }
