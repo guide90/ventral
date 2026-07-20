@@ -11,7 +11,15 @@
 <section class="story-page story-page--{{ section.id }}" data-section-id="{{ section.id }}">
   <div class="story-page__hero">
     {%- if hero_image != blank -%}
-      {{ hero_image | image_url: width: 3000 | image_tag: class: 'story-page__media', loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 2000, 3000' }}
+      {{
+        hero_image
+        | image_url: width: 3000
+        | image_tag:
+          class: 'story-page__media',
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '750, 1100, 1500, 2000, 3000'
+      }}
     {%- endif -%}
     <h1 class="story-page__hero-title">{{ section.settings.hero_title | escape }}</h1>
   </div>
@@ -32,7 +40,11 @@
 
   <div class="story-page__mission">
     {%- if today_background != blank -%}
-      {{ today_background | image_url: width: 3000 | image_tag: class: 'story-page__mission-background', loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000' }}
+      {{
+        today_background
+        | image_url: width: 3000
+        | image_tag: class: 'story-page__mission-background', loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000'
+      }}
     {%- endif -%}
     <div class="story-page__container story-page__mission-grid">
       <article class="story-page__mission-item">
@@ -65,13 +77,24 @@
   <div class="story-page__technology">
     <div class="story-page__container">
       <p class="story-page__eyebrow">{{ section.settings.technology_eyebrow | escape }}</p>
-      <h2 class="story-page__technology-heading">{{ section.settings.technology_heading | escape }}</h2>
+      <h2 class="story-page__technology-heading">
+        <span class="story-page__technology-heading-desktop">
+          {{- section.settings.technology_heading | escape | newline_to_br -}}
+        </span>
+        <span class="story-page__technology-heading-mobile">
+          {{- section.settings.technology_heading_mobile | escape -}}
+        </span>
+      </h2>
       <div class="story-page__feature-grid">
         {%- for block in section.blocks -%}
           {%- if block.type == 'feature' -%}
             <article class="story-page__feature-card" {{ block.shopify_attributes }}>
               {%- if block.settings.image != blank -%}
-                {{ block.settings.image | image_url: width: 1600 | image_tag: class: 'story-page__feature-image', loading: 'lazy', widths: '700, 1000, 1600' }}
+                {{
+                  block.settings.image
+                  | image_url: width: 1600
+                  | image_tag: class: 'story-page__feature-image', loading: 'lazy', widths: '700, 1000, 1600'
+                }}
               {%- endif -%}
               <div class="story-page__feature-overlay"></div>
               <div class="story-page__feature-content">
@@ -87,26 +110,54 @@
 
   <div class="story-page__video">
     {%- if section.settings.video != blank -%}
-      {{ section.settings.video | video_tag: class: 'story-page__video-element', image_size: '2000x', autoplay: true, loop: true, muted: true, controls: true, playsinline: true }}
+      {{
+        section.settings.video
+        | video_tag:
+          class: 'story-page__video-element',
+          image_size: '2000x',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: true,
+          playsinline: true
+      }}
     {%- elsif section.settings.video_url != blank -%}
-      <video class="story-page__video-element" {% if video_poster != blank %}poster="{{ video_poster | image_url: width: 2000 }}"{% endif %} controls playsinline preload="metadata">
+      <video
+        class="story-page__video-element"
+        {% if video_poster != blank %}
+          poster="{{ video_poster | image_url: width: 2000 }}"
+        {% endif %}
+        controls
+        playsinline
+        preload="metadata"
+      >
         <source src="{{ section.settings.video_url | escape }}" type="video/mp4">
       </video>
     {%- elsif video_poster != blank -%}
-      {{ video_poster | image_url: width: 2400 | image_tag: class: 'story-page__media', loading: 'lazy', widths: '750, 1200, 1800, 2400' }}
+      {{
+        video_poster
+        | image_url: width: 2400
+        | image_tag: class: 'story-page__media', loading: 'lazy', widths: '750, 1200, 1800, 2400'
+      }}
     {%- endif -%}
   </div>
 
   <div class="story-page__cta">
     {%- if cta_image != blank -%}
-      {{ cta_image | image_url: width: 3000 | image_tag: class: 'story-page__media', loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000' }}
+      {{
+        cta_image
+        | image_url: width: 3000
+        | image_tag: class: 'story-page__media', loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000'
+      }}
     {%- endif -%}
     <div class="story-page__cta-overlay"></div>
     <div class="story-page__container story-page__cta-content">
       <h2>{{ section.settings.cta_heading | escape }}</h2>
       <p>{{ section.settings.cta_text | escape }}</p>
       {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
-        <a class="story-page__cta-button" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label | escape }}</a>
+        <a class="story-page__cta-button" href="{{ section.settings.cta_link }}">
+          {{- section.settings.cta_label | escape -}}
+        </a>
       {%- endif -%}
     </div>
   </div>
@@ -192,6 +243,117 @@
   }
 {% endstyle %}
 
+{% style %}
+  /* Figma type ramp and fixed composition for the 1920px desktop / 375px mobile designs. */
+  .story-page--{{ section.id }} { font-family: "Inter", Arial, sans-serif; }
+  .story-page--{{ section.id }} .story-page__technology-heading-mobile { display: none; }
+  .story-page--{{ section.id }} .story-page__hero-title { font-family: "Inter", Arial, sans-serif; font-weight: 900; letter-spacing: 0; }
+  .story-page--{{ section.id }} .story-page__intro-copy h2,
+  .story-page--{{ section.id }} .story-page__mission-copy h2,
+  .story-page--{{ section.id }} .story-page__technology-heading,
+  .story-page--{{ section.id }} .story-page__feature-content h3,
+  .story-page--{{ section.id }} .story-page__cta-content h2 { font-family: "Inter", Arial, sans-serif; font-weight: 700; letter-spacing: 0; }
+  .story-page--{{ section.id }} .story-page__rte,
+  .story-page--{{ section.id }} .story-page__mission-copy > p:last-child,
+  .story-page--{{ section.id }} .story-page__cta-content p { font-family: "Inter", Arial, sans-serif; font-weight: 500; }
+  .story-page--{{ section.id }} .story-page__eyebrow { font-family: "Inter", Arial, sans-serif; font-weight: 700; letter-spacing: 0; }
+
+  @media screen and (min-width: 750px) {
+    .story-page--{{ section.id }} .story-page__container { width: min(calc(100% - 48px), 1440px); }
+    .story-page--{{ section.id }} .story-page__hero { min-height: 0; aspect-ratio: 16 / 9; max-height: none; display: block; }
+    .story-page--{{ section.id }} .story-page__hero-title { position: absolute; top: 50%; left: max(24px, calc(50% - 431px)); transform: translateY(-50%); padding: 0; font-size: 80px; line-height: 1.3; text-align: left; white-space: nowrap; }
+
+    .story-page--{{ section.id }} .story-page__intro { height: 920px; padding: 0; }
+    .story-page--{{ section.id }} .story-page__intro-grid { position: relative; display: block; height: 100%; }
+    .story-page--{{ section.id }} .story-page__intro-copy { position: absolute; top: 221px; left: 0; width: min(61.81%, 890px); }
+    .story-page--{{ section.id }} .story-page__intro-copy h2 { font-size: 72px; line-height: 76px; }
+    .story-page--{{ section.id }} .story-page__rte { margin-top: 32px; font-size: 20px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__rte p + p { margin-top: 20px; }
+    .story-page--{{ section.id }} .story-page__intro-image { position: absolute; top: 100px; right: 0; width: min(31.94%, 460px); min-height: 720px; height: 720px; border-radius: 24px; }
+
+    .story-page--{{ section.id }} .story-page__mission { height: 1289px; padding: 0; }
+    .story-page--{{ section.id }} .story-page__mission-grid { display: block; height: 100%; }
+    .story-page--{{ section.id }} .story-page__mission-item { display: contents; }
+    .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { position: absolute; width: min(55.56%, 800px); height: 500px; margin: 0; border-radius: 24px; }
+    .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__rounded-image { top: 100px; left: 0; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__rounded-image { top: 680px; right: 0; }
+    .story-page--{{ section.id }} .story-page__mission-copy { position: absolute; width: min(37.15%, 535px); }
+    .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__mission-copy { top: 209px; right: 0; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy { top: 811px; left: 0; width: min(36.81%, 530px); }
+    .story-page--{{ section.id }} .story-page__eyebrow { font-size: 14px; line-height: 15px; }
+    .story-page--{{ section.id }} .story-page__mission-copy h2 { margin: 12px 0 16px; font-size: 72px; line-height: 76px; }
+    .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { font-size: 20px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy h2 { margin-top: 18px; margin-bottom: 28px; }
+
+    .story-page--{{ section.id }} .story-page__technology { height: 1082px; padding: 0; }
+    .story-page--{{ section.id }} .story-page__technology > .story-page__container { position: relative; height: 100%; }
+    .story-page--{{ section.id }} .story-page__technology > .story-page__container > .story-page__eyebrow { position: absolute; top: 100px; left: 0; }
+    .story-page--{{ section.id }} .story-page__technology-heading { position: absolute; top: 135px; left: 0; margin: 0; font-size: 72px; line-height: 76px; }
+    .story-page--{{ section.id }} .story-page__feature-grid { position: absolute; top: 367px; right: 0; left: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 55px 60px; }
+    .story-page--{{ section.id }} .story-page__feature-card { min-height: 280px; height: 280px; border-radius: 28px; }
+    .story-page--{{ section.id }} .story-page__feature-content { top: 157px; right: auto; bottom: auto; left: 20px; width: 360px; }
+    .story-page--{{ section.id }} .story-page__feature-content h3 { font-size: 24px; line-height: 37px; }
+    .story-page--{{ section.id }} .story-page__feature-content p { width: 350px; margin-top: 12px; font-size: 16px; font-weight: 700; line-height: 27px; }
+    .story-page--{{ section.id }} .story-page__feature-card:nth-child(4) .story-page__feature-content { top: 130px; }
+
+    .story-page--{{ section.id }} .story-page__video { aspect-ratio: 16 / 9; background: #fff; }
+    .story-page--{{ section.id }} .story-page__cta { min-height: 640px; height: 640px; align-items: flex-start; padding: 0; }
+    .story-page--{{ section.id }} .story-page__cta-content { position: relative; padding-top: 216px; }
+    .story-page--{{ section.id }} .story-page__cta-content h2 { font-size: 68px; line-height: 1; white-space: nowrap; }
+    .story-page--{{ section.id }} .story-page__cta-content p { margin-top: 25px; max-width: 731px; font-size: 20px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__cta-button { height: 50px; margin-top: 26px; padding: 2px 28px; font-size: 24px; font-weight: 600; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .story-page--{{ section.id }} .story-page__container { width: calc(100% - 24px); }
+    .story-page--{{ section.id }} .story-page__hero { min-height: 812px; aspect-ratio: auto; }
+    .story-page--{{ section.id }} .story-page__hero-title { padding: 0 12px; font-size: 36px; font-weight: 900; line-height: 1.3; }
+
+    .story-page--{{ section.id }} .story-page__intro { height: 812px; padding: 0; }
+    .story-page--{{ section.id }} .story-page__intro-grid { position: relative; display: block; height: 100%; }
+    .story-page--{{ section.id }} .story-page__intro-copy { position: absolute; top: 60px; left: 0; width: 100%; }
+    .story-page--{{ section.id }} .story-page__intro-copy h2 { font-size: 36px; line-height: 36px; }
+    .story-page--{{ section.id }} .story-page__rte { margin-top: 20px; font-size: 14px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__rte p + p { margin-top: 12px; }
+    .story-page--{{ section.id }} .story-page__intro-image { position: absolute; top: 512px; left: 0; width: 100%; min-height: 240px; height: 240px; border-radius: 12px; }
+
+    .story-page--{{ section.id }} .story-page__mission { height: 910px; padding: 0; }
+    .story-page--{{ section.id }} .story-page__mission-grid { display: block; height: 100%; }
+    .story-page--{{ section.id }} .story-page__mission-item { display: contents; }
+    .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { position: absolute; left: 0; width: 100%; height: 219px; margin: 0; border-radius: 12px; }
+    .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__rounded-image { top: 60px; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__rounded-image { top: 475px; }
+    .story-page--{{ section.id }} .story-page__mission-copy { position: absolute; left: 0; width: 100%; }
+    .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__mission-copy { top: 299px; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy { top: 714px; }
+    .story-page--{{ section.id }} .story-page__eyebrow { font-size: 14px; line-height: 15px; }
+    .story-page--{{ section.id }} .story-page__mission-copy h2 { margin: 15px 0 20px; font-size: 36px; line-height: 36px; }
+    .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { font-size: 16px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy h2 { margin-bottom: 27px; }
+
+    .story-page--{{ section.id }} .story-page__technology { height: 892px; padding: 0; }
+    .story-page--{{ section.id }} .story-page__technology > .story-page__container { position: relative; height: 100%; }
+    .story-page--{{ section.id }} .story-page__technology > .story-page__container > .story-page__eyebrow { position: absolute; top: 60px; left: 0; }
+    .story-page--{{ section.id }} .story-page__technology-heading-desktop { display: none; }
+    .story-page--{{ section.id }} .story-page__technology-heading-mobile { display: block; }
+    .story-page--{{ section.id }} .story-page__technology-heading { position: absolute; top: 78px; left: 0; margin: 0; font-size: 36px; line-height: 36px; }
+    .story-page--{{ section.id }} .story-page__feature-grid { position: absolute; top: 159px; right: 0; left: 0; display: grid; grid-template-columns: 1fr; gap: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-card { min-height: 156px; height: 156px; border-radius: 12px; }
+    .story-page--{{ section.id }} .story-page__feature-card:nth-child(4) { min-height: 145px; height: 145px; }
+    .story-page--{{ section.id }} .story-page__feature-content { top: 68px; right: 12px; bottom: auto; left: 12px; width: auto; }
+    .story-page--{{ section.id }} .story-page__feature-content h3 { font-size: 24px; line-height: 24px; }
+    .story-page--{{ section.id }} .story-page__feature-content p { width: auto; margin-top: 12px; font-size: 14px; font-weight: 500; line-height: 1.4; }
+    .story-page--{{ section.id }} .story-page__feature-card:nth-child(4) .story-page__feature-content { top: 57px; }
+
+    .story-page--{{ section.id }} .story-page__video { aspect-ratio: 375 / 211; background: #fff; }
+    .story-page--{{ section.id }} .story-page__cta { min-height: 660px; height: 660px; padding-top: 0; }
+    .story-page--{{ section.id }} .story-page__cta-content { padding-top: 69px; }
+    .story-page--{{ section.id }} .story-page__cta-content h2 { font-size: 36px; line-height: 1.2; }
+    .story-page--{{ section.id }} .story-page__cta-content p { margin-top: 18px; font-size: 14px; line-height: 1.4; }
+    .story-page--{{ section.id }} .story-page__cta-button { height: auto; margin-top: 22px; padding: 8px 14px; font-size: 16px; font-weight: 600; }
+  }
+{% endstyle %}
+
 {% schema %}
 {
   "name": "Brand story page",
@@ -203,46 +365,113 @@
     { "type": "text", "id": "hero_title", "label": "Hero title", "default": "Ventral. Level the Sea." },
     { "type": "header", "content": "Who we are" },
     { "type": "text", "id": "intro_heading", "label": "Heading", "default": "WHO WE ARE" },
-    { "type": "richtext", "id": "intro_text", "label": "Text", "default": "<p>You go to the water for clarity. To focus. To disconnect. But water never stays still. Wind shifts. Currents move. Your position drifts. And when your craft feels unsteady, so do you. Ventral changes that.</p><p>We design every vessel for greater control on the water. Intelligent systems help you manage your position in wind and current. Precision handling helps you stay where you want when the water won't. It responds instantly to your input—so every adjustment feels natural. When the platform feels steady, your focus returns to the mission, not the motion.</p><p>We build for confidence on the water. To fish spots others skip. To explore places most never reach. Stand steady. Move freely. Go farther.</p><p>Ventral. Level the Sea.</p>" },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Text",
+      "default": "<p>You go to the water for clarity. To focus. To disconnect. But water never stays still. Wind shifts. Currents move. Your position drifts. And when your craft feels unsteady, so do you. Ventral changes that.</p><p>We design every vessel for greater control on the water. Intelligent systems help you manage your position in wind and current. Precision handling helps you stay where you want when the water won't. It responds instantly to your input—so every adjustment feels natural. When the platform feels steady, your focus returns to the mission, not the motion.</p><p>We build for confidence on the water. To fish spots others skip. To explore places most never reach. Stand steady. Move freely. Go farther.</p><p>Ventral. Level the Sea.</p>"
+    },
     { "type": "image_picker", "id": "who_image", "label": "Image" },
     { "type": "header", "content": "Mission" },
     { "type": "image_picker", "id": "today_background", "label": "Section background image" },
     { "type": "image_picker", "id": "today_image", "label": "Today's adventure image" },
     { "type": "text", "id": "today_eyebrow", "label": "Today's adventure eyebrow", "default": "TODAY’S ADVENTURE" },
     { "type": "text", "id": "today_heading", "label": "Today's adventure heading", "default": "What we do today?" },
-    { "type": "textarea", "id": "today_text", "label": "Today's adventure text", "default": "To design and build marine platforms engineered for stability control, and confidence in changing water conditions." },
+    {
+      "type": "textarea",
+      "id": "today_text",
+      "label": "Today's adventure text",
+      "default": "To design and build marine platforms engineered for stability control, and confidence in changing water conditions."
+    },
     { "type": "image_picker", "id": "future_image", "label": "Looking ahead image" },
     { "type": "text", "id": "future_eyebrow", "label": "Looking ahead eyebrow", "default": "LOOKING AHEAD" },
-    { "type": "text", "id": "future_heading", "label": "Looking ahead heading", "default": "The future we're building" },
-    { "type": "textarea", "id": "future_text", "label": "Looking ahead text", "default": "To redefine confidence and control on the water." },
+    {
+      "type": "text",
+      "id": "future_heading",
+      "label": "Looking ahead heading",
+      "default": "The future we're building"
+    },
+    {
+      "type": "textarea",
+      "id": "future_text",
+      "label": "Looking ahead text",
+      "default": "To redefine confidence and control on the water."
+    },
     { "type": "header", "content": "Core technology" },
     { "type": "text", "id": "technology_eyebrow", "label": "Eyebrow", "default": "CORE TECHNOLOGY" },
-    { "type": "text", "id": "technology_heading", "label": "Heading", "default": "WHO WE ARE" },
+    {
+      "type": "text",
+      "id": "technology_heading",
+      "label": "Desktop heading",
+      "default": "The platform that\nkeeps water from deciding."
+    },
+    { "type": "text", "id": "technology_heading_mobile", "label": "Mobile heading", "default": "WHO WE ARE" },
     { "type": "header", "content": "Video" },
     { "type": "video", "id": "video", "label": "Shopify-hosted video" },
-    { "type": "text", "id": "video_url", "label": "MP4 URL fallback", "info": "Used only when no Shopify-hosted video is selected." },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "MP4 URL fallback",
+      "info": "Used only when no Shopify-hosted video is selected."
+    },
     { "type": "image_picker", "id": "video_poster", "label": "Video poster / fallback image" },
     { "type": "header", "content": "CTA" },
     { "type": "image_picker", "id": "cta_image", "label": "Background image" },
     { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Adventure Starts Here." },
-    { "type": "textarea", "id": "cta_text", "label": "Text", "default": "Join the adventure and discover more unforgettable moments on the water." },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "Text",
+      "default": "Join the adventure and discover more unforgettable moments on the water."
+    },
     { "type": "text", "id": "cta_label", "label": "Button label", "default": "Join The Adventure" },
     { "type": "url", "id": "cta_link", "label": "Button link" }
   ],
   "blocks": [
-    { "type": "feature", "name": "Technology card", "limit": 4, "settings": [
-      { "type": "image_picker", "id": "image", "label": "Image" },
-      { "type": "text", "id": "heading", "label": "Heading", "default": "ADVANCED STABILITY" },
-      { "type": "textarea", "id": "text", "label": "Text", "default": "Thoughtful hull design creates a steady, balanced platform on the water." }
-    ] }
+    {
+      "type": "feature",
+      "name": "Technology card",
+      "limit": 4,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "ADVANCED STABILITY" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Thoughtful hull design creates a steady, balanced platform on the water."
+        }
+      ]
+    }
   ],
   "presets": [
-    { "name": "Brand story page", "blocks": [
-      { "type": "feature" },
-      { "type": "feature", "settings": { "heading": "ENGINEERED CONFIDENCE", "text": "Purpose-built construction delivers strength, reliability, and confidence on the water." } },
-      { "type": "feature", "settings": { "heading": "SMART POSITIONING", "text": "A compact, integrated propulsion system makes positioning simple." } },
-      { "type": "feature", "settings": { "heading": "LIMITLESS FREEDOM", "text": "When the craft feels steady, your focus returns—freeing you to move, cast, and explore without limits." } }
-    ] }
+    {
+      "name": "Brand story page",
+      "blocks": [
+        { "type": "feature" },
+        {
+          "type": "feature",
+          "settings": {
+            "heading": "ENGINEERED CONFIDENCE",
+            "text": "Purpose-built construction delivers strength, reliability, and confidence on the water."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "heading": "SMART POSITIONING",
+            "text": "A compact, integrated propulsion system makes positioning simple."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "heading": "LIMITLESS FREEDOM",
+            "text": "When the craft feels steady, your focus returns—freeing you to move, cast, and explore without limits."
+          }
+        }
+      ]
+    }
   ]
 }
 {% endschema %}
