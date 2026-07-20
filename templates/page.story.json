@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "main": {
+      "type": "story-page",
+      "blocks": {
+        "stability": {
+          "type": "feature",
+          "settings": {
+            "heading": "ADVANCED STABILITY",
+            "text": "Thoughtful hull design creates a steady, balanced platform on the water."
+          }
+        },
+        "confidence": {
+          "type": "feature",
+          "settings": {
+            "heading": "ENGINEERED CONFIDENCE",
+            "text": "Purpose-built construction delivers strength, reliability, and confidence on the water."
+          }
+        },
+        "positioning": {
+          "type": "feature",
+          "settings": {
+            "heading": "SMART POSITIONING",
+            "text": "A compact, integrated propulsion system makes positioning simple."
+          }
+        },
+        "freedom": {
+          "type": "feature",
+          "settings": {
+            "heading": "LIMITLESS FREEDOM",
+            "text": "When the craft feels steady, your focus returns—freeing you to move, cast, and explore without limits."
+          }
+        }
+      },
+      "block_order": ["stability", "confidence", "positioning", "freedom"],
+      "settings": {
+        "cta_link": "shopify://collections/all"
+      }
+    }
+  },
+  "order": ["main"]
+}
