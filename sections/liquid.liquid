@@ -1,0 +1,57 @@
+
+
+<div class="active-group-visible {{ section.settings.tab_group }}">
+  <div class="liquid-contain">{{ section.settings.custom_liquid }}
+  {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+          {%- render block -%}
+          {% endcase %}
+      {%- endfor -%}
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "liquid片段",
+  "class": "section-liquid-tab",
+  "settings": [
+       {
+      "type": "select",
+      "id": "tab_group",
+      "label": "选择 Tab 组",
+      "default": "active_group_1",
+      "options": [
+        {
+          "value": "active_group_1",
+          "label": "分组 1"
+        },
+        {
+          "value": "active_group_2",
+          "label": "分组 2"
+        },
+        {
+          "value": "active_group_3",
+          "label": "分组 3"
+        }
+      ]
+    },
+    {
+        "type": "liquid",
+        "id": "custom_liquid",
+        "label": "Liquid代码"
+    }
+  ],
+  "blocks": [
+    {
+       "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "liquid片段"
+    }
+  ]
+}
+{% endschema %}
