@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -6,6 +15,7 @@
         "stability": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/ADVANCED_STABILITY.png",
             "heading": "ADVANCED STABILITY",
             "text": "Thoughtful hull design creates a steady, balanced platform on the water."
           }
@@ -13,30 +23,71 @@
         "confidence": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/ENGINEERED_CONFIDENCE.png",
             "heading": "ENGINEERED CONFIDENCE",
             "text": "Purpose-built construction delivers strength, reliability, and confidence on the water."
-          }
-        },
-        "positioning": {
-          "type": "feature",
-          "settings": {
-            "heading": "SMART POSITIONING",
-            "text": "A compact, integrated propulsion system makes positioning simple."
           }
         },
         "freedom": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/LIMITLESS_FREEDOM.png",
             "heading": "LIMITLESS FREEDOM",
             "text": "When the craft feels steady, your focus returns—freeing you to move, cast, and explore without limits."
           }
+        },
+        "positioning": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/SMART_POSITIONING.png",
+            "heading": "SMART POSITIONING",
+            "text": "A compact, integrated propulsion system makes positioning simple."
+          }
         }
       },
-      "block_order": ["stability", "confidence", "positioning", "freedom"],
+      "block_order": [
+        "stability",
+        "confidence",
+        "freedom",
+        "positioning"
+      ],
       "settings": {
+        "hero_image": "shopify://shop_images/banner_bf5300b2-7094-4d75-93da-f29062109ca6.png",
+        "hero_image_mobile": "shopify://shop_images/M-_banner.png",
+        "hero_title": "Ventral. Level the Sea.",
+        "intro_heading": "WHO WE ARE",
+        "intro_text": "<p>You go to the water for clarity. To focus. To disconnect. But water never stays still. Wind shifts. Currents move. Your position drifts. And when your craft feels unsteady, so do you. Ventral changes that.</p><p>We design every vessel for greater control on the water. Intelligent systems help you manage your position in wind and current. Precision handling helps you stay where you want when the water won't. It responds instantly to your input—so every adjustment feels natural. When the platform feels steady, your focus returns to the mission, not the motion.</p><p>We build for confidence on the water. To fish spots others skip. To explore places most never reach. Stand steady. Move freely. Go farther.</p><p>Ventral. Level the Sea.</p>",
+        "who_background": "shopify://shop_images/WHO_WE_ARE_29b2e945-f4ec-4179-a306-19cf41ebac53.png",
+        "who_background_mobile": "shopify://shop_images/M-WHO_WE_ARE.png",
+        "who_image": "shopify://shop_images/WHO_WE_ARE.png",
+        "who_image_mobile": "shopify://shop_images/M-WHO_WE_ARE_4cd05528-ada3-4da0-87ec-07301f7381d8.png",
+        "anchor_image": "shopify://shop_images/Hold_Your_Spot_Not_Your_Paddle..png",
+        "anchor_image_mobile": "shopify://shop_images/M-Hold_Your_Spot_Not_Your_Paddle..png",
+        "anchor_eyebrow": "ANCHOR WITH EASE",
+        "anchor_heading": "Hold Your Spot, Not Your Paddle.",
+        "anchor_text": "Marine-grade GPS holds your position within ±1 m through wind and current. Five modes — Anchor Lock, Course & Speed Hold, Track Recording, Bidirectional Track Following, and Drift.",
+        "today_image": "shopify://shop_images/What_we_do_today_bc4a5b11-02b2-466b-94e9-9e799c565073.png",
+        "today_image_mobile": "shopify://shop_images/M-What_we_do_today.png",
+        "today_eyebrow": "TODAY’S ADVENTURE",
+        "today_heading": "What we do today?",
+        "today_text": "To design and build marine platforms engineered for stability control, and confidence in changing water conditions.",
+        "future_eyebrow": "LOOKING AHEAD",
+        "future_heading": "The future we're building",
+        "future_text": "To redefine confidence and control on the water.",
+        "technology_eyebrow": "CORE TECHNOLOGY",
+        "technology_heading": "The platform thatkeeps water from deciding.",
+        "technology_heading_mobile": "WHO WE ARE",
+        "video_url": "",
+        "cta_image": "shopify://shop_images/Adventure_Starts_Here..png",
+        "cta_image_mobile": "shopify://shop_images/M-Adventure_Starts_Here..png",
+        "cta_heading": "Adventure Starts Here.",
+        "cta_text": "Join the adventure and discover more unforgettable moments on the water.",
+        "cta_label": "Join The Adventure",
         "cta_link": "shopify://collections/all"
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

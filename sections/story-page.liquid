@@ -1,56 +1,97 @@
 {%- liquid
   assign hero_image = section.settings.hero_image
+  assign hero_image_mobile = section.settings.hero_image_mobile
+  assign hero_image_render = hero_image | default: hero_image_mobile
+  assign who_background = section.settings.who_background
+  assign who_background_mobile = section.settings.who_background_mobile
+  assign who_background_render = who_background | default: who_background_mobile
   assign who_image = section.settings.who_image
+  assign who_image_mobile = section.settings.who_image_mobile
+  assign who_image_render = who_image | default: who_image_mobile
+  assign anchor_image = section.settings.anchor_image
+  assign anchor_image_mobile = section.settings.anchor_image_mobile
+  assign anchor_image_render = anchor_image | default: anchor_image_mobile
   assign today_image = section.settings.today_image
-  assign future_image = section.settings.future_image
+  assign today_image_mobile = section.settings.today_image_mobile
+  assign today_image_render = today_image | default: today_image_mobile
   assign today_background = section.settings.today_background
+  assign today_background_mobile = section.settings.today_background_mobile
+  assign today_background_render = today_background | default: today_background_mobile
   assign video_poster = section.settings.video_poster
+  assign video_poster_mobile = section.settings.video_poster_mobile
+  assign video_poster_render = video_poster | default: video_poster_mobile
   assign cta_image = section.settings.cta_image
+  assign cta_image_mobile = section.settings.cta_image_mobile
+  assign cta_image_render = cta_image | default: cta_image_mobile
 -%}
 
 <section class="story-page story-page--{{ section.id }}" data-section-id="{{ section.id }}">
   <div class="story-page__hero">
-    {%- if hero_image != blank -%}
-      {{
-        hero_image
-        | image_url: width: 3000
-        | image_tag:
-          class: 'story-page__media',
-          loading: 'eager',
-          fetchpriority: 'high',
-          widths: '750, 1100, 1500, 2000, 3000'
-      }}
+    {%- if hero_image_render != blank -%}
+      <picture class="story-page__media">
+        {%- if hero_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ hero_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ hero_image_render | image_url: width: 3000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 2000, 3000' }}
+      </picture>
     {%- endif -%}
     <h1 class="story-page__hero-title">{{ section.settings.hero_title | escape }}</h1>
   </div>
 
   <div class="story-page__intro">
+    {%- if who_background_render != blank -%}
+      <picture class="story-page__intro-background">
+        {%- if who_background_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ who_background_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ who_background_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1100, 1500, 2000, 3000' }}
+      </picture>
+    {%- endif -%}
     <div class="story-page__container story-page__intro-grid">
       <div class="story-page__intro-copy">
         <h2>{{ section.settings.intro_heading | escape }}</h2>
         <div class="story-page__rte">{{ section.settings.intro_text }}</div>
       </div>
       <div class="story-page__intro-image story-page__rounded-image">
-        {%- if who_image != blank -%}
-          {{ who_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+        {%- if who_image_render != blank -%}
+          <picture>
+            {%- if who_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ who_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+            {{ who_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+          </picture>
         {%- endif -%}
       </div>
     </div>
   </div>
 
+  <div class="story-page__anchor">
+    <div class="story-page__container story-page__anchor-inner">
+      <div class="story-page__anchor-image story-page__rounded-image">
+        {%- if anchor_image_render != blank -%}
+          <picture>
+            {%- if anchor_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ anchor_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+            {{ anchor_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+          </picture>
+        {%- endif -%}
+      </div>
+      <div class="story-page__anchor-copy">
+        <p class="story-page__eyebrow">{{ section.settings.anchor_eyebrow | escape }}</p>
+        <h2>{{ section.settings.anchor_heading | escape }}</h2>
+        <p>{{ section.settings.anchor_text | escape }}</p>
+      </div>
+    </div>
+  </div>
+
   <div class="story-page__mission">
-    {%- if today_background != blank -%}
-      {{
-        today_background
-        | image_url: width: 3000
-        | image_tag: class: 'story-page__mission-background', loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000'
-      }}
+    {%- if today_background_render != blank -%}
+      <picture class="story-page__mission-background">
+        {%- if today_background_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ today_background_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ today_background_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000' }}
+      </picture>
     {%- endif -%}
     <div class="story-page__container story-page__mission-grid">
       <article class="story-page__mission-item">
         <div class="story-page__rounded-image">
-          {%- if today_image != blank -%}
-            {{ today_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+          {%- if today_image_render != blank -%}
+            <picture>
+              {%- if today_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ today_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+              {{ today_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+            </picture>
           {%- endif -%}
         </div>
         <div class="story-page__mission-copy">
@@ -60,11 +101,6 @@
         </div>
       </article>
       <article class="story-page__mission-item story-page__mission-item--future">
-        <div class="story-page__rounded-image">
-          {%- if future_image != blank -%}
-            {{ future_image | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
-          {%- endif -%}
-        </div>
         <div class="story-page__mission-copy">
           <p class="story-page__eyebrow">{{ section.settings.future_eyebrow | escape }}</p>
           <h2>{{ section.settings.future_heading | escape }}</h2>
@@ -89,12 +125,12 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'feature' -%}
             <article class="story-page__feature-card" {{ block.shopify_attributes }}>
-              {%- if block.settings.image != blank -%}
-                {{
-                  block.settings.image
-                  | image_url: width: 1600
-                  | image_tag: class: 'story-page__feature-image', loading: 'lazy', widths: '700, 1000, 1600'
-                }}
+              {%- assign feature_image_render = block.settings.image | default: block.settings.image_mobile -%}
+              {%- if feature_image_render != blank -%}
+                <picture class="story-page__feature-image">
+                  {%- if block.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 1000 }}">{%- endif -%}
+                  {{ feature_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+                </picture>
               {%- endif -%}
               <div class="story-page__feature-overlay"></div>
               <div class="story-page__feature-content">
@@ -124,8 +160,8 @@
     {%- elsif section.settings.video_url != blank -%}
       <video
         class="story-page__video-element"
-        {% if video_poster != blank %}
-          poster="{{ video_poster | image_url: width: 2000 }}"
+        {% if video_poster_render != blank %}
+          poster="{{ video_poster_render | image_url: width: 2000 }}"
         {% endif %}
         controls
         playsinline
@@ -133,22 +169,20 @@
       >
         <source src="{{ section.settings.video_url | escape }}" type="video/mp4">
       </video>
-    {%- elsif video_poster != blank -%}
-      {{
-        video_poster
-        | image_url: width: 2400
-        | image_tag: class: 'story-page__media', loading: 'lazy', widths: '750, 1200, 1800, 2400'
-      }}
+    {%- elsif video_poster_render != blank -%}
+      <picture class="story-page__media">
+        {%- if video_poster_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ video_poster_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ video_poster_render | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400' }}
+      </picture>
     {%- endif -%}
   </div>
 
   <div class="story-page__cta">
-    {%- if cta_image != blank -%}
-      {{
-        cta_image
-        | image_url: width: 3000
-        | image_tag: class: 'story-page__media', loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000'
-      }}
+    {%- if cta_image_render != blank -%}
+      <picture class="story-page__media">
+        {%- if cta_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ cta_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ cta_image_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000' }}
+      </picture>
     {%- endif -%}
     <div class="story-page__cta-overlay"></div>
     <div class="story-page__container story-page__cta-content">
@@ -187,7 +221,6 @@
   .story-page--{{ section.id }} .story-page__mission-background { position: absolute; inset: 0; opacity: .2; }
   .story-page--{{ section.id }} .story-page__mission-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(38px, 7vw, 110px); }
   .story-page--{{ section.id }} .story-page__mission-item { display: flex; flex-direction: column; gap: 32px; }
-  .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { height: clamp(260px, 26vw, 420px); box-shadow: 7px 7px 24px rgba(142,194,215,.46); background: #fff; }
   .story-page--{{ section.id }} .story-page__mission-copy { color: var(--story-muted); }
   .story-page--{{ section.id }} .story-page__eyebrow { color: var(--story-blue); font-size: 14px; line-height: 1.1; font-weight: 800; }
   .story-page--{{ section.id }} .story-page__mission-copy h2 { margin: 15px 0 20px; color: var(--story-ink); font-size: clamp(34px, 3.35vw, 54px); line-height: 1; font-weight: 800; letter-spacing: -.045em; }
@@ -269,12 +302,12 @@
     .story-page--{{ section.id }} .story-page__intro-copy h2 { font-size: 72px; line-height: 76px; }
     .story-page--{{ section.id }} .story-page__rte { margin-top: 32px; font-size: 20px; line-height: 1.45; }
     .story-page--{{ section.id }} .story-page__rte p + p { margin-top: 20px; }
-    .story-page--{{ section.id }} .story-page__intro-image { position: absolute; top: 100px; right: 0; width: min(31.94%, 460px); min-height: 720px; height: 720px; border-radius: 24px; }
+    .story-page--{{ section.id }} .story-page__intro-image { position: absolute; top: 100px; right: 0; width: 460px; min-height: 720px; height: 720px; border-radius: 24px; }
 
     .story-page--{{ section.id }} .story-page__mission { height: 1289px; padding: 0; }
     .story-page--{{ section.id }} .story-page__mission-grid { display: block; height: 100%; }
     .story-page--{{ section.id }} .story-page__mission-item { display: contents; }
-    .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { position: absolute; width: min(55.56%, 800px); height: 500px; margin: 0; border-radius: 24px; }
+    .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { position: absolute; width: 840px; height: 540px; margin: 0; border-radius: 24px; }
     .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__rounded-image { top: 100px; left: 0; }
     .story-page--{{ section.id }} .story-page__mission-item--future .story-page__rounded-image { top: 680px; right: 0; }
     .story-page--{{ section.id }} .story-page__mission-copy { position: absolute; width: min(37.15%, 535px); }
@@ -354,6 +387,97 @@
   }
 {% endstyle %}
 
+{% style %}
+  /* Updated Figma composition (1920px desktop / 375px mobile) and responsive image fallbacks. */
+  .story-page--{{ section.id }} picture { display: block; }
+  .story-page--{{ section.id }} picture > img { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__intro { position: relative; isolation: isolate; overflow: hidden; }
+  .story-page--{{ section.id }} .story-page__intro-background { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; }
+  .story-page--{{ section.id }} .story-page__intro-background > img { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__intro-grid { z-index: 1; }
+  .story-page--{{ section.id }} .story-page__anchor { position: relative; overflow: hidden; color: var(--story-ink); background: #fff; }
+  .story-page--{{ section.id }} .story-page__anchor-copy h2 { margin: 23px 0 28px; font-family: "Inter", Arial, sans-serif; font-weight: 700; letter-spacing: 0; }
+  .story-page--{{ section.id }} .story-page__anchor-copy > p:last-child { color: var(--story-muted); font-family: "Inter", Arial, sans-serif; font-weight: 400; }
+  .story-page--{{ section.id }} .story-page__feature-image { display: block; }
+  .story-page--{{ section.id }} .story-page__feature-image > img { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__feature-overlay { display: none; }
+
+  @media screen and (min-width: 750px) {
+    .story-page--{{ section.id }} .story-page__intro { height: 920px; }
+    .story-page--{{ section.id }} .story-page__anchor { height: 700px; }
+    .story-page--{{ section.id }} .story-page__anchor-inner { position: relative; height: 100%; }
+    .story-page--{{ section.id }} .story-page__anchor-image { position: absolute; top: 100px; right: 0; width: 800px; height: 500px; border-radius: 24px; }
+    .story-page--{{ section.id }} .story-page__anchor-copy { position: absolute; top: 203px; left: 0; width: min(37.15%, 535px); }
+    .story-page--{{ section.id }} .story-page__anchor-copy h2 { margin: 12px 0 20px; font-size: 54px; line-height: 1.2; }
+    .story-page--{{ section.id }} .story-page__anchor-copy > p:last-child { font-size: 20px; line-height: 1.45; }
+
+    .story-page--{{ section.id }} .story-page__mission { height: 700px; }
+    .story-page--{{ section.id }} .story-page__mission-grid { position: relative; display: block; }
+    .story-page--{{ section.id }} .story-page__mission-item { display: contents; }
+    .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { position: absolute; top: 100px; left: 0; width: 800px; height: 500px; border-radius: 24px; }
+    .story-page--{{ section.id }} .story-page__mission-copy { position: absolute; left: auto; right: 0; width: min(37.15%, 535px); }
+    .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__mission-copy { top: 124px; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy { top: 350px; left: auto; width: min(37.15%, 535px); }
+    .story-page--{{ section.id }} .story-page__mission-copy h2 { margin: 12px 0 25px; font-size: 54px; line-height: 1.2; }
+    .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { font-size: 20px; font-weight: 400; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy h2 { margin: 12px 0 20px; }
+
+    .story-page--{{ section.id }} .story-page__technology { height: 862px; }
+    .story-page--{{ section.id }} .story-page__technology-heading { top: 135px; }
+    .story-page--{{ section.id }} .story-page__feature-grid { top: 347px; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-card { display: block; height: auto; min-height: 0; overflow: visible; border-radius: 0; background: transparent; }
+    .story-page--{{ section.id }} .story-page__feature-image { position: static; width: 100%; height: 280px; overflow: hidden; border-radius: 24px; }
+    .story-page--{{ section.id }} .story-page__feature-content { position: static; width: auto; margin-top: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-content h3 { font-size: 24px; line-height: 37px; }
+    .story-page--{{ section.id }} .story-page__feature-content p { width: auto; margin-top: 12px; font-size: 16px; font-weight: 400; line-height: 1.4; }
+    .story-page--{{ section.id }} .story-page__feature-card:nth-child(4) .story-page__feature-content { position: static; }
+
+    .story-page--{{ section.id }} .story-page__cta { min-height: 800px; height: 800px; }
+    .story-page--{{ section.id }} .story-page__cta-content { padding-top: 296px; }
+    .story-page--{{ section.id }} .story-page__cta-content p { margin-top: 20px; }
+    .story-page--{{ section.id }} .story-page__cta-button { margin-top: 40px; background: #0c0e12; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .story-page--{{ section.id }} .story-page__intro { height: 792px; }
+    .story-page--{{ section.id }} .story-page__intro-image { top: 492px; }
+    .story-page--{{ section.id }} .story-page__rte { font-weight: 400; }
+
+    .story-page--{{ section.id }} .story-page__anchor { height: 568px; }
+    .story-page--{{ section.id }} .story-page__anchor-inner { position: relative; height: 100%; }
+    .story-page--{{ section.id }} .story-page__anchor-image { position: absolute; top: 60px; left: 0; width: 100%; height: 220px; min-height: 0; border-radius: 12px; }
+    .story-page--{{ section.id }} .story-page__anchor-copy { position: absolute; top: 300px; left: 0; width: 100%; }
+    .story-page--{{ section.id }} .story-page__anchor-copy h2 { margin: 8px 0 11px; font-size: 24px; line-height: 1.2; }
+    .story-page--{{ section.id }} .story-page__anchor-copy > p:last-child { font-size: 16px; line-height: 1.45; }
+
+    .story-page--{{ section.id }} .story-page__mission { height: 623px; }
+    .story-page--{{ section.id }} .story-page__mission-grid { position: relative; display: block; }
+    .story-page--{{ section.id }} .story-page__mission-item { display: contents; }
+    .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { top: 60px; height: 220px; }
+    .story-page--{{ section.id }} .story-page__mission-copy { right: auto; left: 0; width: 100%; }
+    .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__mission-copy { top: 300px; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy { top: 456px; left: 0; width: 100%; }
+    .story-page--{{ section.id }} .story-page__mission-copy h2 { margin: 8px 0 14px; font-size: 24px; line-height: 1; }
+    .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { font-size: 16px; font-weight: 400; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy h2 { margin: 8px 0 26px; }
+
+    .story-page--{{ section.id }} .story-page__technology { height: 1793px; }
+    .story-page--{{ section.id }} .story-page__technology-heading { top: 83px; }
+    .story-page--{{ section.id }} .story-page__feature-grid { top: 159px; grid-template-rows: 381px 381px 376px 376px; gap: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-card { display: block; height: auto; min-height: 0; overflow: visible; border-radius: 0; background: transparent; }
+    .story-page--{{ section.id }} .story-page__feature-image { position: static; width: 100%; height: 280px; overflow: hidden; border-radius: 12px; }
+    .story-page--{{ section.id }} .story-page__feature-card:nth-child(2) .story-page__feature-image { height: 285px; }
+    .story-page--{{ section.id }} .story-page__feature-content { position: static; width: auto; margin-top: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-content h3 { font-size: 24px; line-height: 24px; }
+    .story-page--{{ section.id }} .story-page__feature-content p { width: auto; margin-top: 12px; font-size: 14px; font-weight: 500; line-height: 1.4; }
+    .story-page--{{ section.id }} .story-page__feature-card:nth-child(4) .story-page__feature-content { position: static; }
+
+    .story-page--{{ section.id }} .story-page__cta-content { padding-top: 81px; }
+    .story-page--{{ section.id }} .story-page__cta-content p { margin-top: 42px; }
+    .story-page--{{ section.id }} .story-page__cta-button { background: #0c0e12; }
+  }
+{% endstyle %}
+
 {% schema %}
 {
   "name": "Brand story page",
@@ -361,7 +485,8 @@
   "class": "story-page-section",
   "settings": [
     { "type": "header", "content": "Hero" },
-    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image (desktop)" },
+    { "type": "image_picker", "id": "hero_image_mobile", "label": "Hero image (mobile)" },
     { "type": "text", "id": "hero_title", "label": "Hero title", "default": "Ventral. Level the Sea." },
     { "type": "header", "content": "Who we are" },
     { "type": "text", "id": "intro_heading", "label": "Heading", "default": "WHO WE ARE" },
@@ -371,10 +496,21 @@
       "label": "Text",
       "default": "<p>You go to the water for clarity. To focus. To disconnect. But water never stays still. Wind shifts. Currents move. Your position drifts. And when your craft feels unsteady, so do you. Ventral changes that.</p><p>We design every vessel for greater control on the water. Intelligent systems help you manage your position in wind and current. Precision handling helps you stay where you want when the water won't. It responds instantly to your input—so every adjustment feels natural. When the platform feels steady, your focus returns to the mission, not the motion.</p><p>We build for confidence on the water. To fish spots others skip. To explore places most never reach. Stand steady. Move freely. Go farther.</p><p>Ventral. Level the Sea.</p>"
     },
-    { "type": "image_picker", "id": "who_image", "label": "Image" },
+    { "type": "image_picker", "id": "who_background", "label": "Background image (desktop)" },
+    { "type": "image_picker", "id": "who_background_mobile", "label": "Background image (mobile)" },
+    { "type": "image_picker", "id": "who_image", "label": "Scene image (desktop)" },
+    { "type": "image_picker", "id": "who_image_mobile", "label": "Scene image (mobile)" },
+    { "type": "header", "content": "Anchor with ease" },
+    { "type": "image_picker", "id": "anchor_image", "label": "Image (desktop)" },
+    { "type": "image_picker", "id": "anchor_image_mobile", "label": "Image (mobile)" },
+    { "type": "text", "id": "anchor_eyebrow", "label": "Eyebrow", "default": "ANCHOR WITH EASE" },
+    { "type": "text", "id": "anchor_heading", "label": "Heading", "default": "Hold Your Spot, Not Your Paddle." },
+    { "type": "textarea", "id": "anchor_text", "label": "Text", "default": "Marine-grade GPS holds your position within ±1 m through wind and current. Five modes — Anchor Lock, Course & Speed Hold, Track Recording, Bidirectional Track Following, and Drift." },
     { "type": "header", "content": "Mission" },
-    { "type": "image_picker", "id": "today_background", "label": "Section background image" },
-    { "type": "image_picker", "id": "today_image", "label": "Today's adventure image" },
+    { "type": "image_picker", "id": "today_background", "label": "Section background image (desktop)" },
+    { "type": "image_picker", "id": "today_background_mobile", "label": "Section background image (mobile)" },
+    { "type": "image_picker", "id": "today_image", "label": "Today's adventure image (desktop)" },
+    { "type": "image_picker", "id": "today_image_mobile", "label": "Today's adventure image (mobile)" },
     { "type": "text", "id": "today_eyebrow", "label": "Today's adventure eyebrow", "default": "TODAY’S ADVENTURE" },
     { "type": "text", "id": "today_heading", "label": "Today's adventure heading", "default": "What we do today?" },
     {
@@ -383,7 +519,6 @@
       "label": "Today's adventure text",
       "default": "To design and build marine platforms engineered for stability control, and confidence in changing water conditions."
     },
-    { "type": "image_picker", "id": "future_image", "label": "Looking ahead image" },
     { "type": "text", "id": "future_eyebrow", "label": "Looking ahead eyebrow", "default": "LOOKING AHEAD" },
     {
       "type": "text",
@@ -414,9 +549,11 @@
       "label": "MP4 URL fallback",
       "info": "Used only when no Shopify-hosted video is selected."
     },
-    { "type": "image_picker", "id": "video_poster", "label": "Video poster / fallback image" },
+    { "type": "image_picker", "id": "video_poster", "label": "Video poster / fallback image (desktop)" },
+    { "type": "image_picker", "id": "video_poster_mobile", "label": "Video poster / fallback image (mobile)" },
     { "type": "header", "content": "CTA" },
-    { "type": "image_picker", "id": "cta_image", "label": "Background image" },
+    { "type": "image_picker", "id": "cta_image", "label": "Background image (desktop)" },
+    { "type": "image_picker", "id": "cta_image_mobile", "label": "Background image (mobile)" },
     { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Adventure Starts Here." },
     {
       "type": "textarea",
@@ -433,7 +570,8 @@
       "name": "Technology card",
       "limit": 4,
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "image", "label": "Image (desktop)" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile)" },
         { "type": "text", "id": "heading", "label": "Heading", "default": "ADVANCED STABILITY" },
         {
           "type": "textarea",
