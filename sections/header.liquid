@@ -45,6 +45,85 @@
       border-bottom-color: {{ settings.color_borders }};
     }
   {%- endif -%}
+
+  /* Keep desktop navigation in the Header's centre column. The layout-level
+     overrides use a fixed grid, so these component rules protect the menu
+     from being compressed or clipped by the left and right header areas. */
+  @media only screen and (min-width: 769px) {
+    #SiteHeader .header-layout {
+      grid-template-columns: minmax(180px, 240px) minmax(0, 1fr) minmax(180px, 260px);
+    }
+
+    #SiteHeader .header-item--navigation {
+      min-width: 0;
+      justify-self: stretch;
+      overflow: visible;
+    }
+
+    #SiteHeader .site-navigation {
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+  }
+
+  #SiteHeader .header-item--icons {
+    gap: 12px;
+  }
+
+  #SiteHeader .header-action-button {
+    min-height: 28px;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 16px;
+    border: 0;
+    border-radius: 7px;
+    background: var(--header-action-button-background, #fff);
+    color: var(--header-action-button-text, #000);
+    font-family: Inter, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  #SiteHeader .header-action-button:hover,
+  #SiteHeader .header-action-button:focus-visible {
+    color: var(--header-action-button-text, #000);
+    opacity: .9;
+  }
+
+  /* The legacy section still owns the page's dealer popup. Hide only its
+     former header UI so its existing popup markup and behaviour remain live. */
+  .header-new-section .header-new,
+  .header-new-section .header-new__spacer,
+  .header-new-section .header-new__floating-icon {
+    display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    #SiteHeader .header-item--icons {
+      gap: 8px;
+    }
+
+    #SiteHeader .header-action-button {
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    #SiteHeader .site-header__logo a.site-header__logo-link--ventral {
+      max-width: 130px;
+    }
+
+    #SiteHeader .site-header__logo a.site-header__logo-link--ventral img {
+      width: 130px;
+      height: auto;
+    }
+  }
 {%- endstyle -%}
 
 <div data-section-id="{{ section.id }}" data-section-type="header">
@@ -112,6 +191,7 @@
 
           <div class="header-item header-item--icons">
             {%- render 'header-icons', section: section -%}
+            {%- render 'header-action-button', section: section -%}
           </div>
         </div>
 
@@ -129,6 +209,7 @@
         </div>
       </div>
     </header>
+
   </div>
 </div>
 
@@ -252,6 +333,50 @@
       "label": "t:sections.header.settings.sticky_collection.label",
       "info": "t:sections.header.settings.sticky_collection.info",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Header action button"
+    },
+    {
+      "type": "text",
+      "id": "action_button_text",
+      "label": "Button text",
+      "default": "Find a dealer"
+    },
+    {
+      "type": "select",
+      "id": "action_button_type",
+      "label": "Button action",
+      "default": "link",
+      "options": [
+        { "value": "link", "label": "Link" },
+        { "value": "modal", "label": "Existing page popup" },
+        { "value": "anchor", "label": "Anchor" }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "action_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "action_button_anchor_id",
+      "label": "Anchor ID",
+      "info": "Enter the target element ID without #."
+    },
+    {
+      "type": "color",
+      "id": "action_button_background_color",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "action_button_text_color",
+      "label": "Button text",
+      "default": "#000000"
     }
   ],
   "blocks": [

@@ -11,6 +11,7 @@
   "sections": {
     "header_new_HPhhy7": {
       "type": "header-new",
+      "disabled": true,
       "name": "Header new",
       "settings": {
         "logo": "shopify://shop_images/Frame_126.png",

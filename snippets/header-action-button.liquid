@@ -1,0 +1,23 @@
+{%- liquid
+  assign button_text = section.settings.action_button_text
+  assign button_type = section.settings.action_button_type
+  assign button_link = section.settings.action_button_link
+  assign anchor_id = section.settings.action_button_anchor_id | remove: '#'
+-%}
+
+{%- if button_text != blank -%}
+  {%- capture button_style -%}--header-action-button-background: {{ section.settings.action_button_background_color }}; --header-action-button-text: {{ section.settings.action_button_text_color }};{%- endcapture -%}
+  {%- if button_type == 'modal' -%}
+    <button class="header-new__button header-action-button" type="button" style="{{ button_style }}" aria-haspopup="dialog" data-header-new-modal-open>
+      {{ button_text | escape }}
+    </button>
+  {%- elsif button_type == 'anchor' -%}
+    <a class="header-new__button header-action-button" style="{{ button_style }}" href="#{{ anchor_id | default: 'MainContent' }}">
+      {{ button_text | escape }}
+    </a>
+  {%- else -%}
+    <a class="header-new__button header-action-button" style="{{ button_style }}" href="{{ button_link | default: routes.root_url }}">
+      {{ button_text | escape }}
+    </a>
+  {%- endif -%}
+{%- endif -%}
