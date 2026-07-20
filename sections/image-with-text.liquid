@@ -1,0 +1,437 @@
+{% schema %}
+
+{
+    "name": "Index image plus video",
+    "tag": "section",
+    "limit": 1,
+    "settings": [
+    ],
+    "blocks": [
+        {
+            "name": "Image with text",
+            "type": "image-with-text",
+            "settings": [
+                {
+                  "type": "image_picker",
+                  "id": "image-pc",
+                  "label": "Image PC"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image-m",
+                  "label": "Image Mobile"
+                },
+                {
+                  "type": "text",
+                  "id": "title",
+                  "label": "Title"
+                },
+                {
+                  "type": "text",
+                  "id": "description",
+                  "label": "Description"
+                },
+                {
+                  "type": "text",
+                  "id": "btn-text",
+                  "label": "Button text"
+                },
+                {
+                  "type": "url",
+                  "id": "btn-url",
+                  "label": "Button url"
+                }
+            ]
+        },
+        {
+            "name": "Video",
+            "type": "video",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "poster-pc",
+                    "label": "Poster PC"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "poster-m",
+                    "label": "Poster Mobile"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "enable_video_looping",
+                    "label": "Loop video",
+                    "default": false
+                },
+                {
+                    "type": "header",
+                    "content": "Shopify-hosted video"
+                },
+                {
+                    "type": "video",
+                    "id": "video-pc",
+                    "label": "Video PC"
+                },
+                {
+                    "type": "video",
+                    "id": "video-m",
+                    "label": "Video Mobile"
+                },
+                {
+                    "type": "header",
+                    "content": "Or embed video from URL"
+                },
+                {
+                    "type": "paragraph",
+                    "content": "Shows when no Shopify-hosted video is selected"
+                },
+                {
+                    "type": "video_url",
+                    "id": "video_url",
+                    "accept": ["youtube", "vimeo"],
+                    "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+                    "label": "URL",
+                    "info": "Use a YouTube or Vimeo URL"
+                },
+                {
+                    "type": "text",
+                    "id": "description",
+                    "label": "Video alt text",
+                    "info": "Describe the video for those using screen readers"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index image plus video",
+            "settings": {},
+            "blocks": [
+            ]
+        }
+    ],
+    "locales": {},
+    "enabled_on": {
+        "templates": ["*"]
+    }
+}
+
+{% endschema %}
+
+{{ 'Poppins-Bold.ttf' | asset_url | preload_tag: as: 'font', type: 'font/ttf' }}
+{{ 'Poppins-Medium.ttf' | asset_url | preload_tag: as: 'font', type: 'font/ttf' }}
+{{ 'Inter-Bold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
+{{ 'Inter-SemiBold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
+
+{%- style -%}
+    #image-text-video .image-with-text {
+        color: #FFFFFF;
+    }
+    #image-text-video .image-with-text h2 {
+        font-family: Poppins;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 120%;
+        letter-spacing: 0;
+    }
+    #image-text-video .image-with-text p {
+        font-family: Poppins;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 140%;
+        letter-spacing: 0;
+        color: #FFFFFF;
+    }
+    #image-text-video .image-with-text a {
+        padding: 6px 18px;
+        border-radius: 12px;
+        font-family: Inter;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 0;
+        text-transform: none;
+        background: #1F4E79;
+    }
+    #image-text-video .video a {
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+        background: url(https://cdn.shopify.com/s/files/1/0754/1089/9266/files/player_m.png?v=1768545090) center / cover no-repeat;
+    }
+    #image-text-video .video a:hover {
+        opacity: 0.8;
+    }
+    #image-text-video .video .video__object {
+        display: none;
+        cursor: pointer;
+    }
+    #image-text-video deferred-media iframe {
+        height: 100%;
+    }
+    @media screen and (min-width: 640px) {
+        #image-text-video .image-with-text .uk-overlay {
+            margin-bottom: 20px;
+        }
+        #image-text-video .image-with-text h2 {
+            font-family: Inter;
+            font-weight: 700;
+            /* font-size: 60px; */
+            font-size: 36px;
+        }
+        #image-text-video .image-with-text p {
+            font-size: 24px;
+        }
+        #image-text-video .image-with-text a {
+            font-size: 24px;
+        }
+        #image-text-video .video a {
+            width: 46px;
+            height: 46px;
+            background: url(https://cdn.shopify.com/s/files/1/0754/1089/9266/files/player.png?v=1768476277) center / cover no-repeat;
+        }
+    }
+    @media screen and (min-width: 1600px) {
+        #image-text-video .image-with-text .uk-overlay {
+            margin-bottom: 40px;
+        }
+    }
+    @media screen and (max-width: 639.98px) {
+        #image-text-video .video picture > img {
+            aspect-ratio: auto;
+        }
+    }
+{%- endstyle -%}
+
+<div id="image-text-video" class="">
+    <div class="uk-grid-collapse uk-child-width-expand@s" uk-grid>
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'image-with-text' -%}
+        <div class="outer image-with-text">
+            <div class="inner uk-position-relative">
+                <picture>
+                    <source media="(max-width: 639.98px)" srcset="{{ block.settings.image-m | image_url: width: 375, height: 375 }}">
+                    <img class="uk-width-1-1" src="{{ block.settings.image-pc | image_url: width: 960, height: 800 }}" width="960" height="800" alt="{{ block.settings.image-pc.alt | escape }}">
+                </picture>
+                <div class="uk-overlay uk-light uk-position-bottom-center uk-text-center">
+                    <h2 class="uk-h2 uk-margin-small">{{ block.settings.title }}</h2>
+                    <p class="uk-margin-small">{{ block.settings.description }}</p>
+                    <a class="uk-button uk-button-small uk-border-rounded" href="{{ block.settings.btn-url }}">{{ block.settings.btn-text }}</a>
+                </div>
+            </div>
+        </div>
+            {%- when 'video' -%}
+        <div class="outer video">
+            {%- liquid
+                assign video_pc = block.settings.video-pc
+                assign video_m = block.settings.video-m
+                assign video_pc_id = video_pc.id
+                assign video_m_id = video_m.id
+                assign external_video_id = block.settings.video_url.id
+                assign video_alt = block.settings.video-pc.alt | default: block.settings.video-m.alt
+                assign poster_alt = "Video poster of " | append: video_alt | escape
+                assign player_aria_label = "Load video: " | append: block.settings.description | escape
+            -%}
+            <deferred-media class="inner uk-display-block uk-position-relative" data-video-PC-id="{{ video_pc_id }}" data-video-M-id="{{ video_m_id }}">
+                <div class="video__cover">
+                    <picture class="poster">
+                        <source srcset="{{ block.settings.poster-m | image_url: width: 375, height: 260 }}" media="(max-width: 639.98px)" width="375" height="260">
+                        <img class="uk-width-1-1" src="{{ block.settings.poster-pc | image_url: width: 960, height: 800 }}" width="960" height="800" alt="{{ poster_alt | escape }}">
+                    </picture>
+                    <a class="icon-player js-no-transition uk-position-center" href="javascript:void(0);" aria-label="{{ player_aria_label }}"></a>
+                </div>
+                <div class="video__object uk-position-cover uk-position-z-index">
+                    <template>
+                        {%- if block.settings.video-pc == null and block.settings.video-m == null and block.settings.video_url != null -%}
+                            {%- liquid
+                                assign loop = ''
+                                if block.settings.enable_video_looping
+                                    assign loop = '&loop=1&playlist=' | append: external_video_id
+                                endif
+                            -%}
+                            {%- if block.settings.video_url.type == 'youtube' -%}
+                                <iframe
+                                src="https://www.youtube.com/embed/{{ external_video_id }}?enablejsapi=1&autoplay=1{{ loop }}"
+                                class="js-youtube"
+                                allow="autoplay; encrypted-media"
+                                allowfullscreen
+                                title="{{ block.settings.description | escape }}"
+                                uk-responsive
+                                ></iframe>
+                            {%- else -%}
+                                <iframe
+                                src="https://player.vimeo.com/video/{{ external_video_id }}?autoplay=1{{ loop }}"
+                                class="js-vimeo"
+                                allow="autoplay; encrypted-media"
+                                allowfullscreen
+                                title="{{ block.settings.description | escape }}"
+                                uk-responsive
+                                ></iframe>
+                            {%- endif -%}
+                        {%- else -%}
+                            {%- assign video_pc_source = video_pc.sources | where: 'format', 'mp4' | sort: 'width' | last -%}
+                            {%- assign video_pc_url = video_pc_source.url -%}
+                            {%- assign video_m_source = video_m.sources | where: 'format', 'mp4' | sort: 'height' | last -%}
+                            {%- assign video_m_url = video_m_source.url -%}
+                            {%- assign video_pc_preview_image = video_pc.preview_image -%}
+                            {%- assign video_m_preview_image = video_m.preview_image -%}
+                            <video class="uk-width-1-1 uk-height-1-1" playsinline="playsinline"{%- if block.settings.enable_video_looping %} loop="loop"{%- endif %} muted="muted" preload="metadata">
+                                <source src="{{ video_m_url }}" type="video/mp4" media="(max-width: 639.98px)" width="375" height="260">
+                                <source src="{{ video_pc_url }}" type="video/mp4" width="960" height="800">
+                                <img
+                                    src="{{ video_pc_preview_image | image_url: width: 960, height: 800 }}"
+                                    srcset="
+                                        {{ video_m_preview_image | image_url: width: 375, height: 260 }} 375w,
+                                        {{ video_m_preview_image | image_url: width: 750, height: 520 }} 750w,
+                                        {{ video_pc_preview_image | image_url: width: 960, height: 800 }} 960w,
+                                        {{ video_pc_preview_image | image_url: width: 1920, height: 1600 }} 1920w
+                                    "
+                                    sizes="
+                                        (max-width: 639.98px) 375px,
+                                        960px
+                                    "
+                                    width=""
+                                    height=""
+                                    alt="{{ video_alt | escape }}"
+                                >
+                            </video>
+                        {%- endif -%}
+                    </template>
+                </div>
+            </deferred-media>
+        </div>
+            {%- else -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+</div>
+
+<script type="module">
+(function() {
+    function pauseAllMedia() {
+        document.querySelectorAll('.js-youtube').forEach((video) => {
+            video.contentWindow.postMessage('{"event":"command","func":"' + 'pauseVideo' + '","args":""}', '*');
+        });
+        document.querySelectorAll('.js-vimeo').forEach((video) => {
+            video.contentWindow.postMessage('{"method":"pause"}', '*');
+        });
+        document.querySelectorAll('video').forEach((video) => video.pause());
+        document.querySelectorAll('product-model').forEach((model) => {
+            if (model.modelViewerUI) model.modelViewerUI.pause();
+        });
+    }
+    class DeferredMedia extends HTMLElement {
+        constructor() {
+            super();
+            const playerButton = this.querySelector('a.icon-player');
+            if (!playerButton) return;
+            playerButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.loadContent();
+            });
+        }
+
+        loadContent(focus = true) {
+            pauseAllMedia();
+            if (!this.getAttribute('loaded')) {
+                var div = document.createElement('div'),
+                    template = this.querySelector('template')
+                div.appendChild(template.content.firstElementChild.cloneNode(true))
+
+                var media = template.parentElement.appendChild(div.querySelector('video, model-viewer, iframe'))
+                this.setAttribute('loaded', true)
+                this.showMedia(media)
+                if (focus) media.focus()
+                if (media.nodeName == 'VIDEO') {
+                    media.muted = false
+                    if (!media.oncanplay) {
+                        media.oncanplay = function (event) {
+                            media.setAttribute('canplay', true)
+                            if (media.loop) { //注意重播时也会触发回调，既然循环播放可保持canplay状态不变
+                                media.oncanplay = null
+                            }
+                        }
+                    }
+                    media.addEventListener('click', (e) => {
+                        e.stopPropagation()
+                        this.hideMedia(media)
+                        if (!media.paused) { // 仅当视频正在播放时才暂停
+                            media.pause()
+                            media.muted = true
+                        }
+                    })
+                    // force autoplay for safari
+                    media.play().catch(err => {
+                        this.addEventListener('click', this.manualPlay)
+                        this.click() //手动触发
+                    })
+                }
+                if (media.hasAttribute('autoplay')) {
+                    this.setMediaObserver()
+                }
+
+                // Workaround for safari iframe bug
+                const formerStyle = media.getAttribute('style');
+                media.setAttribute('style', 'display: block;');
+                window.setTimeout(() => {
+                    media.setAttribute('style', formerStyle);
+                }, 0);
+            } else {
+                this.manualPlay()
+            }
+        }
+
+        showMedia(media) {
+            if (!media) return
+            media.parentElement.style.display = 'block'
+        }
+
+        hideMedia(media) {
+            if (!media) return
+            media.parentElement.style.display = 'none'
+        }
+
+        setMediaObserver() {
+            var mediaObserver = new IntersectionObserver(function (entries, observer) {
+                if (entries[0].intersectionRatio <= 0) return
+                var action,
+                    media = deferredMedia.lastElementChild
+                if (['video', 'audio'].indexOf(media.localName) > -1) {
+                    if (entries[0].isIntersecting) {
+                        action = media.paused ? 'play' : ''
+                    } else {
+                        action = media.paused ? '' : 'pause'
+                    }
+                    switch (action) {
+                        case 'play':
+                            media.play()
+                            break
+                        case 'pause':
+                            if (media.getAttribute('canplay')) {
+                                media.pause()
+                            }
+                        break
+                    }
+                }
+            }, {threshold: [1]}),
+            deferredMedia = this
+            mediaObserver.observe(this)
+        }
+
+        manualPlay(event) {
+            const video = this.querySelector('video')
+            if (video && video.paused) {
+                this.showMedia(video)
+                video.muted = false
+                video.play()
+            }
+        }
+    }
+    if (!window.customElements.get('deferred-media')) {
+        customElements.define('deferred-media', DeferredMedia);
+    }
+})();
+</script>
