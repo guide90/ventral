@@ -154,7 +154,6 @@
           autoplay: true,
           loop: true,
           muted: true,
-          controls: true,
           playsinline: true
       }}
     {%- elsif section.settings.video_url != blank -%}
@@ -163,7 +162,9 @@
         {% if video_poster_render != blank %}
           poster="{{ video_poster_render | image_url: width: 2000 }}"
         {% endif %}
-        controls
+        autoplay
+        loop
+        muted
         playsinline
         preload="metadata"
       >
@@ -241,8 +242,8 @@
   .story-page--{{ section.id }} .story-page__anchor { color: var(--story-ink); background: #fff; }
   .story-page--{{ section.id }} .story-page__anchor-copy > p:last-child,
   .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { color: var(--story-muted); font-weight: 400; }
-  .story-page--{{ section.id }} .story-page__mission { position: relative; overflow: hidden; background: #f5f7fb; }
-  .story-page--{{ section.id }} .story-page__mission-background { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .2; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__mission { position: relative; overflow: hidden; }
+  .story-page--{{ section.id }} .story-page__mission-background { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; }
   .story-page--{{ section.id }} .story-page__eyebrow { color: var(--story-blue); font-size: 14px; font-weight: 700; line-height: 15px; }
   .story-page--{{ section.id }} .story-page__technology { color: #fff; background: #0c0e12; }
   .story-page--{{ section.id }} .story-page__technology-heading-mobile { display: none; }
