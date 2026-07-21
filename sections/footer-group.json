@@ -13,15 +13,7 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {
-        "logo": "shopify://shop_images/Frame_126.png",
-        "newsletter_heading": "Subscribe for Launch Updates",
-        "email_placeholder": "Enter your email address",
-        "instagram_link": "https://www.instagram.com/ventral.official/#",
-        "facebook_link": "https://www.facebook.com/share/1E9Mco2cYE/",
-        "contact_email": "pr@ventral.com",
-        "address": "Address: 9800 International Drive, Suite 120, Orlando, FL, United States, 32819"
-      }
+      "settings": {}
     }
   },
   "order": [
