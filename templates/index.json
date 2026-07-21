@@ -9,8 +9,10 @@
  */
 {
   "sections": {
-    "pf-afddabb9": {
-      "type": "pf-afddabb9",
+    "header_new_HPhhy7": {
+      "type": "header-new",
+      "disabled": true,
+      "name": "Header new",
       "settings": {
         "pf_833bb399_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
         "pf_bee6de06_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",

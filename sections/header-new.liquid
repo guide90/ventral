@@ -194,7 +194,7 @@
       if (!section) return;
 
       var modal = section.querySelector('[data-header-new-modal]');
-      var openButtons = section.querySelectorAll('[data-header-new-modal-open]');
+      var openButtons = document.querySelectorAll('[data-header-new-modal-open]');
       var closeButtons = section.querySelectorAll('[data-header-new-modal-close]');
       if (!modal || !openButtons.length) return;
       var lastTrigger = null;
@@ -218,6 +218,7 @@
       };
 
       openButtons.forEach(function(button) {
+        button.setAttribute('aria-controls', modal.id);
         button.addEventListener('click', openModal);
       });
       closeButtons.forEach(function(button) {

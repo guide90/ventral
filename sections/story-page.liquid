@@ -1,0 +1,520 @@
+{%- liquid
+  assign hero_image = section.settings.hero_image
+  assign hero_image_mobile = section.settings.hero_image_mobile
+  assign hero_image_render = hero_image | default: hero_image_mobile
+  assign who_background = section.settings.who_background
+  assign who_background_mobile = section.settings.who_background_mobile
+  assign who_background_render = who_background | default: who_background_mobile
+  assign who_image = section.settings.who_image
+  assign who_image_mobile = section.settings.who_image_mobile
+  assign who_image_render = who_image | default: who_image_mobile
+  assign anchor_image = section.settings.anchor_image
+  assign anchor_image_mobile = section.settings.anchor_image_mobile
+  assign anchor_image_render = anchor_image | default: anchor_image_mobile
+  assign today_image = section.settings.today_image
+  assign today_image_mobile = section.settings.today_image_mobile
+  assign today_image_render = today_image | default: today_image_mobile
+  assign today_background = section.settings.today_background
+  assign today_background_mobile = section.settings.today_background_mobile
+  assign today_background_render = today_background | default: today_background_mobile
+  assign video_poster = section.settings.video_poster
+  assign video_poster_mobile = section.settings.video_poster_mobile
+  assign video_poster_render = video_poster | default: video_poster_mobile
+  assign cta_image = section.settings.cta_image
+  assign cta_image_mobile = section.settings.cta_image_mobile
+  assign cta_image_render = cta_image | default: cta_image_mobile
+-%}
+
+<section class="story-page story-page--{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="story-page__hero">
+    {%- if hero_image_render != blank -%}
+      <picture class="story-page__media">
+        {%- if hero_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ hero_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ hero_image_render | image_url: width: 3000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 2000, 3000' }}
+      </picture>
+    {%- endif -%}
+    <h1 class="story-page__hero-title">{{ section.settings.hero_title | escape }}</h1>
+  </div>
+
+  <div class="story-page__intro">
+    {%- if who_background_render != blank -%}
+      <picture class="story-page__intro-background">
+        {%- if who_background_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ who_background_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ who_background_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1100, 1500, 2000, 3000' }}
+      </picture>
+    {%- endif -%}
+    <div class="story-page__container story-page__intro-grid">
+      <div class="story-page__intro-copy">
+        <h2>{{ section.settings.intro_heading | escape }}</h2>
+        <div class="story-page__rte">{{ section.settings.intro_text }}</div>
+      </div>
+      <div class="story-page__intro-image story-page__rounded-image">
+        {%- if who_image_render != blank -%}
+          <picture>
+            {%- if who_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ who_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+            {{ who_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+          </picture>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="story-page__anchor">
+    <div class="story-page__container story-page__anchor-inner">
+      <div class="story-page__anchor-image story-page__rounded-image">
+        {%- if anchor_image_render != blank -%}
+          <picture>
+            {%- if anchor_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ anchor_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+            {{ anchor_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+          </picture>
+        {%- endif -%}
+      </div>
+      <div class="story-page__anchor-copy">
+        <p class="story-page__eyebrow">{{ section.settings.anchor_eyebrow | escape }}</p>
+        <h2>{{ section.settings.anchor_heading | escape }}</h2>
+        <p>{{ section.settings.anchor_text | escape }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="story-page__mission">
+    {%- if today_background_render != blank -%}
+      <picture class="story-page__mission-background">
+        {%- if today_background_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ today_background_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ today_background_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000' }}
+      </picture>
+    {%- endif -%}
+    <div class="story-page__container story-page__mission-grid">
+      <article class="story-page__mission-item">
+        <div class="story-page__rounded-image">
+          {%- if today_image_render != blank -%}
+            <picture>
+              {%- if today_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ today_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+              {{ today_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+            </picture>
+          {%- endif -%}
+        </div>
+        <div class="story-page__mission-copy">
+          <p class="story-page__eyebrow">{{ section.settings.today_eyebrow | escape }}</p>
+          <h2>{{ section.settings.today_heading | escape }}</h2>
+          <p>{{ section.settings.today_text | escape }}</p>
+        </div>
+      </article>
+      <article class="story-page__mission-item story-page__mission-item--future">
+        <div class="story-page__mission-copy">
+          <p class="story-page__eyebrow">{{ section.settings.future_eyebrow | escape }}</p>
+          <h2>{{ section.settings.future_heading | escape }}</h2>
+          <p>{{ section.settings.future_text | escape }}</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="story-page__technology">
+    <div class="story-page__container">
+      <p class="story-page__eyebrow">{{ section.settings.technology_eyebrow | escape }}</p>
+      <h2 class="story-page__technology-heading">
+        <span class="story-page__technology-heading-desktop">
+          {{- section.settings.technology_heading | escape | newline_to_br -}}
+        </span>
+        <span class="story-page__technology-heading-mobile">
+          {{- section.settings.technology_heading_mobile | escape -}}
+        </span>
+      </h2>
+      <div class="story-page__feature-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature' -%}
+            <article class="story-page__feature-card" {{ block.shopify_attributes }}>
+              {%- assign feature_image_render = block.settings.image | default: block.settings.image_mobile -%}
+              {%- if feature_image_render != blank -%}
+                <picture class="story-page__feature-image">
+                  {%- if block.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 1000 }}">{%- endif -%}
+                  {{ feature_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+                </picture>
+              {%- endif -%}
+              <div class="story-page__feature-overlay"></div>
+              <div class="story-page__feature-content">
+                <h3>{{ block.settings.heading | escape }}</h3>
+                <p>{{ block.settings.text | escape }}</p>
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="story-page__video">
+    {%- if section.settings.video != blank -%}
+      {{
+        section.settings.video
+        | video_tag:
+          class: 'story-page__video-element',
+          image_size: '2000x',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          playsinline: true
+      }}
+    {%- elsif section.settings.video_url != blank -%}
+      <video
+        class="story-page__video-element"
+        {% if video_poster_render != blank %}
+          poster="{{ video_poster_render | image_url: width: 2000 }}"
+        {% endif %}
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="metadata"
+      >
+        <source src="{{ section.settings.video_url | escape }}" type="video/mp4">
+      </video>
+    {%- elsif video_poster_render != blank -%}
+      <picture class="story-page__media">
+        {%- if video_poster_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ video_poster_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ video_poster_render | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400' }}
+      </picture>
+    {%- endif -%}
+  </div>
+
+  <div class="story-page__cta">
+    {%- if cta_image_render != blank -%}
+      <picture class="story-page__media">
+        {%- if cta_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ cta_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {{ cta_image_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000' }}
+      </picture>
+    {%- endif -%}
+    <div class="story-page__cta-overlay"></div>
+    <div class="story-page__container story-page__cta-content">
+      <h2>{{ section.settings.cta_heading | escape }}</h2>
+      <p>{{ section.settings.cta_text | escape }}</p>
+      {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+        <a class="story-page__cta-button" href="{{ section.settings.cta_link }}">
+          {{- section.settings.cta_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  /* Content uses normal flow. Positioning is reserved for section background media and overlays. */
+  .story-page--{{ section.id }} {
+    --story-blue: #3983fb;
+    --story-navy: #001326;
+    --story-ink: #06142e;
+    --story-muted: #a5a9b7;
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    font-family: "Inter", Arial, sans-serif;
+    overflow: hidden;
+  }
+  .story-page--{{ section.id }} *,
+  .story-page--{{ section.id }} *::before,
+  .story-page--{{ section.id }} *::after { box-sizing: border-box; }
+  .story-page--{{ section.id }} h1,
+  .story-page--{{ section.id }} h2,
+  .story-page--{{ section.id }} h3,
+  .story-page--{{ section.id }} p { margin: 0; }
+  .story-page--{{ section.id }} img,
+  .story-page--{{ section.id }} video { display: block; max-width: 100%; }
+  .story-page--{{ section.id }} picture { display: block; }
+  .story-page--{{ section.id }} picture > img { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__container { width: min(calc(100% - 24px), 1440px); margin: 0 auto; }
+  .story-page--{{ section.id }} .story-page__media { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__hero,
+  .story-page--{{ section.id }} .story-page__cta { position: relative; isolation: isolate; overflow: hidden; color: #fff; }
+  .story-page--{{ section.id }} .story-page__hero { background: #0a1c2a; }
+  .story-page--{{ section.id }} .story-page__hero > .story-page__media,
+  .story-page--{{ section.id }} .story-page__cta > .story-page__media { position: absolute; inset: 0; z-index: -2; }
+  .story-page--{{ section.id }} .story-page__hero::after { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(0, 18, 35, .16); }
+  .story-page--{{ section.id }} .story-page__hero-title { font-family: "Inter", Arial, sans-serif; font-weight: 900; letter-spacing: 0; }
+  .story-page--{{ section.id }} .story-page__intro { position: relative; isolation: isolate; overflow: hidden; color: #fff; background: var(--story-navy); }
+  .story-page--{{ section.id }} .story-page__intro-background { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; }
+  .story-page--{{ section.id }} .story-page__intro-background > img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .story-page--{{ section.id }} .story-page__intro-copy h2,
+  .story-page--{{ section.id }} .story-page__mission-copy h2,
+  .story-page--{{ section.id }} .story-page__technology-heading,
+  .story-page--{{ section.id }} .story-page__feature-content h3,
+  .story-page--{{ section.id }} .story-page__cta-content h2 { font-family: "Inter", Arial, sans-serif; font-weight: 700; letter-spacing: 0; }
+  .story-page--{{ section.id }} .story-page__rte { color: rgba(255,255,255,.88); font-weight: 500; }
+  .story-page--{{ section.id }} .story-page__rounded-image { overflow: hidden; border-radius: 24px; background: rgba(255,255,255,.16); }
+  .story-page--{{ section.id }} .story-page__rounded-image img { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__anchor { color: var(--story-ink); background: #fff; }
+  .story-page--{{ section.id }} .story-page__anchor-copy > p:last-child,
+  .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { color: var(--story-muted); font-weight: 400; }
+  .story-page--{{ section.id }} .story-page__mission { position: relative; isolation: isolate; overflow: hidden; background: #f5f7fb; }
+  .story-page--{{ section.id }} .story-page__mission-background { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__mission-background > img { object-position: center top; }
+  .story-page--{{ section.id }} .story-page__eyebrow { color: var(--story-blue); font-size: 14px; font-weight: 700; line-height: 15px; }
+  .story-page--{{ section.id }} .story-page__technology { color: #fff; background: #0c0e12; }
+  .story-page--{{ section.id }} .story-page__technology-heading-mobile { display: none; }
+  .story-page--{{ section.id }} .story-page__feature-card { min-width: 0; }
+  .story-page--{{ section.id }} .story-page__feature-image { display: block; overflow: hidden; border-radius: 24px; background: #19303e; }
+  .story-page--{{ section.id }} .story-page__feature-image > img { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__feature-overlay { display: none; }
+  .story-page--{{ section.id }} .story-page__feature-content p { color: rgba(255,255,255,.8); }
+  .story-page--{{ section.id }} .story-page__video { aspect-ratio: 16 / 9; background: #fff; }
+  .story-page--{{ section.id }} .story-page__video-element { width: 100%; height: 100%; object-fit: cover; }
+  .story-page--{{ section.id }} .story-page__cta { background: #002543; }
+  .story-page--{{ section.id }} .story-page__cta > .story-page__media > img { object-position: center 65%; }
+  .story-page--{{ section.id }} .story-page__cta-overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,37,67,.96), rgba(1,12,21,.08)); }
+  .story-page--{{ section.id }} .story-page__cta-content p { color: rgba(255,255,255,.8); font-weight: 500; }
+  .story-page--{{ section.id }} .story-page__cta-button { display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; color: #fff; background: #0c0e12; font-weight: 600; line-height: 1; text-decoration: none; }
+
+  .story-page--{{ section.id }} .story-page__hero { min-height: 0; display: grid; aspect-ratio: 16 / 9; place-items: center; }
+  .story-page--{{ section.id }} .story-page__hero-title { position: static; transform: none; margin: 0; padding: 0 24px; text-align: center; white-space: normal; }
+  .story-page--{{ section.id }} .story-page__intro-grid { position: relative; z-index: 1; display: grid; height: auto; }
+  .story-page--{{ section.id }} .story-page__mission-grid { position: relative; z-index: 1; }
+  .story-page--{{ section.id }} .story-page__intro-copy,
+  .story-page--{{ section.id }} .story-page__intro-image,
+  .story-page--{{ section.id }} .story-page__anchor-image,
+  .story-page--{{ section.id }} .story-page__anchor-copy,
+  .story-page--{{ section.id }} .story-page__mission-copy,
+  .story-page--{{ section.id }} .story-page__technology-heading,
+  .story-page--{{ section.id }} .story-page__feature-grid,
+  .story-page--{{ section.id }} .story-page__cta-content { position: static; }
+  .story-page--{{ section.id }} .story-page__intro,
+  .story-page--{{ section.id }} .story-page__anchor,
+  .story-page--{{ section.id }} .story-page__mission,
+  .story-page--{{ section.id }} .story-page__technology,
+  .story-page--{{ section.id }} .story-page__cta { height: auto; }
+  .story-page--{{ section.id }} .story-page__feature-grid { grid-template-rows: none; }
+
+  @media screen and (min-width: 750px) {
+    .story-page--{{ section.id }} .story-page__hero { justify-items: start; }
+    .story-page--{{ section.id }} .story-page__hero-title { margin-left: max(24px, calc((100% - 1440px) / 2 + 289px)); padding: 0; font-size: 80px; line-height: 1.3; text-align: left; }
+    .story-page--{{ section.id }} .story-page__intro { min-height: 920px; padding: 100px 0; }
+    .story-page--{{ section.id }} .story-page__intro-grid { grid-template-columns: minmax(0, 890px) minmax(0, 460px); align-items: center; gap: min(6.25vw, 90px); }
+    .story-page--{{ section.id }} .story-page__intro-copy { width: auto; }
+    .story-page--{{ section.id }} .story-page__intro-copy h2 { font-size: 72px; line-height: 76px; }
+    .story-page--{{ section.id }} .story-page__rte { margin-top: 32px; font-size: 20px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__rte p + p { margin-top: 20px; }
+    .story-page--{{ section.id }} .story-page__intro-image { width: 100%; min-height: 720px; height: 720px; }
+
+    .story-page--{{ section.id }} .story-page__anchor { min-height: 700px; padding: 100px 0; }
+    .story-page--{{ section.id }} .story-page__anchor-inner { display: grid; height: auto; grid-template-columns: minmax(0, 535px) minmax(0, 800px); align-items: center; gap: min(7.5vw, 105px); }
+    .story-page--{{ section.id }} .story-page__anchor-image { grid-column: 2; grid-row: 1; width: 100%; height: 500px; min-height: 0; }
+    .story-page--{{ section.id }} .story-page__anchor-copy { grid-column: 1; grid-row: 1; width: auto; }
+    .story-page--{{ section.id }} .story-page__anchor-copy h2 { margin: 12px 0 20px; font-size: 54px; line-height: 1.2; font-weight: 700; }
+    .story-page--{{ section.id }} .story-page__anchor-copy > p:last-child { font-size: 20px; line-height: 1.45; }
+
+    .story-page--{{ section.id }} .story-page__mission { min-height: 700px; padding: 100px 0; }
+    .story-page--{{ section.id }} .story-page__mission-grid { display: grid; min-height: 500px; grid-template-columns: minmax(0, 800px) minmax(0, 535px); grid-template-rows: 226px 244px; align-items: start; column-gap: min(7.5vw, 105px); row-gap: 30px; }
+    .story-page--{{ section.id }} .story-page__mission-item { display: contents; }
+    .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { position: static; grid-column: 1; grid-row: 1 / span 2; width: 100%; height: 500px; margin: 0; }
+    .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__mission-copy { grid-column: 2; grid-row: 1; margin-top: 24px; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy { grid-column: 2; grid-row: 2; width: auto; margin-top: -6px; }
+    .story-page--{{ section.id }} .story-page__mission-copy { width: auto; }
+    .story-page--{{ section.id }} .story-page__mission-copy h2 { margin: 12px 0 25px; font-size: 54px; line-height: 1.2; }
+    .story-page--{{ section.id }} .story-page__mission-item:first-child .story-page__mission-copy h2 { line-height: 1; }
+    .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { font-size: 20px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy h2 { margin: 12px 0 20px; }
+
+    .story-page--{{ section.id }} .story-page__technology { min-height: 862px; padding: 100px 0 0; }
+    .story-page--{{ section.id }} .story-page__technology > .story-page__container { height: auto; }
+    .story-page--{{ section.id }} .story-page__technology > .story-page__container > .story-page__eyebrow { position: static; }
+    .story-page--{{ section.id }} .story-page__technology-heading { margin: 20px 0 60px; font-size: 72px; line-height: 76px; }
+    .story-page--{{ section.id }} .story-page__feature-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-card { min-width: 0; }
+    .story-page--{{ section.id }} .story-page__feature-image { width: 100%; height: 280px; }
+    .story-page--{{ section.id }} .story-page__feature-content { margin-top: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-content h3 { font-size: 24px; line-height: 37px; }
+    .story-page--{{ section.id }} .story-page__feature-content p { margin-top: 12px; font-size: 16px; font-weight: 400; line-height: 1.4; }
+
+    .story-page--{{ section.id }} .story-page__cta { display: block; height: 800px; min-height: 800px; padding: 296px 0 0; }
+    .story-page--{{ section.id }} .story-page__cta-content { padding: 0; }
+    .story-page--{{ section.id }} .story-page__cta-content h2 { font-size: 68px; line-height: 1; white-space: nowrap; }
+    .story-page--{{ section.id }} .story-page__cta-content p { max-width: 731px; margin-top: 20px; font-size: 20px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__cta-button { height: 50px; margin-top: 40px; padding: 2px 28px; font-size: 24px; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .story-page--{{ section.id }} .story-page__cta > .story-page__media > img { object-position: center; }
+    .story-page--{{ section.id }} .story-page__rounded-image,
+    .story-page--{{ section.id }} .story-page__feature-image { border-radius: 12px; }
+    .story-page--{{ section.id }} .story-page__hero { min-height: 812px; aspect-ratio: auto; }
+    .story-page--{{ section.id }} .story-page__hero-title { margin-left: 0; padding: 0 12px; font-size: 36px; line-height: 1.3; text-align: center; }
+    .story-page--{{ section.id }} .story-page__intro { min-height: 792px; padding: 60px 0; }
+    .story-page--{{ section.id }} .story-page__intro-grid { display: grid; grid-template-columns: 1fr; gap: 36px; }
+    .story-page--{{ section.id }} .story-page__intro-copy { width: auto; }
+    .story-page--{{ section.id }} .story-page__intro-copy h2 { font-size: 36px; line-height: 36px; }
+    .story-page--{{ section.id }} .story-page__rte { margin-top: 20px; font-size: 14px; font-weight: 400; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__rte p + p { margin-top: 12px; }
+    .story-page--{{ section.id }} .story-page__intro-image { width: 100%; min-height: 240px; height: 240px; }
+
+    .story-page--{{ section.id }} .story-page__anchor { min-height: 568px; padding: 60px 0; }
+    .story-page--{{ section.id }} .story-page__anchor-inner { display: grid; height: auto; grid-template-columns: 1fr; gap: 20px; }
+    .story-page--{{ section.id }} .story-page__anchor-image { width: 100%; height: 220px; min-height: 0; }
+    .story-page--{{ section.id }} .story-page__anchor-copy { width: auto; }
+    .story-page--{{ section.id }} .story-page__anchor-copy h2 { margin: 8px 0 11px; font-size: 24px; line-height: 1.2; font-weight: 700;}
+    .story-page--{{ section.id }} .story-page__anchor-copy > p:last-child { font-size: 16px; line-height: 1.45; }
+
+    .story-page--{{ section.id }} .story-page__mission { min-height: 623px; padding: 60px 0; }
+    .story-page--{{ section.id }} .story-page__mission-grid { display: grid; height: auto; grid-template-columns: 1fr; gap: 20px; }
+    .story-page--{{ section.id }} .story-page__mission-item { display: contents; }
+    .story-page--{{ section.id }} .story-page__mission-item .story-page__rounded-image { position: static; width: 100%; height: 220px; margin: 0; }
+    .story-page--{{ section.id }} .story-page__mission-copy,
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy { width: auto; }
+    .story-page--{{ section.id }} .story-page__mission-copy h2 { margin: 8px 0 14px; font-size: 24px; line-height: 1; }
+    .story-page--{{ section.id }} .story-page__mission-copy > p:last-child { font-size: 16px; line-height: 1.45; }
+    .story-page--{{ section.id }} .story-page__mission-item--future .story-page__mission-copy h2 { margin: 8px 0 26px; }
+
+    .story-page--{{ section.id }} .story-page__technology { min-height: 1793px; padding: 60px 0; }
+    .story-page--{{ section.id }} .story-page__technology > .story-page__container { height: auto; }
+    .story-page--{{ section.id }} .story-page__technology > .story-page__container > .story-page__eyebrow { position: static; }
+    .story-page--{{ section.id }} .story-page__technology-heading { margin: 8px 0 40px; font-size: 36px; line-height: 36px; }
+    .story-page--{{ section.id }} .story-page__feature-grid { display: grid; grid-template-columns: 1fr; grid-template-rows: 381px 381px 396px 376px; gap: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-card { height: auto; }
+    .story-page--{{ section.id }} .story-page__feature-image { height: 280px; }
+    .story-page--{{ section.id }} .story-page__feature-card:nth-child(2) .story-page__feature-image { height: 285px; }
+    .story-page--{{ section.id }} .story-page__feature-card:nth-child(4) { margin-top: -20px; }
+    .story-page--{{ section.id }} .story-page__feature-content { margin-top: 20px; }
+    .story-page--{{ section.id }} .story-page__feature-content h3 { font-size: 24px; line-height: 24px; }
+    .story-page--{{ section.id }} .story-page__feature-content p { margin-top: 12px; font-size: 14px; font-weight: 500; line-height: 1.4; }
+
+    .story-page--{{ section.id }} .story-page__cta { display: block; height: 660px; min-height: 660px; padding: 60px 0 0; }
+    .story-page--{{ section.id }} .story-page__cta-content { padding: 0; }
+    .story-page--{{ section.id }} .story-page__cta-content h2 { max-width: 351px; font-size: 36px; line-height: 1.2; }
+    .story-page--{{ section.id }} .story-page__cta-content p { max-width: 351px; margin-top: 20px; font-size: 14px; line-height: 1.4; }
+    .story-page--{{ section.id }} .story-page__cta-button { margin-top: 20px; padding: 8px 14px; font-size: 16px; }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Brand story page",
+  "tag": "section",
+  "class": "story-page-section",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image (desktop)" },
+    { "type": "image_picker", "id": "hero_image_mobile", "label": "Hero image (mobile)" },
+    { "type": "text", "id": "hero_title", "label": "Hero title", "default": "Ventral. Level the Sea." },
+    { "type": "header", "content": "Who we are" },
+    { "type": "text", "id": "intro_heading", "label": "Heading", "default": "WHO WE ARE" },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Text",
+      "default": "<p>You go to the water for clarity. To focus. To disconnect. But water never stays still. Wind shifts. Currents move. Your position drifts. And when your craft feels unsteady, so do you. Ventral changes that.</p><p>We design every vessel for greater control on the water. Intelligent systems help you manage your position in wind and current. Precision handling helps you stay where you want when the water won't. It responds instantly to your input—so every adjustment feels natural. When the platform feels steady, your focus returns to the mission, not the motion.</p><p>We build for confidence on the water. To fish spots others skip. To explore places most never reach. Stand steady. Move freely. Go farther.</p><p>Ventral. Level the Sea.</p>"
+    },
+    { "type": "image_picker", "id": "who_background", "label": "Background image (desktop)" },
+    { "type": "image_picker", "id": "who_background_mobile", "label": "Background image (mobile)" },
+    { "type": "image_picker", "id": "who_image", "label": "Scene image (desktop)" },
+    { "type": "image_picker", "id": "who_image_mobile", "label": "Scene image (mobile)" },
+    { "type": "header", "content": "Anchor with ease" },
+    { "type": "image_picker", "id": "anchor_image", "label": "Image (desktop)" },
+    { "type": "image_picker", "id": "anchor_image_mobile", "label": "Image (mobile)" },
+    { "type": "text", "id": "anchor_eyebrow", "label": "Eyebrow", "default": "ANCHOR WITH EASE" },
+    { "type": "text", "id": "anchor_heading", "label": "Heading", "default": "Hold Your Spot, Not Your Paddle." },
+    { "type": "textarea", "id": "anchor_text", "label": "Text", "default": "Marine-grade GPS holds your position within ±1 m through wind and current. Five modes — Anchor Lock, Course & Speed Hold, Track Recording, Bidirectional Track Following, and Drift." },
+    { "type": "header", "content": "Mission" },
+    { "type": "image_picker", "id": "today_background", "label": "Section background image (desktop)" },
+    { "type": "image_picker", "id": "today_background_mobile", "label": "Section background image (mobile)" },
+    { "type": "image_picker", "id": "today_image", "label": "Today's adventure image (desktop)" },
+    { "type": "image_picker", "id": "today_image_mobile", "label": "Today's adventure image (mobile)" },
+    { "type": "text", "id": "today_eyebrow", "label": "Today's adventure eyebrow", "default": "TODAY’S ADVENTURE" },
+    { "type": "text", "id": "today_heading", "label": "Today's adventure heading", "default": "What we do today?" },
+    {
+      "type": "textarea",
+      "id": "today_text",
+      "label": "Today's adventure text",
+      "default": "To design and build marine platforms engineered for stability control, and confidence in changing water conditions."
+    },
+    { "type": "text", "id": "future_eyebrow", "label": "Looking ahead eyebrow", "default": "LOOKING AHEAD" },
+    {
+      "type": "text",
+      "id": "future_heading",
+      "label": "Looking ahead heading",
+      "default": "The future we're building"
+    },
+    {
+      "type": "textarea",
+      "id": "future_text",
+      "label": "Looking ahead text",
+      "default": "To redefine confidence and control on the water."
+    },
+    { "type": "header", "content": "Core technology" },
+    { "type": "text", "id": "technology_eyebrow", "label": "Eyebrow", "default": "CORE TECHNOLOGY" },
+    {
+      "type": "text",
+      "id": "technology_heading",
+      "label": "Desktop heading",
+      "default": "The platform that\nkeeps water from deciding."
+    },
+    { "type": "text", "id": "technology_heading_mobile", "label": "Mobile heading", "default": "WHO WE ARE" },
+    { "type": "header", "content": "Video" },
+    { "type": "video", "id": "video", "label": "Shopify-hosted video" },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "MP4 URL fallback",
+      "info": "Used only when no Shopify-hosted video is selected."
+    },
+    { "type": "image_picker", "id": "video_poster", "label": "Video poster / fallback image (desktop)" },
+    { "type": "image_picker", "id": "video_poster_mobile", "label": "Video poster / fallback image (mobile)" },
+    { "type": "header", "content": "CTA" },
+    { "type": "image_picker", "id": "cta_image", "label": "Background image (desktop)" },
+    { "type": "image_picker", "id": "cta_image_mobile", "label": "Background image (mobile)" },
+    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Adventure Starts Here." },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "Text",
+      "default": "Join the adventure and discover more unforgettable moments on the water."
+    },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Join The Adventure" },
+    { "type": "url", "id": "cta_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Technology card",
+      "limit": 4,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image (desktop)" },
+        { "type": "image_picker", "id": "image_mobile", "label": "Image (mobile)" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "ADVANCED STABILITY" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Thoughtful hull design creates a steady, balanced platform on the water."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand story page",
+      "blocks": [
+        { "type": "feature" },
+        {
+          "type": "feature",
+          "settings": {
+            "heading": "ENGINEERED CONFIDENCE",
+            "text": "Purpose-built construction delivers strength, reliability, and confidence on the water."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "heading": "SMART POSITIONING",
+            "text": "A compact, integrated propulsion system makes positioning simple."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "heading": "LIMITLESS FREEDOM",
+            "text": "When the craft feels steady, your focus returns—freeing you to move, cast, and explore without limits."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
