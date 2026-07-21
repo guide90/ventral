@@ -82,14 +82,14 @@
       </div>
       <div>
         <h3>EXPLORE</h3>
-        <a href="{{ section.settings.about_link | default: routes.root_url }}">About Ventral</a>
-        <a href="{{ section.settings.reserve_link | default: routes.root_url }}">Reserve Now</a>
+        <a href="{{ section.settings.about_link | default: '/pages/story' }}">About Ventral</a>
+        <a href="{{ section.settings.reserve_link | default: 'https://kayak.ventral.com/reserve' }}">Reserve Now</a>
       </div>
-      <div>
+      {% comment %} <div>
         <h3>LEGAL</h3>
         <a href="{{ section.settings.terms_link | default: routes.root_url }}">Terms of Service</a>
         <a href="{{ section.settings.privacy_link | default: routes.root_url }}">Privacy Policy</a>
-      </div>
+      </div> {% endcomment %}
     </div>
   </div>
 </footer>
