@@ -32,11 +32,11 @@
         "sticky_index": true,
         "sticky_collection": true,
         "action_button_text": "Find a dealer",
-        "action_button_type": "modal",
+        "action_button_type": "link",
         "action_button_link": "",
-        "action_button_anchor_id": "shopify-section-template--21278680219736__index_subscribe_form_eBTNNL",
-        "action_button_background_color": "#ffffff",
-        "action_button_text_color": "#000000"
+        "action_button_anchor_id": "",
+        "action_button_background_color": "#000000",
+        "action_button_text_color": "#FFFFFF"
       }
     },
     "header_new_global": {
