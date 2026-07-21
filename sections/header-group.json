@@ -31,7 +31,7 @@
         "header_sticky": true,
         "sticky_index": true,
         "sticky_collection": true,
-        "action_button_text": "Find a dealer",
+        "action_button_text": "",
         "action_button_type": "link",
         "action_button_link": "",
         "action_button_anchor_id": "",
