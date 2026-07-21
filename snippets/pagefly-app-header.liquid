@@ -8,6 +8,8 @@
   assign isValidPageBuitByPageFly = true
   if template.suffix != 'blank' and template.suffix contains 'pf-'
     assign css_file_name = template.suffix | append: '-css'
+  elsif template.name == 'index' and content_for_layout contains '__pf-afddabb9'
+    assign css_file_name = 'pf-afddabb9-css'
   elsif template.name == 'index' and content_for_layout contains '__pagefly-home' or content_for_layout contains 'shopify-section-pagefly-home'
     assign css_file_name = 'pf-home-css'
   elsif template.name == 'password' and content_for_layout contains '__pagefly-password' or content_for_layout contains 'shopify-section-pagefly-password'

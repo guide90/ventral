@@ -1,0 +1,311 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "header_new_HPhhy7": {
+      "type": "header-new",
+      "name": "Header new",
+      "settings": {
+        "logo": "shopify://shop_images/Frame_126.png",
+        "logo_width": 190,
+        "mobile_logo_width": 150,
+        "logo_max_height": 42,
+        "button_text": "Find a dealer",
+        "button_type": "modal",
+        "button_link": "",
+        "floating_icon_image": "shopify://shop_images/20260714005.png",
+        "anchor_id": "shopify-section-template--21278680219736__index_subscribe_form_eBTNNL",
+        "modal_title": "Stay Connected with Ventral",
+        "modal_content": "Be the first to know about new product drops, exclusive offers, and more from Ventral.Enter your email address",
+        "modal_image": "shopify://shop_images/20260715001.png",
+        "modal_logo": "shopify://shop_images/Frame_126.png",
+        "modal_email_placeholder": "Enter your email",
+        "modal_button_label": "Subscribe",
+        "modal_customer_tags": "newsletter, popup",
+        "page_width": 1440,
+        "height": 56,
+        "mobile_height": 52,
+        "bottom_bar_height": 4,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "button_background_color": "#ffffff",
+        "button_text_color": "#000000"
+      }
+    },
+    "index_image_DXdJEA": {
+      "type": "index-image",
+      "name": "图片板块",
+      "settings": {
+        "pc_image": "shopify://shop_images/20262714010.png",
+        "mobile_image": "shopify://shop_images/20262714011.png"
+      }
+    },
+    "index-who-we-are": {
+      "type": "index-who-we-are",
+      "blocks": {
+        "copy-1": {
+          "type": "copy",
+          "settings": {
+            "text": "<p>You go to the water for clarity. To focus. To disconnect. But water never stays still. Wind shifts. Currents move. Your position drifts. And when your craft feels unsteady, so do you. Ventral changes that.</p>"
+          }
+        },
+        "copy-2": {
+          "type": "copy",
+          "settings": {
+            "text": "<p>We design every vessel for greater control on the water. Intelligent systems help you manage your position in wind and current. Precision handling helps you stay where you want when the water won't.</p>"
+          }
+        },
+        "copy-3": {
+          "type": "copy",
+          "settings": {
+            "text": "<p>It responds instantly to your input-so every adjustment feels natural. When the platform feels steady, your focus returns to the mission, not the motion.</p>"
+          }
+        },
+        "copy-4": {
+          "type": "copy",
+          "settings": {
+            "text": "<p>We build for confidence on the water. To fish spots others skip. To explore places most never reach. Stand steady. Move freely. Go farther. Ventral. Level the Sea.</p>"
+          }
+        },
+        "instagram": {
+          "type": "social",
+          "settings": {
+            "icon": "instagram",
+            "label": "ventral.official",
+            "link": "https://www.instagram.com/ventral.official/"
+          }
+        },
+        "facebook": {
+          "type": "social",
+          "settings": {
+            "icon": "facebook",
+            "label": "Ventral Marine",
+            "link": "facebook.com/share/1E9Mco2cYE/"
+          }
+        },
+        "email": {
+          "type": "social",
+          "settings": {
+            "icon": "email",
+            "label": "pr@ventral.com",
+            "link": "mailto:pr@ventral.com"
+          }
+        }
+      },
+      "block_order": [
+        "copy-1",
+        "copy-2",
+        "copy-3",
+        "copy-4",
+        "instagram",
+        "facebook",
+        "email"
+      ],
+      "settings": {
+        "eyebrow": "Who we are ?",
+        "heading": "We are Ventral",
+        "social_heading": "JOIN US",
+        "contact_heading": "CONTACT US",
+        "background_color": "#07101f",
+        "text_color": "#ffffff",
+        "accent_color": "#0f9bd8",
+        "mobile_card_color": "#39404b",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "index_image_ULhhwn": {
+      "type": "index-image",
+      "name": "图片板块",
+      "settings": {
+        "pc_image": "shopify://shop_images/20260714001.png",
+        "mobile_image": "shopify://shop_images/20260714002.png"
+      }
+    },
+    "index-carry-feature": {
+      "type": "index-carry-feature",
+      "settings": {
+        "pc_image": "shopify://shop_images/20260714003.png",
+        "mobile_image": "shopify://shop_images/20260714004.png",
+        "badge": "BUILT FOR EFFORTLESS ADVENTURES",
+        "heading": "Lightweight & Easy to Carry",
+        "text": "<p>Designed for effortless transport, so one person can carry the essentials with ease.</p>",
+        "background_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "accent_color": "#1d9bd7",
+        "page_width": 1260,
+        "image_width": 1260,
+        "border_radius": 12,
+        "padding_top": 84,
+        "padding_bottom": 0
+      }
+    },
+    "index-design-audience": {
+      "type": "index-design-audience",
+      "blocks": {
+        "weekend-anglers": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710100.png",
+            "title": "Weekend Anglers",
+            "text": "Smart craft for your weekend adventure."
+          }
+        },
+        "kayak-fishing-enthusiasts": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710200.png",
+            "title": "Kayak Fishing Enthusiasts",
+            "text": "Your ultimate craft to explore what's next."
+          }
+        },
+        "tech-forward-explorers": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710300.png",
+            "title": "Tech-Forward Explorers",
+            "text": "Empowering your next tech-fueled adventure."
+          }
+        },
+        "travel-ready-outdoor-users": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710400.png",
+            "title": "Travel-Ready Outdoor Users",
+            "text": "Ready when you are. Built for the wild."
+          }
+        }
+      },
+      "block_order": [
+        "weekend-anglers",
+        "kayak-fishing-enthusiasts",
+        "tech-forward-explorers",
+        "travel-ready-outdoor-users"
+      ],
+      "settings": {
+        "heading": "Designed for Anglers",
+        "text": "<p>Ventral is engineered for anglers who want smarter, more confident inflatable craft -rigged carefully to hold its place in the water,and move freedom to explore what's next.</p>"
+      }
+    },
+    "index_image_VmjCAk": {
+      "type": "index-image",
+      "name": "图片板块",
+      "settings": {
+        "pc_image": "shopify://shop_images/20260710-190233.png",
+        "mobile_image": "shopify://shop_images/20260710-190150.png"
+      }
+    },
+    "index-event-card": {
+      "type": "index-event-card",
+      "blocks": {
+        "location": {
+          "type": "event_item",
+          "settings": {
+            "icon": "location",
+            "label": "Location",
+            "value": "Orange County Convention Center, Orlando, Florida"
+          }
+        },
+        "date": {
+          "type": "event_item",
+          "settings": {
+            "icon": "date",
+            "label": "Date",
+            "value": "July 14-17, 2026"
+          }
+        },
+        "booth": {
+          "type": "event_item",
+          "settings": {
+            "icon": "booth",
+            "label": "Booth",
+            "value": "#1147"
+          }
+        },
+        "contact": {
+          "type": "event_item",
+          "settings": {
+            "icon": "contact",
+            "label": "Contact US",
+            "value": "pr@ventral.com"
+          }
+        }
+      },
+      "block_order": [
+        "location",
+        "date",
+        "booth",
+        "contact"
+      ],
+      "disabled": true,
+      "settings": {
+        "pc_image": "shopify://shop_images/20260710010.png",
+        "mobile_image": "shopify://shop_images/20260710009.png",
+        "eyebrow": "COME SEE VENTRAL",
+        "heading": "Meet Ventral at ICAST 2026",
+        "button_text": "Join the Launch Updates",
+        "button_action": "anchor",
+        "button_link": "",
+        "button_anchor_id": "shopify-section-template--21278923849816__index_subscribe_form_eBTNNL",
+        "section_background": "#f7f7f7",
+        "accent_color": "#2e97df",
+        "page_width": 1440,
+        "border_radius": 14,
+        "padding_top": 92,
+        "padding_bottom": 92
+      }
+    },
+    "index_image_pXG44W": {
+      "type": "index-image",
+      "name": "图片板块",
+      "settings": {
+        "pc_image": "shopify://shop_images/20260710008.png",
+        "mobile_image": "shopify://shop_images/20260710007.png"
+      }
+    },
+    "index_subscribe_form_eBTNNL": {
+      "type": "index-subscribe-form",
+      "name": "表单收集",
+      "settings": {
+        "logo_image": "shopify://shop_images/20260710011.png",
+        "heading": "Subscribe for Launch Updates",
+        "text": "<p>Be the first to know about new product drops, exclusive offers, and more from Ventral.</p>",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "customer_tags": "newsletter, launch-updates",
+        "success_message": "Thanks for subscribing.",
+        "logo_width": 300,
+        "mobile_logo_width": 180,
+        "page_width": 1360,
+        "section_height": 200,
+        "divider_height": 112,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "background_color": "#07101f",
+        "text_color": "#ffffff",
+        "divider_color": "#4d5664",
+        "input_border_color": "#ffffff",
+        "placeholder_color": "#b8c0cc"
+      }
+    }
+  },
+  "order": [
+    "header_new_HPhhy7",
+    "index_image_DXdJEA",
+    "index-who-we-are",
+    "index_image_ULhhwn",
+    "index-carry-feature",
+    "index-design-audience",
+    "index_image_VmjCAk",
+    "index-event-card",
+    "index_image_pXG44W",
+    "index_subscribe_form_eBTNNL"
+  ]
+}
