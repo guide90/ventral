@@ -29,8 +29,14 @@
   <div class="story-page__hero">
     {%- if hero_image_render != blank -%}
       <picture class="story-page__media">
-        {%- if hero_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ hero_image_mobile | image_url: width: 1000 }}">{%- endif -%}
-        {{ hero_image_render | image_url: width: 3000 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 2000, 3000' }}
+        {%- if hero_image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ hero_image_mobile | image_url: width: 1000 }}">
+        {%- endif -%}
+        {{
+          hero_image_render
+          | image_url: width: 3000
+          | image_tag: loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 2000, 3000'
+        }}
       </picture>
     {%- endif -%}
     <h1 class="story-page__hero-title">{{ section.settings.hero_title | escape }}</h1>
@@ -39,8 +45,14 @@
   <div class="story-page__intro">
     {%- if who_background_render != blank -%}
       <picture class="story-page__intro-background">
-        {%- if who_background_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ who_background_mobile | image_url: width: 1000 }}">{%- endif -%}
-        {{ who_background_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1100, 1500, 2000, 3000' }}
+        {%- if who_background_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ who_background_mobile | image_url: width: 1000 }}">
+        {%- endif -%}
+        {{
+          who_background_render
+          | image_url: width: 3000
+          | image_tag: loading: 'lazy', widths: '750, 1100, 1500, 2000, 3000'
+        }}
       </picture>
     {%- endif -%}
     <div class="story-page__container story-page__intro-grid">
@@ -51,7 +63,9 @@
       <div class="story-page__intro-image story-page__rounded-image">
         {%- if who_image_render != blank -%}
           <picture>
-            {%- if who_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ who_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+            {%- if who_image_mobile != blank -%}
+              <source media="(max-width: 749px)" srcset="{{ who_image_mobile | image_url: width: 1000 }}">
+            {%- endif -%}
             {{ who_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
           </picture>
         {%- endif -%}
@@ -64,7 +78,9 @@
       <div class="story-page__anchor-image story-page__rounded-image">
         {%- if anchor_image_render != blank -%}
           <picture>
-            {%- if anchor_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ anchor_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+            {%- if anchor_image_mobile != blank -%}
+              <source media="(max-width: 749px)" srcset="{{ anchor_image_mobile | image_url: width: 1000 }}">
+            {%- endif -%}
             {{ anchor_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
           </picture>
         {%- endif -%}
@@ -80,8 +96,14 @@
   <div class="story-page__mission">
     {%- if today_background_render != blank -%}
       <picture class="story-page__mission-background">
-        {%- if today_background_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ today_background_mobile | image_url: width: 1000 }}">{%- endif -%}
-        {{ today_background_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000' }}
+        {%- if today_background_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ today_background_mobile | image_url: width: 1000 }}">
+        {%- endif -%}
+        {{
+          today_background_render
+          | image_url: width: 3000
+          | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000'
+        }}
       </picture>
     {%- endif -%}
     <div class="story-page__container story-page__mission-grid">
@@ -89,7 +111,9 @@
         <div class="story-page__rounded-image">
           {%- if today_image_render != blank -%}
             <picture>
-              {%- if today_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ today_image_mobile | image_url: width: 1000 }}">{%- endif -%}
+              {%- if today_image_mobile != blank -%}
+                <source media="(max-width: 749px)" srcset="{{ today_image_mobile | image_url: width: 1000 }}">
+              {%- endif -%}
               {{ today_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
             </picture>
           {%- endif -%}
@@ -128,8 +152,17 @@
               {%- assign feature_image_render = block.settings.image | default: block.settings.image_mobile -%}
               {%- if feature_image_render != blank -%}
                 <picture class="story-page__feature-image">
-                  {%- if block.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 1000 }}">{%- endif -%}
-                  {{ feature_image_render | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '700, 1000, 1600' }}
+                  {%- if block.settings.image_mobile != blank -%}
+                    <source
+                      media="(max-width: 749px)"
+                      srcset="{{ block.settings.image_mobile | image_url: width: 1000 }}"
+                    >
+                  {%- endif -%}
+                  {{
+                    feature_image_render
+                    | image_url: width: 1600
+                    | image_tag: loading: 'lazy', widths: '700, 1000, 1600'
+                  }}
                 </picture>
               {%- endif -%}
               <div class="story-page__feature-overlay"></div>
@@ -172,7 +205,9 @@
       </video>
     {%- elsif video_poster_render != blank -%}
       <picture class="story-page__media">
-        {%- if video_poster_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ video_poster_mobile | image_url: width: 1000 }}">{%- endif -%}
+        {%- if video_poster_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ video_poster_mobile | image_url: width: 1000 }}">
+        {%- endif -%}
         {{ video_poster_render | image_url: width: 2400 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400' }}
       </picture>
     {%- endif -%}
@@ -181,8 +216,14 @@
   <div class="story-page__cta">
     {%- if cta_image_render != blank -%}
       <picture class="story-page__media">
-        {%- if cta_image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ cta_image_mobile | image_url: width: 1000 }}">{%- endif -%}
-        {{ cta_image_render | image_url: width: 3000 | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000' }}
+        {%- if cta_image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ cta_image_mobile | image_url: width: 1000 }}">
+        {%- endif -%}
+        {{
+          cta_image_render
+          | image_url: width: 3000
+          | image_tag: loading: 'lazy', widths: '750, 1200, 1800, 2400, 3000'
+        }}
       </picture>
     {%- endif -%}
     <div class="story-page__cta-overlay"></div>
@@ -410,7 +451,12 @@
     { "type": "image_picker", "id": "anchor_image_mobile", "label": "Image (mobile)" },
     { "type": "text", "id": "anchor_eyebrow", "label": "Eyebrow", "default": "ANCHOR WITH EASE" },
     { "type": "text", "id": "anchor_heading", "label": "Heading", "default": "Hold Your Spot, Not Your Paddle." },
-    { "type": "textarea", "id": "anchor_text", "label": "Text", "default": "Marine-grade GPS holds your position within ±1 m through wind and current. Five modes — Anchor Lock, Course & Speed Hold, Track Recording, Bidirectional Track Following, and Drift." },
+    {
+      "type": "textarea",
+      "id": "anchor_text",
+      "label": "Text",
+      "default": "Marine-grade GPS holds your position within ±1 m through wind and current. Five modes — Anchor Lock, Course & Speed Hold, Track Recording, Bidirectional Track Following, and Drift."
+    },
     { "type": "header", "content": "Mission" },
     { "type": "image_picker", "id": "today_background", "label": "Section background image (desktop)" },
     { "type": "image_picker", "id": "today_background_mobile", "label": "Section background image (mobile)" },

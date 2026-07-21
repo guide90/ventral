@@ -1,432 +1,469 @@
 {%- liquid
   assign logo = section.settings.logo
-  assign button_type = section.settings.button_type
-  assign button_text = section.settings.button_text
-  assign button_link = section.settings.button_link
-  assign anchor_id = section.settings.anchor_id | remove: '#'
-  assign floating_icon_image = section.settings.floating_icon_image
+  assign primary_menu = linklists[section.settings.menu]
   assign modal_image = section.settings.modal_image
   assign modal_logo = section.settings.modal_logo | default: logo
   assign modal_id = 'HeaderNewModal-' | append: section.id
   assign modal_form_id = 'HeaderNewModalForm-' | append: section.id
 -%}
 
-<header
-  class="header-new"
-  style="--header-new-bg: {{ section.settings.background_color }}; --header-new-text: {{ section.settings.text_color }}; --header-new-button-bg: {{ section.settings.button_background_color }}; --header-new-button-text: {{ section.settings.button_text_color }}; --header-new-page-width: {{ section.settings.page_width }}px; --header-new-desktop-height: {{ section.settings.height }}px; --header-new-mobile-height: {{ section.settings.mobile_height }}px; --header-new-logo-width: {{ section.settings.logo_width }}px; --header-new-mobile-logo-width: {{ section.settings.mobile_logo_width }}px; --header-new-logo-max-height: {{ section.settings.logo_max_height }}px;">
-  <div class="header-new__inner">
-    <a class="header-new__logo-link" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
-      {%- if logo != blank -%}
-        {{
-          logo
-          | image_url: width: section.settings.logo_width
-          | image_tag:
-            class: 'header-new__logo',
-            loading: 'eager',
-            widths: '120, 180, 240, 320, 420',
-            alt: shop.name
-        }}
-      {%- else -%}
-        <span class="header-new__logo-placeholder">{{ shop.name }}</span>
-      {%- endif -%}
-    </a>
-
-    {%- if button_text != blank -%}
-      {%- if button_type == 'modal' -%}
-        <button class="header-new__button" type="button" aria-haspopup="dialog" aria-controls="{{ modal_id }}" data-header-new-modal-open>
-          {{ button_text | escape }}
-        </button>
-      {%- elsif button_type == 'anchor' -%}
-        <a class="header-new__button" href="#{{ anchor_id | default: 'MainContent' }}">
-          {{ button_text | escape }}
-        </a>
-      {%- else -%}
-        <a class="header-new__button" href="{{ button_link | default: routes.root_url }}">
-          {{ button_text | escape }}
-        </a>
-      {%- endif -%}
-    {%- endif -%}
-  </div>
-</header>
-<div class="header-new__spacer" aria-hidden="true"></div>
-
-{%- if floating_icon_image != blank -%}
-  {%- if button_type == 'modal' -%}
-    <button class="header-new__floating-icon" type="button" aria-label="{{ button_text | default: 'Open' | escape }}" aria-haspopup="dialog" aria-controls="{{ modal_id }}" data-header-new-modal-open>
-      {{
-        floating_icon_image
-        | image_url: width: 120
-        | image_tag:
-          class: 'header-new__floating-icon-image',
-          loading: 'lazy',
-          widths: '60, 120',
-          alt: button_text
-      }}
-    </button>
-  {%- elsif button_type == 'anchor' -%}
-    <a class="header-new__floating-icon" href="#{{ anchor_id | default: 'MainContent' }}" aria-label="{{ button_text | default: 'Jump' | escape }}">
-      {{
-        floating_icon_image
-        | image_url: width: 120
-        | image_tag:
-          class: 'header-new__floating-icon-image',
-          loading: 'lazy',
-          widths: '60, 120',
-          alt: button_text
-      }}
-    </a>
-  {%- else -%}
-    <a class="header-new__floating-icon" href="{{ button_link | default: routes.root_url }}" aria-label="{{ button_text | default: 'Open link' | escape }}">
-      {{
-        floating_icon_image
-        | image_url: width: 120
-        | image_tag:
-          class: 'header-new__floating-icon-image',
-          loading: 'lazy',
-          widths: '60, 120',
-          alt: button_text
-      }}
-    </a>
-  {%- endif -%}
-{%- endif -%}
-
-<script>
-  (function() {
-    var section = document.getElementById('shopify-section-{{ section.id }}');
-    if (!section) return;
-
-    var header = section.querySelector('.header-new');
-    if (!header) return;
-
-    var setHeaderHeight = function() {
-      section.style.setProperty('--header-new-height', header.offsetHeight + 'px');
-    };
-
-    var updateSticky = function() {
-      setHeaderHeight();
-      section.classList.toggle('is-sticky', window.scrollY > header.offsetHeight);
-    };
-
-    setHeaderHeight();
-    updateSticky();
-    window.addEventListener('scroll', updateSticky, { passive: true });
-    window.addEventListener('resize', updateSticky);
-  })();
-</script>
-
-{%- if button_type == 'modal' -%}
-  <div class="header-new-modal" id="{{ modal_id }}" role="dialog" aria-modal="true" aria-labelledby="{{ modal_id }}-Title" aria-hidden="true" data-header-new-modal>
-    <button class="header-new-modal__overlay" type="button" aria-label="Close" data-header-new-modal-close></button>
-    <div class="header-new-modal__dialog{% if modal_image == blank %} header-new-modal__dialog--no-image{% endif %}">
-      <button class="header-new-modal__close" type="button" aria-label="Close" data-header-new-modal-close>
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.25"></circle><path d="m8.75 8.75 6.5 6.5m0-6.5-6.5 6.5"></path></svg>
-      </button>
-      {%- if modal_image != blank -%}
-        <div class="header-new-modal__media">
+<section class="ventral-header" data-section-id="{{ section.id }}" data-section-type="ventral-header">
+  <header class="ventral-header__bar">
+    <div class="ventral-header__inner">
+      <a class="ventral-header__brand" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+        {%- if logo != blank -%}
           {{
-            modal_image
-            | image_url: width: 1000
+            logo
+            | image_url: width: 520
             | image_tag:
-              class: 'header-new-modal__image',
-              loading: 'lazy',
-              widths: '360, 540, 720, 1000',
-              sizes: '(max-width: 767px) calc(100vw - 48px), 42vw',
-              alt: modal_image.alt
-          }}
-        </div>
-      {%- endif -%}
-      <div class="header-new-modal__body">
-        {%- if modal_logo != blank -%}
-          {{
-            modal_logo
-            | image_url: width: 320
-            | image_tag:
-              class: 'header-new-modal__logo',
-              loading: 'lazy',
-              widths: '120, 180, 240, 320',
+              class: 'ventral-header__logo-image',
+              loading: 'eager',
+              widths: '256, 320, 400, 520',
               alt: shop.name
           }}
         {%- else -%}
-          <div class="header-new-modal__brand">{{ shop.name }}</div>
+          <svg class="ventral-header__brand-mark" viewBox="0 0 42 40" aria-hidden="true">
+            <path fill="#1976ee" d="M0 4h42v5H0zm0 8h42v5H0zm0 8h42v5H0zm0 8h42v5H0z"/><path fill="#1976ee" d="m0 30 21 10 21-10z"/>
+          </svg>
+          <span class="ventral-header__brand-name">Ventral</span>
         {%- endif -%}
+      </a>
 
-        {%- if section.settings.modal_title != blank -%}
-          <h2 class="header-new-modal__title" id="{{ modal_id }}-Title">{{ section.settings.modal_title | escape }}</h2>
+      <nav class="ventral-header__desktop-nav" aria-label="Primary navigation">
+        {%- if primary_menu.links != blank -%}
+          {%- for link in primary_menu.links limit: 3 -%}
+            <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          {%- endfor -%}
+        {%- else -%}
+          <a href="{{ routes.root_url }}">Home</a>
+          <a href="#reserve-now">Reserve Now</a>
+          <a href="#about-us">About Us</a>
         {%- endif -%}
-        {%- if section.settings.modal_content != blank -%}
-          <div class="header-new-modal__content rte">
-            {{ section.settings.modal_content }}
-          </div>
-        {%- endif -%}
+      </nav>
 
-        {%- form 'customer', id: modal_form_id, class: 'header-new-modal__form' -%}
-          <input type="hidden" name="contact[tags]" value="{{ section.settings.modal_customer_tags | escape }}">
-          {%- if form.posted_successfully? -%}
-            <p class="header-new-modal__message" tabindex="-1">{{ 'general.newsletter_form.newsletter_confirmation' | t }}</p>
-          {%- else -%}
-            {%- if form.errors -%}
-              <div class="header-new-modal__message header-new-modal__message--error">{{ form.errors | default_errors }}</div>
-            {%- endif -%}
-            <label class="visually-hidden" for="{{ modal_form_id }}-Email">{{ section.settings.modal_email_placeholder | escape }}</label>
-            <div class="header-new-modal__field">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="1.5"></rect><path d="m4 7 8 6 8-6"></path></svg>
-              <input
-                id="{{ modal_form_id }}-Email"
-                type="email"
-                name="contact[email]"
-                value="{% if customer %}{{ customer.email }}{% endif %}"
-                placeholder="{{ section.settings.modal_email_placeholder | escape }}"
-                autocorrect="off"
-                autocapitalize="off"
-                autocomplete="email"
-                required>
-            </div>
-            <button class="header-new-modal__submit" type="submit" name="commit">{{ section.settings.modal_button_label | escape }}</button>
-          {%- endif -%}
-        {%- endform -%}
+      <button
+        class="ventral-header__cta"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="{{ modal_id }}"
+        data-header-new-modal-open
+      >
+        {{ section.settings.cta_label | escape }}
+      </button>
+
+      <button
+        class="ventral-header__menu-trigger"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="VentralMobileMenu-{{ section.id }}"
+      >
+        <svg
+          class="ventral-header__menu-icon ventral-header__menu-icon--open"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M4 7.5h16M4 12h16M4 16.5h16"/>
+        </svg>
+        <svg
+          class="ventral-header__menu-icon ventral-header__menu-icon--close"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="m7 7 10 10M17 7 7 17"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  {%- comment -%} Static expanded-state markup retained for the interaction pass. {%- endcomment -%}
+  <nav class="ventral-header__mobile-panel" id="VentralMobileMenu-{{ section.id }}" aria-label="Mobile navigation">
+    <div class="ventral-header__mobile-links">
+      {%- if primary_menu.links != blank -%}
+        {%- for link in primary_menu.links limit: 3 -%}
+          <a href="{{ link.url }}">{{ link.title | escape }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.root_url }}">Home</a>
+        <a href="#reserve-now">Reserve Now</a>
+        <a href="#about-us">About Us</a>
+      {%- endif -%}
+    </div>
+    <button
+      class="ventral-header__mobile-cta"
+      type="button"
+      aria-haspopup="dialog"
+      aria-controls="{{ modal_id }}"
+      data-header-new-modal-open
+    >
+      {{ section.settings.cta_label | escape }}
+    </button>
+  </nav>
+</section>
+
+<div
+  class="header-new-modal"
+  id="{{ modal_id }}"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="{{ modal_id }}-Title"
+  aria-hidden="true"
+  data-header-new-modal
+>
+  <button class="header-new-modal__overlay" type="button" aria-label="Close" data-header-new-modal-close></button>
+  <div class="header-new-modal__dialog{% if modal_image == blank %} header-new-modal__dialog--no-image{% endif %}">
+    <button class="header-new-modal__close" type="button" aria-label="Close" data-header-new-modal-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="9.25"></circle><path d="m8.75 8.75 6.5 6.5m0-6.5-6.5 6.5"></path>
+      </svg>
+    </button>
+    {%- if modal_image != blank -%}
+      <div class="header-new-modal__media">
+        {{
+          modal_image
+          | image_url: width: 1000
+          | image_tag:
+            class: 'header-new-modal__image',
+            loading: 'lazy',
+            widths: '360, 540, 720, 1000',
+            sizes: '(max-width: 767px) calc(100vw - 48px), 42vw',
+            alt: modal_image.alt
+        }}
       </div>
+    {%- endif -%}
+    <div class="header-new-modal__body">
+      {%- if modal_logo != blank -%}
+        {{
+          modal_logo
+          | image_url: width: 320
+          | image_tag: class: 'header-new-modal__logo', loading: 'lazy', widths: '120, 180, 240, 320', alt: shop.name
+        }}
+      {%- else -%}
+        <div class="header-new-modal__brand">{{ shop.name }}</div>
+      {%- endif -%}
+      {%- if section.settings.modal_title != blank -%}
+        <h2 class="header-new-modal__title" id="{{ modal_id }}-Title">{{ section.settings.modal_title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.modal_content != blank -%}
+        <div class="header-new-modal__content rte">{{ section.settings.modal_content }}</div>
+      {%- endif -%}
+      {%- form 'customer', id: modal_form_id, class: 'header-new-modal__form' -%}
+        <input type="hidden" name="contact[tags]" value="{{ section.settings.modal_customer_tags | escape }}">
+        {%- if form.posted_successfully? -%}
+          <p class="header-new-modal__message" tabindex="-1">{{ section.settings.modal_success_message | escape }}</p>
+        {%- else -%}
+          {%- if form.errors -%}
+            <div class="header-new-modal__message header-new-modal__message--error">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+          <label class="visually-hidden" for="{{ modal_form_id }}-Email">
+            {{- section.settings.modal_email_placeholder | escape -}}
+          </label>
+          <div class="header-new-modal__field">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <rect x="3" y="5" width="18" height="14" rx="1.5"></rect><path d="m4 7 8 6 8-6"></path>
+            </svg>
+            <input
+              id="{{ modal_form_id }}-Email"
+              type="email"
+              name="contact[email]"
+              value="{% if customer %}{{ customer.email }}{% endif %}"
+              placeholder="{{ section.settings.modal_email_placeholder | escape }}"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              required
+            >
+          </div>
+          <button class="header-new-modal__submit" type="submit" name="commit">
+            {{ section.settings.modal_button_label | escape }}
+          </button>
+        {%- endif -%}
+      {%- endform -%}
     </div>
   </div>
+</div>
 
-  <script>
-    (function() {
-      var section = document.getElementById('shopify-section-{{ section.id }}');
-      if (!section) return;
+<style>
+  .ventral-header,
+  .ventral-header * {
+    box-sizing: border-box;
+  }
+  .ventral-header {
+    position: relative;
+    z-index: 30;
+    color: #fff;
+    font-family: Inter, Arial, sans-serif;
+  }
+  .ventral-header__bar {
+    height: 76px;
+    background: #000;
+  }
+  .ventral-header__inner {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) auto minmax(180px, 1fr);
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 100px;
+  }
+  .ventral-header__brand {
+    display: flex;
+    align-items: center;
+    justify-self: start;
+    width: fit-content;
+    flex: 0 0 auto;
+    color: #fff;
+    text-decoration: none;
+  }
+  .ventral-header__logo-image {
+    display: block;
+    width: 260px;
+    height: 40px;
+    object-fit: contain;
+    object-position: left center;
+  }
+  .ventral-header__brand-mark {
+    width: 42px;
+    height: 40px;
+    margin-right: 20px;
+  }
+  .ventral-header__brand-name {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+  .ventral-header__desktop-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    gap: 60px;
+    height: 100%;
+    white-space: nowrap;
+  }
+  .ventral-header__desktop-nav a {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.45;
+    text-decoration: none;
+  }
+  .ventral-header__cta,
+  .ventral-header__mobile-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 12px;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+    font: 700 18px/1.45 Inter, Arial, sans-serif;
+    text-decoration: none;
+  }
+  .ventral-header__cta {
+    justify-self: end;
+    width: max-content;
+    min-width: 180px;
+    height: 40px;
+    padding: 7px 16px;
+  }
+  .ventral-header__menu-trigger,
+  .ventral-header__mobile-panel {
+    display: none;
+  }
+  @media (max-width: 1199px) and (min-width: 769px) {
+    .ventral-header__inner {
+      grid-template-columns: minmax(210px, 1fr) auto minmax(180px, 1fr);
+      padding: 0 32px;
+    }
+    .ventral-header__logo-image {
+      width: 210px;
+    }
+    .ventral-header__desktop-nav {
+      gap: 28px;
+    }
+  }
+  @media (max-width: 768px) {
+    .ventral-header__bar {
+      height: 38px;
+    }
+    .ventral-header__inner {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 12px;
+    }
+    .ventral-header__logo-image {
+      width: 128px;
+      height: 20px;
+    }
+    .ventral-header__brand-mark {
+      width: 21px;
+      height: 20px;
+      margin-right: 8px;
+    }
+    .ventral-header__brand-name {
+      font-size: 14px;
+    }
+    .ventral-header__desktop-nav,
+    .ventral-header__cta {
+      display: none;
+    }
+    .ventral-header__menu-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #fff;
+    }
+    .ventral-header__menu-icon {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: square;
+      stroke-width: 1.2;
+    }
+    .ventral-header__menu-icon--close {
+      display: none;
+    }
+    .ventral-header.is-menu-open .ventral-header__menu-icon--open {
+      display: none;
+    }
+    .ventral-header.is-menu-open .ventral-header__menu-icon--close {
+      display: block;
+    }
+    .ventral-header__mobile-panel {
+      position: absolute;
+      top: 38px;
+      right: 0;
+      left: 0;
+      z-index: 1;
+      display: none;
+      background: #000;
+      padding: 20px 12px;
+    }
+    .ventral-header.is-menu-open .ventral-header__mobile-panel {
+      display: block;
+    }
+    .ventral-header__mobile-links {
+      display: flex;
+      flex-direction: column;
+    }
+    .ventral-header__mobile-links a {
+      padding: 0 0 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.45;
+      text-decoration: none;
+    }
+    .ventral-header__mobile-links a + a {
+      padding-top: 16px;
+    }
+    .ventral-header__mobile-links a:last-child {
+      border: 0;
+    }
+    .ventral-header__mobile-cta {
+      width: 100%;
+      height: 32px;
+      margin-top: 4px;
+      border-radius: 6px;
+      font-size: 16px;
+      line-height: 1;
+    }
+  }
+</style>
 
-      var modal = section.querySelector('[data-header-new-modal]');
-      var openButtons = document.querySelectorAll('[data-header-new-modal-open]');
-      var closeButtons = section.querySelectorAll('[data-header-new-modal-close]');
-      if (!modal || !openButtons.length) return;
-      var lastTrigger = null;
+<script>
+  (function () {
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+    var modal = document.getElementById('{{ modal_id }}');
+    var openButtons = section.querySelectorAll('[data-header-new-modal-open]');
+    var closeButtons = modal ? modal.querySelectorAll('[data-header-new-modal-close]') : [];
+    var headerRoot = section.querySelector('.ventral-header');
+    var menuTrigger = section.querySelector('.ventral-header__menu-trigger');
+    var lastTrigger;
+    if (!modal || !openButtons.length) return;
 
-      var openModal = function(event) {
-        lastTrigger = event.currentTarget;
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        document.documentElement.classList.add('js-drawer-open');
-        window.requestAnimationFrame(function() {
-          var focusTarget = modal.querySelector('input:not([type="hidden"]), [data-header-new-modal-close]');
-          if (focusTarget) focusTarget.focus();
-        });
-      };
-
-      var closeModal = function() {
-        modal.classList.remove('is-open');
-        modal.setAttribute('aria-hidden', 'true');
-        document.documentElement.classList.remove('js-drawer-open');
-        if (lastTrigger) lastTrigger.focus();
-      };
-
-      openButtons.forEach(function(button) {
-        button.setAttribute('aria-controls', modal.id);
-        button.addEventListener('click', openModal);
+    function setMenuOpen(isOpen) {
+      if (headerRoot) headerRoot.classList.toggle('is-menu-open', isOpen);
+      if (menuTrigger) {
+        menuTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        menuTrigger.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+      }
+    }
+    function openModal(event) {
+      lastTrigger = event.currentTarget;
+      setMenuOpen(false);
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('js-drawer-open');
+      window.requestAnimationFrame(function () {
+        var focusTarget = modal.querySelector('input:not([type="hidden"]), [data-header-new-modal-close]');
+        if (focusTarget) focusTarget.focus();
       });
-      closeButtons.forEach(function(button) {
-        button.addEventListener('click', closeModal);
+    }
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('js-drawer-open');
+      if (lastTrigger) lastTrigger.focus();
+    }
+    if (menuTrigger) {
+      menuTrigger.addEventListener('click', function () {
+        if (!headerRoot) return;
+        setMenuOpen(!headerRoot.classList.contains('is-menu-open'));
       });
-
-      document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
-          closeModal();
-        }
-      });
-    })();
-  </script>
-{%- endif -%}
+    }
+    openButtons.forEach(function (button) {
+      button.addEventListener('click', openModal);
+    });
+    closeButtons.forEach(function (button) {
+      button.addEventListener('click', closeModal);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+  })();
+</script>
 
 {% schema %}
 {
-  "name": "Header new",
+  "name": "Ventral Header",
   "tag": "section",
-  "class": "header-new-section",
+  "class": "header-new-section ventral-header-section",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo image"
-    },
-    {
-      "type": "range",
-      "id": "logo_width",
-      "label": "Logo width",
-      "default": 190,
-      "min": 80,
-      "max": 360,
-      "step": 10,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "mobile_logo_width",
-      "label": "Mobile logo width",
-      "default": 150,
-      "min": 80,
-      "max": 260,
-      "step": 10,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "logo_max_height",
-      "label": "Logo max height",
-      "default": 42,
-      "min": 24,
-      "max": 80,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "Find a dealer"
-    },
-    {
-      "type": "select",
-      "id": "button_type",
-      "label": "Button action",
-      "default": "link",
-      "options": [
-        {
-          "value": "link",
-          "label": "Link"
-        },
-        {
-          "value": "modal",
-          "label": "Popup"
-        },
-        {
-          "value": "anchor",
-          "label": "Anchor"
-        }
-      ]
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button link"
-    },
-    {
-      "type": "image_picker",
-      "id": "floating_icon_image",
-      "label": "Floating icon image"
-    },
-    {
-      "type": "text",
-      "id": "anchor_id",
-      "label": "Anchor ID",
-      "info": "Enter the target element ID without #, for example: launch-updates"
-    },
-    {
-      "type": "text",
-      "id": "modal_title",
-      "label": "Popup title",
-      "default": "Stay Connected with Ventral"
-    },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "link_list", "id": "menu", "label": "Navigation menu" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Get Early Access" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" },
+    { "type": "header", "content": "CTA popup" },
+    { "type": "text", "id": "modal_title", "label": "Popup title", "default": "Stay Connected with Ventral" },
     {
       "type": "liquid",
       "id": "modal_content",
       "label": "Popup content",
       "default": "<p>Be the first to know about new product drops, exclusive offers, and more from Ventral. Enter your email address.</p>"
     },
-    {
-      "type": "image_picker",
-      "id": "modal_image",
-      "label": "Popup image"
-    },
-    {
-      "type": "image_picker",
-      "id": "modal_logo",
-      "label": "Popup logo",
-      "info": "Uses the header logo when left blank."
-    },
-    {
-      "type": "text",
-      "id": "modal_email_placeholder",
-      "label": "Popup email placeholder",
-      "default": "Enter your email"
-    },
-    {
-      "type": "text",
-      "id": "modal_button_label",
-      "label": "Popup button label",
-      "default": "Subscribe"
-    },
-    {
-      "type": "text",
-      "id": "modal_customer_tags",
-      "label": "Popup customer tags",
-      "default": "newsletter, popup"
-    },
-    {
-      "type": "range",
-      "id": "page_width",
-      "label": "Page width",
-      "default": 1440,
-      "min": 960,
-      "max": 1800,
-      "step": 20,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "height",
-      "label": "Desktop height",
-      "default": 56,
-      "min": 44,
-      "max": 96,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "mobile_height",
-      "label": "Mobile height",
-      "default": 52,
-      "min": 44,
-      "max": 80,
-      "step": 2,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "bottom_bar_height",
-      "label": "Bottom bar height",
-      "default": 4,
-      "min": 0,
-      "max": 12,
-      "step": 1,
-      "unit": "px"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "button_background_color",
-      "label": "Button background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button text",
-      "default": "#000000"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Header new"
-    }
+    { "type": "image_picker", "id": "modal_image", "label": "Popup image" },
+    { "type": "image_picker", "id": "modal_logo", "label": "Popup logo" },
+    { "type": "text", "id": "modal_email_placeholder", "label": "Email placeholder", "default": "Enter your email" },
+    { "type": "text", "id": "modal_button_label", "label": "Submit label", "default": "Subscribe" },
+    { "type": "text", "id": "modal_success_message", "label": "Success message", "default": "Thanks for subscribing." },
+    { "type": "text", "id": "modal_customer_tags", "label": "Customer tags", "default": "newsletter, popup" }
   ]
 }
 {% endschema %}
