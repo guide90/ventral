@@ -35,8 +35,8 @@
         "action_button_type": "link",
         "action_button_link": "",
         "action_button_anchor_id": "",
-        "action_button_background_color": "#000000",
-        "action_button_text_color": "#FFFFFF"
+        "action_button_background_color": "#FFFFFF",
+        "action_button_text_color": "#ffffff"
       }
     },
     "header_new_global": {
