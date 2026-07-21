@@ -85,11 +85,11 @@
         <a href="{{ section.settings.about_link | default: '/pages/story' }}">About Ventral</a>
         <a href="{{ section.settings.reserve_link | default: 'https://kayak.ventral.com/reserve' }}">Reserve Now</a>
       </div>
-      {% comment %} <div>
+      <div>
         <h3>LEGAL</h3>
-        <a href="{{ section.settings.terms_link | default: routes.root_url }}">Terms of Service</a>
-        <a href="{{ section.settings.privacy_link | default: routes.root_url }}">Privacy Policy</a>
-      </div> {% endcomment %}
+        <a href="{{ section.settings.terms_link | default: '/policies/terms-of-service' }}">Terms of Service</a>
+        <a href="{{ section.settings.privacy_link | default: '/policies/privacy-policy' }}">Privacy Policy</a>
+      </div>
     </div>
   </div>
 </footer>
