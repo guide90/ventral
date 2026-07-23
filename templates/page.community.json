@@ -1,23 +1,136 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "community-page",
       "blocks": {
-        "story_1": { "type": "story", "settings": { "title": "The Day Starts Here" } },
-        "story_2": { "type": "story", "settings": { "title": "Ready in Minutes" } },
-        "story_3": { "type": "story", "settings": { "title": "Control Every Move" } },
-        "story_4": { "type": "story", "settings": { "title": "Stand with Confidence" } },
-        "story_5": { "type": "story", "settings": { "title": "Every Catch Counts" } },
-        "story_6": { "type": "story", "settings": { "title": "Grab It and Go" } },
-        "video_1": { "type": "video", "settings": { "title": "Sunrise Paddle" } },
-        "card_1": { "type": "community_card", "settings": { "title": "Follow Us", "description": "@ventral.official  |  Ventral Marine" } },
-        "card_2": { "type": "community_card", "settings": { "title": "Share Your Adventure", "description": "Tag @Ventral To Be Featured" } },
-        "card_3": { "type": "community_card", "settings": { "title": "Share Your Adventure", "description": "pr@ventral.com" } },
-        "card_4": { "type": "community_card", "settings": { "title": "Join Our Community", "description": "Facebook Group" } }
+        "story_1": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-1.jpg",
+            "title": "The Day Starts Here"
+          }
+        },
+        "story_2": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-2.jpg",
+            "title": "Ready in Minutes"
+          }
+        },
+        "story_3": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-3.jpg",
+            "title": "Control Every Move"
+          }
+        },
+        "story_4": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-4.jpg",
+            "title": "Stand with Confidence"
+          }
+        },
+        "story_5": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-5.jpg",
+            "title": "Every Catch Counts"
+          }
+        },
+        "story_6": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2.jpg",
+            "title": "Grab It and Go"
+          }
+        },
+        "video_1": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/community.mp4",
+            "title": "Sunrise Paddle"
+          }
+        },
+        "video_mMRYMW": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/飞书20260720-190213.mp4",
+            "title": "Sunrise Paddle"
+          }
+        },
+        "card_1": {
+          "type": "community_card",
+          "settings": {
+            "image": "shopify://shop_images/Section4-1.jpg",
+            "title": "Follow Us",
+            "description": "@ventral.official  |  Ventral Marine"
+          }
+        },
+        "card_2": {
+          "type": "community_card",
+          "settings": {
+            "image": "shopify://shop_images/Section4-2.jpg",
+            "title": "Share Your Adventure",
+            "description": "Tag @Ventral To Be Featured"
+          }
+        },
+        "card_3": {
+          "type": "community_card",
+          "settings": {
+            "image": "shopify://shop_images/Section4-3.jpg",
+            "title": "Share Your Adventure",
+            "description": "pr@ventral.com"
+          }
+        },
+        "card_4": {
+          "type": "community_card",
+          "settings": {
+            "image": "shopify://shop_images/Section4-3_d239ec79-b46d-43e6-9325-0858cfac0e3e.jpg",
+            "title": "Join Our Community",
+            "description": "Facebook Group"
+          }
+        }
       },
-      "block_order": ["story_1", "story_2", "story_3", "story_4", "story_5", "story_6", "video_1", "card_1", "card_2", "card_3", "card_4"],
-      "settings": {}
+      "block_order": [
+        "story_1",
+        "story_2",
+        "story_3",
+        "story_4",
+        "story_5",
+        "story_6",
+        "video_1",
+        "video_mMRYMW",
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ],
+      "settings": {
+        "community_font": "inter_n4",
+        "hero_image": "shopify://shop_images/Section_1_pc.jpg",
+        "hero_image_mobile": "shopify://shop_images/Section_1_web.jpg",
+        "heading": "Share the Adventure.",
+        "subheading": "Connect with fellow anglers, explore real adventures, and share your moments on the water.",
+        "button_label": "Join The Adventure",
+        "stories_heading": "Stories from the Water",
+        "video_eyebrow": "TODAY'S ADVENTURE",
+        "videos_heading": "Featured Videos",
+        "videos_copy": "From sunrise paddles to remote get aways, every journey is better when you're on the water.",
+        "community_heading": "Become Part Of The Community"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

@@ -14,29 +14,13 @@
       "name": "Header new",
       "settings": {
         "logo": "shopify://shop_images/Frame_126.png",
-        "logo_width": 190,
-        "mobile_logo_width": 150,
-        "logo_max_height": 42,
-        "button_text": "Find a dealer",
-        "button_type": "modal",
-        "button_link": "",
-        "floating_icon_image": "shopify://shop_images/20260714005.png",
-        "anchor_id": "shopify-section-template--21278680219736__index_subscribe_form_eBTNNL",
         "modal_title": "Stay Connected with Ventral",
         "modal_content": "Be the first to know about new product drops, exclusive offers, and more from Ventral.Enter your email address",
         "modal_image": "shopify://shop_images/20260715001.png",
         "modal_logo": "shopify://shop_images/Frame_126.png",
         "modal_email_placeholder": "Enter your email",
         "modal_button_label": "Subscribe",
-        "modal_customer_tags": "newsletter, popup",
-        "page_width": 1440,
-        "height": 56,
-        "mobile_height": 52,
-        "bottom_bar_height": 4,
-        "background_color": "#000000",
-        "text_color": "#ffffff",
-        "button_background_color": "#ffffff",
-        "button_text_color": "#000000"
+        "modal_customer_tags": "newsletter, popup"
       }
     },
     "index_image_DXdJEA": {
