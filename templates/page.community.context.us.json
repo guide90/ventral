@@ -12,5 +12,21 @@
     "market": "us"
   },
   "parent": "page.community.json",
-  "sections": {}
+  "sections": {
+    "main": {
+      "settings": {},
+      "blocks": {
+        "video_1": {
+          "settings": {
+            "title": "See Anglers Experience Ventral"
+          }
+        },
+        "video_mMRYMW": {
+          "settings": {
+            "title": "Built For The Adventure"
+          }
+        }
+      }
+    }
+  }
 }
