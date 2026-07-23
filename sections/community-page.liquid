@@ -1,0 +1,1100 @@
+{%- liquid
+  assign community_font = section.settings.community_font
+  assign community_font_medium = community_font | font_modify: 'weight', '500'
+  assign community_font_semibold = community_font | font_modify: 'weight', '600'
+  assign community_font_bold = community_font | font_modify: 'weight', '700'
+-%}
+
+{% style %}
+{{ community_font | font_face: font_display: 'swap' }}
+{{ community_font_medium | font_face: font_display: 'swap' }}
+{{ community_font_semibold | font_face: font_display: 'swap' }}
+{{ community_font_bold | font_face: font_display: 'swap' }}
+
+#community-{{ section.id }} {
+  color: #06142e;
+  font-family: {{ community_font.family }}, {{ community_font.fallback_families }};
+  overflow: hidden;
+}
+
+#community-{{ section.id }} *,
+#community-{{ section.id }} *::before,
+#community-{{ section.id }} *::after {
+  box-sizing: border-box;
+}
+
+#community-{{ section.id }} h1,
+#community-{{ section.id }} h2,
+#community-{{ section.id }} p {
+  margin: 0;
+}
+
+#community-{{ section.id }} .community-shell {
+  width: min(1440px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+#community-{{ section.id }} .community-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #738798;
+  fill: #a9c4d7;
+}
+
+#community-{{ section.id }} .community-hero {
+  position: relative;
+  height: min(56.25vw, 1080px);
+  min-height: 720px;
+  overflow: hidden;
+  color: #ffffff;
+  background: #60768a;
+}
+
+#community-{{ section.id }} .community-hero__media,
+#community-{{ section.id }} .community-hero__picture,
+#community-{{ section.id }} .community-hero__image,
+#community-{{ section.id }} .community-hero__shade {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#community-{{ section.id }} .community-hero__image {
+  object-fit: cover;
+  object-position: center;
+}
+
+#community-{{ section.id }} .community-hero__shade {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 10.573%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
+
+#community-{{ section.id }} .community-hero__content {
+  position: absolute;
+  top: 40%;
+  left: calc(50% + 64px);
+  display: flex;
+  width: 656px;
+  max-width: calc(50% - 88px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+#community-{{ section.id }} .community-hero__title {
+  color: #ffffff;
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+#community-{{ section.id }} .community-hero__copy {
+  width: 600px;
+  max-width: 100%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+#community-{{ section.id }} .community-hero__button {
+  display: inline-flex;
+  min-height: 50px;
+  padding: 2px 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  color: #0c284c;
+  background: #ffffff;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+#community-{{ section.id }} .community-stories {
+  height: 1279px;
+  padding-top: 104px;
+  color: #ffffff;
+  background: #0c0e12;
+}
+
+#community-{{ section.id }} .community-section-title {
+  font-size: 54px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+#community-{{ section.id }} .community-stories__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 56px;
+}
+
+#community-{{ section.id }} .community-story {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #1c2734;
+}
+
+#community-{{ section.id }} .community-story__media {
+  position: absolute;
+  inset: 0;
+}
+
+#community-{{ section.id }} .community-story__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#community-{{ section.id }} .community-story__media::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 61px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  content: "";
+}
+
+#community-{{ section.id }} .community-story__caption {
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  left: 20px;
+  z-index: 1;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+#community-{{ section.id }} .community-videos {
+  height: 840px;
+  padding-top: 100px;
+  background: #ffffff;
+}
+
+#community-{{ section.id }} .community-videos__layout {
+  position: relative;
+  width: 968px;
+  height: 640px;
+  margin: 0 auto;
+}
+
+#community-{{ section.id }} .community-videos__intro {
+  position: absolute;
+  top: 130px;
+  left: 0;
+  width: 428px;
+  text-align: center;
+}
+
+#community-{{ section.id }} .community-videos__eyebrow {
+  color: #3983fb;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 15px;
+}
+
+#community-{{ section.id }} .community-videos__title {
+  margin-top: 12px;
+  color: #06142e;
+  font-size: 54px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+#community-{{ section.id }} .community-videos__copy {
+  margin-top: 26px;
+  color: #a5a9b7;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+#community-{{ section.id }} .community-videos__player {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 640px;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #0c0e12;
+}
+
+#community-{{ section.id }} .community-videos__poster {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#community-{{ section.id }} .community-videos__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  transform: translate(-50%, -50%);
+}
+
+#community-{{ section.id }} .community-videos__list {
+  position: absolute;
+  top: 358px;
+  left: 0;
+  display: flex;
+  width: 428px;
+  max-height: 182px;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+}
+
+#community-{{ section.id }} .community-video-card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 60px;
+  align-items: center;
+  gap: 8px;
+  color: #06142e;
+}
+
+#community-{{ section.id }} .community-video-card::before {
+  width: 6px;
+  height: 59px;
+  flex: 0 0 auto;
+  border-radius: 100px;
+  background: #3983fb;
+  content: "";
+}
+
+#community-{{ section.id }} .community-video-card__thumb {
+  width: 60px;
+  height: 60px;
+  margin-left: 6px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #d4e3e5;
+}
+
+#community-{{ section.id }} .community-video-card__thumb img,
+#community-{{ section.id }} .community-video-card__thumb svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#community-{{ section.id }} .community-video-card__details {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+#community-{{ section.id }} .community-video-card__number {
+  color: #3983fb;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+#community-{{ section.id }} .community-video-card__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#community-{{ section.id }} .community-connect {
+  height: 935px;
+  padding-top: 100px;
+  color: #000000;
+  background: #f1f1f1;
+}
+
+#community-{{ section.id }} .community-connect__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 60px;
+}
+
+#community-{{ section.id }} .community-connect__card {
+  position: relative;
+  min-width: 0;
+  height: 610px;
+  overflow: hidden;
+  border-radius: 24px;
+  color: #ffffff;
+  background: #5b6570;
+}
+
+#community-{{ section.id }} .community-connect__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#community-{{ section.id }} .community-connect__gradient {
+  position: absolute;
+  inset: auto 0 0;
+  height: 104px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+#community-{{ section.id }} .community-connect__content {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #ffffff;
+}
+
+#community-{{ section.id }} .community-connect__title {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+#community-{{ section.id }} .community-connect__meta {
+  display: flex;
+  min-height: 24px;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+#community-{{ section.id }} .community-connect__social {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+}
+
+#community-{{ section.id }} .community-connect__social + .community-connect__social {
+  margin-left: 4px;
+}
+
+#community-{{ section.id }} .community-connect__icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  color: #ffffff;
+}
+
+#community-{{ section.id }} .community-connect__icon--email {
+  width: 18px;
+  height: 15px;
+}
+
+#community-{{ section.id }} .community-connect__group {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 32px;
+  padding: 4px 12px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 12px;
+  color: #ffffff;
+  background: #0c284c;
+}
+
+#community-{{ section.id }} .community-connect__arrow {
+  display: block;
+  width: 26px;
+  height: 8px;
+  color: #ffffff;
+}
+
+@media (min-width: 750px) and (max-width: 1279px) {
+  #community-{{ section.id }} .community-hero__content {
+    left: 54%;
+    width: 42%;
+    max-width: 42%;
+  }
+
+  #community-{{ section.id }} .community-hero__title {
+    font-size: 48px;
+  }
+
+  #community-{{ section.id }} .community-videos__layout {
+    width: min(968px, calc(100% - 48px));
+  }
+
+  #community-{{ section.id }} .community-videos__intro,
+  #community-{{ section.id }} .community-videos__list {
+    width: calc(100% - 500px);
+  }
+}
+
+@media (max-width: 749px) {
+  #community-{{ section.id }} .community-shell {
+    width: calc(100% - 22px);
+  }
+
+  #community-{{ section.id }} .community-hero {
+    height: 812px;
+    min-height: 0;
+  }
+
+  #community-{{ section.id }} .community-hero__image {
+    object-position: center top;
+  }
+
+  #community-{{ section.id }} .community-hero__shade {
+    height: 371px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.4) 63.025%,
+      rgba(0, 0, 0, 0) 99.932%
+    );
+  }
+
+  #community-{{ section.id }} .community-hero__content {
+    top: 145px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-width: none;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  #community-{{ section.id }} .community-hero__title {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  #community-{{ section.id }} .community-hero__copy {
+    width: 351px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  #community-{{ section.id }} .community-hero__button {
+    width: 179px;
+    min-height: 39px;
+    padding: 8px 14px;
+    color: #ffffff;
+    background: #0c284c;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  #community-{{ section.id }} .community-stories {
+    height: 790px;
+    padding-top: 40px;
+  }
+
+  #community-{{ section.id }} .community-section-title {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  #community-{{ section.id }} .community-stories__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 11px;
+    row-gap: 20px;
+    margin-top: 26px;
+  }
+
+  #community-{{ section.id }} .community-story {
+    aspect-ratio: auto;
+    overflow: visible;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  #community-{{ section.id }} .community-story__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #1c2734;
+  }
+
+  #community-{{ section.id }} .community-story__media::after {
+    display: none;
+  }
+
+  #community-{{ section.id }} .community-story__caption {
+    position: static;
+    margin-top: 12px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  #community-{{ section.id }} .community-videos {
+    height: 937px;
+    padding-top: 0;
+  }
+
+  #community-{{ section.id }} .community-videos__layout {
+    width: 100%;
+    height: 937px;
+  }
+
+  #community-{{ section.id }} .community-videos__intro {
+    top: 40px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    text-align: left;
+  }
+
+  #community-{{ section.id }} .community-videos__eyebrow {
+    font-size: 14px;
+    line-height: 15px;
+  }
+
+  #community-{{ section.id }} .community-videos__title {
+    margin-top: 8px;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  #community-{{ section.id }} .community-videos__copy {
+    margin-top: 18px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  #community-{{ section.id }} .community-videos__player {
+    top: 193px;
+    right: 16px;
+    left: 8px;
+    width: auto;
+    height: 624px;
+    border-radius: 12px;
+  }
+
+  #community-{{ section.id }} .community-videos__list {
+    top: 837px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    height: 60px;
+    max-height: 60px;
+    flex-direction: row;
+    gap: 12px;
+    overflow: hidden;
+  }
+
+  #community-{{ section.id }} .community-video-card {
+    width: 351px;
+    min-width: 351px;
+  }
+
+  #community-{{ section.id }} .community-connect {
+    height: 810px;
+    padding-top: 40px;
+  }
+
+  #community-{{ section.id }} .community-connect .community-section-title {
+    width: 351px;
+    margin: 0 auto;
+  }
+
+  #community-{{ section.id }} .community-connect__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 11px;
+    row-gap: 12px;
+    margin-top: 39px;
+  }
+
+  #community-{{ section.id }} .community-connect__card {
+    height: 301px;
+    border-radius: 12px;
+  }
+
+  #community-{{ section.id }} .community-connect__gradient {
+    height: 116px;
+  }
+
+  #community-{{ section.id }} .community-connect__content {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    gap: 8px;
+  }
+
+  #community-{{ section.id }} .community-connect__title {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  #community-{{ section.id }} .community-connect__meta {
+    min-height: 16px;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  #community-{{ section.id }} .community-connect__social {
+    gap: 0;
+  }
+
+  #community-{{ section.id }} .community-connect__social + .community-connect__social {
+    margin-left: 4px;
+  }
+
+  #community-{{ section.id }} .community-connect__social-label {
+    display: none;
+  }
+
+  #community-{{ section.id }} .community-connect__icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  #community-{{ section.id }} .community-connect__icon--email {
+    width: 16px;
+    height: 16px;
+  }
+
+  #community-{{ section.id }} .community-connect__group {
+    min-height: 18px;
+    padding: 0;
+    gap: 12px;
+    border-radius: 0;
+    background: transparent;
+  }
+}
+{% endstyle %}
+
+{%- assign first_video = section.blocks | where: 'type', 'video' | first -%}
+{%- assign first_video_poster = first_video.settings.poster | default: first_video.settings.video.preview_image -%}
+
+<section class="community-page" id="community-{{ section.id }}">
+  <div class="community-hero">
+    <div class="community-hero__media">
+      {%- if section.settings.hero_image != blank -%}
+        <picture class="community-hero__picture">
+          {%- if section.settings.hero_image_mobile != blank -%}
+            <source
+              media="(max-width: 749px)"
+              srcset="
+                {{ section.settings.hero_image_mobile | image_url: width: 750 }} 750w,
+                {{ section.settings.hero_image_mobile | image_url: width: 1100 }} 1100w
+              "
+              sizes="100vw"
+            >
+          {%- endif -%}
+          {{
+            section.settings.hero_image
+            | image_url: width: 2400
+            | image_tag:
+              class: 'community-hero__image',
+              widths: '750, 1100, 1500, 1920, 2400',
+              sizes: '100vw',
+              preload: true,
+              alt: section.settings.heading
+          }}
+        </picture>
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'community-placeholder' }}
+      {%- endif -%}
+    </div>
+    <div class="community-hero__shade"></div>
+    <div class="community-hero__content">
+      <h1 class="community-hero__title">{{ section.settings.heading | escape }}</h1>
+      <p class="community-hero__copy">{{ section.settings.subheading | escape }}</p>
+      {%- if section.settings.button_label != blank -%}
+        <span class="community-hero__button">{{ section.settings.button_label | escape }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="community-stories">
+    <div class="community-shell">
+      <h2 class="community-section-title">{{ section.settings.stories_heading | escape }}</h2>
+      <div class="community-stories__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'story' -%}
+            <article class="community-story" {{ block.shopify_attributes }}>
+              <div class="community-story__media">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1000
+                    | image_tag:
+                      class: 'community-story__image',
+                      widths: '375, 550, 750, 1000',
+                      sizes: '(min-width: 750px) 31vw, 46vw',
+                      loading: 'lazy',
+                      alt: block.settings.title
+                  }}
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'community-placeholder' }}
+                {%- endif -%}
+              </div>
+              <div class="community-story__caption">{{ block.settings.title | escape }}</div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="community-videos">
+    <div class="community-videos__layout">
+      <div class="community-videos__intro">
+        <p class="community-videos__eyebrow">{{ section.settings.video_eyebrow | escape }}</p>
+        <h2 class="community-videos__title">{{ section.settings.videos_heading | escape }}</h2>
+        <p class="community-videos__copy">{{ section.settings.videos_copy | escape }}</p>
+      </div>
+
+      <div class="community-videos__player">
+        {%- if first_video_poster != blank -%}
+          {{
+            first_video_poster
+            | image_url: width: 1000
+            | image_tag:
+              class: 'community-videos__poster',
+              widths: '375, 550, 750, 1000',
+              sizes: '(min-width: 750px) 360px, calc(100vw - 24px)',
+              loading: 'lazy',
+              alt: first_video.settings.title
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'community-placeholder' }}
+        {%- endif -%}
+        <svg
+          class="community-videos__play"
+          aria-hidden="true"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="20" cy="20" r="20" fill="currentColor" fill-opacity="0.9"/>
+          <path d="M16 12.75V27.25L27 20L16 12.75Z" fill="#06142E"/>
+        </svg>
+      </div>
+
+      <div class="community-videos__list">
+        {%- assign video_number = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'video' -%}
+            {%- assign video_number = video_number | plus: 1 -%}
+            {%- assign video_card_poster = block.settings.poster | default: block.settings.video.preview_image -%}
+            <div class="community-video-card" {{ block.shopify_attributes }}>
+              <div class="community-video-card__thumb">
+                {%- if video_card_poster != blank -%}
+                  {{
+                    video_card_poster
+                    | image_url: width: 180
+                    | image_tag:
+                      widths: '120, 180',
+                      sizes: '60px',
+                      loading: 'lazy',
+                      alt: ''
+                  }}
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'community-placeholder' }}
+                {%- endif -%}
+              </div>
+              <div class="community-video-card__details">
+                <span class="community-video-card__number">
+                  {{- video_number | prepend: '0' | slice: -2, 2 -}}
+                </span>
+                <span class="community-video-card__title">
+                  {{- block.settings.title | default: 'Sunrise Paddle' | escape -}}
+                </span>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="community-connect">
+    <div class="community-shell">
+      <h2 class="community-section-title">{{ section.settings.community_heading | escape }}</h2>
+      <div class="community-connect__grid">
+        {%- assign community_index = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'community_card' -%}
+            {%- assign community_index = community_index | plus: 1 -%}
+            <article
+              class="community-connect__card community-connect__card--{{ community_index }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 900
+                  | image_tag:
+                    class: 'community-connect__image',
+                    widths: '375, 550, 750, 900',
+                    sizes: '(min-width: 750px) 18vw, 46vw',
+                    loading: 'lazy',
+                    alt: block.settings.title
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'community-placeholder' }}
+              {%- endif -%}
+              <div class="community-connect__gradient"></div>
+              <div class="community-connect__content">
+                <strong class="community-connect__title">{{ block.settings.title | escape }}</strong>
+
+                {%- case community_index -%}
+                  {%- when 1 -%}
+                    <div class="community-connect__meta">
+                      <span class="community-connect__social">
+                        <svg
+                          class="community-connect__icon"
+                          aria-hidden="true"
+                          viewBox="0 0 32 32"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M16 3.094c4.206 0 4.7.019 6.363.094 1.538.069 2.369.325 2.925.544.738.287 1.262.625 1.813 1.175s.894 1.075 1.175 1.813c.212.556.475 1.387.544 2.925.075 1.662.094 2.156.094 6.363s-.019 4.7-.094 6.363c-.069 1.538-.325 2.369-.544 2.925-.288.738-.625 1.262-1.175 1.813s-1.075.894-1.813 1.175c-.556.212-1.387.475-2.925.544-1.663.075-2.156.094-6.363.094s-4.7-.019-6.363-.094c-1.537-.069-2.369-.325-2.925-.544-.737-.288-1.263-.625-1.813-1.175s-.894-1.075-1.175-1.813c-.212-.556-.475-1.387-.544-2.925-.075-1.663-.094-2.156-.094-6.363s.019-4.7.094-6.363c.069-1.537.325-2.369.544-2.925.287-.737.625-1.263 1.175-1.813s1.075-.894 1.813-1.175c.556-.212 1.388-.475 2.925-.544 1.662-.081 2.156-.094 6.363-.094zm0-2.838c-4.275 0-4.813.019-6.494.094-1.675.075-2.819.344-3.819.731-1.037.4-1.913.944-2.788 1.819S1.486 4.656 1.08 5.688c-.387 1-.656 2.144-.731 3.825-.075 1.675-.094 2.213-.094 6.488s.019 4.813.094 6.494c.075 1.675.344 2.819.731 3.825.4 1.038.944 1.913 1.819 2.788s1.756 1.413 2.788 1.819c1 .387 2.144.656 3.825.731s2.213.094 6.494.094 4.813-.019 6.494-.094c1.675-.075 2.819-.344 3.825-.731 1.038-.4 1.913-.944 2.788-1.819s1.413-1.756 1.819-2.788c.387-1 .656-2.144.731-3.825s.094-2.212.094-6.494-.019-4.813-.094-6.494c-.075-1.675-.344-2.819-.731-3.825-.4-1.038-.944-1.913-1.819-2.788s-1.756-1.413-2.788-1.819c-1-.387-2.144-.656-3.825-.731C20.812.275 20.275.256 16 .256z"/>
+                          <path d="M16 7.912a8.088 8.088 0 1 0 0 16.175 8.088 8.088 0 0 0 0-16.175Zm0 13.338a5.25 5.25 0 1 1 0-10.5 5.25 5.25 0 0 1 0 10.5ZM26.294 7.594a1.887 1.887 0 1 1-3.774.002 1.887 1.887 0 0 1 3.774-.002Z"/>
+                        </svg>
+                        <span class="community-connect__social-label">@ventral.official</span>
+                      </span>
+                      <span class="community-connect__social">
+                        <svg
+                          class="community-connect__icon"
+                          aria-hidden="true"
+                          viewBox="0 0 14222 14222"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M14222 7112c0 3549.352-2600.418 6491.344-6000 7024.72V9168h1657l315-2056H8222V5778c0-562 275-1111 1159-1111h897V2917s-814-139-1592-139c-1624 0-2686 984-2686 2767v1567H4194v2056h1806v4968.72C2600.418 13603.344 0 10661.352 0 7112 0 3184.703 3183.703 1 7111 1s7111 3183.703 7111 7111Z"/>
+                        </svg>
+                        <span class="community-connect__social-label">Ventral Marine</span>
+                      </span>
+                    </div>
+                  {%- when 2 -%}
+                    <div class="community-connect__meta">{{ block.settings.description | escape }}</div>
+                  {%- when 3 -%}
+                    <div class="community-connect__meta">
+                      <svg
+                        class="community-connect__icon community-connect__icon--email"
+                        aria-hidden="true"
+                        viewBox="0 0 64 64"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M63 52H1V12H63V52ZM1 12L26.68 36H36.4L63 12M21.82 31.68L1.56 51.16M62.34 51.94L41.27 31.68" stroke="currentColor" stroke-miterlimit="10"/>
+                      </svg>
+                      <span>{{ block.settings.description | escape }}</span>
+                    </div>
+                  {%- when 4 -%}
+                    <div class="community-connect__meta">
+                      <span class="community-connect__group">
+                        <span>{{ block.settings.description | escape }}</span>
+                        <svg
+                          class="community-connect__arrow"
+                          aria-hidden="true"
+                          viewBox="0 0 50 15"
+                          fill="currentColor"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M0 9.63V5.38H35V0L50 7.5L35 15V9.63H0Z"/>
+                        </svg>
+                      </span>
+                    </div>
+                {%- endcase -%}
+              </div>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Community page",
+  "tag": "section",
+  "class": "community-page-section",
+  "settings": [
+    {
+      "type": "font_picker",
+      "id": "community_font",
+      "label": "Community font",
+      "default": "inter_n4"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image - desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_mobile",
+      "label": "Hero image - mobile"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Share the Adventure."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Connect with fellow anglers, explore real adventures, and share your moments on the water."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Join The Adventure"
+    },
+    {
+      "type": "text",
+      "id": "stories_heading",
+      "label": "Stories heading",
+      "default": "Stories from the Water"
+    },
+    {
+      "type": "text",
+      "id": "video_eyebrow",
+      "label": "Video eyebrow",
+      "default": "TODAY'S ADVENTURE"
+    },
+    {
+      "type": "text",
+      "id": "videos_heading",
+      "label": "Videos heading",
+      "default": "Featured Videos"
+    },
+    {
+      "type": "textarea",
+      "id": "videos_copy",
+      "label": "Videos copy",
+      "default": "From sunrise paddles to remote get aways, every journey is better when you're on the water."
+    },
+    {
+      "type": "text",
+      "id": "community_heading",
+      "label": "Community heading",
+      "default": "Become Part Of The Community"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Featured video",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Shopify-hosted video"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Poster image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sunrise Paddle"
+        }
+      ]
+    },
+    {
+      "type": "community_card",
+      "name": "Community card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

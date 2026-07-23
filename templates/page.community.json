@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "main": {
+      "type": "community-page",
+      "blocks": {
+        "story_1": { "type": "story", "settings": { "title": "The Day Starts Here" } },
+        "story_2": { "type": "story", "settings": { "title": "Ready in Minutes" } },
+        "story_3": { "type": "story", "settings": { "title": "Control Every Move" } },
+        "story_4": { "type": "story", "settings": { "title": "Stand with Confidence" } },
+        "story_5": { "type": "story", "settings": { "title": "Every Catch Counts" } },
+        "story_6": { "type": "story", "settings": { "title": "Grab It and Go" } },
+        "video_1": { "type": "video", "settings": { "title": "Sunrise Paddle" } },
+        "card_1": { "type": "community_card", "settings": { "title": "Follow Us", "description": "@ventral.official  |  Ventral Marine" } },
+        "card_2": { "type": "community_card", "settings": { "title": "Share Your Adventure", "description": "Tag @Ventral To Be Featured" } },
+        "card_3": { "type": "community_card", "settings": { "title": "Share Your Adventure", "description": "pr@ventral.com" } },
+        "card_4": { "type": "community_card", "settings": { "title": "Join Our Community", "description": "Facebook Group" } }
+      },
+      "block_order": ["story_1", "story_2", "story_3", "story_4", "story_5", "story_6", "video_1", "card_1", "card_2", "card_3", "card_4"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
