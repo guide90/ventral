@@ -208,7 +208,7 @@
     top: 130px;
     left: 0;
     width: 428px;
-    text-align: center;
+    text-align: left;
   }
 
   #community-{{ section.id }} .community-videos__eyebrow {
@@ -564,8 +564,8 @@
     }
 
     #community-{{ section.id }} .community-hero__button {
-      width: 179px;
-      min-height: 39px;
+      min-width: 180px;
+      min-height: 35px;
       padding: 8px 14px;
       color: #ffffff;
       background: #0c284c;
@@ -841,7 +841,7 @@
       {%- if section.settings.button_label != blank -%}
         <a
           class="community-hero__button"
-          href="{{ section.settings.button_link | default: 'https://kayak.ventral.com/reserve' }}"
+          href="{{ section.settings.button_link | default: 'https://www.facebook.com/share/g/1CoJoroYyV/' }}"
         >
           {{- section.settings.button_label | escape -}}
         </a>
@@ -1146,7 +1146,7 @@
                     <div class="community-connect__meta">
                       <a
                         class="community-connect__group"
-                        href="{{ section.settings.facebook_group_link | default: section.settings.facebook_link | default: 'https://www.facebook.com/share/1E9Mco2cYE/' }}"
+                        href="{{ section.settings.facebook_group_link | default: section.settings.facebook_link | default: 'https://www.facebook.com/share/g/1CoJoroYyV/' }}"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
