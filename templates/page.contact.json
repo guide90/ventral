@@ -43,9 +43,28 @@
         "phone": "XXXXXXXXXXXXX",
         "email": "pr@ventral.com"
       }
+    },
+    "17848767323a1344a0": {
+      "type": "apps",
+      "blocks": {
+        "pify_ai_contact_form_builder_app_form_znf9Q8": {
+          "type": "shopify://apps/pify-ai-contact-form-builder/blocks/app-form/0b1d894b-0f30-4027-8d73-7171ce29b1be",
+          "settings": {
+            "form_code": ""
+          }
+        }
+      },
+      "block_order": [
+        "pify_ai_contact_form_builder_app_form_znf9Q8"
+      ],
+      "settings": {
+        "full_width": false,
+        "space_around": true
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "17848767323a1344a0"
   ]
 }
