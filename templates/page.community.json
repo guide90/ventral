@@ -79,7 +79,7 @@
         "card_2": {
           "type": "community_card",
           "settings": {
-            "image": "shopify://shop_images/Section4-2.jpg",
+            "image": "shopify://shop_images/Section4-3.jpg",
             "title": "Share Your Adventure",
             "description": "Tag @Ventral To Be Featured"
           }
@@ -87,8 +87,8 @@
         "card_3": {
           "type": "community_card",
           "settings": {
-            "image": "shopify://shop_images/Section4-3.jpg",
-            "title": "Share Your Adventure",
+            "image": "shopify://shop_images/Section4-2.jpg",
+            "title": "Become An Ambassador",
             "description": "pr@ventral.com"
           }
         },
