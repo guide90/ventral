@@ -1,11 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "shipping-page",
       "settings": {
         "shipping_font": "inter_n4",
-        "hero_image_desktop": "shopify://shop_images/Section_1_pc.jpg",
-        "hero_image_mobile": "shopify://shop_images/Section_1_web.jpg",
+        "hero_image_desktop": "shopify://shop_images/Shipping_1_pc.jpg",
+        "hero_image_mobile": "shopify://shop_images/Shipping_1_web.jpg",
         "hero_image_alt": "Ventral on the water",
         "hero_title": "Delivered Ready For Your Next Adventure",
         "hero_copy": "Fast, secure shipping from our warehouse to your doorstep.",
@@ -20,5 +29,7 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
