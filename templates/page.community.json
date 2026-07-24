@@ -65,7 +65,7 @@
           "type": "video",
           "settings": {
             "video": "shopify://files/videos/飞书20260720-190213.mp4",
-            "title": "Sunrise Paddle"
+            "title": "Sunrise Paddle2"
           }
         },
         "card_1": {
@@ -122,11 +122,16 @@
         "heading": "Share the Adventure.",
         "subheading": "Connect with fellow anglers, explore real adventures, and share your moments on the water.",
         "button_label": "Join The Adventure",
+        "button_link": "",
         "stories_heading": "Stories from the Water",
         "video_eyebrow": "TODAY'S ADVENTURE",
         "videos_heading": "Featured Videos",
         "videos_copy": "From sunrise paddles to remote get aways, every journey is better when you're on the water.",
-        "community_heading": "Become Part Of The Community"
+        "community_heading": "Become Part Of The Community",
+        "instagram_link": "",
+        "facebook_link": "",
+        "contact_email": "pr@ventral.com",
+        "facebook_group_link": ""
       }
     }
   },
