@@ -9,108 +9,287 @@
  */
 {
   "sections": {
-    "pf-afddabb9": {
-      "type": "pf-afddabb9",
+    "header_new_HPhhy7": {
+      "type": "header-new",
+      "name": "Header new",
       "settings": {
-        "pf_833bb399_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
-        "pf_bee6de06_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
-        "pf_2f464542_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
-        "pf_40813d34_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
-        "pf_e4bf1641_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
-        "pf_e7bce255_value": "Marine-grade GPS holds your position within ±1 m through wind and current. Five modes — Anchor Lock, Course &amp; Speed Hold, Track Recording, Bidirectional Track Following, and Drift.",
-        "pf_8b67424d_value": "Marine-grade GPS holds your position within ±1 m through wind and current. Five modes — Anchor Lock, Course &amp; Speed Hold, Track Recording, Bidirectional Track Following, and Drift.",
-        "pf_b22175a5_value": "Ventral is designed around an inflatable hull and removable drive components, so the system can pack down between trips instead of demanding permanent trailer or garage space. ",
-        "pf_3d299de8_value": "Integrated Mid-Mount Thruster | 600W Motor | 50 lbs Thrust |<br>GPS ±1m Spot-Lock | 6h Battery | 650 lbs Payload |<br>App + Foot Control + Voice-Remote | Salt &amp; Fresh",
-        "pf_b12a8b99_value": "Integrated Mid-Mount Thruster | 600W Motor | 50 lbs Thrust | GPS ±1m Spot-Lock | 6h Battery | 650 lbs Payload | App + Foot Control + Voice-Remote | Salt &amp; Fresh",
-        "pf_5f88a823_value": "An oversized inflatable seat sits 20% higher than a standard kayak seat, with contoured leg support and lumbar backing — comfortable all day, with no added weight.",
-        "pf_93bd0ab1_value": "An oversized inflatable seat sits 20% higher than a standard kayak seat, with contoured leg support and lumbar backing — comfortable all day, with no added weight.",
-        "pf_d00703f5_value": "The mid-mount motor sits directly in front of you. When weeds catch the prop, lift it straight up and clear it by hand — no reaching the stern, no tools. ",
-        "pf_8dd74879_value": "Integrated mounting bases and rail tracks accept standard rod holders, fish finders, and camera mounts — configure the platform to your needs.",
-        "pf_0f9b5a06_value": "Integrated mounting bases and rail tracks accept standard rod holders, fish finders, and camera mounts — configure the platform to your needs.",
-        "pf_71eb79b7_value": "A wide, open deck with dedicated zones — bow storage, mid-deck tackle access, and a stern cooler or crate bay — configured to your setup.",
-        "pf_ad6f396b_value": "A wireless remote and app with voice assist hold heading, speed, or position, so you can focus on fishing instead of managing the craft.",
-        "pf_b32298be_value": "A wireless remote and app with voice assist hold heading, speed, or position, so you can focus on fishing instead of managing the craft.",
-        "pf_f14d4112_value": "A wide, open deck with dedicated zones — bow storage, mid-deck tackle access, and a stern cooler or crate bay — configured to your setup",
-        "pf_f5bdbb99_value": "Join the Ventral Kickstarter launch list for proof footage, product updates, and reward details as final information is confirmed.",
-        "pf_638407d8_value": "Join the Ventral Kickstarter launch list for proof footage, product updates, and reward details as final information is confirmed.",
-        "pf_96973b82_value": "A 1.15 kWh LiFePO4 battery delivers up to 6 hours on a cruise — enough range for a full day of fishing or a long trolling run.",
-        "pf_de644db0_value": "A 1.15 kWh LiFePO4 battery delivers up to 6 hours on a cruise — enough range for a full day of fishing or a long trolling run.",
-        "pf_80fc352e_value": "A powered inflatable fishing kayak built around a mid-mount drive, open deck, storage zones, and seated or standing fishing.",
-        "pf_a392dcc4_value": "Yes, the wide deck is designed for stand-and-cast fishing. Final page copy should use real proof footage.",
-        "pf_b3b087be_value": "Ventral is intended for fresh-water and salt-water fishing use, with final care guidance to confirm.",
-        "pf_ce60c220_value": "Draft copy may reference up to six hours in Eco mode. Final runtime depends on test conditions.",
-        "pf_12ef91c4_value": "Accessories shown in visuals are setup examples unless the final reward list says otherwise.",
-        "pf_b818cbd8_value": "Use manual lift-clear handling language. Do not claim weed-proof or anti-weed performance.",
-        "pf_bc3864f6_value": "No. Ventral is designed to deflate, pack down, and load for transport after the session.",
-        "pf_4641cf11_value": "Follow the same track out and back. Move naturally with wind and current.",
-        "pf_a1223bba_value": "Follow the same track out and back. Move naturally with wind and current.",
-        "pf_a9af3519_value": "Final Kickstarter reward contents will be confirmed on the campaign page.",
-        "pf_79f6a125_value": "Ventral, Inflatable<br>Fishing Kayak<br>with Mid-Mount E-Drive",
-        "pf_cc44afb1_value": "Ventral, Inflatable<br>Fishing Kayak with Mid-Mount E-Drive",
-        "pf_c070749a_value": "Hold your line. Keep your pace. Save your route as you go.",
-        "pf_5ed30122_value": "Hold your line. Keep your pace. Save your route as you go.",
-        "pf_793761a8_value": "Room to work the rod without crowding the cockpit.",
-        "pf_31905ed3_value": "Course &amp; Speed Hold,&nbsp;<br>Track Recording",
-        "pf_de0f19f1_value": "Transition between standing and seated fishing",
-        "pf_b3413560_value": "Course &amp; Speed Hold,&nbsp; Track Recording",
-        "pf_2486a122_value": "Bidirectional Track<br>Following, and Drift",
-        "pf_75a046fb_label": "How does it handle weeds or shallow water?",
-        "pf_54b14641_value": "Bidirectional Track Following, and Drift",
-        "pf_f4e5216a_value": "Open stance and balanced platform feel.",
-        "pf_037b71eb_value": "A Deck Built Around<br>How You Fish. ",
-        "pf_fc6945ee_value": "Hold Your Spot, <br>Not Your Paddle.",
-        "pf_51531e80_value": "Hold Your Spot, <br>Not Your Paddle.",
-        "pf_a0e6f14d_value": "A Deck Built Around How You Fish. ",
-        "pf_7e5980f2_value": "Reserve Super <br>Early Bird Price",
-        "pf_6381bd3d_value": "Reserve Super Early<br>Bird Price",
-        "pf_ebcdb221_value": "Pack Down. Load Up. Go Again.  ",
-        "pf_9c664bf1_value": "Reserve Super Early Bird Price",
-        "pf_8b6ff34e_value": "Reserve Super Early Bird Price",
-        "pf_5cefb322_value": "Keep Both Hands<br>on the Rod.",
-        "pf_e46e93bd_value": "High-Back<br>Inflatable Seat",
-        "pf_c9b5d007_value": "Clear the Prop in Seconds.  ",
-        "pf_87251951_value": "One System. Ready to Fish. ",
-        "pf_c472cad9_value": "One System. Ready to Fish. ",
-        "pf_9002ad6f_value": "Keep Both Hands on the Rod.",
-        "pf_e51a5bdc_value": "Stand Up with Confidence. ",
-        "pf_4dbd4081_value": "Stand Up with Confidence. ",
-        "pf_1b51e4bf_value": "Stand Up with Confidence. ",
-        "pf_c4a65f88_value": "High-Back Inflatable Seat",
-        "pf_9cbfe09a_label": "Are accessories included?",
-        "pf_7f6f7937_value": "TwinTube Stabilizer Hull",
-        "pf_dbd5c819_value": "Smart Mid-Mount E-Drive:",
-        "pf_3eb75153_value": "Smart Mid-Mount E-Drive:",
-        "pf_c587a30e_value": "Stay near the bite zone.",
-        "pf_00d37fe9_value": "Stay near the bite zone.",
-        "pf_26c28dd7_value": "Built to Take Your Gear.",
-        "pf_35b49697_value": "A Full Day on the Water.",
-        "pf_56de0f9b_value": "Built to Take Your Gear.",
-        "pf_ab79883e_value": "Size And Wood Material  ",
-        "pf_f610a005_value": "Size And Wood Material  ",
-        "pf_9c4fde64_value": "A Full Day onthe Water.",
-        "pf_e3102fd0_value": "Precise Boat Control  ",
-        "pf_42d92f46_value": "Precise Boat Control  ",
-        "pf_0b5912a5_label": "Can I stand and cast?",
-        "pf_4f6fae21_value": "Hands-Free Control  ",
-        "pf_17afec18_value": "Hands-Free Control  ",
-        "pf_87041b39_label": "Do I need a trailer?",
-        "pf_3db854a5_label": "How long can it run?",
-        "pf_b1fb4832_value": "Stand up platform ",
-        "pf_0d4cfb34_label": "What is included?",
-        "pf_e036be9d_label": "What is Ventral?",
-        "pf_cbe61db5_value": "ventral.official",
-        "pf_de4af18b_value": "Ventral Marine",
-        "pf_1975fb84_value": "pr@ventral.com",
-        "pf_444bde0f_value": "Sit Back Down",
-        "pf_25ce9c69_value": "Sign Up Now",
-        "pf_58d4160b_value": "Anchor Lock",
-        "pf_b11f00d3_value": "Anchor Lock",
-        "pf_2f580e6e_value": "Join Us",
-        "pf_d833251a_value": "FAQ"
+        "logo": "shopify://shop_images/Frame_126.png",
+        "modal_title": "Stay Connected with Ventral",
+        "modal_content": "Be the first to know about new product drops, exclusive offers, and more from Ventral.Enter your email address",
+        "modal_image": "shopify://shop_images/20260715001.png",
+        "modal_logo": "shopify://shop_images/Frame_126.png",
+        "modal_email_placeholder": "Enter your email",
+        "modal_button_label": "Subscribe",
+        "modal_customer_tags": "newsletter, popup"
+      }
+    },
+    "index_image_DXdJEA": {
+      "type": "index-image",
+      "name": "图片板块",
+      "settings": {
+        "pc_image": "shopify://shop_images/20262714010.png",
+        "mobile_image": "shopify://shop_images/20262714011.png"
+      }
+    },
+    "index-who-we-are": {
+      "type": "index-who-we-are",
+      "blocks": {
+        "copy-1": {
+          "type": "copy",
+          "settings": {
+            "text": "<p>You go to the water for clarity. To focus. To disconnect. But water never stays still. Wind shifts. Currents move. Your position drifts. And when your craft feels unsteady, so do you. Ventral changes that.</p>"
+          }
+        },
+        "copy-2": {
+          "type": "copy",
+          "settings": {
+            "text": "<p>We design every vessel for greater control on the water. Intelligent systems help you manage your position in wind and current. Precision handling helps you stay where you want when the water won't.</p>"
+          }
+        },
+        "copy-3": {
+          "type": "copy",
+          "settings": {
+            "text": "<p>It responds instantly to your input-so every adjustment feels natural. When the platform feels steady, your focus returns to the mission, not the motion.</p>"
+          }
+        },
+        "copy-4": {
+          "type": "copy",
+          "settings": {
+            "text": "<p>We build for confidence on the water. To fish spots others skip. To explore places most never reach. Stand steady. Move freely. Go farther. Ventral. Level the Sea.</p>"
+          }
+        },
+        "instagram": {
+          "type": "social",
+          "settings": {
+            "icon": "instagram",
+            "label": "ventral.official",
+            "link": "https://www.instagram.com/ventral.official/"
+          }
+        },
+        "facebook": {
+          "type": "social",
+          "settings": {
+            "icon": "facebook",
+            "label": "Ventral Marine",
+            "link": "facebook.com/share/1E9Mco2cYE/"
+          }
+        },
+        "email": {
+          "type": "social",
+          "settings": {
+            "icon": "email",
+            "label": "pr@ventral.com",
+            "link": "mailto:pr@ventral.com"
+          }
+        }
+      },
+      "block_order": [
+        "copy-1",
+        "copy-2",
+        "copy-3",
+        "copy-4",
+        "instagram",
+        "facebook",
+        "email"
+      ],
+      "settings": {
+        "eyebrow": "Who we are ?",
+        "heading": "We are Ventral",
+        "social_heading": "JOIN US",
+        "contact_heading": "CONTACT US",
+        "background_color": "#07101f",
+        "text_color": "#ffffff",
+        "accent_color": "#0f9bd8",
+        "mobile_card_color": "#39404b",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "index_image_ULhhwn": {
+      "type": "index-image",
+      "name": "图片板块",
+      "settings": {
+        "pc_image": "shopify://shop_images/20260714001.png",
+        "mobile_image": "shopify://shop_images/20260714002.png"
+      }
+    },
+    "index-carry-feature": {
+      "type": "index-carry-feature",
+      "settings": {
+        "pc_image": "shopify://shop_images/20260714003.png",
+        "mobile_image": "shopify://shop_images/20260714004.png",
+        "badge": "BUILT FOR EFFORTLESS ADVENTURES",
+        "heading": "Lightweight & Easy to Carry",
+        "text": "<p>Designed for effortless transport, so one person can carry the essentials with ease.</p>",
+        "background_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "accent_color": "#1d9bd7",
+        "page_width": 1260,
+        "image_width": 1260,
+        "border_radius": 12,
+        "padding_top": 84,
+        "padding_bottom": 0
+      }
+    },
+    "index-design-audience": {
+      "type": "index-design-audience",
+      "blocks": {
+        "weekend-anglers": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710100.png",
+            "title": "Weekend Anglers",
+            "text": "Smart craft for your weekend adventure."
+          }
+        },
+        "kayak-fishing-enthusiasts": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710200.png",
+            "title": "Kayak Fishing Enthusiasts",
+            "text": "Your ultimate craft to explore what's next."
+          }
+        },
+        "tech-forward-explorers": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710300.png",
+            "title": "Tech-Forward Explorers",
+            "text": "Empowering your next tech-fueled adventure."
+          }
+        },
+        "travel-ready-outdoor-users": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/20260710400.png",
+            "title": "Travel-Ready Outdoor Users",
+            "text": "Ready when you are. Built for the wild."
+          }
+        }
+      },
+      "block_order": [
+        "weekend-anglers",
+        "kayak-fishing-enthusiasts",
+        "tech-forward-explorers",
+        "travel-ready-outdoor-users"
+      ],
+      "settings": {
+        "heading": "Designed for Anglers",
+        "text": "<p>Ventral is engineered for anglers who want smarter, more confident inflatable craft -rigged carefully to hold its place in the water,and move freedom to explore what's next.</p>"
+      }
+    },
+    "index_image_VmjCAk": {
+      "type": "index-image",
+      "name": "图片板块",
+      "settings": {
+        "pc_image": "shopify://shop_images/20260710-190233.png",
+        "mobile_image": "shopify://shop_images/20260710-190150.png"
+      }
+    },
+    "index-event-card": {
+      "type": "index-event-card",
+      "blocks": {
+        "location": {
+          "type": "event_item",
+          "settings": {
+            "icon": "location",
+            "label": "Location",
+            "value": "Orange County Convention Center, Orlando, Florida"
+          }
+        },
+        "date": {
+          "type": "event_item",
+          "settings": {
+            "icon": "date",
+            "label": "Date",
+            "value": "July 14-17, 2026"
+          }
+        },
+        "booth": {
+          "type": "event_item",
+          "settings": {
+            "icon": "booth",
+            "label": "Booth",
+            "value": "#1147"
+          }
+        },
+        "contact": {
+          "type": "event_item",
+          "settings": {
+            "icon": "contact",
+            "label": "Contact US",
+            "value": "pr@ventral.com"
+          }
+        }
+      },
+      "block_order": [
+        "location",
+        "date",
+        "booth",
+        "contact"
+      ],
+      "disabled": true,
+      "settings": {
+        "pc_image": "shopify://shop_images/20260710010.png",
+        "mobile_image": "shopify://shop_images/20260710009.png",
+        "eyebrow": "COME SEE VENTRAL",
+        "heading": "Meet Ventral at ICAST 2026",
+        "button_text": "Join the Launch Updates",
+        "button_action": "anchor",
+        "button_link": "",
+        "button_anchor_id": "shopify-section-template--21278923849816__index_subscribe_form_eBTNNL",
+        "section_background": "#f7f7f7",
+        "accent_color": "#2e97df",
+        "page_width": 1440,
+        "border_radius": 14,
+        "padding_top": 92,
+        "padding_bottom": 92
+      }
+    },
+    "index_image_pXG44W": {
+      "type": "index-image",
+      "name": "图片板块",
+      "settings": {
+        "pc_image": "shopify://shop_images/20260710008.png",
+        "mobile_image": "shopify://shop_images/20260710007.png"
+      }
+    },
+    "index_subscribe_form_eBTNNL": {
+      "type": "index-subscribe-form",
+      "name": "表单收集",
+      "settings": {
+        "logo_image": "shopify://shop_images/20260710011.png",
+        "heading": "Subscribe for Launch Updates",
+        "text": "<p>Be the first to know about new product drops, exclusive offers, and more from Ventral.</p>",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe",
+        "customer_tags": "newsletter, launch-updates",
+        "success_message": "Thanks for subscribing.",
+        "logo_width": 300,
+        "mobile_logo_width": 180,
+        "page_width": 1360,
+        "section_height": 200,
+        "divider_height": 112,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "background_color": "#07101f",
+        "text_color": "#ffffff",
+        "divider_color": "#4d5664",
+        "input_border_color": "#ffffff",
+        "placeholder_color": "#b8c0cc"
       }
     }
   },
   "order": [
-    "pf-afddabb9",
+    "header_new_HPhhy7",
+    "index_image_DXdJEA",
+    "index-who-we-are",
+    "index_image_ULhhwn",
+    "index-carry-feature",
+    "index-design-audience",
+    "index_image_VmjCAk",
+    "index-event-card",
+    "index_image_pXG44W",
+    "index_subscribe_form_eBTNNL"
   ]
 }
