@@ -1,0 +1,1093 @@
+{%- liquid
+  assign contact_form_id = 'ContactPageForm-' | append: section.id
+  assign contact_font = section.settings.contact_font
+  assign contact_font_medium = contact_font | font_modify: 'weight', '500'
+  assign contact_font_semibold = contact_font | font_modify: 'weight', '600'
+  assign contact_font_bold = contact_font | font_modify: 'weight', '700'
+  assign contact_font_black = contact_font | font_modify: 'weight', '900'
+  assign contact_anchor = '#contact-form-' | append: section.id
+  assign hero_button_link = section.settings.hero_button_link | default: contact_anchor
+  assign perks_button_link = section.settings.perks_button_link | default: contact_anchor
+  assign hero_image_desktop = section.settings.hero_image_desktop | default: section.settings.hero_image_mobile
+  assign hero_image_mobile = section.settings.hero_image_mobile | default: hero_image_desktop
+  assign perks_image_desktop = section.settings.perks_image_desktop | default: section.settings.perks_image_mobile
+  assign perks_image_mobile = section.settings.perks_image_mobile | default: perks_image_desktop
+-%}
+
+{% style %}
+  {{ contact_font | font_face: font_display: 'swap' }}
+  {{ contact_font_medium | font_face: font_display: 'swap' }}
+  {{ contact_font_semibold | font_face: font_display: 'swap' }}
+  {{ contact_font_bold | font_face: font_display: 'swap' }}
+  {{ contact_font_black | font_face: font_display: 'swap' }}
+
+  body:has(#contact-page-{{ section.id }}) {
+    overflow-x: clip;
+  }
+
+  body:has(#contact-page-{{ section.id }}) .main-content {
+    width: 100%;
+    max-width: none;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #contact-page-{{ section.id }} {
+    --contact-navy: #06142e;
+    --contact-button: #0c284c;
+    --contact-muted: #a5a9b7;
+    --contact-label: #62748e;
+    --contact-field: #f8fafc;
+    --contact-field-border: #e2e8f0;
+    --contact-error: #ff5c61;
+    width: 100vw;
+    max-width: none;
+    margin-left: 0;
+    color: var(--contact-navy);
+    font-family: {{ contact_font.family }}, {{ contact_font.fallback_families }};
+    overflow: hidden;
+  }
+
+  #contact-page-{{ section.id }} *,
+  #contact-page-{{ section.id }} *::before,
+  #contact-page-{{ section.id }} *::after { box-sizing: border-box; }
+
+  #contact-page-{{ section.id }} h1,
+  #contact-page-{{ section.id }} h2,
+  #contact-page-{{ section.id }} p { margin: 0; }
+
+  #contact-page-{{ section.id }} button,
+  #contact-page-{{ section.id }} input,
+  #contact-page-{{ section.id }} textarea { font: inherit; }
+
+  #contact-page-{{ section.id }} .contact-page__hero {
+    position: relative;
+    width: 100%;
+    height: 1080px;
+    overflow: hidden;
+    background: #bababa;
+    color: #fff;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__hero-picture,
+  #contact-page-{{ section.id }} .contact-page__hero-image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__hero-image {
+    max-width: none;
+    object-fit: cover;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__hero-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,18,40,.18) 0%, rgba(0,18,40,0) 65%);
+    pointer-events: none;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__hero-content {
+    position: absolute;
+    z-index: 1;
+    top: 404px;
+    left: calc(50% - 720px);
+    width: 800px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__hero-title {
+    width: 800px;
+    color: #fff;
+    font-size: 80px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 104px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__hero-copy {
+    width: 600px;
+    margin-top: -3px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 29px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__button {
+    display: inline-flex;
+    width: 283px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px;
+    border: 0;
+    border-radius: 100px;
+    background: var(--contact-button);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__hero-content .contact-page__button {
+    margin-top: 20px;
+    background: #fff;
+    color: var(--contact-button);
+  }
+
+  #contact-page-{{ section.id }} .contact-page__perks {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    background: #fafafa;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__perks-copy {
+    position: absolute;
+    top: 161px;
+    left: calc(50% - 720px);
+    display: flex;
+    width: 500px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__perks-title {
+    width: 500px;
+    color: var(--contact-navy);
+    font-size: 54px;
+    font-weight: 700;
+    letter-spacing: -1.08px;
+    line-height: 64.8px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__perks-text {
+    display: flex;
+    width: 500px;
+    min-height: 58px;
+    align-items: center;
+    color: var(--contact-muted);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 29px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__perks-media {
+    position: absolute;
+    top: 100px;
+    left: calc(50% - 120px);
+    width: 840px;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #b76e6e;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__perks-image--desktop,
+  #contact-page-{{ section.id }} .contact-page__perks-image--mobile {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__perks-image--desktop { display: block; }
+  #contact-page-{{ section.id }} .contact-page__perks-image--mobile { display: none; }
+
+  #contact-page-{{ section.id }} .contact-page__form-section {
+    position: relative;
+    width: 100%;
+    height: 867px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__form-heading {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 1093px;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__form-title {
+    height: 54px;
+    color: var(--contact-navy);
+    font-size: 54px;
+    font-weight: 700;
+    letter-spacing: -1.08px;
+    line-height: 54px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__form-copy {
+    margin-top: 20px;
+    color: var(--contact-muted);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 29px;
+    white-space: nowrap;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__form {
+    position: absolute;
+    inset: 0;
+    width: 1090px;
+    height: 867px;
+    margin: 0 auto;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__fields {
+    position: absolute;
+    top: 263px;
+    left: 0;
+    display: grid;
+    width: 1090px;
+    grid-template-columns: 535px 535px;
+    grid-template-areas: "name phone" "email order" "message .";
+    column-gap: 20px;
+    row-gap: 24px;
+  }
+
+  #contact-page-{{ section.id }} .contact-field--name { grid-area: name; }
+  #contact-page-{{ section.id }} .contact-field--email { grid-area: email; }
+  #contact-page-{{ section.id }} .contact-field--message { grid-area: message; }
+  #contact-page-{{ section.id }} .contact-field--phone { grid-area: phone; }
+  #contact-page-{{ section.id }} .contact-field--order { grid-area: order; }
+
+  #contact-page-{{ section.id }} .contact-field {
+    width: 535px;
+    height: 78px;
+  }
+
+  #contact-page-{{ section.id }} .contact-field__label {
+    display: flex;
+    width: 100%;
+    height: 20px;
+    align-items: center;
+    gap: 8px;
+    color: var(--contact-label);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -.1504px;
+    line-height: 20px;
+  }
+
+  #contact-page-{{ section.id }} .contact-field__error-icon {
+    display: none;
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+  }
+
+  #contact-page-{{ section.id }} .contact-field.has-error .contact-field__label { color: var(--contact-error); }
+  #contact-page-{{ section.id }} .contact-field.has-error .contact-field__error-icon { display: block; }
+
+  #contact-page-{{ section.id }} .contact-field__control {
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin-top: 8px;
+    padding: 0 17px;
+    border: 1px solid var(--contact-field-border);
+    border-radius: 14px;
+    outline: 0;
+    background: var(--contact-field);
+    color: var(--contact-navy);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -.3125px;
+    line-height: 24px;
+    box-shadow: none;
+    appearance: none;
+  }
+
+  #contact-page-{{ section.id }} textarea.contact-field__control {
+    min-height: 50px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    resize: none;
+  }
+
+  #contact-page-{{ section.id }} .contact-field__control::placeholder {
+    color: var(--contact-muted);
+    opacity: 1;
+  }
+
+  #contact-page-{{ section.id }} .contact-field__control:focus {
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 2px rgba(12,40,76,.08);
+  }
+
+  #contact-page-{{ section.id }} .contact-field.has-error:not(.contact-field--message) .contact-field__control {
+    border-color: var(--contact-error);
+  }
+
+  #contact-page-{{ section.id }} .contact-page__details {
+    position: absolute;
+    top: 585px;
+    left: 0;
+    display: flex;
+    width: 700px;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__detail {
+    display: flex;
+    min-height: 20px;
+    align-items: center;
+    gap: 8px;
+    color: var(--contact-label);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -.1504px;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__detail svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__detail strong { font-weight: 600; }
+
+  #contact-page-{{ section.id }} .contact-page__submit {
+    position: absolute;
+    top: 717px;
+    left: 50%;
+    display: flex;
+    width: 163px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px;
+    transform: translateX(-50%);
+    border: 0;
+    border-radius: 100px;
+    background: var(--contact-button);
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: normal;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__form-status {
+    position: absolute;
+    top: 785px;
+    left: 50%;
+    width: 1090px;
+    transform: translateX(-50%);
+    color: var(--contact-label);
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  #contact-page-{{ section.id }} .contact-page__form-status--error { color: var(--contact-error); }
+
+  /*
+   * Compact desktop: the Figma content canvas is 1440px wide (1920px viewport
+   * with 240px gutters). Below 1640px, preserve 100px gutters and scale every
+   * design measurement against the remaining content width.
+   */
+  @media screen and (min-width: 990px) and (max-width: 1639px) {
+    #contact-page-{{ section.id }} {
+      --contact-desktop-gutter: 100px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero {
+      height: calc(75vw - 150px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero-content {
+      top: calc(28.055556vw - 56.111111px);
+      left: var(--contact-desktop-gutter);
+      width: calc(55.555556vw - 111.111111px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero-title {
+      width: calc(55.555556vw - 111.111111px);
+      font-size: calc(5.555556vw - 11.111111px);
+      letter-spacing: calc(-0.138889vw + 0.277778px);
+      line-height: calc(7.222222vw - 14.444444px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero-copy {
+      width: calc(41.666667vw - 83.333333px);
+      margin-top: calc(-0.208333vw + 0.416667px);
+      font-size: calc(1.388889vw - 2.777778px);
+      line-height: calc(2.013889vw - 4.027778px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__button {
+      width: calc(19.652778vw - 39.305556px);
+      height: calc(3.472222vw - 6.944444px);
+      padding-inline: calc(1.944444vw - 3.888889px);
+      font-size: calc(1.666667vw - 3.333333px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero-content .contact-page__button {
+      margin-top: calc(1.388889vw - 2.777778px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks {
+      height: calc(41.666667vw - 83.333333px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks-copy {
+      top: calc(11.180556vw - 22.361111px);
+      left: var(--contact-desktop-gutter);
+      width: calc(34.722222vw - 69.444444px);
+      gap: calc(1.388889vw - 2.777778px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks-title {
+      width: calc(34.722222vw - 69.444444px);
+      font-size: calc(3.75vw - 7.5px);
+      letter-spacing: calc(-0.075vw + 0.15px);
+      line-height: calc(4.5vw - 9px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks-text {
+      width: calc(34.722222vw - 69.444444px);
+      min-height: calc(4.027778vw - 8.055556px);
+      font-size: calc(1.388889vw - 2.777778px);
+      line-height: calc(2.013889vw - 4.027778px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks-media {
+      top: calc(6.944444vw - 13.888889px);
+      right: var(--contact-desktop-gutter);
+      left: auto;
+      width: calc(58.333333vw - 116.666667px);
+      height: calc(27.777778vw - 55.555556px);
+      border-radius: calc(1.666667vw - 3.333333px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form-section,
+    #contact-page-{{ section.id }} .contact-page__form {
+      height: calc(60.208333vw - 120.416667px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form-heading {
+      top: calc(6.944444vw - 13.888889px);
+      width: calc(75.902778vw - 151.805556px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form-title {
+      height: calc(3.75vw - 7.5px);
+      font-size: calc(3.75vw - 7.5px);
+      letter-spacing: calc(-0.075vw + 0.15px);
+      line-height: calc(3.75vw - 7.5px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form-copy {
+      margin-top: calc(1.388889vw - 2.777778px);
+      font-size: calc(1.388889vw - 2.777778px);
+      line-height: calc(2.013889vw - 4.027778px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form {
+      width: calc(75.694444vw - 151.388889px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__fields {
+      top: calc(18.263889vw - 36.527778px);
+      width: calc(75.694444vw - 151.388889px);
+      grid-template-columns: calc(37.152778vw - 74.305556px) calc(37.152778vw - 74.305556px);
+      column-gap: calc(1.388889vw - 2.777778px);
+      row-gap: calc(1.666667vw - 3.333333px);
+    }
+
+    #contact-page-{{ section.id }} .contact-field {
+      width: calc(37.152778vw - 74.305556px);
+      height: calc(5.416667vw - 10.833333px);
+    }
+
+    #contact-page-{{ section.id }} .contact-field__label {
+      height: calc(1.388889vw - 2.777778px);
+      gap: calc(0.555556vw - 1.111111px);
+      font-size: calc(0.972222vw - 1.944444px);
+      letter-spacing: calc(-0.010444vw + 0.020889px);
+      line-height: calc(1.388889vw - 2.777778px);
+    }
+
+    #contact-page-{{ section.id }} .contact-field__error-icon {
+      width: calc(0.972222vw - 1.944444px);
+      height: calc(0.972222vw - 1.944444px);
+      flex-basis: calc(0.972222vw - 1.944444px);
+    }
+
+    #contact-page-{{ section.id }} .contact-field__control {
+      height: calc(3.472222vw - 6.944444px);
+      margin-top: calc(0.555556vw - 1.111111px);
+      padding-inline: calc(1.180556vw - 2.361111px);
+      border-radius: calc(0.972222vw - 1.944444px);
+      font-size: calc(1.111111vw - 2.222222px);
+      letter-spacing: calc(-0.021701vw + 0.043403px);
+      line-height: calc(1.666667vw - 3.333333px);
+    }
+
+    #contact-page-{{ section.id }} textarea.contact-field__control {
+      min-height: calc(3.472222vw - 6.944444px);
+      padding-top: calc(0.833333vw - 1.666667px);
+      padding-bottom: calc(0.833333vw - 1.666667px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__details {
+      top: calc(40.625vw - 81.25px);
+      width: calc(48.611111vw - 97.222222px);
+      gap: calc(1.111111vw - 2.222222px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__detail {
+      min-height: calc(1.388889vw - 2.777778px);
+      gap: calc(0.555556vw - 1.111111px);
+      font-size: calc(0.972222vw - 1.944444px);
+      letter-spacing: calc(-0.010444vw + 0.020889px);
+      line-height: calc(1.388889vw - 2.777778px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__detail svg {
+      width: calc(1.388889vw - 2.777778px);
+      height: calc(1.388889vw - 2.777778px);
+      flex-basis: calc(1.388889vw - 2.777778px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__submit {
+      top: calc(49.791667vw - 99.583333px);
+      width: calc(11.319444vw - 22.638889px);
+      height: calc(3.472222vw - 6.944444px);
+      padding-inline: calc(1.944444vw - 3.888889px);
+      font-size: calc(1.666667vw - 3.333333px);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form-status {
+      top: calc(54.513889vw - 109.027778px);
+      width: calc(75.694444vw - 151.388889px);
+      font-size: calc(0.972222vw - 1.944444px);
+      line-height: calc(1.388889vw - 2.777778px);
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    #contact-page-{{ section.id }} .contact-page__hero { height: 600px; }
+    #contact-page-{{ section.id }} .contact-page__hero-image { object-fit: cover; }
+
+    #contact-page-{{ section.id }} .contact-page__hero-shade {
+      height: 371px;
+      background: linear-gradient(180deg, rgba(0,15,34,.28) 0%, rgba(0,15,34,.04) 100%);
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero-content {
+      top: 92px;
+      left: 12px;
+      width: calc(100% - 24px);
+      text-align: center;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero-title {
+      width: 100%;
+      font-size: 28px;
+      letter-spacing: -.56px;
+      line-height: 38px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero-copy {
+      width: 100%;
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__button {
+      width: 180px;
+      height: 35px;
+      padding: 0 14px;
+      font-size: 16px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__hero-content .contact-page__button { margin-top: 20px; }
+
+    #contact-page-{{ section.id }} .contact-page__perks { height: 461px; }
+
+    #contact-page-{{ section.id }} .contact-page__perks-copy {
+      top: 40px;
+      left: 12px;
+      width: calc(100% - 24px);
+      align-items: center;
+      gap: 0;
+      text-align: center;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks-title {
+      width: 100%;
+      font-size: 28px;
+      letter-spacing: -.56px;
+      line-height: 38px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks-text {
+      width: 100%;
+      min-height: 0;
+      margin-top: 12px;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks-copy .contact-page__button { margin-top: 20px; }
+
+    #contact-page-{{ section.id }} .contact-page__perks-media {
+      top: 254px;
+      left: 12px;
+      width: calc(100% - 24px);
+      height: 167px;
+      border-radius: 10px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__perks-image--desktop { display: none; }
+    #contact-page-{{ section.id }} .contact-page__perks-image--mobile { display: block; }
+
+    #contact-page-{{ section.id }} .contact-page__form-section { height: 863px; }
+
+    #contact-page-{{ section.id }} .contact-page__form-heading {
+      top: 40px;
+      left: 12px;
+      width: calc(100% - 24px);
+      transform: none;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form-title {
+      height: 38px;
+      font-size: 28px;
+      letter-spacing: -.56px;
+      line-height: 38px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form-copy {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 20px;
+      white-space: normal;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 863px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__fields {
+      top: 170px;
+      left: 12px;
+      width: calc(100% - 24px);
+      grid-template-columns: 1fr;
+      grid-template-areas: "name" "email" "message" "phone" "order";
+      row-gap: 16px;
+    }
+
+    #contact-page-{{ section.id }} .contact-field {
+      width: 100%;
+      height: 78px;
+    }
+
+    #contact-page-{{ section.id }} .contact-field__label {
+      font-size: 12px;
+      letter-spacing: -.12px;
+    }
+
+    #contact-page-{{ section.id }} .contact-field__control {
+      padding: 0 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      letter-spacing: -.14px;
+      line-height: 20px;
+    }
+
+    #contact-page-{{ section.id }} textarea.contact-field__control {
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__details {
+      top: 644px;
+      left: 12px;
+      width: calc(100% - 24px);
+      gap: 8px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__detail {
+      min-height: 20px;
+      font-size: 10px;
+      letter-spacing: -.1px;
+      line-height: 20px;
+      white-space: normal;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__detail svg {
+      width: 16px;
+      height: 16px;
+      flex-basis: 16px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__submit {
+      top: 788px;
+      width: 100px;
+      height: 35px;
+      padding: 0 14px;
+      font-size: 16px;
+    }
+
+    #contact-page-{{ section.id }} .contact-page__form-status {
+      top: 833px;
+      width: calc(100% - 24px);
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+{% endstyle %}
+
+<section class="contact-page" id="contact-page-{{ section.id }}" data-contact-page>
+  <div class="contact-page__hero">
+    <picture class="contact-page__hero-picture">
+      {%- if hero_image_mobile != blank -%}
+        <source
+          media="(max-width: 989px)"
+          srcset="{{ hero_image_mobile | image_url: width: 750 }}"
+        >
+      {%- endif -%}
+      {%- if hero_image_desktop != blank -%}
+        <img
+          class="contact-page__hero-image"
+          src="{{ hero_image_desktop | image_url: width: 3840 }}"
+          alt="{{ section.settings.hero_title | escape }}"
+          width="{{ hero_image_desktop.width }}"
+          height="{{ hero_image_desktop.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- endif -%}
+    </picture>
+    <div class="contact-page__hero-shade" aria-hidden="true"></div>
+
+    <div class="contact-page__hero-content">
+      <h1 class="contact-page__hero-title">{{ section.settings.hero_title | escape | newline_to_br }}</h1>
+      <p class="contact-page__hero-copy">{{ section.settings.hero_copy | escape }}</p>
+      <a class="contact-page__button" href="{{ hero_button_link }}">
+        {{- section.settings.hero_button_label | escape -}}
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-page__perks">
+    <div class="contact-page__perks-copy">
+      <h2 class="contact-page__perks-title">{{ section.settings.perks_title | escape }}</h2>
+      <p class="contact-page__perks-text">{{ section.settings.perks_copy | escape }}</p>
+      <a class="contact-page__button" href="{{ perks_button_link }}">
+        {{- section.settings.perks_button_label | escape -}}
+      </a>
+    </div>
+    <div class="contact-page__perks-media">
+      {%- if perks_image_desktop != blank -%}
+        <img
+          class="contact-page__perks-image--desktop"
+          src="{{ perks_image_desktop | image_url: width: 1680 }}"
+          alt="{{ perks_image_desktop.alt | default: section.settings.perks_image_alt | escape }}"
+          width="{{ perks_image_desktop.width }}"
+          height="{{ perks_image_desktop.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+      {%- if perks_image_mobile != blank -%}
+        <img
+          class="contact-page__perks-image--mobile"
+          src="{{ perks_image_mobile | image_url: width: 702 }}"
+          alt="{{ perks_image_mobile.alt | default: section.settings.perks_image_alt | escape }}"
+          width="{{ perks_image_mobile.width }}"
+          height="{{ perks_image_mobile.height }}"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="contact-page__form-section" id="contact-form-{{ section.id }}">
+    <div class="contact-page__form-heading">
+      <h2 class="contact-page__form-title">{{ section.settings.form_title | escape }}</h2>
+      <p class="contact-page__form-copy">{{ section.settings.form_copy | escape }}</p>
+    </div>
+
+    {%- form 'customer', id: contact_form_id, class: 'contact-page__form' -%}
+      <div class="contact-page__fields">
+        <div class="contact-field contact-field--name" data-contact-field="name">
+          <label class="contact-field__label" for="ContactName-{{ section.id }}">
+            <svg class="contact-field__error-icon" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true" focusable="false">
+              <circle cx="7" cy="7" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7 3.6v4.1M7 10.35v.05" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span data-contact-label>{{ section.settings.name_label | escape }}</span>
+          </label>
+          <input
+            class="contact-field__control"
+            id="ContactName-{{ section.id }}"
+            type="text"
+            name="contact[first_name]"
+            value="{% if form.name %}{{ form.name | escape }}{% elsif customer %}{{ customer.name | escape }}{% endif %}"
+            placeholder="{{ section.settings.name_placeholder | escape }}"
+            autocomplete="name"
+            data-contact-input
+            required
+          >
+        </div>
+
+        <div class="contact-field contact-field--email{% if form.errors contains 'email' %} has-error{% endif %}" data-contact-field="email">
+          <label class="contact-field__label" for="ContactEmail-{{ section.id }}">
+            <svg class="contact-field__error-icon" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true" focusable="false">
+              <circle cx="7" cy="7" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7 3.6v4.1M7 10.35v.05" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span data-contact-label>{% if form.errors contains 'email' %}Invalid Email{% else %}{{ section.settings.email_label | escape }}{% endif %}</span>
+          </label>
+          <input
+            class="contact-field__control"
+            id="ContactEmail-{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            value="{% if form.email %}{{ form.email | escape }}{% elsif customer %}{{ customer.email | escape }}{% endif %}"
+            placeholder="{{ section.settings.email_placeholder | escape }}"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
+            data-contact-input
+            required
+            {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}
+          >
+        </div>
+
+        <div class="contact-field contact-field--message" data-contact-field="message">
+          <label class="contact-field__label" for="ContactMessage-{{ section.id }}">
+            <svg class="contact-field__error-icon" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true" focusable="false">
+              <circle cx="7" cy="7" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M7 3.6v4.1M7 10.35v.05" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <span data-contact-label>{{ section.settings.message_label | escape }}</span>
+          </label>
+          <textarea
+            class="contact-field__control"
+            id="ContactMessage-{{ section.id }}"
+            name="customer[note]"
+            placeholder="{{ section.settings.message_placeholder | escape }}"
+            data-contact-input
+            required
+          >{{ form.body | escape }}</textarea>
+        </div>
+
+        <div class="contact-field contact-field--phone" data-contact-field="phone">
+          <label class="contact-field__label" for="ContactPhone-{{ section.id }}">
+            <span data-contact-label>{{ section.settings.phone_label | escape }}</span>
+          </label>
+          <input
+            class="contact-field__control"
+            id="ContactPhone-{{ section.id }}"
+            type="tel"
+            name="customer[phone]"
+            value="{% if form.phone %}{{ form.phone | escape }}{% elsif customer %}{{ customer.phone | escape }}{% endif %}"
+            placeholder="{{ section.settings.phone_placeholder | escape }}"
+            autocomplete="tel"
+            data-contact-input
+          >
+        </div>
+
+        <div class="contact-field contact-field--order" data-contact-field="order">
+          <label class="contact-field__label" for="ContactOrder-{{ section.id }}">
+            <span data-contact-label>{{ section.settings.order_label | escape }}</span>
+          </label>
+          <input
+            class="contact-field__control"
+            id="ContactOrder-{{ section.id }}"
+            type="text"
+            name="contact[Order number]"
+            placeholder="{{ section.settings.order_placeholder | escape }}"
+            data-contact-input
+          >
+        </div>
+      </div>
+
+      <div class="contact-page__details">
+        <p class="contact-page__detail">
+          <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+            <path d="M10 18s6-5.14 6-10A6 6 0 1 0 4 8c0 4.86 6 10 6 10Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="10" cy="8" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span><strong>Address :</strong> {{ section.settings.address | escape }}</span>
+        </p>
+        <p class="contact-page__detail">
+          <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+            <path d="M6.1 2.5 8 6.25 6.55 7.7c.9 2.05 2.6 3.75 4.65 4.65L12.65 10 16.5 11.9v3.25c0 .75-.6 1.35-1.35 1.35C8.7 16.5 3.5 11.3 3.5 4.85c0-.75.6-1.35 1.35-1.35H6.1Z" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+          </svg>
+          <span><strong>Phone :</strong> {{ section.settings.phone | escape }}</span>
+        </p>
+        <p class="contact-page__detail">
+          <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true" focusable="false">
+            <rect x="2.75" y="4.25" width="14.5" height="11.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="m3.5 5.25 6.5 5 6.5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+          <span><strong>Email :</strong> {{ section.settings.email | escape }}</span>
+        </p>
+      </div>
+
+      <button class="contact-page__submit" type="submit">{{ section.settings.submit_label | escape }}</button>
+
+      {%- if form.posted_successfully? -%}
+        <p class="contact-page__form-status" role="status">{{ 'contact.form.post_success' | t }}</p>
+      {%- endif -%}
+      {%- if form.errors -%}
+        <div class="contact-page__form-status contact-page__form-status--error" role="alert">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('contact-page-{{ section.id }}');
+    if (!root) return;
+
+
+    const form = root.querySelector('.contact-page__form');
+    if (!form || form.dataset.validationBound === 'true') return;
+    form.dataset.validationBound = 'true';
+
+    const fields = {
+      name: {
+        element: form.querySelector('[data-contact-field="name"]'),
+        defaultLabel: {{ section.settings.name_label | json }},
+        errorLabel: 'Invalid Username',
+        valid: (value) => value.trim().length >= 2
+      },
+      email: {
+        element: form.querySelector('[data-contact-field="email"]'),
+        defaultLabel: {{ section.settings.email_label | json }},
+        errorLabel: 'Invalid Email',
+        valid: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
+      },
+      message: {
+        element: form.querySelector('[data-contact-field="message"]'),
+        defaultLabel: {{ section.settings.message_label | json }},
+        errorLabel: 'Message ( This field is required. )',
+        valid: (value) => value.trim().length > 0
+      }
+    };
+
+    const updateField = (field, showError) => {
+      if (!field.element) return true;
+      const input = field.element.querySelector('[data-contact-input]');
+      const label = field.element.querySelector('[data-contact-label]');
+      const valid = field.valid(input.value);
+      const hasError = showError && !valid;
+
+      field.element.classList.toggle('has-error', hasError);
+      input.setAttribute('aria-invalid', hasError ? 'true' : 'false');
+      label.textContent = hasError ? field.errorLabel : field.defaultLabel;
+      return valid;
+    };
+
+    Object.values(fields).forEach((field) => {
+      if (!field.element) return;
+      const input = field.element.querySelector('[data-contact-input]');
+      input.addEventListener('blur', () => updateField(field, true));
+      input.addEventListener('input', () => {
+        if (field.element.classList.contains('has-error')) updateField(field, true);
+      });
+    });
+
+    form.addEventListener('submit', (event) => {
+      let firstInvalid = null;
+      let valid = true;
+
+      Object.values(fields).forEach((field) => {
+        const fieldValid = updateField(field, true);
+        if (!fieldValid && !firstInvalid) firstInvalid = field.element.querySelector('[data-contact-input]');
+        valid = valid && fieldValid;
+      });
+
+      if (!valid) {
+        event.preventDefault();
+        firstInvalid?.focus();
+      }
+    });
+
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Contact page",
+  "class": "contact-page-section",
+  "settings": [
+
+    { "type": "header", "content": "Hero" },
+    { "type": "font_picker", "id": "contact_font", "label": "Contact page font", "default": "inter_n4" },
+    { "type": "image_picker", "id": "hero_image_desktop", "label": "Desktop image (1920 × 1080)" },
+    { "type": "image_picker", "id": "hero_image_mobile", "label": "Mobile image (375 × 600)" },
+    { "type": "textarea", "id": "hero_title", "label": "Heading", "default": "We’re Here For Your\nNext Adventure" },
+    { "type": "textarea", "id": "hero_copy", "label": "Copy", "default": "Have questions about your fishing SUP, need help with your order, or want to share your adventure? Our team is always ready to help." },
+    { "type": "text", "id": "hero_button_label", "label": "Button label", "default": "Join The Adventure" },
+    { "type": "url", "id": "hero_button_link", "label": "Button link" },
+
+    { "type": "header", "content": "Community perks" },
+    { "type": "image_picker", "id": "perks_image_desktop", "label": "Desktop image (840 × 400)" },
+    { "type": "image_picker", "id": "perks_image_mobile", "label": "Mobile image (351 × 167)" },
+    { "type": "text", "id": "perks_title", "label": "Heading", "default": "Unlock Exclusive Community Perks" },
+    { "type": "textarea", "id": "perks_copy", "label": "Copy", "default": "Gain access to insider product updates, member-only events, and real-time support from peers." },
+    { "type": "text", "id": "perks_button_label", "label": "Button label", "default": "Join The Adventure" },
+    { "type": "url", "id": "perks_button_link", "label": "Button link" },
+    { "type": "text", "id": "perks_image_alt", "label": "Image alt text", "default": "Ventral fishing SUP on the water" },
+
+    { "type": "header", "content": "Contact form" },
+    { "type": "text", "id": "form_title", "label": "Heading", "default": "Stay in the Loop" },
+    { "type": "textarea", "id": "form_copy", "label": "Copy", "default": "Update your information below so we can share exciting product updates and exclusive insights with you right away." },
+    { "type": "text", "id": "name_label", "label": "Name label", "default": "Name ( Required )" },
+    { "type": "text", "id": "name_placeholder", "label": "Name placeholder", "default": "Enter your name" },
+    { "type": "text", "id": "email_label", "label": "Email label", "default": "Emil ( Required )" },
+    { "type": "text", "id": "email_placeholder", "label": "Email placeholder", "default": "Enter your email address" },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "Message ( Required )" },
+    { "type": "text", "id": "message_placeholder", "label": "Message placeholder", "default": "Enter your messagr" },
+    { "type": "text", "id": "phone_label", "label": "Phone label", "default": "Phone number ( Optional )" },
+    { "type": "text", "id": "phone_placeholder", "label": "Phone placeholder", "default": "Enter your phone number" },
+    { "type": "text", "id": "order_label", "label": "Order label", "default": "Order number ( Optional )" },
+    { "type": "text", "id": "order_placeholder", "label": "Order placeholder", "default": "Enter your Order number" },
+    { "type": "text", "id": "submit_label", "label": "Submit label", "default": "Join Now" },
+    { "type": "textarea", "id": "address", "label": "Address", "default": "9800 International Drive, Suite 120, Orlando, FL, United States, 32819" },
+    { "type": "text", "id": "phone", "label": "Phone", "default": "XXXXXXXXXXXXX" },
+    { "type": "text", "id": "email", "label": "Email", "default": "pr@ventral.com" }
+  ],
+  "presets": [
+    { "name": "Contact page" }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "custom.popups"]
+  }
+}
+{% endschema %}

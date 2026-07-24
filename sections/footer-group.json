@@ -13,7 +13,10 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "settings": {}
+      "settings": {
+        "instagram_link": "https://www.instagram.com/ventral.official",
+        "facebook_link": "https://www.facebook.com/people/Ventral-Marine/61591187923921"
+      }
     }
   },
   "order": [

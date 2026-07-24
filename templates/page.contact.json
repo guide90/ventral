@@ -1,0 +1,51 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "contact-page",
+      "settings": {
+        "contact_font": "inter_n4",
+        "hero_image_desktop": "shopify://shop_images/contact-Section_1_pc.jpg",
+        "hero_image_mobile": "shopify://shop_images/contact-Section_1_web.jpg",
+        "hero_title": "We’re Here For Your\nNext Adventure",
+        "hero_copy": "Have questions about your fishing SUP, need help with your order, or want to share your adventure? Our team is always ready to help.",
+        "hero_button_label": "Join The Adventure",
+        "hero_button_link": "",
+        "perks_image_desktop": "shopify://shop_images/contact-section2-pc.png",
+        "perks_image_mobile": "shopify://shop_images/contact-section2-m.png",
+        "perks_title": "Unlock Exclusive Community Perks",
+        "perks_copy": "Gain access to insider product updates, member-only events, and real-time support from peers.",
+        "perks_button_label": "Join The Adventure",
+        "perks_button_link": "",
+        "perks_image_alt": "Ventral fishing SUP on the water",
+        "form_title": "Stay in the Loop",
+        "form_copy": "Update your information below so we can share exciting product updates and exclusive insights with you right away.",
+        "name_label": "Name ( Required )",
+        "name_placeholder": "Enter your name",
+        "email_label": "Emil ( Required )",
+        "email_placeholder": "Enter your email address",
+        "message_label": "Message ( Required )",
+        "message_placeholder": "Enter your messagr",
+        "phone_label": "Phone number ( Optional )",
+        "phone_placeholder": "Enter your phone number",
+        "order_label": "Order number ( Optional )",
+        "order_placeholder": "Enter your Order number",
+        "submit_label": "Join Now",
+        "address": "9800 International Drive, Suite 120, Orlando, FL, United States, 32819",
+        "phone": "XXXXXXXXXXXXX",
+        "email": "pr@ventral.com"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
