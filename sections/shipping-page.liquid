@@ -1,0 +1,722 @@
+{%- liquid
+  assign shipping_font = section.settings.shipping_font
+  assign shipping_font_medium = shipping_font | font_modify: 'weight', '500'
+  assign shipping_font_semibold = shipping_font | font_modify: 'weight', '600'
+  assign shipping_font_bold = shipping_font | font_modify: 'weight', '700'
+-%}
+
+{% style %}
+  {{ shipping_font | font_face: font_display: 'swap' }}
+  {{ shipping_font_medium | font_face: font_display: 'swap' }}
+  {{ shipping_font_semibold | font_face: font_display: 'swap' }}
+  {{ shipping_font_bold | font_face: font_display: 'swap' }}
+
+  #shipping-{{ section.id }},
+  #shipping-{{ section.id }} * {
+    box-sizing: border-box;
+  }
+  #shipping-{{ section.id }} {
+    overflow: hidden;
+    color: #06142e;
+    background: #f8f9fc;
+    font-family: {{ shipping_font.family }}, {{ shipping_font.fallback_families }};
+  }
+  #shipping-{{ section.id }} h1,
+  #shipping-{{ section.id }} h2,
+  #shipping-{{ section.id }} h3,
+  #shipping-{{ section.id }} p {
+    margin: 0;
+  }
+  #shipping-{{ section.id }} .shipping-hero {
+    position: relative;
+    height: min(56.25vw, 1080px);
+    min-height: 720px;
+    overflow: hidden;
+    color: #fff;
+    background: #bababa;
+  }
+  #shipping-{{ section.id }} .shipping-hero__picture,
+  #shipping-{{ section.id }} .shipping-hero__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #shipping-{{ section.id }} .shipping-hero__image {
+    object-fit: cover;
+    object-position: center;
+  }
+  #shipping-{{ section.id }} .shipping-hero__content {
+    position: absolute;
+    top: 41.7593%;
+    left: 12.5%;
+    display: flex;
+    width: min(36.4584vw, 700px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(12px, 1.0417vw, 20px);
+    color: #fff;
+  }
+  #shipping-{{ section.id }} .shipping-hero__title {
+    margin: 0;
+    color: inherit;
+    font-size: clamp(40px, 3.3334vw, 64px);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  #shipping-{{ section.id }} .shipping-hero__copy {
+    width: min(31.25vw, 600px);
+    margin: 0;
+    color: inherit;
+    font-size: clamp(16px, 1.0417vw, 20px);
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  #shipping-{{ section.id }} .shipping-shell {
+    width: min(1200px, calc(100% - 48px));
+    margin: 0 auto;
+  }
+  #shipping-{{ section.id }} .shipping-page {
+    padding: 100px 0;
+  }
+  #shipping-{{ section.id }} .shipping-heading {
+    color: #06142e;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  #shipping-{{ section.id }} .shipping-card {
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 4px 4px 8px rgba(63, 88, 161, .12);
+  }
+  #shipping-{{ section.id }} .shipping-policy__card {
+    margin-top: 40px;
+    padding: 40px;
+  }
+  #shipping-{{ section.id }} .shipping-policy + .shipping-policy {
+    margin-top: 60px;
+  }
+  #shipping-{{ section.id }} .shipping-policy__title {
+    color: #212121;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  #shipping-{{ section.id }} .shipping-policy__copy {
+    margin-top: 14px;
+    color: #a5a9b7;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  #shipping-{{ section.id }} .shipping-benefits {
+    margin-top: 60px;
+  }
+  #shipping-{{ section.id }} .shipping-benefits__mobile-title {
+    display: none;
+  }
+  #shipping-{{ section.id }} .shipping-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+  #shipping-{{ section.id }} .shipping-benefit {
+    min-height: 199px;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+  #shipping-{{ section.id }} .shipping-benefit__icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  #shipping-{{ section.id }} .shipping-benefit__title {
+    color: #212121;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  #shipping-{{ section.id }} .shipping-benefit__copy {
+    margin-top: 12px;
+    color: #a5a9b7;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+  #shipping-{{ section.id }} .shipping-journey {
+    margin-top: 60px;
+  }
+  #shipping-{{ section.id }} .shipping-journey__visual {
+    position: relative;
+    height: 461px;
+    margin-top: 40px;
+  }
+  #shipping-{{ section.id }} .shipping-journey__wave {
+    position: absolute;
+    top: 82px;
+    left: 0;
+    width: 100%;
+    height: 95px;
+    object-fit: fill;
+  }
+  #shipping-{{ section.id }} .shipping-journey__icons,
+  #shipping-{{ section.id }} .shipping-journey__steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: relative;
+    z-index: 1;
+  }
+  #shipping-{{ section.id }} .shipping-journey__icons {
+    height: 247px;
+    align-items: start;
+  }
+  #shipping-{{ section.id }} .shipping-journey__icon-wrap {
+    justify-self: center;
+    width: 181px;
+    height: 181px;
+    padding: 10px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 4px 8px 12px rgba(63, 88, 161, .12);
+    display: grid;
+    place-items: center;
+  }
+  #shipping-{{ section.id }} .shipping-journey__icon-inner {
+    display: grid;
+    width: 160px;
+    height: 160px;
+    place-items: center;
+    border-radius: 50%;
+    box-shadow: inset 0 7px 12px rgba(207, 221, 245, .2);
+  }
+  #shipping-{{ section.id }} .shipping-journey__icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  #shipping-{{ section.id }} .shipping-journey__icon--placed {
+    width: 68px;
+    height: 68px;
+  }
+  #shipping-{{ section.id }} .shipping-journey__icon--heading {
+    width: 82px;
+    height: 82px;
+  }
+  #shipping-{{ section.id }} .shipping-journey__icon--explore {
+    width: 66px;
+    height: 66px;
+  }
+  #shipping-{{ section.id }} .shipping-journey__steps {
+    gap: 20px;
+  }
+  #shipping-{{ section.id }} .shipping-step {
+    min-height: 174px;
+    padding: 20px 7px;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 4px 4px 8px rgba(63, 88, 161, .12);
+    text-align: center;
+  }
+  #shipping-{{ section.id }} .shipping-step__number {
+    color: #2675f4;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+  #shipping-{{ section.id }} .shipping-step__rule {
+    width: 22px;
+    height: 2px;
+    margin: 6px auto 18px;
+    border-radius: 1px;
+    background: #d5e6ff;
+  }
+  #shipping-{{ section.id }} .shipping-step__title {
+    color: #212121;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  #shipping-{{ section.id }} .shipping-step__copy {
+    margin-top: 12px;
+    color: #a5a9b7;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 749px) {
+    #shipping-{{ section.id }} .shipping-hero {
+      height: 812px;
+      min-height: 0;
+    }
+    #shipping-{{ section.id }} .shipping-hero__image {
+      object-position: center top;
+    }
+    #shipping-{{ section.id }} .shipping-hero__content {
+      top: 16.2562%;
+      right: 3.2%;
+      left: 3.2%;
+      width: auto;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+    #shipping-{{ section.id }} .shipping-hero__title {
+      font-size: 32px;
+      line-height: 1.2;
+    }
+    #shipping-{{ section.id }} .shipping-hero__copy {
+      width: 100%;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.45;
+    }
+    #shipping-{{ section.id }} .shipping-shell {
+      width: calc(100% - 18px);
+    }
+    #shipping-{{ section.id }} .shipping-page {
+      padding: 40px 0;
+    }
+    #shipping-{{ section.id }} .shipping-heading {
+      font-size: 24px;
+      line-height: 1.2;
+    }
+    #shipping-{{ section.id }} .shipping-card {
+      border-radius: 12px;
+    }
+    #shipping-{{ section.id }} .shipping-policy__card {
+      margin-top: 20px;
+      padding: 20px 12px;
+    }
+    #shipping-{{ section.id }} .shipping-policy + .shipping-policy {
+      margin-top: 40px;
+    }
+    #shipping-{{ section.id }} .shipping-policy__title {
+      font-size: 16px;
+    }
+    #shipping-{{ section.id }} .shipping-policy__copy {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    #shipping-{{ section.id }} .shipping-benefits {
+      margin-top: 40px;
+    }
+    #shipping-{{ section.id }} .shipping-benefits > .shipping-heading {
+      display: none;
+    }
+    #shipping-{{ section.id }} .shipping-benefits__mobile-title {
+      display: block;
+    }
+    #shipping-{{ section.id }} .shipping-benefits__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 11px;
+      margin-top: 20px;
+    }
+    #shipping-{{ section.id }} .shipping-benefit {
+      min-height: 147px;
+      padding: 20px 4px 12px;
+      gap: 12px;
+      border-radius: 12px;
+    }
+    #shipping-{{ section.id }} .shipping-benefit__icon {
+      width: 40px;
+      height: 40px;
+    }
+    #shipping-{{ section.id }} .shipping-benefit__title {
+      font-size: 16px;
+      line-height: 1.2;
+      white-space: normal;
+    }
+    #shipping-{{ section.id }} .shipping-benefit__copy {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    #shipping-{{ section.id }} .shipping-journey {
+      margin-top: 40px;
+    }
+    #shipping-{{ section.id }} .shipping-journey__visual {
+      height: 908px;
+      margin-top: 20px;
+    }
+    #shipping-{{ section.id }} .shipping-journey__wave {
+      display: none;
+    }
+    #shipping-{{ section.id }} .shipping-journey__icons,
+    #shipping-{{ section.id }} .shipping-journey__steps {
+      display: block;
+    }
+    #shipping-{{ section.id }} .shipping-journey__icons {
+      position: absolute;
+      inset: 0 auto 0 3px;
+      width: 120px;
+      height: auto;
+    }
+    #shipping-{{ section.id }} .shipping-journey__icons::before {
+      position: absolute;
+      top: 94px;
+      bottom: 78px;
+      left: 59px;
+      width: 2px;
+      border-radius: 2px;
+      background: #d5e6ff;
+      content: '';
+    }
+    #shipping-{{ section.id }} .shipping-journey__icon-wrap {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 61px;
+      padding: 4px;
+      box-shadow: 4px 4px 12px rgba(63, 88, 161, .12);
+    }
+    #shipping-{{ section.id }} .shipping-journey__icon-inner {
+      width: 112px;
+      height: 112px;
+    }
+    #shipping-{{ section.id }} .shipping-journey__icon,
+    #shipping-{{ section.id }} .shipping-journey__icon--placed,
+    #shipping-{{ section.id }} .shipping-journey__icon--heading,
+    #shipping-{{ section.id }} .shipping-journey__icon--explore {
+      width: 50px;
+      height: 50px;
+    }
+    #shipping-{{ section.id }} .shipping-journey__steps {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      left: 90px;
+    }
+    #shipping-{{ section.id }} .shipping-step {
+      min-height: 104px;
+      margin-bottom: 77px;
+      padding: 12px 12px 8px 42px;
+      border-radius: 12px;
+      text-align: left;
+    }
+    #shipping-{{ section.id }} .shipping-step__number {
+      font-size: 18px;
+      line-height: 20px;
+    }
+    #shipping-{{ section.id }} .shipping-step__rule {
+      margin: 2px 0 12px;
+    }
+    #shipping-{{ section.id }} .shipping-step__title {
+      font-size: 16px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    #shipping-{{ section.id }} .shipping-step__copy {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+  }
+{% endstyle %}
+
+<section id="shipping-{{ section.id }}">
+  <header class="shipping-hero">
+    <picture class="shipping-hero__picture">
+      {%- if section.settings.hero_image_mobile != blank -%}
+        <source media="(max-width: 749px)" srcset="{{ section.settings.hero_image_mobile | image_url: width: 1500 }}">
+      {%- endif -%}
+      {%- if section.settings.hero_image_desktop != blank -%}
+        {{
+          section.settings.hero_image_desktop
+          | image_url: width: 3840
+          | image_tag:
+            class: 'shipping-hero__image',
+            widths: '960,1440,1920,2560,3840',
+            loading: 'eager',
+            fetchpriority: 'high',
+            alt: section.settings.hero_image_alt
+        }}
+      {%- elsif section.settings.hero_image_mobile != blank -%}
+        {{
+          section.settings.hero_image_mobile
+          | image_url: width: 1500
+          | image_tag:
+            class: 'shipping-hero__image',
+            widths: '750,1125,1500',
+            loading: 'eager',
+            fetchpriority: 'high',
+            alt: section.settings.hero_image_alt
+        }}
+      {%- endif -%}
+    </picture>
+    <div class="shipping-hero__content">
+      <h1 class="shipping-hero__title">{{ section.settings.hero_title }}</h1>
+      {%- if section.settings.hero_copy != blank -%}
+        <p class="shipping-hero__copy">{{ section.settings.hero_copy }}</p>
+      {%- endif -%}
+    </div>
+  </header>
+
+  <div class="shipping-page">
+    <div class="shipping-shell">
+      <div class="shipping-policy">
+        <h1 class="shipping-heading">{{ section.settings.processing_heading }}</h1>
+        <div class="shipping-card shipping-policy__card">
+          <h2 class="shipping-policy__title">{{ section.settings.processing_card_title }}</h2>
+          <p class="shipping-policy__copy">{{ section.settings.processing_copy }}</p>
+        </div>
+      </div>
+
+      <div class="shipping-policy">
+        <h2 class="shipping-heading">{{ section.settings.delivery_heading }}</h2>
+        <div class="shipping-card shipping-policy__card">
+          <h3 class="shipping-policy__title">{{ section.settings.delivery_card_title }}</h3>
+          <p class="shipping-policy__copy">{{ section.settings.delivery_copy }}</p>
+        </div>
+      </div>
+
+      <div class="shipping-benefits">
+        <h2 class="shipping-heading">{{ section.settings.benefits_heading }}</h2>
+        <h2 class="shipping-heading shipping-benefits__mobile-title">{{ section.settings.processing_heading }}</h2>
+        <div class="shipping-benefits__grid">
+          {%- assign benefit_titles = 'Fast Delivery|Protective Packaging|Track Your Order|Shipping Protection'
+            | split: '|'
+          -%}
+          {%- assign benefit_copies = '3-5 Business Days|Designed for oversized outdoor gear|Follow your shipment anytime|Support when you need it'
+            | split: '|'
+          -%}
+          {%- for title in benefit_titles -%}
+            {%- case forloop.index -%}
+              {%- when 1 -%}
+                {%- assign icon_image = section.settings.fast_delivery_icon -%}
+              {%- when 2 -%}
+                {%- assign icon_image = section.settings.protective_packaging_icon -%}
+              {%- when 3 -%}
+                {%- assign icon_image = section.settings.track_order_icon -%}
+              {%- when 4 -%}
+                {%- assign icon_image = section.settings.shipping_protection_icon -%}
+            {%- endcase -%}
+            <article class="shipping-card shipping-benefit">
+              {%- if icon_image != blank -%}
+                {{
+                  icon_image
+                  | image_url: width: 160
+                  | image_tag: class: 'shipping-benefit__icon', widths: '80,160', loading: 'lazy', alt: ''
+                }}
+              {%- else -%}
+                {%- case forloop.index -%}
+                  {%- when 1 -%}
+                    <svg
+                      class="shipping-benefit__icon"
+                      width="80"
+                      height="80"
+                      viewBox="0 0 80 80"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M24.6808 26.2428H30.3115L30.015 27.638H26.0333L25.6457 29.4651H29.1314L28.8404 30.8445H25.3546L24.6484 34.1743H23L24.6808 26.2428ZM31.6689 31.1728H33.6835L33.3552 28.0484L31.6689 31.1728ZM32.8214 26.2317H34.6973L35.8222 34.1743H34.0221L33.8552 32.5418H30.9295L30.0356 34.1743H28.301L32.8214 26.2317ZM38.2734 31.7225C38.2486 32.0852 38.2893 32.357 38.3976 32.5363C38.5983 32.8632 39.0259 33.026 39.6804 33.026C40.0715 33.026 40.3977 32.9832 40.6605 32.897C41.1598 32.7315 41.4564 32.4253 41.5502 31.9756C41.6068 31.7135 41.535 31.5107 41.3343 31.3673C41.1585 31.2431 40.875 31.1307 40.4839 31.0321L39.5287 30.8065C38.7424 30.6203 38.2141 30.4169 37.9451 30.1975C37.4886 29.832 37.343 29.2582 37.5086 28.4788C37.6589 27.7677 38.0438 27.1766 38.6617 26.7063C39.279 26.2359 40.0894 26 41.0916 26C41.9289 26 42.5951 26.2221 43.0903 26.6656C43.5869 27.1097 43.7593 27.7532 43.6076 28.5974H42.013C42.0889 28.1195 41.9537 27.7801 41.6088 27.5787C41.3792 27.4463 41.0716 27.3794 40.6874 27.3794C40.2598 27.3794 39.8998 27.4656 39.6073 27.638C39.3142 27.8105 39.1356 28.0519 39.0707 28.3602C39.01 28.6443 39.0907 28.8567 39.3135 28.9961C39.4535 29.0899 39.7756 29.1988 40.2777 29.3251L41.5764 29.6534C42.1441 29.7975 42.5558 29.9892 42.811 30.2299C43.2055 30.6038 43.3283 31.1445 43.1765 31.8521C43.022 32.5777 42.6165 33.1805 41.9592 33.6591C41.3019 34.1392 40.4667 34.3792 39.4535 34.3792C38.419 34.3792 37.6555 34.1426 37.1637 33.6709C36.6713 33.1984 36.5133 32.5487 36.6892 31.7225H38.2734ZM51.0964 26.2324L50.795 27.638H48.4183L47.034 34.1743H45.3636L46.7485 27.638H44.3608L44.6621 26.2317H51.0957L51.0964 26.2324Z" fill="#474747"/>
+                      <path d="M9 35H18" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M3 41H18" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M16 29.9V22C16 19.7909 17.7909 18 20 18H54C56.2091 18 58 19.7909 58 22V52H32M16 46.9V48C16 50.2091 17.7909 52 20 52H20.5" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M61 52H58V29H68.7953C70.1678 29 71.4444 29.7036 72.1773 30.864L76.382 37.5214C76.7857 38.1607 77 38.9013 77 39.6574V48C77 50.2091 75.2091 52 73 52H72" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <circle cx="26.5" cy="54.5" r="5.5" stroke="#4F5052" stroke-width="4"/>
+                      <circle cx="66.5" cy="54.5" r="5.5" stroke="#4F5052" stroke-width="4"/>
+                    </svg>
+                  {%- when 2 -%}
+                    <svg
+                      class="shipping-benefit__icon"
+                      width="80"
+                      height="80"
+                      viewBox="0 0 80 80"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M61.0938 71.25H18.9062C13.3063 71.25 8.75 66.6938 8.75 61.0938V25.5469C8.75 24.2523 9.79922 23.2031 11.0938 23.2031H68.9062C70.2 23.2031 71.25 24.2523 71.25 25.5469V61.0938C71.25 66.6938 66.6938 71.25 61.0938 71.25ZM13.4375 27.8906V61.0938C13.4375 64.1086 15.8914 66.5625 18.9062 66.5625H61.0938C64.1086 66.5625 66.5625 64.1086 66.5625 61.0938V27.8906H13.4375Z" fill="#4F5052"/>
+                      <path d="M68.9062 27.8906H11.0937C10.2492 27.8906 9.4703 27.4367 9.05467 26.7023C8.63827 25.968 8.6492 25.0656 9.08436 24.3414L15.4805 13.6812C17.3047 10.6398 20.6422 8.75 24.189 8.75H55.8117C59.3594 8.75 62.6961 10.6398 64.5195 13.6812L70.9164 24.3406C71.3515 25.0648 71.3617 25.9664 70.9469 26.7016C70.7422 27.0624 70.4455 27.3626 70.087 27.5715C69.7285 27.7804 69.3211 27.8905 68.9062 27.8906ZM15.2336 23.2031H64.7664L60.5 16.093C59.5179 14.4547 57.7219 13.4375 55.8109 13.4375H24.189C22.2797 13.4375 20.482 14.4555 19.4992 16.093L15.2336 23.2031Z" fill="#4F5052"/>
+                      <path d="M45 53H61.5" stroke="#4F5052" stroke-width="3" stroke-linecap="round"/>
+                      <path d="M39.5 61H61.5" stroke="#4F5052" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                  {%- when 3 -%}
+                    <svg
+                      class="shipping-benefit__icon"
+                      width="80"
+                      height="80"
+                      viewBox="0 0 80 80"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M58.75 42.9461V16.75C58.75 14.5409 56.9591 12.75 54.75 12.75H10.75C8.54086 12.75 6.75 14.5409 6.75 16.75V64.75C6.75 66.9591 8.54086 68.75 10.75 68.75H54.75C56.9591 68.75 58.75 66.9591 58.75 64.75V64.3578" stroke="#4F5052" stroke-width="4"/>
+                      <path d="M23.75 5.75V18.75" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M41.75 5.75V18.75" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M16.75 29.75C17.1929 29.75 37.6012 29.75 47.75 29.75" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M16.75 39.75C17.2013 39.75 28.4081 39.75 38.75 39.75" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M16.75 50.75C17.2 50.75 24.4375 50.75 34.75 50.75" stroke="#4F5052" stroke-width="4" stroke-linecap="round"/>
+                      <path d="M53.75 39.75C61.482 39.75 67.75 46.018 67.75 53.75C67.75 56.9132 66.6999 59.8306 64.9307 62.1748L74.2295 72.4043C74.9724 73.2215 74.9126 74.4864 74.0957 75.2295C73.2785 75.9724 72.0136 75.9126 71.2705 75.0957L62.0879 64.9951C59.7586 66.7251 56.8744 67.75 53.75 67.75C46.018 67.75 39.75 61.482 39.75 53.75C39.75 46.018 46.018 39.75 53.75 39.75ZM53.75 43.75C48.2272 43.75 43.75 48.2272 43.75 53.75C43.75 59.2728 48.2272 63.75 53.75 63.75C59.2728 63.75 63.75 59.2728 63.75 53.75C63.75 48.2272 59.2728 43.75 53.75 43.75Z" fill="#4F5052"/>
+                    </svg>
+                  {%- when 4 -%}
+                    <svg
+                      class="shipping-benefit__icon"
+                      width="80"
+                      height="80"
+                      viewBox="0 0 80 80"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M40.48 5.59998L70.0747 11.558V11.559C70.2099 11.5869 70.2761 11.6419 70.312 11.6869C70.3497 11.7342 70.3999 11.8294 70.3999 12.0004V38.0004C70.3997 56.5822 55.3604 70.3968 40.2173 74.3998H39.7388C31.8865 72.3486 24.5222 67.9044 19.0415 61.8568C12.8391 55.0071 9.60019 46.7602 9.6001 38.0004V12.0004C9.6001 11.8293 9.65128 11.7341 9.68896 11.6869C9.72492 11.6419 9.79045 11.5869 9.92529 11.559L9.92432 11.558L39.5601 5.59998H40.48Z" stroke="#4F5052" stroke-width="4"/>
+                      <path d="M37.4627 44.5351C37.3341 44.6506 37.2196 44.7903 37.0337 44.9665L33.3331 41.8527C31.8207 40.5799 30.3154 39.2979 28.7779 38.0342C28.5377 37.8281 28.2507 37.6658 27.9343 37.557C27.6179 37.4482 27.2787 37.3954 26.9375 37.4016C26.5962 37.4079 26.2601 37.4731 25.9495 37.5933C25.6388 37.7136 25.3603 37.8863 25.1309 38.101C24.2227 38.9516 24.2978 40.1911 25.3382 41.072C28.524 43.7513 31.7134 46.4276 34.9063 49.1008C36.3329 50.2977 37.663 50.2977 39.0825 49.113L58.4402 32.8488C58.5868 32.7303 58.7406 32.6057 58.8729 32.4782C59.1781 32.198 59.3827 31.8495 59.4625 31.4738C59.5423 31.0981 59.4941 30.7109 59.3234 30.3577C58.9801 29.5953 58.2936 29.1426 57.321 29.0211C56.3879 28.9118 55.6692 29.2368 55.0256 29.7866L37.4627 44.5351Z" fill="#4F5052"/>
+                    </svg>
+                {%- endcase -%}
+              {%- endif -%}
+              <div>
+                <h3 class="shipping-benefit__title">{{ title }}</h3>
+                <p class="shipping-benefit__copy">{{ benefit_copies[forloop.index0] }}</p>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="shipping-journey">
+        <h2 class="shipping-heading">{{ section.settings.journey_heading }}</h2>
+        <div class="shipping-journey__visual">
+          <svg class="shipping-journey__wave" viewBox="0 0 1202 95" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 15c74 0 87 65 120 65s46-65 120-65 87 65 120 65 46-65 120-65 87 65 120 65 46-65 120-65 87 65 120 65 46-65 120-65 87 65 120 65 46-65 121-65" fill="none" stroke="#D5E6FF" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          {%- assign step_titles = 'Order Placed|Carefully Checked|Packed For Adventure|Heading Your Way|Time To Explore'
+            | split: '|'
+          -%}
+          {%- assign step_copies = 'Your journey begins.|Built and inspected with care.|Protected for the ride ahead.|Delivered safely to your door.|Your next adventure awaits.'
+            | split: '|'
+          -%}
+          <div class="shipping-journey__icons" aria-hidden="true">
+            {%- for title in step_titles -%}
+              {%- case forloop.index -%}
+                {%- when 1 -%}
+                  {%- assign icon_image = section.settings.order_placed_icon -%}
+                {%- when 2 -%}
+                  {%- assign icon_image = section.settings.carefully_checked_icon -%}
+                {%- when 3 -%}
+                  {%- assign icon_image = section.settings.packed_adventure_icon -%}
+                {%- when 4 -%}
+                  {%- assign icon_image = section.settings.heading_way_icon -%}
+                {%- when 5 -%}
+                  {%- assign icon_image = section.settings.time_explore_icon -%}
+              {%- endcase -%}
+              <div class="shipping-journey__icon-wrap">
+                <div class="shipping-journey__icon-inner">
+                  {%- if icon_image != blank -%}
+                    {{
+                      icon_image
+                      | image_url: width: 164
+                      | image_tag: class: 'shipping-journey__icon', widths: '82,164', loading: 'lazy', alt: ''
+                    }}
+                  {%- else -%}
+                    {%- case forloop.index -%}
+                      {%- when 1 -%}
+                        <svg class="shipping-journey__icon shipping-journey__icon--placed" viewBox="0 0 80 80">
+                          <path d="M14 21h52v38H14z" fill="#D5E6FF"/><path d="M24 21v-7h32v7M28 35h24M40 35v14" fill="none" stroke="#2675F4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      {%- when 2 -%}
+                        <svg class="shipping-journey__icon" viewBox="0 0 80 80">
+                          <circle cx="40" cy="40" r="29" fill="#D5E6FF"/><path d="m25 40 10 10 21-23" fill="none" stroke="#2675F4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      {%- when 3 -%}
+                        <svg class="shipping-journey__icon" viewBox="0 0 80 80">
+                          <path d="M15 29 40 14l25 15v28L40 70 15 57z" fill="#D5E6FF"/><path d="M15 29 40 44l25-15M40 44v26" fill="none" stroke="#2675F4" stroke-width="4" stroke-linejoin="round"/>
+                        </svg>
+                      {%- when 4 -%}
+                        <svg class="shipping-journey__icon shipping-journey__icon--heading" viewBox="0 0 80 80">
+                          <path d="M14 42h42m-13-13 13 13-13 13" fill="none" stroke="#2675F4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="20" r="8" fill="#D5E6FF"/>
+                        </svg>
+                      {%- when 5 -%}
+                        <svg class="shipping-journey__icon shipping-journey__icon--explore" viewBox="0 0 80 80">
+                          <path d="m40 12 7 19 21 1-16 13 6 21-18-11-18 11 6-21L12 32l21-1z" fill="#D5E6FF" stroke="#2675F4" stroke-width="4" stroke-linejoin="round"/>
+                        </svg>
+                    {%- endcase -%}
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+          <div class="shipping-journey__steps">
+            {%- for title in step_titles -%}
+              <article class="shipping-step">
+                <p class="shipping-step__number">{{ forloop.index | prepend: '0' }}</p>
+                <div class="shipping-step__rule"></div>
+                <h3 class="shipping-step__title">{{ title }}</h3>
+                <p class="shipping-step__copy">{{ step_copies[forloop.index0] }}</p>
+              </article>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shipping page",
+  "class": "shipping-page-section",
+  "settings": [
+    { "type": "font_picker", "id": "shipping_font", "label": "Font", "default": "inter_n4" },
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image_desktop", "label": "Desktop hero image (1920 × 1080)" },
+    { "type": "image_picker", "id": "hero_image_mobile", "label": "Mobile hero image (375 × 812)" },
+    { "type": "text", "id": "hero_image_alt", "label": "Hero image alt text", "default": "Ventral on the water" },
+    { "type": "textarea", "id": "hero_title", "label": "Hero heading", "default": "Delivered Ready For Your Next Adventure" },
+    { "type": "textarea", "id": "hero_copy", "label": "Hero copy", "default": "Fast, secure shipping from our warehouse to your doorstep." },
+    { "type": "header", "content": "Policy content" },
+    {
+      "type": "text",
+      "id": "processing_heading",
+      "label": "Processing heading",
+      "default": "Shipping Policy-Order Processing"
+    },
+    { "type": "text", "id": "processing_card_title", "label": "Processing card title", "default": "Order Processing" },
+    {
+      "type": "textarea",
+      "id": "processing_copy",
+      "label": "Processing copy",
+      "default": "We are committed to providing a fast and reliable shipping experience. Once your order is placed and payment is verified, you will receive an order confirmation email, and we will begin preparing your order immediately. Orders are typically processed within 1–3 business days (excluding weekends and holidays). Once your order has been shipped, you will receive a shipping confirmation email with tracking information."
+    },
+    {
+      "type": "text",
+      "id": "delivery_heading",
+      "label": "Delivery heading",
+      "default": "Shipping Policy-Shipping & Delivery"
+    },
+    { "type": "text", "id": "delivery_card_title", "label": "Delivery card title", "default": "Shipping & Delivery" },
+    {
+      "type": "textarea",
+      "id": "delivery_copy",
+      "label": "Delivery copy",
+      "default": "We offer free shipping within the United States. For orders outside the United States, shipping costs are calculated based on the destination, shipping distance, and product weight, and the final shipping fee will be displayed at checkout. Delivery times may vary depending on your location, shipping method, and carrier availability. Most U.S. orders arrive within 3–5 business days after shipment, while international orders typically arrive within 7–15 business days after shipment. Oversized products such as paddle boards may require special handling, which could affect delivery times."
+    },
+    {
+      "type": "text",
+      "id": "benefits_heading",
+      "label": "Benefits heading",
+      "default": "Protection. Peace of Mind. Always."
+    },
+    { "type": "header", "content": "Benefit icons" },
+    { "type": "image_picker", "id": "fast_delivery_icon", "label": "Fast delivery icon" },
+    { "type": "image_picker", "id": "protective_packaging_icon", "label": "Protective packaging icon" },
+    { "type": "image_picker", "id": "track_order_icon", "label": "Track order icon" },
+    { "type": "image_picker", "id": "shipping_protection_icon", "label": "Shipping protection icon" },
+    { "type": "header", "content": "Journey" },
+    { "type": "text", "id": "journey_heading", "label": "Journey heading", "default": "Your Journey Starts Here" },
+    { "type": "image_picker", "id": "order_placed_icon", "label": "Order placed icon" },
+    { "type": "image_picker", "id": "carefully_checked_icon", "label": "Carefully checked icon" },
+    { "type": "image_picker", "id": "packed_adventure_icon", "label": "Packed for adventure icon" },
+    { "type": "image_picker", "id": "heading_way_icon", "label": "Heading your way icon" },
+    { "type": "image_picker", "id": "time_explore_icon", "label": "Time to explore icon" }
+  ],
+  "presets": [{ "name": "Shipping page" }],
+  "disabled_on": { "groups": ["header", "footer", "custom.popups"] }
+}
+{% endschema %}

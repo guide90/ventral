@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "shipping-page",
+      "settings": {
+        "shipping_font": "inter_n4",
+        "hero_image_desktop": "shopify://shop_images/Section_1_pc.jpg",
+        "hero_image_mobile": "shopify://shop_images/Section_1_web.jpg",
+        "hero_image_alt": "Ventral on the water",
+        "hero_title": "Delivered Ready For Your Next Adventure",
+        "hero_copy": "Fast, secure shipping from our warehouse to your doorstep.",
+        "processing_heading": "Shipping Policy-Order Processing",
+        "processing_card_title": "Order Processing",
+        "processing_copy": "We are committed to providing a fast and reliable shipping experience. Once your order is placed and payment is verified, you will receive an order confirmation email, and we will begin preparing your order immediately. Orders are typically processed within 1–3 business days (excluding weekends and holidays). Once your order has been shipped, you will receive a shipping confirmation email with tracking information.",
+        "delivery_heading": "Shipping Policy-Shipping & Delivery",
+        "delivery_card_title": "Shipping & Delivery",
+        "delivery_copy": "We offer free shipping within the United States. For orders outside the United States, shipping costs are calculated based on the destination, shipping distance, and product weight, and the final shipping fee will be displayed at checkout. Delivery times may vary depending on your location, shipping method, and carrier availability. Most U.S. orders arrive within 3–5 business days after shipment, while international orders typically arrive within 7–15 business days after shipment. Oversized products such as paddle boards may require special handling, which could affect delivery times.",
+        "benefits_heading": "Protection. Peace of Mind. Always.",
+        "journey_heading": "Your Journey Starts Here"
+      }
+    }
+  },
+  "order": ["main"]
+}
