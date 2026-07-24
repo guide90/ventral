@@ -829,6 +829,7 @@
     </div>
   </div>
 
+  {% comment %}
   <div class="contact-page__form-section" id="contact-form-{{ section.id }}">
     <div class="contact-page__form-heading">
       <h2 class="contact-page__form-title">{{ section.settings.form_title | escape }}</h2>
@@ -966,7 +967,7 @@
       {%- endif -%}
     {%- endform -%}
   </div>
-
+  {% endcomment %}
 </section>
 
 <script>
