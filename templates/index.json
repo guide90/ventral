@@ -11,15 +11,20 @@
   "sections": {
     "header_new_HPhhy7": {
       "type": "header-new",
+      "disabled": true,
       "name": "Header new",
       "settings": {
         "logo": "shopify://shop_images/Frame_126.png",
+        "menu": "",
+        "cta_label": "Get Early Access",
+        "cta_link": "",
         "modal_title": "Stay Connected with Ventral",
         "modal_content": "Be the first to know about new product drops, exclusive offers, and more from Ventral.Enter your email address",
         "modal_image": "shopify://shop_images/20260715001.png",
         "modal_logo": "shopify://shop_images/Frame_126.png",
         "modal_email_placeholder": "Enter your email",
         "modal_button_label": "Subscribe",
+        "modal_success_message": "Thanks for subscribing.",
         "modal_customer_tags": "newsletter, popup"
       }
     },
