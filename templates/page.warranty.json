@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "main": {
+      "type": "warranty-page",
+      "settings": {
+        "warranty_font": "inter_n4",
+        "hero_image_alt": "Ventral on the water",
+        "hero_title": "Adventure With Confidence",
+        "hero_copy": "Built for the water. Backed by protection.",
+        "hero_button_label_desktop": "Join The Adventure",
+        "hero_button_label_mobile": "Contact Support",
+        "hero_button_link": "#warranty-claim",
+        "policy_heading": "Shipping Policy-Order Processing",
+        "processing_title": "Order Processing",
+        "processing_copy": "We are committed to providing a fast and reliable shipping experience. Once your order is placed and payment is verified, you will receive an order confirmation email, and we will begin preparing your order immediately. Orders are typically processed within 1–3 business days (excluding weekends and holidays). Once your order has been shipped, you will receive a shipping confirmation email with tracking information.",
+        "coverage_title": "Warranty",
+        "coverage_copy": "2-Year Limited Warranty\\nConfidence starts from day one.\\nFrom calm lakes to open waters, your adventure is protected. We stand behind every board with a 2-year limited warranty for quality you can trust.",
+        "return_title": "Return Policy",
+        "return_copy": "30-Day Love It Guarantee\\nYour adventure should feel right from day one.\\nTake your board to the water with confidence. If it’s not the perfect fit, our 30-day guarantee gives you peace of mind while you make your decision.",
+        "benefits_heading": "Protection. Peace of Mind. Always.",
+        "claim_heading": "Warranty Claim Process"
+      }
+    }
+  },
+  "order": ["main"]
+}
