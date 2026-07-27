@@ -110,17 +110,12 @@
     background: #fff;
     box-shadow: var(--card-shadow);
   }
+  #warranty-{{ section.id }} .warranty-policy + .warranty-policy {
+    margin-top: 60px;
+  }
   #warranty-{{ section.id }} .warranty-policy__card {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
     margin-top: 40px;
     padding: 40px;
-  }
-  #warranty-{{ section.id }} .warranty-policy__item {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
   }
   #warranty-{{ section.id }} .warranty-policy__title {
     color: var(--ink);
@@ -129,6 +124,7 @@
     line-height: 1;
   }
   #warranty-{{ section.id }} .warranty-policy__copy {
+    margin-top: 14px;
     color: var(--muted);
     font-size: 16px;
     font-weight: 500;
@@ -252,14 +248,21 @@
     #warranty-{{ section.id }} .warranty-shell { width: calc(100% - 24px); }
     #warranty-{{ section.id }} .warranty-heading { font-size: 24px; line-height: 1.2; }
     #warranty-{{ section.id }} .warranty-card { border-radius: 12px; }
+    #warranty-{{ section.id }} .warranty-policy + .warranty-policy {
+      margin-top: 40px;
+    }
     #warranty-{{ section.id }} .warranty-policy__card {
-      gap: 20px;
       margin-top: 20px;
       padding: 20px 12px;
     }
-    #warranty-{{ section.id }} .warranty-policy__item { gap: 14px; }
-    #warranty-{{ section.id }} .warranty-policy__title { font-size: 16px; }
-    #warranty-{{ section.id }} .warranty-policy__copy { font-size: 14px; }
+    #warranty-{{ section.id }} .warranty-policy__title {
+      font-size: 16px;
+    }
+    #warranty-{{ section.id }} .warranty-policy__copy {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
     #warranty-{{ section.id }} .warranty-benefits { margin-top: 40px; }
     #warranty-{{ section.id }} .warranty-benefits__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -348,20 +351,18 @@
   <div class="warranty-page">
     <div class="warranty-shell">
       <div class="warranty-policy">
-        <h2 class="warranty-heading">{{ section.settings.policy_heading }}</h2>
+        <h2 class="warranty-heading">{{ section.settings.warranty_heading }}</h2>
         <div class="warranty-card warranty-policy__card">
-          <div class="warranty-policy__item">
-            <h3 class="warranty-policy__title">{{ section.settings.processing_title }}</h3>
-            <p class="warranty-policy__copy">{{ section.settings.processing_copy }}</p>
-          </div>
-          <div class="warranty-policy__item">
-            <h3 class="warranty-policy__title">{{ section.settings.coverage_title }}</h3>
-            <p class="warranty-policy__copy">{{ section.settings.coverage_copy }}</p>
-          </div>
-          <div class="warranty-policy__item">
-            <h3 class="warranty-policy__title">{{ section.settings.return_title }}</h3>
-            <p class="warranty-policy__copy">{{ section.settings.return_copy }}</p>
-          </div>
+          <h3 class="warranty-policy__title">{{ section.settings.coverage_title }}</h3>
+          <p class="warranty-policy__copy">{{ section.settings.coverage_copy }}</p>
+        </div>
+      </div>
+
+      <div class="warranty-policy">
+        <h2 class="warranty-heading">{{ section.settings.return_heading }}</h2>
+        <div class="warranty-card warranty-policy__card">
+          <h3 class="warranty-policy__title">{{ section.settings.return_title }}</h3>
+          <p class="warranty-policy__copy">{{ section.settings.return_copy }}</p>
         </div>
       </div>
 
@@ -493,30 +494,29 @@
     { "type": "header", "content": "Policy" },
     {
       "type": "text",
-      "id": "policy_heading",
-      "label": "Policy heading",
-      "default": "Shipping Policy-Order Processing"
+      "id": "warranty_heading",
+      "label": "Warranty heading",
+      "default": "Warranty"
     },
-    { "type": "text", "id": "processing_title", "label": "First card title", "default": "Order Processing" },
-    {
-      "type": "textarea",
-      "id": "processing_copy",
-      "label": "First card copy",
-      "default": "We are committed to providing a fast and reliable shipping experience. Once your order is placed and payment is verified, you will receive an order confirmation email, and we will begin preparing your order immediately. Orders are typically processed within 1–3 business days (excluding weekends and holidays). Once your order has been shipped, you will receive a shipping confirmation email with tracking information."
-    },
-    { "type": "text", "id": "coverage_title", "label": "Warranty card title", "default": "Warranty" },
+    { "type": "text", "id": "coverage_title", "label": "Warranty card title", "default": "2-Year Limited Warranty" },
     {
       "type": "textarea",
       "id": "coverage_copy",
       "label": "Warranty copy",
-      "default": "2-Year Limited Warranty\\nConfidence starts from day one.\\nFrom calm lakes to open waters, your adventure is protected. We stand behind every board with a 2-year limited warranty for quality you can trust."
+      "default": "Confidence starts from day one.\nFrom calm lakes to open waters, your adventure is protected. We stand behind every board with a 2-year limited warranty for quality you can trust."
     },
-    { "type": "text", "id": "return_title", "label": "Return card title", "default": "Return Policy" },
+    {
+      "type": "text",
+      "id": "return_heading",
+      "label": "Return heading",
+      "default": "Return Policy"
+    },
+    { "type": "text", "id": "return_title", "label": "Return card title", "default": "30-Day Love It Guarantee" },
     {
       "type": "textarea",
       "id": "return_copy",
       "label": "Return copy",
-      "default": "30-Day Love It Guarantee\\nYour adventure should feel right from day one.\\nTake your board to the water with confidence. If it’s not the perfect fit, our 30-day guarantee gives you peace of mind while you make your decision."
+      "default": "Your adventure should feel right from day one.\nTake your board to the water with confidence. If it’s not the perfect fit, our 30-day guarantee gives you peace of mind while you make your decision."
     },
     {
       "type": "text",
