@@ -202,7 +202,7 @@
       background: transparent;
       box-shadow: none;
       outline: 0;
-      font-size: 14px;
+      font-size: 18px;
       font-weight: 400;
       letter-spacing: -0.28px;
       line-height: 1;
@@ -350,7 +350,7 @@
 
       /* Text */
       /* ========================= */
-      
+
       /* Body Font Styles */
       --element-text-font-family--body: {{ settings.type_base_font_family.family }};
       --element-text-font-family-fallback--body: {{ settings.type_base_font_family.fallback_families }};
@@ -364,7 +364,7 @@
       --element-text-font-size--body-sm: {{ settings.type_base_size | minus: 2 | default: 14 | append: 'px' }};
       --element-text-font-size--body-md: {{ settings.type_base_size | default: 16 | append: 'px' }};
       --element-text-font-size--body-lg: {{ settings.type_base_size | plus: 2 | default: 18 | append: 'px' }};
-      
+
       /* Body Line Heights */
       --element-text-line-height--body: {{ settings.type_base_line_height | default: 1.4 }};
 
@@ -373,12 +373,12 @@
       --element-text-font-family-fallback--heading: {{ settings.type_header_font_family.fallback_families }};
       --element-text-font-weight--heading: {{ settings.type_header_font_family.weight }};
       --element-text-letter-spacing--heading: {{ settings.type_header_spacing | default: '25' | divided_by: 1000.00 | append: 'em' }};
-      
+
       {% if settings.type_header_capitalize %}
       --element-text-text-transform--heading: uppercase;
-      {% endif %} 
-      
-      
+      {% endif %}
+
+
       /* Heading Font Sizes */
       --element-text-font-size--heading-2xl: {{ settings.type_header_base_size | plus: 16 | default: '48' | append: 'px' }};
       --element-text-font-size--heading-xl: {{ settings.type_header_base_size | default: '32' | append: 'px' }};
@@ -386,7 +386,7 @@
       --element-text-font-size--heading-md: {{ settings.type_header_base_size | minus: 8 | default: '20' | append: 'px' }};
       --element-text-font-size--heading-sm: {{ settings.type_header_base_size | minus: 14 | default: '18' | append: 'px' }};
       --element-text-font-size--heading-xs: {{ settings.type_header_base_size | minus: 16 | default: '16' | append: 'px' }};
-      
+
       /* Heading Line Heights */
       --element-text-line-height--heading: {{ settings.type_header_line_height | default: 1.4 }};
 
@@ -407,7 +407,7 @@
 
       {% if settings.type_header_capitalize %}
       --element-button-text-transform: uppercase;
-      {% endif %} 
+      {% endif %}
 
       /* Base Color Variables */
       --element-button-color-primary: {{ settings.color_button }};
