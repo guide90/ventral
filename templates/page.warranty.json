@@ -20,11 +20,13 @@
         "hero_copy": "Built for the water. Backed by protection.",
         "hero_button_label_desktop": "Contact Support",
         "hero_button_label_mobile": "Contact Support",
-        "hero_button_link": "/pages/contact",
-        "coverage_title": "Warranty",
-        "coverage_copy": "2-Year Limited Warranty\nConfidence starts from day one.\nFrom calm lakes to open waters, your adventure is protected. We stand behind every board with a 2-year limited warranty for quality you can trust.",
-        "return_title": "Return Policy",
-        "return_copy": "30-Day Love It Guarantee\nYour adventure should feel right from day one.\nTake your board to the water with confidence. If it’s not the perfect fit, our 30-day guarantee gives you peace of mind while you make your decision.",
+        "hero_button_link": "#pifyform-38427",
+        "warranty_heading": "Warranty",
+        "coverage_title": "2-Year Limited Warranty",
+        "coverage_copy": "Confidence starts from day one.<br>\nFrom calm lakes to open waters, your adventure is protected. <br>\nWe stand behind every board with a 2-year limited warranty for quality you can trust.",
+        "return_heading": "Return Policy",
+        "return_title": "30-Day Love It Guarantee",
+        "return_copy": "Your adventure should feel right from day one.<br>\nTake your board to the water with confidence.<br> \nIf it’s not the perfect fit, our 30-day guarantee gives you peace of mind while you make your decision.",
         "benefits_heading": "Protection. Peace of Mind. Always.",
         "claim_heading": "Warranty Claim Process"
       }
