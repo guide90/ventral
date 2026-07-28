@@ -4289,9 +4289,10 @@ if (console && console.log) {
     }
   
     function announcementBarHeight() {
-      var barHeight = document.querySelector(selectors.text).clientHeight;
-      document.querySelector(selectors.bar).classList.add(classes.opening);
-      document.querySelector(selectors.bar).style.maxHeight = barHeight + 'px';
+      var announcementBar = document.querySelector(selectors.bar);
+      var barHeight = announcementBar.scrollHeight;
+      announcementBar.classList.add(classes.opening);
+      announcementBar.style.maxHeight = barHeight + 'px';
     }
   
     function announcementBarClose() {

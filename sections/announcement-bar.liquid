@@ -1,14 +1,28 @@
-<div class="announcement{% if section.settings.announcement_closable %} announcement--closeable announcement--closed{% endif %}">
-  {%- if section.settings.announcement_link != blank -%}
-    <a href="{{ section.settings.announcement_link }}" class="announcement__link">
-  {%- endif -%}
+<div class="announcement{% if section.settings.show_prelaunch_announcement %} announcement--prelaunch{% endif %}{% if section.settings.announcement_closable %} announcement--closeable announcement--closed{% endif %}">
+  {%- if section.settings.show_prelaunch_announcement -%}
+    <div class="announcement__prelaunch-content">
+      <span class="announcement__text announcement__text--open" data-text="{{ section.settings.announcement_text | strip_html | handle }}">
+        {{ section.settings.announcement_text | strip_html }}
+      </span>
 
-    <span class="announcement__text{% unless section.settings.announcement_closable %} announcement__text--open{% endunless %}" data-text="{{ section.settings.announcement_text | strip_html | handle }}">
-      {{ section.settings.announcement_text | strip_html }}
-    </span>
+      {%- if section.settings.announcement_link != blank and section.settings.prelaunch_button_label != blank -%}
+        <a href="{{ section.settings.announcement_link }}" class="announcement__prelaunch-button">
+          {{ section.settings.prelaunch_button_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    {%- if section.settings.announcement_link != blank -%}
+      <a href="{{ section.settings.announcement_link }}" class="announcement__link">
+    {%- endif -%}
 
-  {%- if section.settings.announcement_link != blank -%}
-    </a>
+      <span class="announcement__text{% unless section.settings.announcement_closable %} announcement__text--open{% endunless %}" data-text="{{ section.settings.announcement_text | strip_html | handle }}">
+        {{ section.settings.announcement_text | strip_html }}
+      </span>
+
+    {%- if section.settings.announcement_link != blank -%}
+      </a>
+    {%- endif -%}
   {%- endif -%}
 
   {%- if section.settings.announcement_closable -%}
@@ -34,6 +48,18 @@
         "type": "url",
         "id": "announcement_link",
         "label": "t:sections.header.settings.announcement_link.label"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_prelaunch_announcement",
+        "label": "Show pre-launch announcement style",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "prelaunch_button_label",
+        "label": "Pre-launch button label",
+        "default": "Reserve Now"
       },
       {
         "type": "checkbox",

@@ -13,10 +13,12 @@
   "sections": {
     "announcement-bar": {
       "type": "announcement-bar",
-      "disabled": true,
+      "disabled": false,
       "settings": {
-        "announcement_text": "Free shipping and returns over $50",
-        "announcement_link": "",
+        "announcement_text": "Reserve Now to Lock in Your Super Early-Bird Price.",
+        "announcement_link": "https://kayak.ventral.com/reserve",
+        "show_prelaunch_announcement": true,
+        "prelaunch_button_label": "Reserve Now",
         "announcement_closable": false
       }
     },

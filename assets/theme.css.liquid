@@ -13266,6 +13266,54 @@ a.color-swatch:hover {
   color: var(--colorAnnouncementText);
 }
 
+.announcement--prelaunch {
+  background-color: #000;
+  color: #fff;
+}
+
+.announcement__prelaunch-content {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 8px;
+}
+
+.announcement--prelaunch .announcement__text {
+  flex: 0 1 auto;
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 0;
+  text-align: left;
+}
+
+.announcement__prelaunch-button {
+  background-color: #fff;
+  border-radius: 999px;
+  color: #000;
+  flex: 0 0 auto;
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 8px;
+  text-decoration: none;
+}
+
+@media only screen and (min-width:590px) {
+
+  .announcement__prelaunch-content {
+    gap: 12px;
+    min-height: 20px;
+    padding: 8px 20px;
+  }
+
+  .announcement--prelaunch .announcement__text,
+  .announcement__prelaunch-button {
+    font-size: 12px;
+  }
+}
+
 .announcement__close {
   cursor: pointer;
   display: block;
@@ -14625,7 +14673,7 @@ iframe.zoid-component-frame {
   gap: 8px !important;
 }
 
-.ventral-cart .additional-checkout-buttons [data-shopify-buttoncontainer] > * {
+.ventral-cart .additional-checkout-buttons [data-shopify-buttoncontainer]>* {
   min-height: 52px !important;
   border-radius: 90px !important;
 }
