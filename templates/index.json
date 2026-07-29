@@ -12,21 +12,86 @@
     "ventral_home": {
       "type": "ventral-home",
       "blocks": {
-        "press_1": { "type": "press", "settings": { "name": "SUPBOARDGUIDE.COM" } },
-        "press_2": { "type": "press", "settings": { "name": "SUPBOARDER" } },
-        "press_3": { "type": "press", "settings": { "name": "PADDLEING.COM" } },
-        "press_4": { "type": "press", "settings": { "name": "Paddlethrill" } },
-
-        "system_1": { "type": "system_part", "settings": { "title": "Kayak", "price": "$1,900" } },
-        "system_2": { "type": "system_part", "settings": { "title": "Battery", "price": "$950" } },
-        "system_3": { "type": "system_part", "settings": { "title": "Motor", "price": "$900" } },
-        "system_4": { "type": "system_part", "settings": { "title": "Transom Motor", "price": "$700" } },
-
-        "precision_1": { "type": "precision", "settings": { "title": "Anchor Lock", "text": "Stay near the bite zone." } },
-        "precision_2": { "type": "precision", "settings": { "title": "Track Recording", "text": "Save your route. Remember the run." } },
-        "precision_3": { "type": "precision", "settings": { "title": "Course & Speed Hold", "text": "Stay on line. Keep your pace." } },
-        "precision_4": { "type": "precision", "settings": { "title": "Bidirectional Track Following", "text": "Follow the same track out and back." } },
-
+        "press_1": {
+          "type": "press",
+          "settings": {
+            "name": "SUPBOARDGUIDE.COM"
+          }
+        },
+        "press_2": {
+          "type": "press",
+          "settings": {
+            "name": "SUPBOARDER"
+          }
+        },
+        "press_3": {
+          "type": "press",
+          "settings": {
+            "name": "PADDLEING.COM"
+          }
+        },
+        "press_4": {
+          "type": "press",
+          "settings": {
+            "name": "Paddlethrill"
+          }
+        },
+        "system_1": {
+          "type": "system_part",
+          "settings": {
+            "title": "Kayak",
+            "price": "$1,900"
+          }
+        },
+        "system_2": {
+          "type": "system_part",
+          "settings": {
+            "title": "Battery",
+            "price": "$950"
+          }
+        },
+        "system_3": {
+          "type": "system_part",
+          "settings": {
+            "title": "Motor",
+            "price": "$900"
+          }
+        },
+        "system_4": {
+          "type": "system_part",
+          "settings": {
+            "title": "Transom Motor",
+            "price": "$700"
+          }
+        },
+        "precision_1": {
+          "type": "precision",
+          "settings": {
+            "title": "Anchor Lock",
+            "text": "Stay near the bite zone."
+          }
+        },
+        "precision_2": {
+          "type": "precision",
+          "settings": {
+            "title": "Track Recording",
+            "text": "Save your route. Remember the run."
+          }
+        },
+        "precision_3": {
+          "type": "precision",
+          "settings": {
+            "title": "Course & Speed Hold",
+            "text": "Stay on line. Keep your pace."
+          }
+        },
+        "precision_4": {
+          "type": "precision",
+          "settings": {
+            "title": "Bidirectional Track Following",
+            "text": "Follow the same track out and back."
+          }
+        },
         "fishing_1": {
           "type": "fishing_feature",
           "settings": {
@@ -59,7 +124,6 @@
             "text": "The mid-mount motor sits directly in front of you. When weeds catch the prop, lift it straight up and clear it by hand — no reaching the stern, no tools."
           }
         },
-
         "control_1": {
           "type": "control_card",
           "settings": {
@@ -92,14 +156,48 @@
             "text": "Up to 6 hours of range for all-day fishing and long trolling runs."
           }
         },
-
-        "story_1": { "type": "story", "settings": { "title": "The Day Starts Here" } },
-        "story_2": { "type": "story", "settings": { "title": "Ready in Minutes" } },
-        "story_3": { "type": "story", "settings": { "title": "Control Every Move" } },
-        "story_4": { "type": "story", "settings": { "title": "Stand with Confidence" } },
-        "story_5": { "type": "story", "settings": { "title": "Every Catch Counts" } },
-        "story_6": { "type": "story", "settings": { "title": "Grab It and Go" } },
-
+        "story_1": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-1.jpg",
+            "title": "The Day Starts Here"
+          }
+        },
+        "story_2": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-2.jpg",
+            "title": "Ready in Minutes"
+          }
+        },
+        "story_3": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-3.jpg",
+            "title": "Control Every Move"
+          }
+        },
+        "story_4": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-4.jpg",
+            "title": "Stand with Confidence"
+          }
+        },
+        "story_5": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2-5.jpg",
+            "title": "Every Catch Counts"
+          }
+        },
+        "story_6": {
+          "type": "story",
+          "settings": {
+            "image": "shopify://shop_images/sec_2.jpg",
+            "title": "Grab It and Go"
+          }
+        },
         "video_1": {
           "type": "video",
           "settings": {
@@ -109,18 +207,43 @@
         }
       },
       "block_order": [
-        "press_1", "press_2", "press_3", "press_4",
-        "system_1", "system_2", "system_3", "system_4",
-        "precision_1", "precision_2", "precision_3", "precision_4",
-        "fishing_1", "fishing_2", "fishing_3", "fishing_4",
-        "control_1", "control_2", "control_3", "control_4",
-        "story_1", "story_2", "story_3", "story_4", "story_5", "story_6",
+        "press_1",
+        "press_2",
+        "press_3",
+        "press_4",
+        "system_1",
+        "system_2",
+        "system_3",
+        "system_4",
+        "precision_1",
+        "precision_2",
+        "precision_3",
+        "precision_4",
+        "fishing_1",
+        "fishing_2",
+        "fishing_3",
+        "fishing_4",
+        "control_1",
+        "control_2",
+        "control_3",
+        "control_4",
+        "story_1",
+        "story_2",
+        "story_3",
+        "story_4",
+        "story_5",
+        "story_6",
         "video_1"
       ],
       "settings": {
-        "home_font": "inter_n4"
+        "home_font": "inter_n4",
+        "reserve_link": "",
+        "hero_image": "shopify://shop_images/Warranty_1_pc.jpg",
+        "immersion_video": "shopify://files/videos/飞书20260720-190213.mp4"
       }
     }
   },
-  "order": ["ventral_home"]
+  "order": [
+    "ventral_home"
+  ]
 }
