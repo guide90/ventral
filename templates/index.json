@@ -127,6 +127,7 @@
         "control_1": {
           "type": "control_card",
           "settings": {
+            "image": "shopify://shop_images/PC-1.png",
             "label": "Control System",
             "title": "TwinTube Stabilizer Hull",
             "text": "Room to work the rod without crowding the cockpit."
@@ -135,6 +136,8 @@
         "control_2": {
           "type": "control_card",
           "settings": {
+            "image": "shopify://shop_images/PC-2.png",
+            "mobile_image": "shopify://shop_images/2_10c69e0b-d4f0-43f0-a7c6-abadca9dd294.png",
             "label": "Drive System",
             "title": "Smart Mid-Mount E-Drive",
             "text": "Hold Your Spot, Not Your Paddle."
@@ -143,6 +146,8 @@
         "control_3": {
           "type": "control_card",
           "settings": {
+            "image": "shopify://shop_images/PC-3.png",
+            "mobile_image": "shopify://shop_images/3_28bf79a1-6ce4-44dc-89a9-97f3df0fe582.png",
             "label": "Remote System",
             "title": "Wireless Remote",
             "text": "Voice assist holds heading, speed, or position so you can focus on fishing."
@@ -151,6 +156,8 @@
         "control_4": {
           "type": "control_card",
           "settings": {
+            "image": "shopify://shop_images/PC-4.png",
+            "mobile_image": "shopify://shop_images/4_a62ddd55-add9-4b46-85d3-59cc7e2a463f.png",
             "label": "Power System",
             "title": "1.15 kWh LiFePO4 Battery",
             "text": "Up to 6 hours of range for all-day fishing and long trolling runs."
