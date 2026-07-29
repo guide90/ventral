@@ -86,6 +86,7 @@
         --element-button-color-secondary: blue;
         --typeBasePrimary: Roboto, Arial, sans-serif;
         --typeHeaderPrimary: Roboto, Arial, sans-serif;
+        --announcement-sticky-height: 0px;
       }
 
       body,
@@ -109,12 +110,24 @@
       .site-header.site-header--stuck,
       .site-header.site-header--opening {
         position: fixed;
-        top: 0;
+        top: var(--announcement-sticky-height);
         right: 0;
         left: 0;
         transform: none;
         transition: none;
         animation: none;
+      }
+
+      .shopify-section-group-header-group.announcement-group--stuck {
+        height: var(--announcement-sticky-height);
+      }
+
+      .announcement-group--stuck .announcement {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 31;
       }
 
       .site-header > .page-width {
