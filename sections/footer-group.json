@@ -14,8 +14,16 @@
     "footer": {
       "type": "footer",
       "settings": {
+        "newsletter_heading": "Subscribe for Launch Updates",
+        "email_placeholder": "Enter your email address",
         "instagram_link": "https://www.instagram.com/ventral.official",
-        "facebook_link": "https://www.facebook.com/people/Ventral-Marine/61591187923921"
+        "facebook_link": "https://www.facebook.com/people/Ventral-Marine/61591187923921",
+        "contact_email": "pr@ventral.com",
+        "address": "Address: 8008 S Madison St, Burr Ridge, IL 60527-5808, USA",
+        "about_link": "",
+        "reserve_link": "",
+        "terms_link": "",
+        "privacy_link": ""
       }
     }
   },
