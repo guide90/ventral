@@ -40,6 +40,7 @@
           "type": "precision",
           "settings": {
             "image": "shopify://shop_images/PC-7-1.png",
+            "mobile_image": "shopify://shop_images/7-1.png",
             "title": "Anchor Lock",
             "text": "Stay near the bite zone."
           }
@@ -48,6 +49,7 @@
           "type": "precision",
           "settings": {
             "image": "shopify://shop_images/PC-7-2.png",
+            "mobile_image": "shopify://shop_images/7-2.png",
             "title": "Track Recording",
             "text": "Save your route. Remember the run."
           }
@@ -56,6 +58,7 @@
           "type": "precision",
           "settings": {
             "image": "shopify://shop_images/PC-7-3.png",
+            "mobile_image": "shopify://shop_images/7-3.png",
             "title": "Course & Speed Hold",
             "text": "Stay on line. Keep your pace."
           }
@@ -64,6 +67,7 @@
           "type": "precision",
           "settings": {
             "image": "shopify://shop_images/PC-7-4.png",
+            "mobile_image": "shopify://shop_images/7-4.png",
             "title": "Bidirectional Track Following",
             "text": "Follow the same track out and back."
           }
@@ -71,7 +75,8 @@
         "fishing_1": {
           "type": "fishing_feature",
           "settings": {
-            "image": "shopify://shop_images/8-1.png",
+            "image": "shopify://shop_images/PC-8-1.png",
+            "mobile_image": "shopify://shop_images/8-1.png",
             "eyebrow": "Stability",
             "title": "Stand Up with Confidence.",
             "text": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence."
@@ -80,7 +85,8 @@
         "fishing_2": {
           "type": "fishing_feature",
           "settings": {
-            "image": "shopify://shop_images/8-2.png",
+            "image": "shopify://shop_images/PC-8-2.png",
+            "mobile_image": "shopify://shop_images/8-2.png",
             "eyebrow": "GPS control",
             "title": "Hold Your Spot, Not Your Paddle.",
             "text": "Marine-grade GPS holds your position within ±1 m through wind and current. Five modes — Anchor Lock, Course & Speed Hold, Track Recording, Bidirectional Track Following, and Drift."
@@ -89,7 +95,8 @@
         "fishing_3": {
           "type": "fishing_feature",
           "settings": {
-            "image": "shopify://shop_images/8-3.png",
+            "image": "shopify://shop_images/PC-8-3.png",
+            "mobile_image": "shopify://shop_images/8-3.png",
             "eyebrow": "Wireless remote",
             "title": "Keep Both Hands on the Rod.",
             "text": "A wireless remote and app with voice assist hold heading, speed, or position, so you can focus on fishing instead of managing the craft."
@@ -99,6 +106,7 @@
           "type": "fishing_feature",
           "settings": {
             "image": "shopify://shop_images/PC-8-4.png",
+            "mobile_image": "shopify://shop_images/8-4.png",
             "eyebrow": "Mid-mount drive",
             "title": "Clear the Prop in Seconds.",
             "text": "The mid-mount motor sits directly in front of you. When weeds catch the prop, lift it straight up and clear it by hand — no reaching the stern, no tools."
@@ -223,13 +231,22 @@
         "home_font": "inter_n4",
         "reserve_link": "",
         "hero_image": "shopify://shop_images/pc-1.jpg",
+        "hero_image_mobile": "shopify://shop_images/m-1.jpg",
         "philosophy_image": "shopify://shop_images/PC-3_a9a1fee0-f4dc-4872-be0e-b2b55d2b9af7.png",
+        "philosophy_image_mobile": "shopify://shop_images/3_0842be68-1400-4d7f-9f32-43c397948b23.png",
         "why_board_image": "shopify://shop_images/PC-4_4df439ac-8f3f-4945-92cc-1c14f6117912.png",
+        "why_board_image_mobile": "shopify://shop_images/4_0454df38-e053-4432-b5e1-3d9a65d4510d.png",
         "system_parts_image": "shopify://shop_images/pc-5.png",
+        "system_parts_image_mobile": "shopify://shop_images/m-5.png",
         "system_image": "shopify://shop_images/pc-5-1_a4dd1b23-0aa0-4a98-b99c-57f05760f4ec.png",
         "power_image": "shopify://shop_images/PC-6.png",
+        "power_image_mobile": "shopify://shop_images/6.png",
         "tough_image_left": "shopify://shop_images/PC-9-1.png",
-        "tough_image_right": "shopify://shop_images/PC-9-2.png"
+        "tough_image_left_mobile": "shopify://shop_images/9-1.png",
+        "tough_image_right": "shopify://shop_images/PC-9-2.png",
+        "tough_image_right_mobile": "shopify://shop_images/PC-9-2.png",
+        "cta_image": "shopify://shop_images/Adventure_Starts_Here..png",
+        "cta_image_mobile": "shopify://shop_images/M-Adventure_Starts_Here..png"
       }
     }
   },
