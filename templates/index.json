@@ -128,6 +128,7 @@
           "type": "control_card",
           "settings": {
             "image": "shopify://shop_images/PC-1.png",
+            "mobile_image": "shopify://shop_images/1_258094f4-9e3e-443a-8cbf-968f0efdfcc5.png",
             "label": "Control System",
             "title": "TwinTube Stabilizer Hull",
             "text": "Room to work the rod without crowding the cockpit."
