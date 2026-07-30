@@ -482,7 +482,7 @@
     position: relative;
     height: 470px;
     overflow: hidden;
-    border-radius: 24px 24px 0 0;
+    border-radius: 24px;
     background: #70858d;
   }
   .vh-precision__caption {
@@ -594,14 +594,19 @@
     grid-template-columns: 600px 800px;
     gap: 40px;
     margin-top: 52px;
+    align-items: start;
   }
   .vh-tough__image {
     position: relative;
-    height: 400px;
-    overflow: hidden;
-    border-radius: 24px;
-    background: #8b6767;
-    box-shadow: 0 0 48px rgba(52,153,248,.2);
+    height: auto;
+    aspect-ratio: 16 / 11;
+    background: transparent;
+  }
+  .vh-tough__image:nth-child(2) {
+    aspect-ratio: 21 / 11;
+  }
+  .vh-tough__image .vh-media {
+    object-fit: contain;
   }
 
   .vh-control {
@@ -2204,12 +2209,12 @@
 
     .vh-tough__image {
       height: auto;
-      aspect-ratio: 351 / 234;
+      aspect-ratio: 16 / 11;
     }
 
     .vh-tough__image:nth-child(2) {
       height: auto;
-      aspect-ratio: 351 / 200;
+      aspect-ratio: 21 / 11;
     }
 
     .vh-control {
@@ -2724,7 +2729,12 @@
             {{
               section.settings.tough_image_left
               | image_url: width: 1400
-              | image_tag: class: 'vh-media', widths: '600, 900, 1400', sizes: '600px', loading: 'lazy', alt: ''
+              | image_tag:
+                class: 'vh-media',
+                widths: '600, 900, 1280',
+                sizes: '(max-width: 768px) calc(100vw - 24px), (max-width: 1490px) 42vw, 600px',
+                loading: 'lazy',
+                alt: ''
             }}
           {%- else -%}
             <div class="vh-placeholder" aria-hidden="true"></div>
@@ -2735,7 +2745,12 @@
             {{
               section.settings.tough_image_right
               | image_url: width: 1800
-              | image_tag: class: 'vh-media', widths: '800, 1200, 1800', sizes: '800px', loading: 'lazy', alt: ''
+              | image_tag:
+                class: 'vh-media',
+                widths: '800, 1200, 1680',
+                sizes: '(max-width: 768px) calc(100vw - 24px), (max-width: 1490px) 55vw, 800px',
+                loading: 'lazy',
+                alt: ''
             }}
           {%- else -%}
             <div class="vh-placeholder" aria-hidden="true"></div>
