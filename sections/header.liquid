@@ -114,19 +114,19 @@
   }
 
   #SiteHeader .header-action-button {
-    min-height: 28px;
     display: inline-flex;
+    height: 30px;
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    padding: 7px 16px;
-    border: 0;
-    border-radius: 7px;
-    background: var(--header-action-button-background, #fff);
-    color: var(--header-action-button-text, #000);
-    font-family: Inter, Arial, sans-serif;
-    font-size: 18px;
-    font-weight: 700;
+    padding: 0 20px;
+    border: 1px solid #cedfe9;
+    border-radius: 100px;
+    background: linear-gradient(90deg, #54a0e2 15.255%, #1370a7 90.325%);
+    color: #fff;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
     line-height: 1;
     text-align: center;
     text-decoration: none;
@@ -134,10 +134,10 @@
     cursor: pointer;
   }
 
-  #SiteHeader .header-action-button:hover,
-  #SiteHeader .header-action-button:focus-visible {
-    color: var(--header-action-button-text, #000);
-    opacity: .9;
+  #SiteHeader .header-action-button:disabled {
+    color: #fff;
+    opacity: 1;
+    cursor: default;
   }
 
   /* The legacy section still owns the page's dealer popup. Hide only its
@@ -153,9 +153,8 @@
       gap: 8px;
     }
 
-    #SiteHeader .header-action-button {
-      padding: 7px 10px;
-      font-size: 12px;
+    #SiteHeader .site-nav__icons .js-drawer-open-nav {
+      order: 99;
     }
 
     #SiteHeader .site-header__logo a.site-header__logo-link--ventral {
@@ -385,7 +384,7 @@
       "type": "text",
       "id": "action_button_text",
       "label": "Button text",
-      "default": "Find a dealer"
+      "default": "BUY NOW"
     },
     {
       "type": "select",
@@ -401,7 +400,7 @@
     {
       "type": "url",
       "id": "action_button_link",
-      "label": "Button link"
+      "label": "BUY NOW link"
     },
     {
       "type": "text",
