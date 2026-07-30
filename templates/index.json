@@ -36,34 +36,6 @@
             "name": "Paddlethrill"
           }
         },
-        "system_1": {
-          "type": "system_part",
-          "settings": {
-            "title": "Kayak",
-            "price": "$1,900"
-          }
-        },
-        "system_2": {
-          "type": "system_part",
-          "settings": {
-            "title": "Battery",
-            "price": "$950"
-          }
-        },
-        "system_3": {
-          "type": "system_part",
-          "settings": {
-            "title": "Motor",
-            "price": "$900"
-          }
-        },
-        "system_4": {
-          "type": "system_part",
-          "settings": {
-            "title": "Transom Motor",
-            "price": "$700"
-          }
-        },
         "precision_1": {
           "type": "precision",
           "settings": {
@@ -227,10 +199,6 @@
         "press_2",
         "press_3",
         "press_4",
-        "system_1",
-        "system_2",
-        "system_3",
-        "system_4",
         "precision_1",
         "precision_2",
         "precision_3",
@@ -254,8 +222,11 @@
       "settings": {
         "home_font": "inter_n4",
         "reserve_link": "",
+        "hero_image": "shopify://shop_images/pc-1.jpg",
         "philosophy_image": "shopify://shop_images/PC-3_a9a1fee0-f4dc-4872-be0e-b2b55d2b9af7.png",
-        "why_board_image": "shopify://shop_images/PC-3_a9a1fee0-f4dc-4872-be0e-b2b55d2b9af7.png",
+        "why_board_image": "shopify://shop_images/PC-4_4df439ac-8f3f-4945-92cc-1c14f6117912.png",
+        "system_parts_image": "shopify://shop_images/pc-5.png",
+        "system_image": "shopify://shop_images/pc-5-1_a4dd1b23-0aa0-4a98-b99c-57f05760f4ec.png",
         "power_image": "shopify://shop_images/PC-6.png",
         "tough_image_left": "shopify://shop_images/PC-9-1.png",
         "tough_image_right": "shopify://shop_images/PC-9-2.png"

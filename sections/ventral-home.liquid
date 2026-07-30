@@ -6,6 +6,7 @@
   assign video_blocks = section.blocks | where: 'type', 'video'
   assign first_video = video_blocks | first
   assign first_video_poster = first_video.settings.poster | default: first_video.settings.video.preview_image
+  assign first_video_poster_mobile = first_video.settings.mobile_poster | default: first_video_poster
   assign first_video_source = first_video.settings.video.sources | where: 'format', 'mp4' | first
   if first_video_source == blank
     assign first_video_source = first_video.settings.video.sources | first
@@ -324,120 +325,70 @@
     color: #959c9d;
   }
   .vh-system__parts {
-    display: grid;
-    width: 476px;
-    grid-template-columns: repeat(2, 230px);
-    gap: 20px 16px;
+    position: relative;
+    width: 575px;
     margin-top: 40px;
   }
-  .vh-system__part {
+  .vh-system__parts-picture,
+  .vh-system__offer-picture {
+    display: block;
+    width: 100%;
+  }
+  .vh-system__parts-image,
+  .vh-system__offer-image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .vh-system__parts-placeholder {
     position: relative;
-    height: 170px;
-    overflow: hidden;
+    aspect-ratio: 1150 / 720;
     border-radius: 24px;
     background: #0a1625;
-  }
-  .vh-system__part .vh-placeholder {
-    bottom: 52px;
-    height: auto;
-    background: #1d4259;
-  }
-  .vh-system__part img {
-    bottom: 52px;
-    height: auto;
-  }
-  .vh-system__part h3 {
-    position: absolute;
-    right: 23px;
-    bottom: 37px;
-    left: 23px;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1;
-  }
-  .vh-system__part p {
-    position: absolute;
-    right: 0;
-    bottom: 8px;
-    left: 0;
-    color: #9bddff;
-    font-size: 20px;
-    font-weight: 700;
-    text-align: center;
   }
   .vh-system__offer {
     position: relative;
     width: 586px;
-    height: 586px;
-    overflow: hidden;
+    margin-top: 34px;
+  }
+  .vh-system__offer-placeholder {
+    position: relative;
+    aspect-ratio: 1;
     border-radius: 24px;
     background: #08233b;
   }
-  .vh-system__offer::before {
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(57,222,227,.35);
-    border-radius: 50%;
-    content: "";
-  }
-  .vh-system__badge {
-    position: absolute;
-    bottom: 20px;
-    left: 89px;
-    display: grid;
-    grid-template-columns: 48px 1fr 1px 91px;
-    align-items: center;
-    gap: 13px;
-    padding: 12px 24px;
-    border: 1px solid rgba(255, 255, 255, 1);
-    border-radius: 100px;
-    background: linear-gradient(90deg, #0A1625 0%, #030B16 48.83%, #0A1726 100%);
-  }
-  .vh-system__badge-icon {
-    display: grid;
-    width: 48px;
-    height: 48px;
-    place-items: center;
-  }
-  .vh-system__badge-copy {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1;
-    display: grid;
-    gap: 8px;
-  }
-  .vh-system__badge-copy span {
-    color: #39DEE3;
-  }
-  .vh-system__badge-separator {
-    height: 40px;
-    background: #305A6F;
-  }
-  .vh-system__badge-price {
-    color: #39DEE3;
-    font-size: 28px;
-    font-weight: 700;
-  }
 
   .vh-power {
+    height: 700px;
+    background: #000;
+  }
+  .vh-power__layout {
     position: relative;
-    height: 640px;
-    overflow: hidden;
-    background: #264d5b;
+    height: 100%;
   }
-  .vh-power__placeholder {
-    background: #315967;
-  }
-  .vh-power__shade {
+  .vh-power__image {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(0,0,0,.03), rgba(0,0,0,.58));
+    top: 120px;
+    right: -10px;
+    width: 830px;
+    height: 460px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #fff;
+  }
+  .vh-power__image .vh-media {
+    top: -21.74%;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: 107.6%;
+    height: 129.57%;
   }
   .vh-power__copy {
     position: absolute;
-    top: 219px;
-    right: max(24px, calc((100% - 1440px) / 2));
-    width: 757px;
+    top: 120px;
+    left: 0;
+    width: 560px;
   }
   .vh-power__copy h2 {
     font-size: 48px;
@@ -447,8 +398,24 @@
   }
   .vh-power__copy p {
     margin-top: 20px;
+    color: #959c9d;
     font-size: 16px;
     line-height: 1.45;
+  }
+  .vh-power__button {
+    display: inline-flex;
+    min-height: 50px;
+    margin-top: 30px;
+    padding: 2px 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    color: #0c284c;
+    background: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
   }
 
   .vh-precision {
@@ -599,13 +566,11 @@
   .vh-tough__image {
     position: relative;
     height: auto;
-    aspect-ratio: 16 / 11;
     background: transparent;
   }
-  .vh-tough__image:nth-child(2) {
-    aspect-ratio: 21 / 11;
-  }
   .vh-tough__image .vh-media {
+    position: static;
+    height: auto;
     object-fit: contain;
   }
 
@@ -1166,6 +1131,15 @@
       transform: scale(.9);
       transform-origin: top center;
     }
+    .vh-power__copy {
+      width: 39%;
+    }
+    .vh-power__image {
+      right: 0;
+      width: 58%;
+      height: auto;
+      aspect-ratio: 830 / 460;
+    }
     .vh-tough__images {
       grid-template-columns: 42% 55%;
       gap: 3%;
@@ -1418,99 +1392,68 @@
     }
 
     .vh-system__parts {
-      width: calc(100% + 1px);
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
+      width: 100%;
       margin-top: 24px;
-    }
-
-    .vh-system__part {
-      height: 126px;
-      border: 1px solid #9ea6ac;
-      border-radius: 12px;
-      background: linear-gradient(235deg, #154060, #051d3a);
-    }
-
-    .vh-system__part:nth-child(1) {
-      order: 1;
-    }
-
-    .vh-system__part:nth-child(2) {
-      order: 3;
-    }
-
-    .vh-system__part:nth-child(3) {
-      order: 2;
-    }
-
-    .vh-system__part:nth-child(4) {
-      order: 4;
-    }
-
-    .vh-system__part .vh-placeholder,
-    .vh-system__part img {
-      top: 11px;
-      right: auto;
-      bottom: auto;
-      left: 50%;
-      width: 100px;
-      height: 60px;
-      transform: translateX(-50%);
-    }
-
-    .vh-system__part h3 {
-      top: 79px;
-      right: 0;
-      bottom: auto;
-      left: 0;
-      font-size: 16px;
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .vh-system__part p {
-      top: 99px;
-      bottom: auto;
-      color: #959c9d;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.45;
     }
 
     .vh-system__offer {
       width: 100%;
-      height: auto;
-      aspect-ratio: 1;
-      margin-top: 127px;
-      border-radius: 12px;
-    }
-
-    .vh-system__badge {
-      right: 6px;
-      bottom: 12px;
-      left: 6px;
-      grid-template-columns: 36px minmax(0, 1fr) 1px auto;
-      gap: 8px;
-      padding: 8px;
-    }
-
-    .vh-system__badge-icon,
-    .vh-system__badge-icon svg {
-      width: 36px;
-      height: 36px;
-    }
-
-    .vh-system__badge-copy {
-      gap: 8px;
-      font-size: 16px;
-    }
-
-    .vh-system__badge-price {
-      font-size: 20px;
+      margin-top: 20px;
     }
 
     .vh-power {
-      display: none;
+      display: block;
+      height: auto;
+      padding: 60px 0;
+    }
+
+    .vh-power__layout {
+      display: flex;
+      height: auto;
+      flex-direction: column;
+    }
+
+    .vh-power__copy {
+      position: static;
+      width: 100%;
+    }
+
+    .vh-power__copy h2 {
+      font-size: 36px;
+      line-height: 1.2;
+    }
+
+    .vh-power__copy p {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .vh-power__button {
+      display: flex;
+      width: 100%;
+      min-height: 39px;
+      margin-top: 18px;
+      padding: 8px 14px;
+      font-size: 16px;
+    }
+
+    .vh-power__image {
+      position: relative;
+      top: auto;
+      right: auto;
+      order: 2;
+      width: 100%;
+      height: auto;
+      margin-top: 16px;
+      aspect-ratio: 351 / 300;
+      border-radius: 12px;
+    }
+
+    .vh-power__image .vh-media {
+      top: -19.33%;
+      width: 100%;
+      height: 146.33%;
     }
 
     .vh-precision {
@@ -1867,12 +1810,19 @@
       background: transparent;
     }
 
-    .vh-story > .vh-media,
+    .vh-story > picture,
     .vh-story > .vh-placeholder {
+      position: relative;
+      display: block;
+      width: 100%;
       bottom: auto;
       height: 170px;
       overflow: hidden;
       border-radius: 12px;
+    }
+
+    .vh-story > picture .vh-media {
+      height: 100%;
     }
 
     .vh-story__caption {
@@ -2173,8 +2123,7 @@
 
     .vh-system__offer {
       height: auto;
-      margin-top: 127px;
-      aspect-ratio: 1;
+      margin-top: 20px;
     }
 
     .vh-system__heading h2 {
@@ -2209,12 +2158,6 @@
 
     .vh-tough__image {
       height: auto;
-      aspect-ratio: 16 / 11;
-    }
-
-    .vh-tough__image:nth-child(2) {
-      height: auto;
-      aspect-ratio: 21 / 11;
     }
 
     .vh-control {
@@ -2351,12 +2294,18 @@
       flex-direction: column;
     }
 
-    .vh-story > .vh-media,
+    .vh-story > picture,
     .vh-story > .vh-placeholder {
       position: relative;
+      display: block;
       width: 100%;
       height: auto;
       aspect-ratio: 1;
+    }
+
+    .vh-story > picture .vh-media {
+      position: absolute;
+      height: 100%;
     }
 
     .vh-story__caption {
@@ -2439,17 +2388,25 @@
 
 <section id="ventral-home-{{ section.id }}" class="ventral-home">
   <div class="vh-hero">
-    {%- if section.settings.hero_image != blank -%}
-      {{
-        section.settings.hero_image
-        | image_url: width: 2400
-        | image_tag:
-          class: 'vh-media',
-          widths: '1200, 1600, 1920, 2400',
-          sizes: '100vw',
-          preload: true,
-          alt: 'Stand steady. Move freely. Go farther.'
-      }}
+    {%- assign hero_desktop = section.settings.hero_image -%}
+    {%- assign hero_mobile = section.settings.hero_image_mobile -%}
+    {%- assign hero_fallback = hero_desktop | default: hero_mobile -%}
+    {%- if hero_fallback != blank -%}
+      <picture>
+        {%- if hero_mobile != blank -%}
+          <source media="(max-width: 768px)" srcset="{{ hero_mobile | image_url: width: 750 }} 750w, {{ hero_mobile | image_url: width: 1125 }} 1125w" sizes="100vw">
+        {%- endif -%}
+        {{
+          hero_fallback
+          | image_url: width: 2400
+          | image_tag:
+            class: 'vh-media',
+            widths: '750, 1200, 1600, 1920, 2400',
+            sizes: '100vw',
+            preload: true,
+            alt: 'Stand steady. Move freely. Go farther.'
+        }}
+      </picture>
     {%- else -%}
       <div class="vh-placeholder vh-hero__placeholder" aria-hidden="true"></div>
     {%- endif -%}
@@ -2472,12 +2429,20 @@
         {%- if block.type == 'press' -%}
           <div class="vh-press__item" {{ block.shopify_attributes }}>
             <div class="vh-press__logo">
-              {%- if block.settings.logo != blank -%}
-                {{
-                  block.settings.logo
-                  | image_url: width: 400
-                  | image_tag: widths: '120, 240, 400', sizes: '120px', loading: 'lazy', alt: ''
-                }}
+              {%- assign press_logo_desktop = block.settings.logo -%}
+              {%- assign press_logo_mobile = block.settings.mobile_logo -%}
+              {%- assign press_logo_fallback = press_logo_desktop | default: press_logo_mobile -%}
+              {%- if press_logo_fallback != blank -%}
+                <picture>
+                  {%- if press_logo_mobile != blank -%}
+                    <source media="(max-width: 768px)" srcset="{{ press_logo_mobile | image_url: width: 240 }} 240w, {{ press_logo_mobile | image_url: width: 400 }} 400w" sizes="120px">
+                  {%- endif -%}
+                  {{
+                    press_logo_fallback
+                    | image_url: width: 400
+                    | image_tag: widths: '120, 240, 400', sizes: '120px', loading: 'lazy', alt: ''
+                  }}
+                </picture>
               {%- endif -%}
             </div>
             <span class="vh-press__name">{{ block.settings.name | escape }}</span>
@@ -2490,17 +2455,25 @@
   <div class="vh-philosophy">
     <div class="vh-shell vh-philosophy__grid">
       <div class="vh-philosophy__image vh-radius">
-        {%- if section.settings.philosophy_image != blank -%}
-          {{
-            section.settings.philosophy_image
-            | image_url: width: 1800
-            | image_tag:
-              class: 'vh-media',
-              widths: '800, 1200, 1800',
-              sizes: '(min-width: 990px) 44vw, 100vw',
-              loading: 'lazy',
-              alt: ''
-          }}
+        {%- assign philosophy_desktop = section.settings.philosophy_image -%}
+        {%- assign philosophy_mobile = section.settings.philosophy_image_mobile -%}
+        {%- assign philosophy_fallback = philosophy_desktop | default: philosophy_mobile -%}
+        {%- if philosophy_fallback != blank -%}
+          <picture>
+            {%- if philosophy_mobile != blank -%}
+              <source media="(max-width: 768px)" srcset="{{ philosophy_mobile | image_url: width: 702 }} 702w, {{ philosophy_mobile | image_url: width: 1404 }} 1404w" sizes="calc(100vw - 24px)">
+            {%- endif -%}
+            {{
+              philosophy_fallback
+              | image_url: width: 1800
+              | image_tag:
+                class: 'vh-media',
+                widths: '702, 800, 1200, 1800',
+                sizes: '(min-width: 990px) 44vw, calc(100vw - 24px)',
+                loading: 'lazy',
+                alt: ''
+            }}
+          </picture>
         {%- else -%}
           <div class="vh-placeholder" aria-hidden="true"></div>
         {%- endif -%}
@@ -2540,17 +2513,25 @@
         </div>
       </div>
       <div class="vh-why__image vh-radius">
-        {%- if section.settings.why_board_image != blank -%}
-          {{
-            section.settings.why_board_image
-            | image_url: width: 1800
-            | image_tag:
-              class: 'vh-media',
-              widths: '800, 1200, 1800',
-              sizes: '(min-width: 990px) 44vw, 100vw',
-              loading: 'lazy',
-              alt: ''
-          }}
+        {%- assign why_desktop = section.settings.why_board_image -%}
+        {%- assign why_mobile = section.settings.why_board_image_mobile -%}
+        {%- assign why_fallback = why_desktop | default: why_mobile -%}
+        {%- if why_fallback != blank -%}
+          <picture>
+            {%- if why_mobile != blank -%}
+              <source media="(max-width: 768px)" srcset="{{ why_mobile | image_url: width: 702 }} 702w, {{ why_mobile | image_url: width: 1404 }} 1404w" sizes="calc(100vw - 24px)">
+            {%- endif -%}
+            {{
+              why_fallback
+              | image_url: width: 1800
+              | image_tag:
+                class: 'vh-media',
+                widths: '702, 800, 1200, 1800',
+                sizes: '(min-width: 990px) 44vw, calc(100vw - 24px)',
+                loading: 'lazy',
+                alt: ''
+            }}
+          </picture>
         {%- else -%}
           <div class="vh-placeholder" aria-hidden="true"></div>
         {%- endif -%}
@@ -2569,79 +2550,93 @@
           </p>
         </div>
         <div class="vh-system__parts">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'system_part' -%}
-              <article class="vh-system__part" {{ block.shopify_attributes }}>
-                {%- if block.settings.image != blank -%}
-                  {{
-                    block.settings.image
-                    | image_url: width: 600
-                    | image_tag:
-                      class: 'vh-media',
-                      widths: '300, 450, 600',
-                      sizes: '230px',
-                      loading: 'lazy',
-                      alt: block.settings.title
-                  }}
-                {%- else -%}
-                  <div class="vh-placeholder" aria-hidden="true"></div>
-                {%- endif -%}
-                <h3>{{ block.settings.title | escape }}</h3>
-                <p>{{ block.settings.price | escape }}</p>
-              </article>
-            {%- endif -%}
-          {%- endfor -%}
+          {%- assign system_parts_desktop = section.settings.system_parts_image -%}
+          {%- assign system_parts_mobile = section.settings.system_parts_image_mobile -%}
+          {%- assign system_parts_fallback = system_parts_desktop | default: system_parts_mobile -%}
+          {%- if system_parts_fallback != blank -%}
+            <picture class="vh-system__parts-picture">
+              {%- if system_parts_mobile != blank -%}
+                <source media="(max-width: 768px)" srcset="{{ system_parts_mobile | image_url: width: 702 }} 702w, {{ system_parts_mobile | image_url: width: 1404 }} 1404w" sizes="calc(100vw - 24px)">
+              {%- endif -%}
+              {{
+                system_parts_fallback
+                | image_url: width: 1150
+                | image_tag:
+                  class: 'vh-system__parts-image',
+                  widths: '575, 860, 1150',
+                  sizes: '(max-width: 768px) calc(100vw - 24px), 575px',
+                  loading: 'lazy',
+                  alt: ''
+              }}
+            </picture>
+          {%- else -%}
+            <div class="vh-system__parts-placeholder" aria-hidden="true"></div>
+          {%- endif -%}
         </div>
       </div>
       <div class="vh-system__offer">
-        {%- if section.settings.system_image != blank -%}
-          {{
-            section.settings.system_image
-            | image_url: width: 1400
-            | image_tag: class: 'vh-media', widths: '600, 900, 1200, 1400', sizes: '586px', loading: 'lazy', alt: ''
-          }}
+        {%- assign system_offer_desktop = section.settings.system_image -%}
+        {%- assign system_offer_mobile = section.settings.system_image_mobile -%}
+        {%- assign system_offer_fallback = system_offer_desktop | default: system_offer_mobile -%}
+        {%- if system_offer_fallback != blank -%}
+          <picture class="vh-system__offer-picture">
+            {%- if system_offer_mobile != blank -%}
+              <source media="(max-width: 768px)" srcset="{{ system_offer_mobile | image_url: width: 702 }} 702w, {{ system_offer_mobile | image_url: width: 1404 }} 1404w" sizes="calc(100vw - 24px)">
+            {%- endif -%}
+            {{
+              system_offer_fallback
+              | image_url: width: 1172
+              | image_tag:
+                class: 'vh-system__offer-image',
+                widths: '586, 880, 1172',
+                sizes: '(max-width: 768px) calc(100vw - 24px), 586px',
+                loading: 'lazy',
+                alt: ''
+            }}
+          </picture>
         {%- else -%}
-          <div class="vh-placeholder" aria-hidden="true"></div>
+          <div class="vh-system__offer-placeholder" aria-hidden="true"></div>
         {%- endif -%}
-        <div class="vh-system__badge">
-          <div class="vh-system__badge-icon">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="url(#paint0_linear_344_636)"/>
-              <path d="M39.5872 22.8038L35.3373 23.0187L31.7229 23.7607C31.7229 23.7607 31.2169 26.6301 29.4768 28.6476C28.1343 30.2049 26.132 31.8796 23.2749 32.5028C23.2749 32.5028 22.0528 32.7908 21.4417 34.275C20.8322 35.7607 19.8372 38.6575 19.8372 38.6575L17.268 40L24.8231 26.3482C24.8231 26.3482 15.8996 23.1162 12.2852 14.1577L27.8402 21.5329C27.8402 21.5329 29.5743 19.8583 32.0611 19.8111C32.0611 19.8111 34.4779 19.9055 34.6973 22.4213L39.5872 22.8038Z" fill="white"/>
-              <path d="M14.0505 19.5384L14.817 20.4009C14.6702 21.2406 14.7212 22.1029 14.9658 22.9195C15.2105 23.736 15.6422 24.4843 16.2265 25.1049C16.9354 25.9118 17.8056 26.5611 18.7809 27.011C19.7562 27.4608 20.815 27.7013 21.889 27.7167C21.889 27.7167 16.6471 28.5548 14.3461 23.3312C14.3461 23.3312 13.6056 21.434 14.0505 19.5384M15.3915 10.1304L27.1858 20.2775L16.257 13.8257C16.257 13.8257 15.1629 11.6314 15.3929 10.1304M19.1431 8.08548L27.4265 19.834L19.1431 11.3114C19.1431 11.3114 18.9298 8.47864 19.1431 8.08548Z" fill="white"/>
-              <defs>
-              <linearGradient id="paint0_linear_344_636" x1="11" y1="3.5" x2="35" y2="45.5" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#9BDDFF"/>
-              <stop offset="1" stop-color="#11587C"/>
-              </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <div class="vh-system__badge-copy">Complete 4-in-1 System <span>Early Bird Price</span></div>
-          <span class="vh-system__badge-separator"></span>
-          <strong class="vh-system__badge-price">$2499</strong>
-        </div>
       </div>
     </div>
   </div>
 
   <div class="vh-power">
-    {%- if section.settings.power_image != blank -%}
-      {{
-        section.settings.power_image
-        | image_url: width: 2400
-        | image_tag: class: 'vh-media', widths: '1200, 1600, 1920, 2400', sizes: '100vw', loading: 'lazy', alt: ''
-      }}
-    {%- else -%}
-      <div class="vh-placeholder vh-power__placeholder" aria-hidden="true"></div>
-    {%- endif -%}
-    <div class="vh-power__shade"></div>
-    <div class="vh-power__copy">
-      <h2>Power from the Center. Control Everywhere.</h2>
-      <p>
-        Balanced propulsion, precise positioning, and effortless wireless control—all integrated into one intelligent
-        mid-mount drive.
-      </p>
+    <div class="vh-shell vh-power__layout">
+      <div class="vh-power__copy">
+        <h2>Power from the Center. Control Everywhere.</h2>
+        <p>
+          Balanced propulsion, precise positioning, and effortless wireless control&mdash;all integrated into one
+          intelligent mid-mount drive.
+        </p>
+        <a class="vh-power__button" href="{{ section.settings.reserve_link | default: routes.all_products_collection_url }}">
+          Reserve Now
+        </a>
+      </div>
+      <div class="vh-power__image">
+        {%- assign power_desktop = section.settings.power_image -%}
+        {%- assign power_mobile = section.settings.power_image_mobile -%}
+        {%- assign power_fallback = power_desktop | default: power_mobile -%}
+        {%- if power_fallback != blank -%}
+          <picture>
+            {%- if power_mobile != blank -%}
+              <source media="(max-width: 768px)" srcset="{{ power_mobile | image_url: width: 702 }} 702w, {{ power_mobile | image_url: width: 1404 }} 1404w" sizes="calc(100vw - 24px)">
+            {%- endif -%}
+            {{
+              power_fallback
+              | image_url: width: 1786
+              | image_tag:
+                class: 'vh-media',
+                widths: '702, 893, 1404, 1786',
+                sizes: '(max-width: 768px) calc(100vw - 24px), 893px',
+                loading: 'lazy',
+                alt: ''
+            }}
+          </picture>
+        {%- else -%}
+          <div class="vh-placeholder vh-power__placeholder" aria-hidden="true"></div>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 
@@ -2655,17 +2650,25 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'precision' -%}
             <article class="vh-precision__card" {{ block.shopify_attributes }}>
-              {%- if block.settings.image != blank -%}
-                {{
-                  block.settings.image
-                  | image_url: width: 900
-                  | image_tag:
-                    class: 'vh-media',
-                    widths: '400, 600, 900',
-                    sizes: '(min-width: 990px) 18vw, 100vw',
-                    loading: 'lazy',
-                    alt: block.settings.title
-                }}
+              {%- assign precision_desktop = block.settings.image -%}
+              {%- assign precision_mobile = block.settings.mobile_image -%}
+              {%- assign precision_fallback = precision_desktop | default: precision_mobile -%}
+              {%- if precision_fallback != blank -%}
+                <picture>
+                  {%- if precision_mobile != blank -%}
+                    <source media="(max-width: 768px)" srcset="{{ precision_mobile | image_url: width: 400 }} 400w, {{ precision_mobile | image_url: width: 700 }} 700w" sizes="calc((100vw - 36px) / 2)">
+                  {%- endif -%}
+                  {{
+                    precision_fallback
+                    | image_url: width: 900
+                    | image_tag:
+                      class: 'vh-media',
+                      widths: '350, 400, 600, 900',
+                      sizes: '(min-width: 990px) 18vw, calc((100vw - 36px) / 2)',
+                      loading: 'lazy',
+                      alt: block.settings.title
+                  }}
+                </picture>
               {%- else -%}
                 <div class="vh-placeholder" aria-hidden="true"></div>
               {%- endif -%}
@@ -2688,17 +2691,25 @@
           {%- if block.type == 'fishing_feature' -%}
             <article class="vh-fishing__item" {{ block.shopify_attributes }}>
               <div class="vh-fishing__image">
-                {%- if block.settings.image != blank -%}
-                  {{
-                    block.settings.image
-                    | image_url: width: 1500
-                    | image_tag:
-                      class: 'vh-media',
-                      widths: '700, 1000, 1500',
-                      sizes: '(min-width: 990px) 37vw, 100vw',
-                      loading: 'lazy',
-                      alt: block.settings.title
-                  }}
+                {%- assign fishing_desktop = block.settings.image -%}
+                {%- assign fishing_mobile = block.settings.mobile_image -%}
+                {%- assign fishing_fallback = fishing_desktop | default: fishing_mobile -%}
+                {%- if fishing_fallback != blank -%}
+                  <picture>
+                    {%- if fishing_mobile != blank -%}
+                      <source media="(max-width: 768px)" srcset="{{ fishing_mobile | image_url: width: 702 }} 702w, {{ fishing_mobile | image_url: width: 1404 }} 1404w" sizes="calc(100vw - 24px)">
+                    {%- endif -%}
+                    {{
+                      fishing_fallback
+                      | image_url: width: 1500
+                      | image_tag:
+                        class: 'vh-media',
+                        widths: '702, 1000, 1404, 1500',
+                        sizes: '(min-width: 990px) 37vw, calc(100vw - 24px)',
+                        loading: 'lazy',
+                        alt: block.settings.title
+                    }}
+                  </picture>
                 {%- else -%}
                   <div class="vh-placeholder" aria-hidden="true"></div>
                 {%- endif -%}
@@ -2725,33 +2736,49 @@
       </div>
       <div class="vh-tough__images">
         <div class="vh-tough__image">
-          {%- if section.settings.tough_image_left != blank -%}
-            {{
-              section.settings.tough_image_left
-              | image_url: width: 1400
-              | image_tag:
-                class: 'vh-media',
-                widths: '600, 900, 1280',
-                sizes: '(max-width: 768px) calc(100vw - 24px), (max-width: 1490px) 42vw, 600px',
-                loading: 'lazy',
-                alt: ''
-            }}
+          {%- assign tough_left_desktop = section.settings.tough_image_left -%}
+          {%- assign tough_left_mobile = section.settings.tough_image_left_mobile -%}
+          {%- assign tough_left_fallback = tough_left_desktop | default: tough_left_mobile -%}
+          {%- if tough_left_fallback != blank -%}
+            <picture>
+              {%- if tough_left_mobile != blank -%}
+                <source media="(max-width: 768px)" srcset="{{ tough_left_mobile | image_url: width: 702 }} 702w, {{ tough_left_mobile | image_url: width: 1404 }} 1404w" sizes="calc(100vw - 24px)">
+              {%- endif -%}
+              {{
+                tough_left_fallback
+                | image_url: width: 1280
+                | image_tag:
+                  class: 'vh-media',
+                  widths: '600, 900, 1280',
+                  sizes: '(max-width: 768px) calc(100vw - 24px), (max-width: 1490px) 42vw, 600px',
+                  loading: 'lazy',
+                  alt: ''
+              }}
+            </picture>
           {%- else -%}
             <div class="vh-placeholder" aria-hidden="true"></div>
           {%- endif -%}
         </div>
         <div class="vh-tough__image">
-          {%- if section.settings.tough_image_right != blank -%}
-            {{
-              section.settings.tough_image_right
-              | image_url: width: 1800
-              | image_tag:
-                class: 'vh-media',
-                widths: '800, 1200, 1680',
-                sizes: '(max-width: 768px) calc(100vw - 24px), (max-width: 1490px) 55vw, 800px',
-                loading: 'lazy',
-                alt: ''
-            }}
+          {%- assign tough_right_desktop = section.settings.tough_image_right -%}
+          {%- assign tough_right_mobile = section.settings.tough_image_right_mobile -%}
+          {%- assign tough_right_fallback = tough_right_desktop | default: tough_right_mobile -%}
+          {%- if tough_right_fallback != blank -%}
+            <picture>
+              {%- if tough_right_mobile != blank -%}
+                <source media="(max-width: 768px)" srcset="{{ tough_right_mobile | image_url: width: 702 }} 702w, {{ tough_right_mobile | image_url: width: 1404 }} 1404w" sizes="calc(100vw - 24px)">
+              {%- endif -%}
+              {{
+                tough_right_fallback
+                | image_url: width: 1680
+                | image_tag:
+                  class: 'vh-media',
+                  widths: '800, 1200, 1680',
+                  sizes: '(max-width: 768px) calc(100vw - 24px), (max-width: 1490px) 55vw, 800px',
+                  loading: 'lazy',
+                  alt: ''
+              }}
+            </picture>
           {%- else -%}
             <div class="vh-placeholder" aria-hidden="true"></div>
           {%- endif -%}
@@ -2813,12 +2840,20 @@
   </div>
 
   <div class="vh-comparison">
-    {%- if section.settings.comparison_image != blank -%}
-      {{
-        section.settings.comparison_image
-        | image_url: width: 2400
-        | image_tag: class: 'vh-media', widths: '1200, 1600, 1920, 2400', sizes: '100vw', loading: 'lazy', alt: ''
-      }}
+    {%- assign comparison_desktop = section.settings.comparison_image -%}
+    {%- assign comparison_mobile = section.settings.comparison_image_mobile -%}
+    {%- assign comparison_fallback = comparison_desktop | default: comparison_mobile -%}
+    {%- if comparison_fallback != blank -%}
+      <picture>
+        {%- if comparison_mobile != blank -%}
+          <source media="(max-width: 768px)" srcset="{{ comparison_mobile | image_url: width: 750 }} 750w, {{ comparison_mobile | image_url: width: 1125 }} 1125w" sizes="100vw">
+        {%- endif -%}
+        {{
+          comparison_fallback
+          | image_url: width: 2400
+          | image_tag: class: 'vh-media', widths: '750, 1200, 1600, 1920, 2400', sizes: '100vw', loading: 'lazy', alt: ''
+        }}
+      </picture>
     {%- else -%}
       <div class="vh-placeholder vh-comparison__placeholder" aria-hidden="true"></div>
     {%- endif -%}
@@ -2886,17 +2921,25 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'story' -%}
             <article class="vh-story" {{ block.shopify_attributes }}>
-              {%- if block.settings.image != blank -%}
-                {{
-                  block.settings.image
-                  | image_url: width: 1000
-                  | image_tag:
-                    class: 'vh-media',
-                    widths: '500, 750, 1000',
-                    sizes: '(min-width: 990px) 24vw, 100vw',
-                    loading: 'lazy',
-                    alt: block.settings.title
-                }}
+              {%- assign story_desktop = block.settings.image -%}
+              {%- assign story_mobile = block.settings.mobile_image -%}
+              {%- assign story_fallback = story_desktop | default: story_mobile -%}
+              {%- if story_fallback != blank -%}
+                <picture>
+                  {%- if story_mobile != blank -%}
+                    <source media="(max-width: 768px)" srcset="{{ story_mobile | image_url: width: 702 }} 702w, {{ story_mobile | image_url: width: 1000 }} 1000w" sizes="calc(100vw - 22px)">
+                  {%- endif -%}
+                  {{
+                    story_fallback
+                    | image_url: width: 1000
+                    | image_tag:
+                      class: 'vh-media',
+                      widths: '500, 702, 750, 1000',
+                      sizes: '(min-width: 990px) 24vw, calc(100vw - 22px)',
+                      loading: 'lazy',
+                      alt: block.settings.title
+                  }}
+                </picture>
               {%- else -%}
                 <div class="vh-placeholder" aria-hidden="true"></div>
               {%- endif -%}
@@ -2944,6 +2987,8 @@
           tabindex="0"
           role="button"
           aria-label="Play {{ first_video.settings.title | default: 'featured video' | escape }}"
+          data-video-poster-pc="{% if first_video_poster != blank %}{{ first_video_poster | image_url: width: 1000 }}{% endif %}"
+          data-video-poster-mobile="{% if first_video_poster_mobile != blank %}{{ first_video_poster_mobile | image_url: width: 1000 }}{% endif %}"
           {% if first_video_poster != blank %}
             poster="{{ first_video_poster | image_url: width: 1000 }}"
           {% endif %}
@@ -2978,6 +3023,7 @@
       <div class="vh-videos__list">
         {%- for block in video_blocks -%}
           {%- assign card_poster = block.settings.poster | default: block.settings.video.preview_image -%}
+          {%- assign card_poster_mobile = block.settings.mobile_poster | default: card_poster -%}
           {%- assign card_source = block.settings.video.sources | where: 'format', 'mp4' | first -%}
           {%- if card_source == blank -%}{%- assign card_source = block.settings.video.sources | first -%}{%- endif -%}
           <button
@@ -2986,18 +3032,25 @@
             data-home-video-card
             data-video-src="{{ card_source.url | escape }}"
             data-video-type="{{ card_source.mime_type | escape }}"
-            data-video-poster="{% if card_poster != blank %}{{ card_poster | image_url: width: 1000 }}{% endif %}"
+            data-video-poster-pc="{% if card_poster != blank %}{{ card_poster | image_url: width: 1000 }}{% endif %}"
+            data-video-poster-mobile="{% if card_poster_mobile != blank %}{{ card_poster_mobile | image_url: width: 1000 }}{% endif %}"
             data-video-title="{{ block.settings.title | default: 'Sunrise Paddle' | escape }}"
             aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
             {{ block.shopify_attributes }}
           >
             <span class="vh-video-card__thumb">
-              {%- if card_poster != blank -%}
-                {{
-                  card_poster
-                  | image_url: width: 180
-                  | image_tag: widths: '120, 180', sizes: '60px', loading: 'lazy', alt: ''
-                }}
+              {%- if card_poster != blank or card_poster_mobile != blank -%}
+                <picture>
+                  {%- if card_poster_mobile != blank -%}
+                    <source media="(max-width: 768px)" srcset="{{ card_poster_mobile | image_url: width: 120 }} 120w, {{ card_poster_mobile | image_url: width: 180 }} 180w" sizes="60px">
+                  {%- endif -%}
+                  {{
+                    card_poster
+                    | default: card_poster_mobile
+                    | image_url: width: 180
+                    | image_tag: widths: '120, 180', sizes: '60px', loading: 'lazy', alt: ''
+                  }}
+                </picture>
               {%- endif -%}
             </span>
             <span class="vh-video-card__details"
@@ -3292,12 +3345,20 @@
   </div>
 
   <div class="vh-cta">
-    {%- if section.settings.cta_image != blank -%}
-      {{
-        section.settings.cta_image
-        | image_url: width: 2400
-        | image_tag: class: 'vh-media', widths: '1200, 1600, 1920, 2400', sizes: '100vw', loading: 'lazy', alt: ''
-      }}
+    {%- assign cta_desktop = section.settings.cta_image -%}
+    {%- assign cta_mobile = section.settings.cta_image_mobile -%}
+    {%- assign cta_fallback = cta_desktop | default: cta_mobile -%}
+    {%- if cta_fallback != blank -%}
+      <picture>
+        {%- if cta_mobile != blank -%}
+          <source media="(max-width: 768px)" srcset="{{ cta_mobile | image_url: width: 750 }} 750w, {{ cta_mobile | image_url: width: 1125 }} 1125w" sizes="100vw">
+        {%- endif -%}
+        {{
+          cta_fallback
+          | image_url: width: 2400
+          | image_tag: class: 'vh-media', widths: '750, 1200, 1600, 1920, 2400', sizes: '100vw', loading: 'lazy', alt: ''
+        }}
+      </picture>
     {%- else -%}
       <div class="vh-placeholder vh-cta__placeholder" aria-hidden="true"></div>
     {%- endif -%}
@@ -3325,6 +3386,11 @@
       if (!media || !source || !playButton || cards.length === 0) return;
       root.dataset.homeVideoReady = 'true';
       const available = () => Boolean(source.getAttribute('src'));
+      const mobileViewport = window.matchMedia('(max-width: 768px)');
+      const posterFor = (element) => {
+        if (mobileViewport.matches) return element.dataset.videoPosterMobile || element.dataset.videoPosterPc || '';
+        return element.dataset.videoPosterPc || element.dataset.videoPosterMobile || '';
+      };
       const updateButton = () => {
         playButton.hidden = !available() || !media.paused;
       };
@@ -3337,7 +3403,7 @@
         media.pause();
         const url = card.dataset.videoSrc || '';
         const type = card.dataset.videoType || '';
-        const poster = card.dataset.videoPoster || '';
+        const poster = posterFor(card);
         const title = card.dataset.videoTitle || 'featured video';
         if (url) source.setAttribute('src', url);
         else source.removeAttribute('src');
@@ -3367,6 +3433,9 @@
       media.addEventListener('play', updateButton);
       media.addEventListener('pause', updateButton);
       media.addEventListener('ended', updateButton);
+      const activeCard = cards.find((card) => card.classList.contains('is-active')) || cards[0];
+      const initialPoster = posterFor(activeCard);
+      if (initialPoster) media.setAttribute('poster', initialPoster);
       updateButton();
     };
     const initializeHomeFaq = (root) => {
@@ -3412,16 +3481,27 @@
   "settings": [
     { "type": "font_picker", "id": "home_font", "label": "Page font", "default": "inter_n4" },
     { "type": "url", "id": "reserve_link", "label": "Reserve button link" },
-    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
-    { "type": "image_picker", "id": "philosophy_image", "label": "Brand philosophy image" },
-    { "type": "image_picker", "id": "why_board_image", "label": "Why this board image" },
-    { "type": "image_picker", "id": "system_image", "label": "4-in-1 system image" },
-    { "type": "image_picker", "id": "power_image", "label": "Power from the center image" },
-    { "type": "image_picker", "id": "tough_image_left", "label": "Built tough image - left" },
-    { "type": "image_picker", "id": "tough_image_right", "label": "Built tough image - right" },
-    { "type": "image_picker", "id": "comparison_image", "label": "Comparison background image" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image - PC" },
+    { "type": "image_picker", "id": "hero_image_mobile", "label": "Hero image - Mobile" },
+    { "type": "image_picker", "id": "philosophy_image", "label": "Brand philosophy image - PC" },
+    { "type": "image_picker", "id": "philosophy_image_mobile", "label": "Brand philosophy image - Mobile" },
+    { "type": "image_picker", "id": "why_board_image", "label": "Why this board image - PC" },
+    { "type": "image_picker", "id": "why_board_image_mobile", "label": "Why this board image - Mobile" },
+    { "type": "image_picker", "id": "system_parts_image", "label": "4-part comparison image - PC" },
+    { "type": "image_picker", "id": "system_parts_image_mobile", "label": "4-part comparison image - Mobile" },
+    { "type": "image_picker", "id": "system_image", "label": "Complete 4-in-1 system image - PC" },
+    { "type": "image_picker", "id": "system_image_mobile", "label": "Complete 4-in-1 system image - Mobile" },
+    { "type": "image_picker", "id": "power_image", "label": "Power from the center image - PC" },
+    { "type": "image_picker", "id": "power_image_mobile", "label": "Power from the center image - Mobile" },
+    { "type": "image_picker", "id": "tough_image_left", "label": "Built tough left image - PC" },
+    { "type": "image_picker", "id": "tough_image_left_mobile", "label": "Built tough left image - Mobile" },
+    { "type": "image_picker", "id": "tough_image_right", "label": "Built tough right image - PC" },
+    { "type": "image_picker", "id": "tough_image_right_mobile", "label": "Built tough right image - Mobile" },
+    { "type": "image_picker", "id": "comparison_image", "label": "Comparison background image - PC" },
+    { "type": "image_picker", "id": "comparison_image_mobile", "label": "Comparison background image - Mobile" },
     { "type": "video", "id": "immersion_video", "label": "Full-screen immersion video" },
-    { "type": "image_picker", "id": "cta_image", "label": "Final CTA image" }
+    { "type": "image_picker", "id": "cta_image", "label": "Final CTA image - PC" },
+    { "type": "image_picker", "id": "cta_image_mobile", "label": "Final CTA image - Mobile" }
   ],
   "blocks": [
     {
@@ -3429,18 +3509,9 @@
       "name": "Press logo",
       "limit": 4,
       "settings": [
-        { "type": "image_picker", "id": "logo", "label": "Logo" },
+        { "type": "image_picker", "id": "logo", "label": "Logo - PC" },
+        { "type": "image_picker", "id": "mobile_logo", "label": "Logo - Mobile" },
         { "type": "text", "id": "name", "label": "Name" }
-      ]
-    },
-    {
-      "type": "system_part",
-      "name": "System part",
-      "limit": 4,
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "text", "id": "title", "label": "Title" },
-        { "type": "text", "id": "price", "label": "Price" }
       ]
     },
     {
@@ -3448,7 +3519,8 @@
       "name": "Precision card",
       "limit": 4,
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "image", "label": "Image - PC" },
+        { "type": "image_picker", "id": "mobile_image", "label": "Image - Mobile" },
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "text", "id": "text", "label": "Text" }
       ]
@@ -3458,7 +3530,8 @@
       "name": "Fishing feature",
       "limit": 4,
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "image", "label": "Image - PC" },
+        { "type": "image_picker", "id": "mobile_image", "label": "Image - Mobile" },
         { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "textarea", "id": "text", "label": "Text" }
@@ -3481,7 +3554,8 @@
       "name": "Water story",
       "limit": 6,
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "image", "label": "Image - PC" },
+        { "type": "image_picker", "id": "mobile_image", "label": "Image - Mobile" },
         { "type": "text", "id": "title", "label": "Title" }
       ]
     },
@@ -3491,7 +3565,8 @@
       "limit": 3,
       "settings": [
         { "type": "video", "id": "video", "label": "Shopify-hosted video" },
-        { "type": "image_picker", "id": "poster", "label": "Poster image" },
+        { "type": "image_picker", "id": "poster", "label": "Poster image - PC" },
+        { "type": "image_picker", "id": "mobile_poster", "label": "Poster image - Mobile" },
         { "type": "text", "id": "title", "label": "Title", "default": "Sunrise Paddle" }
       ]
     }
