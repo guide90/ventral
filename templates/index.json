@@ -36,6 +36,13 @@
             "name": "Paddlethrill"
           }
         },
+        "icast_1": {
+          "type": "icast_slide",
+          "settings": {
+            "image_alt": "Ventral at ICAST 2026",
+            "quote": "\"A motorized inflatable fishing hybrid that is easy to own and operate.\""
+          }
+        },
         "precision_1": {
           "type": "precision",
           "settings": {
@@ -115,41 +122,31 @@
         "control_1": {
           "type": "control_card",
           "settings": {
-            "image": "shopify://shop_images/PC-1.png",
-            "mobile_image": "shopify://shop_images/1_258094f4-9e3e-443a-8cbf-968f0efdfcc5.png",
-            "label": "Control System",
-            "title": "TwinTube Stabilizer Hull",
-            "text": "Room to work the rod without crowding the cockpit."
+            "image": "shopify://shop_images/pc-1_c645cdd4-c381-408c-98a8-bb163ca8b094.png",
+            "mobile_image": "shopify://shop_images/m-1.png",
+            "label": "Type 1",
+            "title": "Wireless Remote",
+            "text": "Instant Control at Your Fingertips."
           }
         },
         "control_2": {
           "type": "control_card",
           "settings": {
-            "image": "shopify://shop_images/PC-2.png",
-            "mobile_image": "shopify://shop_images/2_10c69e0b-d4f0-43f0-a7c6-abadca9dd294.png",
-            "label": "Drive System",
-            "title": "Smart Mid-Mount E-Drive",
-            "text": "Hold Your Spot, Not Your Paddle."
+            "image": "shopify://shop_images/pc-2_7b6a7ac4-eb1d-43a9-b7a1-501ae6fe8ae3.png",
+            "mobile_image": "shopify://shop_images/m-2.png",
+            "label": "Type 2",
+            "title": "Foot Pedal",
+            "text": "Hands-Free Steering for Better Fishing."
           }
         },
         "control_3": {
           "type": "control_card",
           "settings": {
-            "image": "shopify://shop_images/PC-3.png",
-            "mobile_image": "shopify://shop_images/3_28bf79a1-6ce4-44dc-89a9-97f3df0fe582.png",
-            "label": "Remote System",
-            "title": "Wireless Remote",
-            "text": "Voice assist holds heading, speed, or position so you can focus on fishing."
-          }
-        },
-        "control_4": {
-          "type": "control_card",
-          "settings": {
-            "image": "shopify://shop_images/PC-4.png",
-            "mobile_image": "shopify://shop_images/4_a62ddd55-add9-4b46-85d3-59cc7e2a463f.png",
-            "label": "Power System",
-            "title": "1.15 kWh LiFePO4 Battery",
-            "text": "Up to 6 hours of range for all-day fishing and long trolling runs."
+            "image": "shopify://shop_images/pc-3_b0bc45da-5b81-41b5-b8aa-3765375ddec5.png",
+            "mobile_image": "shopify://shop_images/m-3.png",
+            "label": "Type 3",
+            "title": "Smart App",
+            "text": "More Features. More Control."
           }
         },
         "story_1": {
@@ -207,6 +204,7 @@
         "press_2",
         "press_3",
         "press_4",
+        "icast_1",
         "precision_1",
         "precision_2",
         "precision_3",
@@ -218,7 +216,6 @@
         "control_1",
         "control_2",
         "control_3",
-        "control_4",
         "story_1",
         "story_2",
         "story_3",
