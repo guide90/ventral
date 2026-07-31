@@ -696,7 +696,7 @@
     align-items: start;
   }
   .vh-control__heading h2 {
-    font-size: 64px;
+    font-size: 48px;
     font-weight: 700;
     font-style: italic;
     line-height: 1.2;
@@ -849,9 +849,9 @@
   }
   .vh-table {
     position: relative;
-    width: 100%;
+    width: min(1239px, 100%);
     height: 520px;
-    margin-top: 40px;
+    margin: 40px auto 0;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,.68);
     border-radius: 24px;
@@ -860,31 +860,19 @@
     box-shadow: 12px 12px 20px rgba(0,3,7,.25);
   }
   .vh-table__inner {
-    width: 1440px;
-    min-width: 1440px;
+    width: 100%;
+    min-width: 0;
     height: 100%;
-    background: linear-gradient(
-      to right,
-      transparent 0 189px,
-      rgba(255,255,255,.5) 189px 190px,
-      rgba(20,65,81,.5) 190px 429px,
-      rgba(255,255,255,.5) 429px 430px,
-      transparent 430px 669px,
-      rgba(255,255,255,.5) 669px 670px,
-      rgba(20,65,81,.5) 670px 909px,
-      rgba(255,255,255,.5) 909px 910px,
-      transparent 910px 1149px,
-      rgba(255,255,255,.5) 1149px 1150px,
-      rgba(20,65,81,.5) 1150px 1439px,
-      rgba(255,255,255,.5) 1439px 1440px
-    );
   }
   .vh-table__row {
     position: relative;
     z-index: 1;
     display: grid;
     height: 88px;
-    grid-template-columns: 190px 240px 240px 240px 240px 290px;
+    grid-template-columns:
+      minmax(0, 4fr)
+      repeat(4, minmax(0, 5fr))
+      minmax(0, 6fr);
     align-items: center;
     border-bottom: 1px solid rgba(255,255,255,.5);
     letter-spacing: -0.3125px;
@@ -900,6 +888,7 @@
   .vh-table__cell {
     align-self: stretch;
     display: flex;
+    min-width: 0;
     padding: 0;
     align-items: center;
     font-size: 16px;
@@ -922,6 +911,9 @@
   .vh-table__row:not(.vh-table__row--head) .vh-table__cell:nth-child(even) {
     color: #fff;
     font-weight: 400;
+    border-right: 1px solid rgba(255,255,255,.5);
+    border-left: 1px solid rgba(255,255,255,.5);
+    background: rgba(20,65,81,.5);
   }
   .vh-table__row:not(.vh-table__row--head) .vh-table__cell:nth-child(odd):not(:first-child) {
     color: #b6bec2;
@@ -938,7 +930,7 @@
     background: #000;
   }
   .vh-stories h2 {
-    font-size: 64px;
+    font-size: 48px;
     font-weight: 700;
     line-height: 1.2;
     text-align: center;
@@ -1801,7 +1793,7 @@
     }
 
     .vh-comparison {
-      height: 1095px;
+      height: 756px;
     }
 
     .vh-comparison__shade {
@@ -1840,13 +1832,13 @@
 
     .vh-table {
       width: 100%;
-      height: 334px;
+      height: 318px;
       margin-top: 20px;
       overflow-x: auto;
       overflow-y: hidden;
       border-radius: 12px;
       overscroll-behavior-x: contain;
-      scrollbar-color: #fff rgba(255,255,255,.2);
+      scrollbar-color: #fff transparent;
       scrollbar-width: thin;
       touch-action: pan-x;
     }
@@ -1856,7 +1848,7 @@
     }
 
     .vh-table::-webkit-scrollbar-track {
-      background: rgba(255,255,255,.2);
+      background: transparent;
     }
 
     .vh-table::-webkit-scrollbar-thumb {
@@ -1864,10 +1856,31 @@
       background: #fff;
     }
 
+    .vh-table::-webkit-scrollbar-button,
+    .vh-table::-webkit-scrollbar-button:horizontal,
+    .vh-table::-webkit-scrollbar-button:horizontal:start,
+    .vh-table::-webkit-scrollbar-button:horizontal:end,
+    .vh-table::-webkit-scrollbar-button:horizontal:decrement,
+    .vh-table::-webkit-scrollbar-button:horizontal:increment,
+    .vh-table::-webkit-scrollbar-button:single-button {
+      display: none !important;
+      width: 0 !important;
+      min-width: 0 !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      -webkit-appearance: none;
+    }
+
+    .vh-table::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
     .vh-table__inner {
       width: 694px;
       min-width: 694px;
-      height: 328px;
+      height: 312px;
       background: linear-gradient(
         to right,
         transparent 0 118px,
@@ -1894,8 +1907,8 @@
     }
 
     .vh-table__row--head {
-      height: 61px;
-      padding: 8px 12px;
+      height: 52px;
+      padding: 0 12px;
       align-items: center;
     }
 
@@ -1919,6 +1932,11 @@
     .vh-table__row:not(.vh-table__row--head) .vh-table__cell:first-child {
       font-size: 14px;
       font-weight: 500;
+    }
+
+    .vh-table__row:not(.vh-table__row--head) .vh-table__cell:nth-child(even) {
+      border: 0;
+      background: transparent;
     }
 
     .vh-table__desktop-label {
@@ -2552,59 +2570,61 @@
     </div>
   </div>
 
-  <div class="vh-press">
-    <div class="vh-shell vh-press__row">
-      {%- assign press_index = 0 -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'press' -%}
-          {%- assign press_index = press_index | plus: 1 -%}
-          <div
-            class="vh-press__item"
-            role="img"
-            aria-label="{{ block.settings.name | escape }}"
-            {{ block.shopify_attributes }}
-          >
-            <div class="vh-press__logo" aria-hidden="true">
-              {%- case press_index -%}
-                {%- when 1 -%}
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-1.png?v=1785481323"
-                    width="192"
-                    height="52"
-                    alt=""
-                    loading="lazy"
-                  >
-                {%- when 2 -%}
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-3.svg?v=1785480926"
-                    width="292"
-                    height="30"
-                    alt=""
-                    loading="lazy"
-                  >
-                {%- when 3 -%}
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-2.svg?v=1785480927"
-                    width="102"
-                    height="52"
-                    alt=""
-                    loading="lazy"
-                  >
-                {%- when 4 -%}
-                  <img
-                    src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-4.png?v=1785481322"
-                    width="168"
-                    height="30"
-                    alt=""
-                    loading="lazy"
-                  >
-              {%- endcase -%}
+  {% comment %}
+    <div class="vh-press">
+      <div class="vh-shell vh-press__row">
+        {%- assign press_index = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'press' -%}
+            {%- assign press_index = press_index | plus: 1 -%}
+            <div
+              class="vh-press__item"
+              role="img"
+              aria-label="{{ block.settings.name | escape }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="vh-press__logo" aria-hidden="true">
+                {%- case press_index -%}
+                  {%- when 1 -%}
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-1.png?v=1785481323"
+                      width="192"
+                      height="52"
+                      alt=""
+                      loading="lazy"
+                    >
+                  {%- when 2 -%}
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-3.svg?v=1785480926"
+                      width="292"
+                      height="30"
+                      alt=""
+                      loading="lazy"
+                    >
+                  {%- when 3 -%}
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-2.svg?v=1785480927"
+                      width="102"
+                      height="52"
+                      alt=""
+                      loading="lazy"
+                    >
+                  {%- when 4 -%}
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-4.png?v=1785481322"
+                      width="168"
+                      height="30"
+                      alt=""
+                      loading="lazy"
+                    >
+                {%- endcase -%}
+              </div>
             </div>
-          </div>
-        {%- endif -%}
-      {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
     </div>
-  </div>
+  {% endcomment %}
 
   {%- if icast_slides.size > 0 -%}
     <div class="vh-award" data-home-award>
@@ -2617,18 +2637,18 @@
           <div class="vh-award__logos" aria-label="Recognized by Kayak Angler and BASS">
             <img
               class="vh-award__logo"
-              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-image.png?v=1785483253"
-              width="146"
-              height="60"
-              alt="Kayak Angler"
-              loading="lazy"
-            >
-            <img
-              class="vh-award__logo"
               src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/icon.svg?v=1785482644"
               width="43"
               height="60"
               alt="BASS"
+              loading="lazy"
+            >
+            <img
+              class="vh-award__logo"
+              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/media-image.png?v=1785483253"
+              width="146"
+              height="60"
+              alt="Kayak Angler"
               loading="lazy"
             >
           </div>
@@ -2936,10 +2956,7 @@
     <div class="vh-shell">
       <div class="vh-control__heading">
         <h2>Built around control.</h2>
-        <p>
-          Four core systems work together to keep the platform stable, powered, and easy to manage when the bite turns
-          on.
-        </p>
+        <p>Three Smart Control Options. One Seamless Fishing Experience.</p>
       </div>
       <div class="vh-control__grid">
         {%- assign control_number = 0 -%}
@@ -3180,8 +3197,8 @@
       <div class="vh-comparison__intro">
         <h2>Ventral: Redefining the Modern Fishing Experience</h2>
         <p>
-          More than a fishing board. More than a kayak. Ventral combines smart technology, portable design, and
-          advanced stability to create a new generation of fishing platforms.
+          More than a fishing board. More than a kayak. Ventral combines smart technology, portable design, and advanced
+          stability to create a new generation of fishing platforms.
         </p>
       </div>
       <a class="vh-comparison__reserve" href="{{ reserve_url }}">Reserve Now</a>
