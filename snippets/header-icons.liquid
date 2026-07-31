@@ -66,6 +66,8 @@
       </div>
     {% endif %}
 
+    {% comment %}
+    Temporarily hidden on desktop and mobile while checkout entry points are being revised.
     <a
       href="{{ routes.cart_url }}"
       class="site-nav__link site-nav__link--icon js-no-transition"
@@ -95,6 +97,7 @@
         <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
       </span>
     </a>
+    {% endcomment %}
 
     {% comment %}
     Temporarily hidden while the account page is being revised.

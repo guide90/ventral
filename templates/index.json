@@ -41,7 +41,7 @@
           "settings": {
             "image": "shopify://shop_images/PC-7-1.png",
             "mobile_image": "shopify://shop_images/7-1.png",
-            "title": "Anchor Lock",
+            "title": "GPS Anchor Lock",
             "text": "Stay near the bite zone."
           }
         },
@@ -50,8 +50,8 @@
           "settings": {
             "image": "shopify://shop_images/PC-7-2.png",
             "mobile_image": "shopify://shop_images/7-2.png",
-            "title": "Track Recording",
-            "text": "Save your route. Remember the run."
+            "title": "Save the route",
+            "text": "Fish it again."
           }
         },
         "precision_3": {
@@ -59,8 +59,8 @@
           "settings": {
             "image": "shopify://shop_images/PC-7-3.png",
             "mobile_image": "shopify://shop_images/7-3.png",
-            "title": "Course & Speed Hold",
-            "text": "Stay on line. Keep your pace."
+            "title": "Stay on course",
+            "text": "Keep your pace."
           }
         },
         "precision_4": {
@@ -68,8 +68,8 @@
           "settings": {
             "image": "shopify://shop_images/PC-7-4.png",
             "mobile_image": "shopify://shop_images/7-4.png",
-            "title": "Bidirectional Track Following",
-            "text": "Follow the same track out and back."
+            "title": "Track Following",
+            "text": "Back to your favorite spot—or the launch."
           }
         },
         "fishing_1": {
@@ -229,7 +229,7 @@
       ],
       "settings": {
         "home_font": "inter_n4",
-        "reserve_link": "",
+        "reserve_link": "https://kayak.ventral.com/reserve",
         "hero_image": "shopify://shop_images/pc-1.jpg",
         "hero_image_mobile": "shopify://shop_images/m-1.jpg",
         "philosophy_image": "shopify://shop_images/PC-3_a9a1fee0-f4dc-4872-be0e-b2b55d2b9af7.png",

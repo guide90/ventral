@@ -32,9 +32,9 @@
         "header_sticky": true,
         "sticky_index": true,
         "sticky_collection": true,
-        "action_button_text": "BUY NOW",
+        "action_button_text": "Reserve Now",
         "action_button_type": "link",
-        "action_button_link": "",
+        "action_button_link": "https://kayak.ventral.com/reserve",
         "action_button_anchor_id": "",
         "action_button_background_color": "#ffffff",
         "action_button_text_color": "#ffffff"
