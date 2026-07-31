@@ -66,12 +66,11 @@
       </div>
     {% endif %}
 
-{% comment %}
-  Temporarily hidden while the cart and account pages are being revised.
+    {% comment %}
+    Temporarily hidden on desktop and mobile while checkout entry points are being revised.
     <a
       href="{{ routes.cart_url }}"
-      class="site-nav__link site-nav__link--icon js-drawer-open-cart js-no-transition"
-      aria-controls="CartDrawer"
+      class="site-nav__link site-nav__link--icon js-no-transition"
       data-icon="{{ settings.cart_icon }}"
     >
       <span class="cart-link">
@@ -98,7 +97,10 @@
         <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
       </span>
     </a>
+    {% endcomment %}
 
+    {% comment %}
+    Temporarily hidden while the account page is being revised.
     {% if shop.customer_accounts_enabled %}
       <a class="site-nav__link site-nav__link--icon medium-down--hide" href="{{ routes.account_url }}">
         <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-user" viewBox="0 0 64 64">

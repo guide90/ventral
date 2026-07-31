@@ -15,8 +15,12 @@
     <a class="header-new__button header-action-button" style="{{ button_style }}" href="#{{ anchor_id | default: 'MainContent' }}">
       {{ button_text | escape }}
     </a>
+  {%- elsif button_link == blank -%}
+    <button class="header-new__button header-action-button" type="button" style="{{ button_style }}" disabled aria-disabled="true">
+      {{ button_text | escape }}
+    </button>
   {%- else -%}
-    <a class="header-new__button header-action-button" style="{{ button_style }}" href="{{ button_link | default: routes.root_url }}">
+    <a class="header-new__button header-action-button" style="{{ button_style }}" href="{{ button_link }}">
       {{ button_text | escape }}
     </a>
   {%- endif -%}

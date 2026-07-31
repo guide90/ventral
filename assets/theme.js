@@ -4534,10 +4534,14 @@ if (console && console.log) {
     // Elements used in resize functions, defined in init
     var wrapper;
     var siteHeader;
+    var announcementBar;
+    var announcementGroup;
   
     function init() {
       wrapper = document.querySelector(selectors.wrapper);
       siteHeader = document.querySelector(selectors.siteHeader);
+      announcementBar = document.querySelector('.announcement');
+      announcementGroup = announcementBar && announcementBar.closest('.shopify-section-group-header-group');
   
       config.stickyEnabled = (siteHeader.dataset.sticky === 'true');
       if (config.stickyEnabled) {
@@ -4576,7 +4580,10 @@ if (console && console.log) {
       stickyHeaderInitialPosition(siteHeader);
       stickyHeaderHeight();
   
-      window.on('resize' + config.namespace, theme.utils.debounce(50, stickyHeaderHeight));
+      window.on('resize' + config.namespace, theme.utils.debounce(50, function() {
+        stickyHeaderHeight();
+        updateAnnouncementStickyState(config.stickyActive);
+      }));
       window.on('scroll' + config.namespace, theme.utils.throttle(20, stickyHeaderScroll));
   
       // This gets messed up in the editor, so here's a fix
@@ -4608,6 +4615,16 @@ if (console && console.log) {
       var stickyHeader = document.querySelector('#' + config.stickyHeaderWrapper);
       stickyHeader.style.height = h + 'px';
     }
+
+    function updateAnnouncementStickyState(isSticky) {
+      if (!announcementBar || !announcementGroup) {
+        return;
+      }
+
+      var announcementHeight = announcementBar.offsetHeight;
+      document.documentElement.style.setProperty('--announcement-sticky-height', announcementHeight + 'px');
+      announcementGroup.classList.toggle('announcement-group--stuck', isSticky && announcementHeight > 0);
+    }
   
     function stickyHeaderScroll() {
       if (!config.stickyEnabled) {
@@ -4626,7 +4643,8 @@ if (console && console.log) {
         }
   
         config.stickyActive = true;
-  
+
+        updateAnnouncementStickyState(true);
         siteHeader.classList.add(config.stickyClass);
         if (config.wrapperOverlayed) {
           wrapper.classList.remove(config.overlayedClass);
@@ -4643,7 +4661,8 @@ if (console && console.log) {
         }
   
         config.stickyActive = false;
-  
+
+        updateAnnouncementStickyState(false);
         siteHeader.classList.remove(config.openTransitionClass);
         siteHeader.classList.remove(config.stickyClass);
         if (config.wrapperOverlayed) {
