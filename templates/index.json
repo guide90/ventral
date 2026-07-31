@@ -39,6 +39,17 @@
         "icast_1": {
           "type": "icast_slide",
           "settings": {
+            "image": "shopify://shop_images/pc2-1.png",
+            "mobile_image": "shopify://shop_images/m2-1.png",
+            "image_alt": "Ventral at ICAST 2026",
+            "quote": "\"A motorized inflatable fishing hybrid that is easy to own and operate.\""
+          }
+        },
+        "icast_slide_bCbEjW": {
+          "type": "icast_slide",
+          "settings": {
+            "image": "shopify://shop_images/pc2-2.png",
+            "mobile_image": "shopify://shop_images/m2-2.png",
             "image_alt": "Ventral at ICAST 2026",
             "quote": "\"A motorized inflatable fishing hybrid that is easy to own and operate.\""
           }
@@ -205,6 +216,7 @@
         "press_3",
         "press_4",
         "icast_1",
+        "icast_slide_bCbEjW",
         "precision_1",
         "precision_2",
         "precision_3",
@@ -242,6 +254,8 @@
         "tough_image_left_mobile": "shopify://shop_images/9-1.png",
         "tough_image_right": "shopify://shop_images/PC-9-2.png",
         "tough_image_right_mobile": "shopify://shop_images/PC-9-2.png",
+        "comparison_image": "shopify://shop_images/pc-bg.png",
+        "comparison_image_mobile": "shopify://shop_images/m-bg.png",
         "cta_image": "shopify://shop_images/Adventure_Starts_Here..png",
         "cta_image_mobile": "shopify://shop_images/M-Adventure_Starts_Here..png"
       }
