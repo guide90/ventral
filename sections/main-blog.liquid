@@ -1,0 +1,439 @@
+{%- liquid
+  assign blog_font = section.settings.font
+  assign blog_font_medium = blog_font | font_modify: 'weight', '500'
+  assign blog_font_semibold = blog_font | font_modify: 'weight', '600'
+  assign blog_font_bold = blog_font | font_modify: 'weight', '700'
+-%}
+
+{% style %}
+  {{ blog_font | font_face: font_display: 'swap' }}
+  {{ blog_font_medium | font_face: font_display: 'swap' }}
+  {{ blog_font_semibold | font_face: font_display: 'swap' }}
+  {{ blog_font_bold | font_face: font_display: 'swap' }}
+
+  #ventral-blog-{{ section.id }} {
+    color: #06142e;
+    background: #fff;
+    font-family: {{ blog_font.family }}, {{ blog_font.fallback_families }};
+  }
+
+  #ventral-blog-{{ section.id }} *,
+  #ventral-blog-{{ section.id }} *::before,
+  #ventral-blog-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #ventral-blog-{{ section.id }} h1,
+  #ventral-blog-{{ section.id }} h2,
+  #ventral-blog-{{ section.id }} h3,
+  #ventral-blog-{{ section.id }} p {
+    margin: 0;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__shell {
+    width: min(1440px, calc(100% - 48px));
+    margin: 0 auto;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__hero {
+    position: relative;
+    height: 452px;
+    overflow: hidden;
+    color: #fff;
+    background: #60768a;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__hero picture,
+  #ventral-blog-{{ section.id }} .ventral-blog__hero-image,
+  #ventral-blog-{{ section.id }} .ventral-blog__hero-shade {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__hero-image {
+    object-fit: cover;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__hero-shade {
+    background: linear-gradient(90deg, rgba(0, 0, 0, .42), rgba(0, 0, 0, 0) 66%);
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__hero-title {
+    color: inherit;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__hero-kicker {
+    font-weight: 600;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__hero-copy {
+    width: min(600px, 100%);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__features {
+    padding: 40px 0 60px;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__features-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.81fr) minmax(0, 1.33fr);
+    gap: 40px;
+    height: 460px;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__features-side {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-card,
+  #ventral-blog-{{ section.id }} .ventral-blog__article-image-wrap {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #738798;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-card {
+    height: 100%;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-card picture,
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-image,
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-card::after {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-image,
+  #ventral-blog-{{ section.id }} .ventral-blog__article-image {
+    object-fit: cover;
+    transition: transform .3s ease;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-card::after {
+    top: auto;
+    height: 42%;
+    background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.78));
+    content: '';
+  }
+  #ventral-blog-{{ section.id }} a:hover .ventral-blog__feature-image,
+  #ventral-blog-{{ section.id }} a:hover .ventral-blog__article-image {
+    transform: scale(1.03);
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-title {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__feature-card--side .ventral-blog__feature-title {
+    bottom: 14px;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__categories {
+    padding: 0 0 100px;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__category + .ventral-blog__category {
+    margin-top: 60px;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__category-title {
+    color: #06142e;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__articles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 60px 40px;
+    margin-top: 32px;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__article {
+    min-width: 0;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__article-link {
+    display: block;
+    color: #212121;
+    text-decoration: none;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__article-image-wrap {
+    aspect-ratio: 1 / 1;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__article-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__article-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 20px;
+  }
+
+  #ventral-blog-{{ section.id }} .ventral-blog__article-title {
+    color: #000;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__article-excerpt {
+    color: #212121;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+  #ventral-blog-{{ section.id }} .ventral-blog__empty {
+    margin-top: 24px;
+    color: #212121;
+    font-size: 16px;
+  }
+
+  @media (max-width: 749px) {
+    #ventral-blog-{{ section.id }} .ventral-blog__shell {
+      width: calc(100% - 24px);
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__hero {
+      height: 240px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__hero-shade {
+      background: linear-gradient(90deg, rgba(0, 0, 0, .62), rgba(0, 0, 0, 0) 76%);
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__hero-content {
+      justify-content: flex-start;
+      gap: 12px;
+      padding-top: 29px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__hero-title {
+      font-size: 32px;
+      line-height: 1.2;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__hero-copy {
+      width: 260px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__features {
+      padding: 28px 0 48px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__features-grid {
+      display: flex;
+      height: auto;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__features-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__feature-card,
+    #ventral-blog-{{ section.id }} .ventral-blog__features-side {
+      min-width: 100%;
+      scroll-snap-align: start;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__feature-card {
+      height: 200px;
+      border-radius: 12px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__features-side {
+      display: flex;
+      gap: 12px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__features-side .ventral-blog__feature-card {
+      min-width: 100%;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__feature-title,
+    #ventral-blog-{{ section.id }} .ventral-blog__feature-card--side .ventral-blog__feature-title {
+      right: 12px;
+      bottom: 12px;
+      left: 12px;
+      font-size: 20px;
+      line-height: 1.3;
+      text-align: left;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__categories {
+      padding-bottom: 64px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__category + .ventral-blog__category {
+      margin-top: 48px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__category-title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__articles {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 16px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__article-image-wrap {
+      border-radius: 12px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__article-content {
+      gap: 8px;
+      padding-top: 16px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__article-title {
+      font-size: 20px;
+    }
+
+    #ventral-blog-{{ section.id }} .ventral-blog__article-excerpt {
+      font-size: 14px;
+    }
+  }
+{% endstyle %}
+
+<section class="ventral-blog" id="ventral-blog-{{ section.id }}">
+  <header class="ventral-blog__hero">
+    {%- if section.settings.hero_image != blank -%}
+      <picture>
+        {%- if section.settings.hero_image_mobile != blank -%}
+          <source media="(max-width: 749px)" srcset="{{ section.settings.hero_image_mobile | image_url: width: 750 }}">
+        {%- endif -%}
+        {{ section.settings.hero_image | image_url: width: 2400 | image_tag: class: 'ventral-blog__hero-image', widths: '750, 1100, 1500, 1920, 2400', sizes: '100vw', preload: true, alt: section.settings.heading }}
+      </picture>
+    {%- endif -%}
+    <div class="ventral-blog__hero-shade"></div>
+    <div class="ventral-blog__shell ventral-blog__hero-content">
+      <h1 class="ventral-blog__hero-title">{{ section.settings.heading | escape }}</h1>
+      {%- if section.settings.hero_kicker != blank -%}<p class="ventral-blog__hero-title ventral-blog__hero-kicker">{{ section.settings.hero_kicker | escape }}</p>{%- endif -%}
+      {%- if section.settings.hero_copy != blank -%}<p class="ventral-blog__hero-copy">{{ section.settings.hero_copy | escape }}</p>{%- endif -%}
+    </div>
+  </header>
+
+  {%- assign featured_blocks = section.blocks | where: 'type', 'featured_article' -%}
+  {%- if featured_blocks.size > 0 -%}
+    <div class="ventral-blog__features"><div class="ventral-blog__shell ventral-blog__features-grid">
+      {%- for block in featured_blocks limit: 1 -%}
+        {%- assign feature_article = block.settings.article -%}
+        {%- assign feature_title = block.settings.title | default: feature_article.title -%}
+        {%- assign feature_image = block.settings.image | default: feature_article.image -%}
+        <a class="ventral-blog__feature-card" href="{{ feature_article.url | default: '#' }}" {{ block.shopify_attributes }}>
+          {%- if feature_image != blank -%}<picture>{%- if block.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 750 }}">{%- endif -%}{{ feature_image | image_url: width: 1600 | image_tag: class: 'ventral-blog__feature-image', widths: '750, 1100, 1600', sizes: '(min-width: 750px) 56vw, 100vw', alt: feature_title }} </picture>{%- endif -%}
+          <h2 class="ventral-blog__feature-title">{{ feature_title | escape }}</h2>
+        </a>
+      {%- endfor -%}
+      {%- if featured_blocks.size > 1 -%}<div class="ventral-blog__features-side">
+        {%- for block in featured_blocks offset: 1 limit: 2 -%}
+          {%- assign feature_article = block.settings.article -%}{%- assign feature_title = block.settings.title | default: feature_article.title -%}{%- assign feature_image = block.settings.image | default: feature_article.image -%}
+          <a class="ventral-blog__feature-card ventral-blog__feature-card--side" href="{{ feature_article.url | default: '#' }}" {{ block.shopify_attributes }}>
+            {%- if feature_image != blank -%}<picture>{%- if block.settings.image_mobile != blank -%}<source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 750 }}">{%- endif -%}{{ feature_image | image_url: width: 1200 | image_tag: class: 'ventral-blog__feature-image', widths: '750, 1100, 1200', sizes: '(min-width: 750px) 42vw, 100vw', alt: feature_title }} </picture>{%- endif -%}
+            <h2 class="ventral-blog__feature-title">{{ feature_title | escape }}</h2>
+          </a>
+        {%- endfor -%}
+      </div>{%- endif -%}
+    </div></div>
+  {%- endif -%}
+
+  <div class="ventral-blog__categories"><div class="ventral-blog__shell">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'category' and block.settings.blog != blank -%}
+        {%- assign category_blog = block.settings.blog -%}
+        <section class="ventral-blog__category" {{ block.shopify_attributes }}>
+          <h2 class="ventral-blog__category-title">{{ block.settings.heading | default: category_blog.title | escape }}</h2>
+          {%- if category_blog.articles_count > 0 -%}
+            <div class="ventral-blog__articles">
+              {%- for article in category_blog.articles limit: block.settings.article_limit -%}
+                <article class="ventral-blog__article">
+                  <a class="ventral-blog__article-link" href="{{ article.url }}">
+                    <div class="ventral-blog__article-image-wrap">
+                      {%- if article.image != blank -%}{{ article.image | image_url: width: 1000 | image_tag: class: 'ventral-blog__article-image', widths: '375, 500, 750, 1000', sizes: '(min-width: 750px) 32vw, 100vw', loading: 'lazy', alt: article.title }}{%- endif -%}
+                    </div>
+                    <div class="ventral-blog__article-content"><h3 class="ventral-blog__article-title">{{ article.title | escape }}</h3><p class="ventral-blog__article-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 150 }}</p></div>
+                  </a>
+                </article>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </section>
+      {%- endif -%}
+    {%- endfor -%}
+  </div></div>
+</section>
+
+{% schema %}
+{
+  "name": "Ventral blog collection",
+  "tag": "section",
+  "class": "ventral-blog-section",
+  "settings": [
+    { "type": "font_picker", "id": "font", "label": "Font", "default": "inter_n4" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image - desktop" },
+    { "type": "image_picker", "id": "hero_image_mobile", "label": "Hero image - mobile (defaults to desktop)" },
+    { "type": "text", "id": "heading", "label": "Hero heading", "default": "Fishing Journal" },
+    { "type": "text", "id": "hero_kicker", "label": "Hero second heading", "default": "Explore. Learn. Adventure." },
+    { "type": "textarea", "id": "hero_copy", "label": "Hero description", "default": "Expert tips, practical guides, and inspiring stories for every adventure on the water." }
+  ],
+  "blocks": [
+    { "type": "featured_article", "name": "Featured article", "limit": 3, "settings": [
+      { "type": "article", "id": "article", "label": "Article" },
+      { "type": "image_picker", "id": "image", "label": "Image - desktop (defaults to article image)" },
+      { "type": "image_picker", "id": "image_mobile", "label": "Image - mobile (defaults to desktop)" },
+      { "type": "text", "id": "title", "label": "Title (defaults to article title)" }
+    ] },
+    { "type": "category", "name": "Blog category", "settings": [
+      { "type": "blog", "id": "blog", "label": "Blog" },
+      { "type": "text", "id": "heading", "label": "Heading (defaults to blog title)" },
+      { "type": "range", "id": "article_limit", "label": "Articles to show", "min": 3, "max": 24, "step": 3, "default": 6 }
+    ] }
+  ],
+  "presets": [{ "name": "Ventral blog collection" }]
+}
+{% endschema %}
