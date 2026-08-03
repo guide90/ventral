@@ -15,7 +15,7 @@
         "featured_article_RR6VXb": {
           "type": "featured_article",
           "settings": {
-            "article": "behind-the-scenes-our-exhibition-journey-at-icast-2026/behind-the-scenes-our-exhibition-journey-at-icast-2026",
+            "article": "news/behind-the-scenes-our-exhibition-journey-at-icast-2026",
             "image": "shopify://shop_images/Section_2-1_ICST_3_069c5ccc-f261-46e6-be21-71685f36fb81.png",
             "title": ""
           }
@@ -23,8 +23,7 @@
         "featured_article_3RfzK9": {
           "type": "featured_article",
           "settings": {
-            "article": "built-for-anglers-designed-for-adventure-the-story-behind-ventral/built-for-anglers-designed-for-adventure-the-story-behind-ventral",
-            "image": "shopify://shop_images/Section_2_logo_9177efb0-e80a-48f0-94e9-d33690f5c712.png",
+            "article": "news/built-for-anglers-designed-for-adventure-the-story-behind-ventral",
             "title": ""
           }
         },
