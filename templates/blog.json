@@ -38,17 +38,20 @@
         "category_4m6h3L": {
           "type": "category",
           "settings": {
-            "blog": "behind-the-scenes-our-exhibition-journey-at-icast-2026",
             "heading": "Product Insights",
-            "article_limit": 6
+            "articles": [
+              "news/behind-the-scenes-our-exhibition-journey-at-icast-2026",
+              "news/meet-ventral-smart-fishing-board-a-new-way-to-fish-anywhere"
+            ]
           }
         },
         "category_7yxwf8": {
           "type": "category",
           "settings": {
-            "blog": "",
-            "heading": "",
-            "article_limit": 6
+            "heading": "Brand & News",
+            "articles": [
+              "news/built-for-anglers-designed-for-adventure-the-story-behind-ventral"
+            ]
           }
         }
       },
