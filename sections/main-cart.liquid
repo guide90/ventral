@@ -1,5 +1,3 @@
-{{ 'ventral-cart.css' | asset_url | stylesheet_tag }}
-
 {%- liquid
   assign cart_has_sold_out = false
   for item in cart.items
@@ -24,22 +22,36 @@
 
     <div class="cart__empty-text ventral-cart__empty">
       <div class="ventral-cart__empty-icon" aria-hidden="true">
-        {{ 'icon.cart.svg' | inline_asset_content }}
+        <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.90234 8.51562H19.7677L22.9758 23.671M22.9758 23.671L27.1774 44.3312H52.3768L58.0971 23.671C58.0971 23.671 47.542 23.671 40.7787 23.671C34.0155 23.671 22.9758 23.671 22.9758 23.671Z" stroke="#BFBFBF" stroke-width="3"/>
+          <path d="M9.90234 8.51339L19.7677 8.48438L22.9753 23.8048M22.9753 23.8048C22.9753 23.8048 27.1973 23.8048 32.019 23.8048M22.9753 23.8048L25.0761 34.1349M40.7783 23.8048V44.465M40.7783 23.8048C38.1975 23.8048 34.9941 23.8048 32.019 23.8048M40.7783 23.8048C43.2519 23.8048 46.2328 23.8048 49.019 23.8048M40.7783 44.465H33.9776M40.7783 44.465H46.5773M33.9776 44.465H27.177L25.0761 34.1349M33.9776 44.465L32.019 23.8048M46.5773 44.465H52.3763L55.2365 34.1349M46.5773 44.465L49.019 23.8048M49.019 23.8048C53.8506 23.8048 58.0966 23.8048 58.0966 23.8048L55.2365 34.1349M25.0761 34.1349H55.2365" stroke="#BFBFBF" stroke-width="1.5"/>
+          <rect x="26.918" y="58.0156" width="6.24272" height="6.24272" rx="3.12136" transform="rotate(-90 26.918 58.0156)" stroke="#BFBFBF" stroke-width="3"/>
+          <rect x="45.7344" y="58.0156" width="6.24272" height="6.24272" rx="3.12136" transform="rotate(-90 45.7344 58.0156)" stroke="#BFBFBF" stroke-width="3"/>
+        </svg>
       </div>
       <p>No results found. Please <a href="{{ routes.all_products_collection_url }}">add some items.</a></p>
     </div>
 
     {%- if cart.item_count > 0 -%}
-      <form action="{{ routes.cart_url }}" method="post" novalidate data-location="page" id="CartPageForm" class="ventral-cart__form">
+      <form
+        action="{{ routes.cart_url }}"
+        method="post"
+        novalidate
+        data-location="page"
+        id="CartPageForm"
+        class="ventral-cart__form"
+      >
         <div class="ventral-cart__layout">
           <div class="ventral-cart__items-card">
             <div data-products>
-              <div class="cart__items"
+              <div
+                class="cart__items"
                 data-count="{{ cart.item_count }}"
                 {% if cart.total_discounts > 0 %}
                   data-cart-savings="{{ cart.total_discounts }}"
                 {% endif %}
-                data-cart-subtotal="{{ cart.total_price }}">
+                data-cart-subtotal="{{ cart.total_price }}"
+              >
                 {%- for item in cart.items -%}
                   {%- render 'cart-item', product: item, sizeVariable: '150px', fallback: '90px' -%}
                 {%- endfor -%}
@@ -51,11 +63,16 @@
             <div class="ventral-cart__summary-inner">
               <div class="ventral-cart__totals">
                 <div class="ventral-cart__total-row ventral-cart__total-row--order">
-                  <span>Order Total:<small>{{ cart_item_count_text }}</small></span>
+                  <span
+                    >Order Total:<small>{{ cart_item_count_text }}</small></span
+                  >
                   <strong data-order-total>{{ cart.original_total_price | money }}</strong>
                 </div>
 
-                <div class="ventral-cart__total-row ventral-cart__total-row--saving{% unless cart.total_discounts > 0 %} hide{% endunless %}" data-summary-savings>
+                <div
+                  class="ventral-cart__total-row ventral-cart__total-row--saving{% unless cart.total_discounts > 0 %} hide{% endunless %}"
+                  data-summary-savings
+                >
                   <span>Total savings</span>
                   <strong data-summary-savings-amount>{{ cart_total_discounts }}</strong>
                 </div>
@@ -84,17 +101,34 @@
               </div>
 
               <div class="ventral-cart__notes">
-                <details class="ventral-cart__notes-details"{% if cart.note != blank %} open{% endif %}>
+                <details
+                  class="ventral-cart__notes-details"
+                  {% if cart.note != blank %}
+                    open
+                  {% endif %}
+                >
                   <summary>
                     <span>Add order notes</span>
-                    <button type="button" class="ventral-cart__note-clear" data-cart-note-clear{% if cart.note == blank %} hidden{% endif %}>Clear</button>
+                    <button
+                      type="button"
+                      class="ventral-cart__note-clear"
+                      data-cart-note-clear
+                      {% if cart.note == blank %}
+                        hidden
+                      {% endif %}
+                    >
+                      Clear
+                    </button>
                   </summary>
-                  <textarea name="note" class="input-full cart-notes" id="CartNote" placeholder="Add remarks...">{{ cart.note }}</textarea>
+                  <textarea
+                    name="note"
+                    class="input-full cart-notes"
+                    id="CartNote"
+                    placeholder="Add remarks..."
+                  >{{ cart.note }}</textarea>
                 </details>
 
-                <div class="ventral-cart__shipping-note">
-                  Shipping,Taxes, and discounts are applied at checkout
-                </div>
+                <div class="ventral-cart__shipping-note">Shipping,Taxes, and discounts are applied at checkout</div>
               </div>
 
               {%- if settings.cart_terms_conditions_enable -%}
@@ -114,9 +148,14 @@
                 <button
                   type="submit"
                   name="checkout"
-                  {% if settings.cart_terms_conditions_enable %} data-terms="CartPageAgree"{% endif %}
+                  {% if settings.cart_terms_conditions_enable %}
+                    data-terms="CartPageAgree"
+                  {% endif %}
                   class="btn btn--no-animate cart__checkout ventral-cart__checkout{% if cart_has_sold_out %} ventral-cart__checkout--disabled{% endif %}"
-                  {% if cart_has_sold_out %}disabled aria-disabled="true"{% endif %}>
+                  {% if cart_has_sold_out %}
+                    disabled aria-disabled="true"
+                  {% endif %}
+                >
                   {%- if cart_has_sold_out -%}
                     <span>sold out</span>
                     <small>Choose another item</small>
@@ -126,7 +165,9 @@
                 </button>
 
                 {%- if additional_checkout_buttons and cart_has_sold_out == false -%}
-                  <div class="additional-checkout-buttons additional-checkout-buttons--vertical">{{ content_for_additional_checkout_buttons }}</div>
+                  <div class="additional-checkout-buttons additional-checkout-buttons--vertical">
+                    {{ content_for_additional_checkout_buttons }}
+                  </div>
                 {%- endif -%}
               </div>
             </div>
@@ -137,7 +178,13 @@
           <div class="ventral-cart__sticky-total">
             <span>Subtotal:</span>
             <strong>
-              <small data-sticky-savings{% unless cart.total_discounts > 0 %} hidden{% endunless %}>-{{ cart_total_discounts }}</small>
+              <small
+                data-sticky-savings
+                {% unless cart.total_discounts > 0 %}
+                  hidden
+                {% endunless %}
+                >-{{ cart_total_discounts -}}
+              </small>
               <span data-subtotal-sticky>{{ cart.total_price | money }}</span>
             </strong>
           </div>
@@ -145,7 +192,10 @@
             type="submit"
             name="checkout"
             class="btn btn--no-animate cart__checkout ventral-cart__sticky-checkout{% if cart_has_sold_out %} ventral-cart__checkout--disabled{% endif %}"
-            {% if cart_has_sold_out %}disabled aria-disabled="true"{% endif %}>
+            {% if cart_has_sold_out %}
+              disabled aria-disabled="true"
+            {% endif %}
+          >
             {%- if cart_has_sold_out -%}
               <span>sold out</span>
               <small>Choose another item</small>
@@ -179,7 +229,7 @@
 </div>
 
 <script>
-  (function() {
+  (function () {
     function syncVentralCart() {
       var cart = document.querySelector('.ventral-cart');
       if (!cart) return;
@@ -193,18 +243,18 @@
       var items = cart.querySelector('.cart__items');
       var count = items ? parseInt(items.dataset.count || '0', 10) : 0;
       var countText = count === 1 ? '1 item' : count + ' items';
-      cart.querySelectorAll('.ventral-cart__count, .ventral-cart__total-row--order small').forEach(function(node) {
+      cart.querySelectorAll('.ventral-cart__count, .ventral-cart__total-row--order small').forEach(function (node) {
         node.textContent = countText;
       });
 
       var hasSoldOut = !!cart.querySelector('.ventral-cart-item--sold-out');
-      cart.querySelectorAll('.ventral-cart__checkout, .ventral-cart__sticky-checkout').forEach(function(button) {
+      cart.querySelectorAll('.ventral-cart__checkout, .ventral-cart__sticky-checkout').forEach(function (button) {
         button.disabled = hasSoldOut;
         button.setAttribute('aria-disabled', hasSoldOut ? 'true' : 'false');
         button.classList.toggle('ventral-cart__checkout--disabled', hasSoldOut);
         button.innerHTML = hasSoldOut ? '<span>sold out</span><small>Choose another item</small>' : 'Check out';
       });
-      cart.querySelectorAll('.additional-checkout-buttons').forEach(function(buttons) {
+      cart.querySelectorAll('.additional-checkout-buttons').forEach(function (buttons) {
         buttons.classList.toggle('hide', hasSoldOut);
       });
     }
@@ -236,7 +286,7 @@
       }
     }
 
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
       var clear = event.target.closest('[data-cart-note-clear]');
       if (!clear) return;
       event.preventDefault();
@@ -249,7 +299,7 @@
 
     var cartNote = document.getElementById('CartNote');
     if (cartNote) {
-      cartNote.addEventListener('input', function() {
+      cartNote.addEventListener('input', function () {
         var clear = document.querySelector('[data-cart-note-clear]');
         if (clear) clear.hidden = cartNote.value.trim() === '';
       });
@@ -259,10 +309,10 @@
     if (products) {
       new MutationObserver(syncVentralCart).observe(products, { childList: true, subtree: true });
     }
-    document.addEventListener('cart:quantity.cart-page', function() {
+    document.addEventListener('cart:quantity.cart-page', function () {
       window.setTimeout(syncVentralCart, 300);
     });
-    document.addEventListener('cart:updated', function(event) {
+    document.addEventListener('cart:updated', function (event) {
       syncSavings(event.detail && event.detail.cart);
       window.setTimeout(syncVentralCart, 50);
     });
