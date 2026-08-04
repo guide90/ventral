@@ -208,6 +208,13 @@
             "video": "shopify://files/videos/community.mp4",
             "title": "Video by @KayakAnglermag · Instagram"
           }
+        },
+        "video_FyWnLV": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Insta_Saver_@faymous.fishing_reel_DbDRW90BLUC_video_1.mp4",
+            "title": "Video by @faymous.fishing · Instagram"
+          }
         }
       },
       "block_order": [
@@ -234,7 +241,8 @@
         "story_4",
         "story_5",
         "story_6",
-        "video_1"
+        "video_1",
+        "video_FyWnLV"
       ],
       "settings": {
         "home_font": "inter_n4",
