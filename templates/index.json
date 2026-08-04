@@ -206,7 +206,21 @@
           "type": "video",
           "settings": {
             "video": "shopify://files/videos/community.mp4",
-            "title": "Sunrise Paddle"
+            "title": "Video by @KayakAnglermag · Instagram"
+          }
+        },
+        "video_FyWnLV": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Insta_Saver_@faymous.fishing_reel_DbDRW90BLUC_video_1.mp4",
+            "title": "Video by @faymous.fishing · Instagram"
+          }
+        },
+        "video_Xd3mQY": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/Ventral Inflatable Kayak.mp4",
+            "title": "Video by @overslot_fl · TikTok"
           }
         }
       },
@@ -234,7 +248,9 @@
         "story_4",
         "story_5",
         "story_6",
-        "video_1"
+        "video_1",
+        "video_FyWnLV",
+        "video_Xd3mQY"
       ],
       "settings": {
         "home_font": "inter_n4",
@@ -250,8 +266,8 @@
         "system_image": "shopify://shop_images/pc-5-1_a4dd1b23-0aa0-4a98-b99c-57f05760f4ec.png",
         "power_image": "shopify://shop_images/PC-6.png",
         "power_image_mobile": "shopify://shop_images/6.png",
-        "tough_image_left": "shopify://shop_images/PC-9-1.png",
-        "tough_image_left_mobile": "shopify://shop_images/9-1.png",
+        "tough_image_left": "shopify://shop_images/2_3x_c9aee3d8-1454-48fa-a3dd-ebdbc1894605.png",
+        "tough_image_left_mobile": "shopify://shop_images/2_3x_c9aee3d8-1454-48fa-a3dd-ebdbc1894605.png",
         "tough_image_right": "shopify://shop_images/PC-9-2.png",
         "tough_image_right_mobile": "shopify://shop_images/PC-9-2.png",
         "comparison_image": "shopify://shop_images/pc-bg.png",
