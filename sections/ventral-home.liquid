@@ -409,15 +409,17 @@
   }
 
   .vh-system {
-    height: 860px;
-    padding-top: 120px;
-    background: radial-gradient(circle at 74% 42%, #051d3a 0, #000713 36%, #00040d 72%);
+    padding: 120px 0;
+    overflow: hidden;
+    color: #fff;
+    background: radial-gradient(circle at 77% 43%, #07314a 0, #000713 38%, #00040d 74%);
   }
   .vh-system__grid {
     display: grid;
-    grid-template-columns: 575px 586px;
+    grid-template-columns: 575px 830px;
     justify-content: center;
-    gap: 40px;
+    align-items: start;
+    gap: 35px;
   }
   .vh-system__heading {
     width: 552px;
@@ -427,6 +429,7 @@
     font-size: 48px;
     font-weight: 700;
     line-height: 1.2;
+    font-style: italic;
   }
   .vh-system__heading > p {
     color: var(--vh-accent);
@@ -435,37 +438,265 @@
     color: #959c9d;
   }
   .vh-system__parts {
-    position: relative;
     width: 575px;
     margin-top: 40px;
   }
-  .vh-system__parts-picture,
-  .vh-system__offer-picture {
+  .vh-system__complete-picture,
+  .vh-system__complete-picture img {
     display: block;
     width: 100%;
   }
-  .vh-system__parts-image,
-  .vh-system__offer-image {
-    display: block;
-    width: 100%;
+  .vh-system__complete-picture img {
     height: auto;
-  }
-  .vh-system__parts-placeholder {
-    position: relative;
-    aspect-ratio: 1150 / 720;
     border-radius: 24px;
-    background: #0a1625;
   }
   .vh-system__offer {
     position: relative;
-    width: 586px;
-    margin-top: 34px;
-  }
-  .vh-system__offer-placeholder {
-    position: relative;
-    aspect-ratio: 1;
+    width: 830px;
+    height: 730px;
+    overflow: hidden;
     border-radius: 24px;
-    background: #08233b;
+    background: #dbdbe2;
+    color: #354050;
+  }
+  .vh-system__offer img {
+    position: absolute;
+    display: block;
+    max-width: none;
+    object-fit: contain;
+  }
+  .vh-system__offer-board { top: 81px; left: 30px; width: 460px; height: 153px; }
+  .vh-system__offer-seat { top: 210px; left: 50px; width: 135px; height: 144px; }
+  .vh-system__offer-paddle {
+    top: 222px;
+    left: 177px;
+    width: 295px;
+    height: 34px;
+    transform: rotate(14.6deg);
+  }
+  .vh-system__offer-drive { top: 81px; left: 491px; width: 304px; height: 279px; }
+  .vh-system__offer-case { top: 422px; left: 436px; width: 363px; height: 211px; }
+  .vh-system__offer-step {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .vh-system__offer-step--one { top: 30px; left: 30px; }
+  .vh-system__offer-step--two { top: 426px; left: 30px; }
+  .vh-system__offer-number {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    place-items: center;
+    border-radius: 50%;
+    background: #0c1126;
+    color: #39dee3;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .vh-system__offer-step h3 {
+    margin: 0;
+    color: #354050;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+  .vh-system__offer-description {
+    position: absolute;
+    z-index: 2;
+    top: 465px;
+    left: 68px;
+    width: 291px;
+    margin: 0;
+    color: #354050;
+    font-size: 14px;
+    line-height: 1.25;
+  }
+  .vh-system__offer-divider {
+    position: absolute;
+    top: 402px;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: rgba(53, 64, 80, .18);
+  }
+  .vh-system__offer-weight {
+    position: absolute;
+    z-index: 2;
+    top: 344px;
+    width: 250px;
+    margin: 0;
+    color: #959c9d;
+    font-size: 14px;
+    line-height: 1.25;
+    text-align: center;
+  }
+  .vh-system__offer-weight strong {
+    color: #354050;
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .vh-system__offer-weight--board { left: 135px; }
+  .vh-system__offer-weight--drive { left: 537px; }
+  .vh-system__offer-price {
+    position: absolute;
+    z-index: 2;
+    top: 628px;
+    left: 210px;
+    display: flex;
+    min-width: 410px;
+    height: 72px;
+    padding: 11px 24px;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 1000px;
+    background: linear-gradient(90deg, #0a1625 0%, #030b16 48.8%, #0a1726 100%);
+    color: #fff;
+  }
+  .vh-system__offer-price-mark {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    overflow: hidden;
+    flex: 0 0 48px;
+    border-radius: 50%;
+  }
+  .vh-system__offer-price-mark img {
+    top: 8px;
+    left: 8px;
+    width: 188px;
+    height: 32px;
+    filter: grayscale(1) brightness(5);
+  }
+  .vh-system__offer-price-copy {
+    display: grid;
+    margin-left: 13px;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .vh-system__offer-price-copy span:last-child { color: #39dee3; }
+  .vh-system__offer-price-value {
+    margin-left: 18px;
+    padding-left: 18px;
+    border-left: 1px solid rgba(57, 222, 227, .32);
+    color: #39dee3;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 40px;
+  }
+  .vh-system__hotspot {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    padding: 2px 4px;
+    align-items: center;
+    gap: 4px;
+    border: 0;
+    border-radius: 99px;
+    background: rgba(88, 88, 88, .4);
+    color: #fff;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .vh-system__hotspot-dot {
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border-radius: 50%;
+    background: #fff;
+  }
+  .vh-system__hotspot--board { top: 107px; left: 424px; }
+  .vh-system__hotspot--seat { top: 270px; left: 114px; }
+  .vh-system__hotspot--drive { top: 221px; left: 594px; }
+  .vh-system__hotspot--case { top: 562px; left: 694px; }
+  .vh-system__modal[hidden] {
+    display: none;
+  }
+  .vh-system__modal {
+    position: fixed;
+    z-index: 1001;
+    display: grid;
+    padding: 24px;
+    place-items: center;
+    inset: 0;
+    background: rgba(0, 4, 13, .72);
+  }
+  .vh-system__modal-dialog {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #dbdbe2;
+    color: #000;
+  }
+  .vh-system__modal-canvas {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    transform-origin: top left;
+  }
+  .vh-system__modal-close {
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    right: 20px;
+    display: grid;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    place-items: center;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .vh-system__modal-title {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    margin: 0;
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .vh-system__modal-specs {
+    position: absolute;
+    top: 62px;
+    left: 30px;
+    margin: 0;
+    padding-left: 20px;
+    color: #354050;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .vh-system__modal-visual {
+    position: absolute;
+    inset: 0;
+  }
+  .vh-system__modal-visual img {
+    position: absolute;
+    display: block;
+    max-width: none;
+    object-fit: contain;
+  }
+  .vh-system__modal-visual--board img:first-child { top: 122px; left: 30px; width: 539px; height: 180px; }
+  .vh-system__modal-visual--board img:last-child { top: 314px; left: 30px; width: 522px; height: 266px; }
+  .vh-system__modal-visual--seat img:first-child { top: 172px; left: 30px; width: 258px; height: 255px; }
+  .vh-system__modal-visual--seat img:last-child { top: 175px; left: 304px; width: 276px; height: 243px; }
+  .vh-system__modal-visual--drive img { top: 135px; left: 85px; width: 430px; height: 430px; }
+  .vh-system__modal-visual--case img { top: 168px; left: 11px; width: 577px; height: 351px; }
   }
 
   .vh-power {
@@ -2536,6 +2767,174 @@
       left: auto;
       width: 100%;
     }
+
+    .vh-system {
+      height: auto;
+      padding: 60px 0;
+    }
+
+    .vh-system__grid {
+      display: block;
+      transform: none;
+    }
+
+    .vh-system__heading {
+      width: 100%;
+    }
+
+    .vh-system__heading h2 {
+      margin: 12px 0 16px;
+      font-size: 36px;
+      line-height: 1.2;
+    }
+
+    .vh-system .vh-body-16 {
+      max-width: 336px;
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .vh-system__parts {
+      width: 100%;
+      margin-top: 24px;
+    }
+
+    .vh-system__complete-picture img {
+      border-radius: 16px;
+    }
+
+    .vh-system__offer {
+      width: 100%;
+      height: auto;
+      margin-top: 24px;
+      border-radius: 12px;
+      aspect-ratio: 351 / 502;
+    }
+
+    .vh-system__offer-board { top: 9.56%; left: .85%; width: 98.49%; height: 22.91%; }
+    .vh-system__offer-seat { top: 26.49%; left: 2.28%; width: 34.19%; height: 25.5%; }
+    .vh-system__offer-paddle {
+      top: 29.68%;
+      left: 25.64%;
+      width: 74.47%;
+      height: 5.87%;
+      transform: rotate(14.93deg);
+    }
+    .vh-system__offer-drive { top: 52.99%; left: -4.84%; width: 46.44%; height: 29.88%; }
+    .vh-system__offer-case { top: 81.27%; left: 56.4%; width: 41.9%; height: 17%; }
+
+    .vh-system__offer-step {
+      gap: 4px;
+    }
+
+    .vh-system__offer-step--one { top: 3.19%; left: 2.28%; }
+    .vh-system__offer-step--two {
+      top: 81.27%;
+      left: 2.28%;
+      align-items: flex-start;
+    }
+
+    .vh-system__offer-number {
+      width: 20px;
+      height: 20px;
+      flex-basis: 20px;
+      font-size: 14px;
+    }
+
+    .vh-system__offer-step h3 {
+      font-size: 16px;
+    }
+
+    .vh-system__offer-step--two h3 {
+      width: 169px;
+    }
+
+    .vh-system__offer-description {
+      top: 90.84%;
+      left: 9.12%;
+      width: 185px;
+      font-size: 12px;
+    }
+
+    .vh-system__offer-divider { top: 78.88%; }
+
+    .vh-system__offer-weight {
+      width: auto;
+      font-size: 12px;
+    }
+
+    .vh-system__offer-weight strong { font-size: 14px; }
+    .vh-system__offer-weight--board { top: 46.61%; left: 2.28%; width: 95.44%; }
+    .vh-system__offer-weight--drive { top: 63.75%; left: 45.01%; width: 52.71%; }
+    .vh-system__offer-price { display: none; }
+
+    .vh-system__hotspot {
+      padding: 2px 4px;
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .vh-system__hotspot-dot {
+      width: 8px;
+      height: 8px;
+      flex-basis: 8px;
+    }
+
+    .vh-system__hotspot--board { top: 16.14%; left: 12.54%; right: auto; }
+    .vh-system__hotspot--seat { top: 41.43%; left: 13.39%; }
+    .vh-system__hotspot--drive { top: 57.77%; left: 17.66%; }
+    .vh-system__hotspot--case { top: 91.04%; left: 69.23%; right: auto; bottom: auto; }
+
+    .vh-system__modal {
+      padding: 12px;
+    }
+
+    .vh-system__modal-dialog {
+      width: 335px;
+      height: 335px;
+      border-radius: 16px;
+    }
+
+    .vh-system__modal-canvas {
+      transform: scale(.5583333333);
+    }
+
+    .vh-system__modal-close {
+      top: 20px;
+      right: 20px;
+    }
+
+    .vh-system__modal-title {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .vh-system__modal-specs {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .vh-system__modal-visual {
+      min-height: 0;
+      inset: 0;
+    }
+
+    .vh-system__modal-visual img {
+      max-height: none;
+    }
+  }
+
+  @media (max-width: 339px) {
+    .vh-system__modal-dialog {
+      width: 296px;
+      height: 296px;
+    }
+
+    .vh-system__modal-canvas {
+      transform: scale(.4933333333);
+    }
   }
 {% endstyle %}
 
@@ -2860,61 +3259,287 @@
           </p>
         </div>
         <div class="vh-system__parts">
-          {%- assign system_parts_desktop = section.settings.system_parts_image -%}
-          {%- assign system_parts_mobile = section.settings.system_parts_image_mobile -%}
-          {%- assign system_parts_fallback = system_parts_desktop | default: system_parts_mobile -%}
-          {%- if system_parts_fallback != blank -%}
-            <picture class="vh-system__parts-picture">
-              {%- if system_parts_mobile != blank -%}
-                <source
-                  media="(max-width: 768px)"
-                  srcset="{{ system_parts_mobile | image_url: width: 702 }} 702w, {{ system_parts_mobile | image_url: width: 1404 }} 1404w"
-                  sizes="calc(100vw - 24px)"
-                >
-              {%- endif -%}
-              {{
-                system_parts_fallback
-                | image_url: width: 1150
-                | image_tag:
-                  class: 'vh-system__parts-image',
-                  widths: '575, 860, 1150',
-                  sizes: '(max-width: 768px) calc(100vw - 24px), 575px',
-                  loading: 'lazy',
-                  alt: ''
-              }}
-            </picture>
-          {%- else -%}
-            <div class="vh-system__parts-placeholder" aria-hidden="true"></div>
-          {%- endif -%}
+          <picture class="vh-system__complete-picture">
+            <source
+              media="(max-width: 768px)"
+              srcset="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/M-image.png?v=1785825967"
+            >
+            <img
+              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/PC-IMAGE.png?v=1785825967"
+              width="575"
+              height="440"
+              alt="Ventral complete 4-in-1 fishing system"
+              loading="lazy"
+            >
+          </picture>
         </div>
       </div>
       <div class="vh-system__offer">
-        {%- assign system_offer_desktop = section.settings.system_image -%}
-        {%- assign system_offer_mobile = section.settings.system_image_mobile -%}
-        {%- assign system_offer_fallback = system_offer_desktop | default: system_offer_mobile -%}
-        {%- if system_offer_fallback != blank -%}
-          <picture class="vh-system__offer-picture">
-            {%- if system_offer_mobile != blank -%}
-              <source
-                media="(max-width: 768px)"
-                srcset="{{ system_offer_mobile | image_url: width: 702 }} 702w, {{ system_offer_mobile | image_url: width: 1404 }} 1404w"
-                sizes="calc(100vw - 24px)"
-              >
-            {%- endif -%}
-            {{
-              system_offer_fallback
-              | image_url: width: 1172
-              | image_tag:
-                class: 'vh-system__offer-image',
-                widths: '586, 880, 1172',
-                sizes: '(max-width: 768px) calc(100vw - 24px), 586px',
-                loading: 'lazy',
-                alt: ''
-            }}
-          </picture>
-        {%- else -%}
-          <div class="vh-system__offer-placeholder" aria-hidden="true"></div>
-        {%- endif -%}
+        <div class="vh-system__offer-step vh-system__offer-step--one">
+          <span class="vh-system__offer-number">1</span>
+          <h3>Complete Fishing System ≈ 80 lb</h3>
+        </div>
+        <img
+          class="vh-system__offer-board"
+          src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/system-_17.png?v=1785825971"
+          width="460"
+          height="153"
+          alt=""
+          loading="lazy"
+        >
+        <img
+          class="vh-system__offer-seat"
+          src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/system-_15.png?v=1785825971"
+          width="135"
+          height="144"
+          alt=""
+          loading="lazy"
+        >
+        <img
+          class="vh-system__offer-paddle"
+          src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/system-_14.png?v=1785825971"
+          width="295"
+          height="34"
+          alt=""
+          loading="lazy"
+        >
+        <img
+          class="vh-system__offer-drive"
+          src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/system-_16.png?v=1785825971"
+          width="304"
+          height="279"
+          alt=""
+          loading="lazy"
+        >
+        <p class="vh-system__offer-weight vh-system__offer-weight--board">
+          ( Stand-Up Paddleboard<br>
+          ≈ <strong>40 lb</strong> )
+        </p>
+        <p class="vh-system__offer-weight vh-system__offer-weight--drive">
+          ( Smart Mid-Mount Drive System<br>
+          ≈ <strong>40 lb</strong> )
+        </p>
+        <div class="vh-system__offer-divider" aria-hidden="true"></div>
+        <div class="vh-system__offer-step vh-system__offer-step--two">
+          <span class="vh-system__offer-number">2</span>
+          <h3>Packable Modular Design</h3>
+        </div>
+        <p class="vh-system__offer-description">
+          Fits into Two Carry Bags<br>
+          Easy to Store. Easy to Transport.
+        </p>
+        <img
+          class="vh-system__offer-case"
+          src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/system-_13.png?v=1785825971"
+          width="363"
+          height="211"
+          alt=""
+          loading="lazy"
+        >
+        <button
+          class="vh-system__hotspot vh-system__hotspot--board"
+          type="button"
+          data-system-modal-open="board"
+          aria-haspopup="dialog"
+        >
+          <span class="vh-system__hotspot-dot" aria-hidden="true"></span>Double-Layer Paddle Board
+        </button>
+        <button
+          class="vh-system__hotspot vh-system__hotspot--seat"
+          type="button"
+          data-system-modal-open="seat"
+          aria-haspopup="dialog"
+        >
+          <span class="vh-system__hotspot-dot" aria-hidden="true"></span>Elevated Inflatable Seat
+        </button>
+        <button
+          class="vh-system__hotspot vh-system__hotspot--drive"
+          type="button"
+          data-system-modal-open="drive"
+          aria-haspopup="dialog"
+        >
+          <span class="vh-system__hotspot-dot" aria-hidden="true"></span>Smart Mid-Mount Drive
+        </button>
+        <button
+          class="vh-system__hotspot vh-system__hotspot--case"
+          type="button"
+          data-system-modal-open="case"
+          aria-haspopup="dialog"
+        >
+          <span class="vh-system__hotspot-dot" aria-hidden="true"></span>Carry Case
+        </button>
+        <div class="vh-system__offer-price">
+          <span class="vh-system__offer-price-mark" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="url(#paint0_linear_586_599)"/>
+              <path d="M39.5872 22.8038L35.3373 23.0187L31.7229 23.7607C31.7229 23.7607 31.2169 26.6301 29.4768 28.6476C28.1343 30.2049 26.132 31.8796 23.2749 32.5028C23.2749 32.5028 22.0528 32.7908 21.4417 34.275C20.8322 35.7607 19.8372 38.6575 19.8372 38.6575L17.268 40L24.8231 26.3482C24.8231 26.3482 15.8996 23.1162 12.2852 14.1577L27.8402 21.5329C27.8402 21.5329 29.5743 19.8583 32.0611 19.8111C32.0611 19.8111 34.4779 19.9055 34.6973 22.4213L39.5872 22.8038Z" fill="white"/>
+              <path d="M14.0486 19.5384L14.815 20.4009C14.6682 21.2406 14.7192 22.1029 14.9639 22.9195C15.2086 23.736 15.6402 24.4843 16.2246 25.1049C16.9335 25.9118 17.8036 26.5611 18.779 27.011C19.7543 27.4608 20.8131 27.7013 21.8871 27.7167C21.8871 27.7167 16.6451 28.5548 14.3442 23.3312C14.3442 23.3312 13.6036 21.434 14.0486 19.5384M15.3895 10.1304L27.1838 20.2775L16.2551 13.8257C16.2551 13.8257 15.1609 11.6314 15.391 10.1304M19.1411 8.08548L27.4246 19.834L19.1411 11.3114C19.1411 11.3114 18.9278 8.47864 19.1411 8.08548Z" fill="white"/>
+              <defs>
+              <linearGradient id="paint0_linear_586_599" x1="11" y1="3.5" x2="35" y2="45.5" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#9BDDFF"/>
+              <stop offset="1" stop-color="#11587C"/>
+              </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          <span class="vh-system__offer-price-copy"
+            ><span>Complete 4-in-1 System</span><span>Early Bird Price</span></span
+          >
+          <strong class="vh-system__offer-price-value">$2499</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="vh-system__modal" data-system-modal="board" hidden>
+      <div
+        class="vh-system__modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vh-system-modal-board-title"
+      >
+        <div class="vh-system__modal-canvas">
+          <button class="vh-system__modal-close" type="button" data-system-modal-close aria-label="Close dialog">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M12.0006 10.9441L17.4726 5.47212C17.6126 5.33209 17.8026 5.25342 18.0006 5.25342C18.1986 5.25342 18.3886 5.33209 18.5286 5.47212C18.6686 5.61216 18.7473 5.80208 18.7473 6.00012C18.7473 6.19816 18.6686 6.38809 18.5286 6.52812L13.0566 12.0001L18.5286 17.4721C18.6686 17.6122 18.7473 17.8021 18.7473 18.0001C18.7473 18.1982 18.6686 18.3881 18.5286 18.5281C18.3886 18.6682 18.1986 18.7468 18.0006 18.7468C17.8026 18.7468 17.6126 18.6682 17.4726 18.5281L12.0006 13.0561L6.52861 18.5281C6.38858 18.6682 6.19865 18.7468 6.00061 18.7468C5.80257 18.7468 5.61265 18.6682 5.47261 18.5281C5.33258 18.3881 5.25391 18.1982 5.25391 18.0001C5.25391 17.8021 5.33258 17.6122 5.47261 17.4721L10.9446 12.0001L5.47261 6.52812C5.33258 6.38809 5.25391 6.19816 5.25391 6.00012C5.25391 5.80208 5.33258 5.61216 5.47261 5.47212C5.61265 5.33209 5.80257 5.25342 6.00061 5.25342C6.19865 5.25342 6.38858 5.33209 6.52861 5.47212L12.0006 10.9441Z" fill="black"/>
+            </svg>
+          </button>
+          <h3 class="vh-system__modal-title" id="vh-system-modal-board-title">Double-Layer Paddle Board</h3>
+          <ul class="vh-system__modal-specs">
+            <li>Maximum Capacity: 650 lb (295 kg)</li>
+            <li>Double-Layer Paddle Board: 38.6 lb (17.5 kg)</li>
+          </ul>
+          <div class="vh-system__modal-visual vh-system__modal-visual--board">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/modal_1f0490a1-a226-4b1e-9773-4aacaaf7a3f6.png?v=1785825977"
+              width="539"
+              height="180"
+              alt=""
+              loading="lazy"
+            >
+            <img
+              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/modal.png?v=1785825976"
+              width="522"
+              height="266"
+              alt=""
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vh-system__modal" data-system-modal="seat" hidden>
+      <div class="vh-system__modal-dialog" role="dialog" aria-modal="true" aria-labelledby="vh-system-modal-seat-title">
+        <div class="vh-system__modal-canvas">
+          <button class="vh-system__modal-close" type="button" data-system-modal-close aria-label="Close dialog">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M12.0006 10.9441L17.4726 5.47212C17.6126 5.33209 17.8026 5.25342 18.0006 5.25342C18.1986 5.25342 18.3886 5.33209 18.5286 5.47212C18.6686 5.61216 18.7473 5.80208 18.7473 6.00012C18.7473 6.19816 18.6686 6.38809 18.5286 6.52812L13.0566 12.0001L18.5286 17.4721C18.6686 17.6122 18.7473 17.8021 18.7473 18.0001C18.7473 18.1982 18.6686 18.3881 18.5286 18.5281C18.3886 18.6682 18.1986 18.7468 18.0006 18.7468C17.8026 18.7468 17.6126 18.6682 17.4726 18.5281L12.0006 13.0561L6.52861 18.5281C6.38858 18.6682 6.19865 18.7468 6.00061 18.7468C5.80257 18.7468 5.61265 18.6682 5.47261 18.5281C5.33258 18.3881 5.25391 18.1982 5.25391 18.0001C5.25391 17.8021 5.33258 17.6122 5.47261 17.4721L10.9446 12.0001L5.47261 6.52812C5.33258 6.38809 5.25391 6.19816 5.25391 6.00012C5.25391 5.80208 5.33258 5.61216 5.47261 5.47212C5.61265 5.33209 5.80257 5.25342 6.00061 5.25342C6.19865 5.25342 6.38858 5.33209 6.52861 5.47212L12.0006 10.9441Z" fill="black"/>
+            </svg>
+          </button>
+          <h3 class="vh-system__modal-title" id="vh-system-modal-seat-title">Elevated Inflatable Seat</h3>
+          <ul class="vh-system__modal-specs">
+            <li>Maximum Load Capacity: 265 lb (120 kg)</li>
+            <li>Elevated Inflatable Seat Weight: 5.4 lb (2.45 kg)</li>
+          </ul>
+          <div class="vh-system__modal-visual vh-system__modal-visual--seat">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/modal_44b0da1f-06db-449c-b745-2e5ad66739a1.png?v=1785825977"
+              width="258"
+              height="255"
+              alt=""
+              loading="lazy"
+
+            ><img
+              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/modal_c654e2cf-447a-4100-8474-9b24a551bbfb.png?v=1785825977"
+              width="276"
+              height="243"
+              alt=""
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vh-system__modal" data-system-modal="drive" hidden>
+      <div
+        class="vh-system__modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="vh-system-modal-drive-title"
+      >
+        <div class="vh-system__modal-canvas">
+          <button class="vh-system__modal-close" type="button" data-system-modal-close aria-label="Close dialog">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M12.0006 10.9441L17.4726 5.47212C17.6126 5.33209 17.8026 5.25342 18.0006 5.25342C18.1986 5.25342 18.3886 5.33209 18.5286 5.47212C18.6686 5.61216 18.7473 5.80208 18.7473 6.00012C18.7473 6.19816 18.6686 6.38809 18.5286 6.52812L13.0566 12.0001L18.5286 17.4721C18.6686 17.6122 18.7473 17.8021 18.7473 18.0001C18.7473 18.1982 18.6686 18.3881 18.5286 18.5281C18.3886 18.6682 18.1986 18.7468 18.0006 18.7468C17.8026 18.7468 17.6126 18.6682 17.4726 18.5281L12.0006 13.0561L6.52861 18.5281C6.38858 18.6682 6.19865 18.7468 6.00061 18.7468C5.80257 18.7468 5.61265 18.6682 5.47261 18.5281C5.33258 18.3881 5.25391 18.1982 5.25391 18.0001C5.25391 17.8021 5.33258 17.6122 5.47261 17.4721L10.9446 12.0001L5.47261 6.52812C5.33258 6.38809 5.25391 6.19816 5.25391 6.00012C5.25391 5.80208 5.33258 5.61216 5.47261 5.47212C5.61265 5.33209 5.80257 5.25342 6.00061 5.25342C6.19865 5.25342 6.38858 5.33209 6.52861 5.47212L12.0006 10.9441Z" fill="black"/>
+            </svg>
+          </button>
+          <h3 class="vh-system__modal-title" id="vh-system-modal-drive-title">Smart Mid-Mount Drive</h3>
+          <ul class="vh-system__modal-specs">
+            <li>Motor: 600W Brushless Motor, Up to 50 lb of Thrust</li>
+            <li>Battery: 1.15 kWh LiFePO4 Battery, 24V System</li>
+          </ul>
+          <div class="vh-system__modal-visual vh-system__modal-visual--drive">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/modal_8006ffa8-eb5e-400e-b6fa-1e3885afadf3.png?v=1785825977"
+              width="430"
+              height="430"
+              alt=""
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vh-system__modal" data-system-modal="case" hidden>
+      <div class="vh-system__modal-dialog" role="dialog" aria-modal="true" aria-labelledby="vh-system-modal-case-title">
+        <div class="vh-system__modal-canvas">
+          <button class="vh-system__modal-close" type="button" data-system-modal-close aria-label="Close dialog">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M12.0006 10.9441L17.4726 5.47212C17.6126 5.33209 17.8026 5.25342 18.0006 5.25342C18.1986 5.25342 18.3886 5.33209 18.5286 5.47212C18.6686 5.61216 18.7473 5.80208 18.7473 6.00012C18.7473 6.19816 18.6686 6.38809 18.5286 6.52812L13.0566 12.0001L18.5286 17.4721C18.6686 17.6122 18.7473 17.8021 18.7473 18.0001C18.7473 18.1982 18.6686 18.3881 18.5286 18.5281C18.3886 18.6682 18.1986 18.7468 18.0006 18.7468C17.8026 18.7468 17.6126 18.6682 17.4726 18.5281L12.0006 13.0561L6.52861 18.5281C6.38858 18.6682 6.19865 18.7468 6.00061 18.7468C5.80257 18.7468 5.61265 18.6682 5.47261 18.5281C5.33258 18.3881 5.25391 18.1982 5.25391 18.0001C5.25391 17.8021 5.33258 17.6122 5.47261 17.4721L10.9446 12.0001L5.47261 6.52812C5.33258 6.38809 5.25391 6.19816 5.25391 6.00012C5.25391 5.80208 5.33258 5.61216 5.47261 5.47212C5.61265 5.33209 5.80257 5.25342 6.00061 5.25342C6.19865 5.25342 6.38858 5.33209 6.52861 5.47212L12.0006 10.9441Z" fill="black"/>
+            </svg>
+          </button>
+          <h3 class="vh-system__modal-title" id="vh-system-modal-case-title">Carry Case</h3>
+          <ul class="vh-system__modal-specs">
+            <li>Board Carry Case: 44.1 × 16.1 × 11.4 in (112 × 41 × 29 cm)</li>
+            <li>Drive System Carry Case: 29.1 × 17.7 × 12.2 in (74 × 45 × 31 cm)</li>
+          </ul>
+          <div class="vh-system__modal-visual vh-system__modal-visual--case">
+            <img
+              src="https://cdn.shopify.com/s/files/1/0736/0344/8920/files/modal_9f9bd599-c65e-4e4e-877e-69dae7e0ab2d.png?v=1785825977"
+              width="577"
+              height="351"
+              alt=""
+              loading="lazy"
+            >
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -3471,351 +4096,80 @@
       <h2>FAQ<span>s</span></h2>
       <div class="vh-faq__grid">
         <div class="vh-faq__column">
-          <details class="vh-faq__item" open>
-            <summary>
-              <span>What is Ventral?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">
-              A powered inflatable fishing kayak built around a mid-mount drive, open deck, storage zones, and seated or
-              standing fishing.
-            </div>
-          </details>
-          <details class="vh-faq__item">
-            <summary>
-              <span>How long can it run?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">
-              Draft copy may reference up to six hours in Eco mode. Final runtime depends on test conditions.
-            </div>
-          </details>
-          <details class="vh-faq__item">
-            <summary>
-              <span>Can I stand and cast?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">Yes, the wide deck is designed for stand-and-cast fishing.</div>
-          </details>
-          <details class="vh-faq__item">
-            <summary>
-              <span>Are accessories included?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">
-              Accessories shown in visuals are setup examples unless the final reward list says otherwise.
-            </div>
-          </details>
-          <details class="vh-faq__item">
-            <summary>
-              <span>How do I care for my Ventral Fishing Board after saltwater use?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">
-              After each saltwater session, we recommend rinsing the board, Drive system, motor components, and
-              accessories with fresh water to remove salt residue. Allow all components to dry completely before
-              storage.<br />Regular rinsing and proper maintenance will help protect the materials, electrical
-              connections, and moving parts, ensuring long-term performance.
-            </div>
-          </details>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'faq_item' -%}
+              <details class="vh-faq__item" {{ block.shopify_attributes }}>
+                <summary>
+                  <span>{{ block.settings.question | escape }}</span>
+                  <span class="vh-faq__icon" aria-hidden="true">
+                    <svg
+                      class="vh-faq__icon--plus"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
+                      <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
+                      <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
+                    </svg>
+                    <svg
+                      class="vh-faq__icon--minus"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
+                      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
+                      <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </summary>
+                <div class="vh-faq__answer">{{ block.settings.answer }}</div>
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
         <div class="vh-faq__column">
-          <details class="vh-faq__item">
-            <summary>
-              <span>Do I need a trailer?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">
-              No. Ventral is designed to deflate, pack down, and load for transport after the session.
-            </div>
-          </details>
-          <details class="vh-faq__item">
-            <summary>
-              <span>Can I use it in salt water?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">
-              Ventral is intended for fresh-water and salt-water fishing use, with final care guidance to confirm.
-            </div>
-          </details>
-          <details class="vh-faq__item">
-            <summary>
-              <span>What is included?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">Final Kickstarter reward contents will be confirmed on the campaign page.</div>
-          </details>
-          <details class="vh-faq__item">
-            <summary>
-              <span>How does it handle weeds or shallow water?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">The mid-mount drive can be lifted straight up for manual clearing.</div>
-          </details>
-          <details class="vh-faq__item">
-            <summary>
-              <span>How do I prevent or remove weeds from getting tangled in the motor?</span>
-              <span class="vh-faq__icon" aria-hidden="true">
-                <svg
-                  class="vh-faq__icon--plus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-                <svg
-                  class="vh-faq__icon--minus"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
-                  <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
-                  <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </summary>
-            <div class="vh-faq__answer">
-              Ventral Fishing Board features a Smart Mid-Mount Drive designed to reduce common weed interference
-              compared with traditional rear-mounted motors.<br />If weeds or debris become caught during operation,
-              simply stop the motor and follow the recommended clearing procedure before continuing. The easy-access
-              mid-mount design allows for quick inspection and cleaning without needing to reach around the rear of the
-              board.<br />We recommend avoiding dense vegetation areas whenever possible to ensure optimal performance
-              and protect the propulsion system.
-            </div>
-          </details>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'faq_item' -%}
+              <details class="vh-faq__item" {{ block.shopify_attributes }}>
+                <summary>
+                  <span>{{ block.settings.question | escape }}</span>
+                  <span class="vh-faq__icon" aria-hidden="true">
+                    <svg
+                      class="vh-faq__icon--plus"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
+                      <path d="M8 12.0049H16" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
+                      <path d="M12 16.0049L12 8.00488" stroke="#0C284C" stroke-width="1.4" stroke-linecap="round"/>
+                    </svg>
+                    <svg
+                      class="vh-faq__icon--minus"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" fill="#0C284C"/>
+                      <rect x="0.5" y="0.5" width="23" height="23" rx="11.5" stroke="#0C284C"/>
+                      <path d="M8 12H16" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </summary>
+                <div class="vh-faq__answer">{{ block.settings.answer }}</div>
+              </details>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
       </div>
     </div>
@@ -3971,6 +4325,12 @@
 
       root.dataset.homeFaqReady = 'true';
 
+      if (items[0]) {
+        items[0].open = true;
+        const firstSummary = items[0].querySelector('summary');
+        if (firstSummary) firstSummary.setAttribute('aria-expanded', 'true');
+      }
+
       const updateExpandedState = () => {
         items.forEach((item) => {
           const summary = item.querySelector('summary');
@@ -3985,16 +4345,64 @@
       updateExpandedState();
     };
 
+    const initializeHomeSystem = (root) => {
+      if (!root || root.dataset.homeSystemReady === 'true') return;
+
+      const triggers = Array.from(root.querySelectorAll('[data-system-modal-open]'));
+      const modals = Array.from(root.querySelectorAll('[data-system-modal]'));
+      if (!triggers.length || !modals.length) return;
+
+      root.dataset.homeSystemReady = 'true';
+      let lastTrigger = null;
+      const close = (modal) => {
+        if (!modal || modal.hidden) return;
+        modal.hidden = true;
+        document.body.style.overflow = '';
+        if (lastTrigger) lastTrigger.focus();
+      };
+      const open = (modal, trigger) => {
+        if (!modal) return;
+        modals.forEach((item) => {
+          item.hidden = item !== modal;
+        });
+        lastTrigger = trigger;
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        const closeButton = modal.querySelector('[data-system-modal-close]');
+        if (closeButton) closeButton.focus();
+      };
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener('click', () =>
+          open(root.querySelector(`[data-system-modal="${trigger.dataset.systemModalOpen}"]`), trigger)
+        );
+      });
+      modals.forEach((modal) => {
+        const closeButton = modal.querySelector('[data-system-modal-close]');
+        if (closeButton) closeButton.addEventListener('click', () => close(modal));
+        modal.addEventListener('click', (event) => {
+          if (event.target === modal) close(modal);
+        });
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        const activeModal = modals.find((modal) => !modal.hidden);
+        if (activeModal) close(activeModal);
+      });
+    };
+
     const root = document.getElementById('ventral-home-{{ section.id }}');
     initializeHomeVideo(root);
     initializeHomeAward(root);
     initializeHomeFaq(root);
+    initializeHomeSystem(root);
 
     document.addEventListener('shopify:section:load', (event) => {
       const sectionRoot = event.target.querySelector('.ventral-home');
       initializeHomeVideo(sectionRoot);
       initializeHomeAward(sectionRoot);
       initializeHomeFaq(sectionRoot);
+      initializeHomeSystem(sectionRoot);
     });
   })();
 </script>
@@ -4086,6 +4494,15 @@
         { "type": "text", "id": "label", "label": "Label" },
         { "type": "text", "id": "title", "label": "Title" },
         { "type": "textarea", "id": "text", "label": "Text" }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "limit": 10,
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer", "label": "Answer" }
       ]
     },
     {

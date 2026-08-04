@@ -1,3 +1,5 @@
+{{ 'ventral-cart.css' | asset_url | stylesheet_tag }}
+
 {%- liquid
   assign cart_has_sold_out = false
   for item in cart.items
@@ -50,7 +52,7 @@
               <div class="ventral-cart__totals">
                 <div class="ventral-cart__total-row ventral-cart__total-row--order">
                   <span>Order Total:<small>{{ cart_item_count_text }}</small></span>
-                  <strong>{{ cart.original_total_price | money }}</strong>
+                  <strong data-order-total>{{ cart.original_total_price | money }}</strong>
                 </div>
 
                 <div class="ventral-cart__total-row ventral-cart__total-row--saving{% unless cart.total_discounts > 0 %} hide{% endunless %}" data-summary-savings>
@@ -82,17 +84,13 @@
               </div>
 
               <div class="ventral-cart__notes">
-                {%- if settings.cart_notes_enable -%}
-                  <details class="ventral-cart__notes-details"{% if cart.note != blank %} open{% endif %}>
-                    <summary>
-                      <span>Add order notes</span>
-                      {%- if cart.note != blank -%}
-                        <button type="button" class="ventral-cart__note-clear" data-cart-note-clear>Clear</button>
-                      {%- endif -%}
-                    </summary>
-                    <textarea name="note" class="input-full cart-notes" id="CartNote" placeholder="Add remarks...">{{ cart.note }}</textarea>
-                  </details>
-                {%- endif -%}
+                <details class="ventral-cart__notes-details"{% if cart.note != blank %} open{% endif %}>
+                  <summary>
+                    <span>Add order notes</span>
+                    <button type="button" class="ventral-cart__note-clear" data-cart-note-clear{% if cart.note == blank %} hidden{% endif %}>Clear</button>
+                  </summary>
+                  <textarea name="note" class="input-full cart-notes" id="CartNote" placeholder="Add remarks...">{{ cart.note }}</textarea>
+                </details>
 
                 <div class="ventral-cart__shipping-note">
                   Shipping,Taxes, and discounts are applied at checkout
@@ -127,7 +125,7 @@
                   {%- endif -%}
                 </button>
 
-                {%- if additional_checkout_buttons and settings.cart_additional_buttons and cart_has_sold_out == false -%}
+                {%- if additional_checkout_buttons and cart_has_sold_out == false -%}
                   <div class="additional-checkout-buttons additional-checkout-buttons--vertical">{{ content_for_additional_checkout_buttons }}</div>
                 {%- endif -%}
               </div>
@@ -158,6 +156,25 @@
         </div>
       </form>
     {%- endif -%}
+
+    <section class="ventral-cart__faq" aria-labelledby="VentralCartFaqTitle">
+      <h2 id="VentralCartFaqTitle">FAQ</h2>
+      <div class="ventral-cart__faq-card">
+        <details class="ventral-cart__faq-item" open>
+          <summary>Do I need a trailer?</summary>
+          <p>No. Ventral is designed to deflate, pack down, and load for transport after the session.</p>
+        </details>
+        <details class="ventral-cart__faq-item">
+          <summary>What is included?</summary>
+        </details>
+        <details class="ventral-cart__faq-item">
+          <summary>When will my order arrive?</summary>
+        </details>
+        <details class="ventral-cart__faq-item">
+          <summary>Can I return my order if I change my mind?</summary>
+        </details>
+      </div>
+    </section>
   </div>
 </div>
 
@@ -187,6 +204,9 @@
         button.classList.toggle('ventral-cart__checkout--disabled', hasSoldOut);
         button.innerHTML = hasSoldOut ? '<span>sold out</span><small>Choose another item</small>' : 'Check out';
       });
+      cart.querySelectorAll('.additional-checkout-buttons').forEach(function(buttons) {
+        buttons.classList.toggle('hide', hasSoldOut);
+      });
     }
 
     function syncSavings(cartData) {
@@ -194,10 +214,15 @@
       if (!cart || !cartData || !window.theme || !theme.Currency) return;
 
       var savings = cartData.total_discount || cartData.total_discounts || 0;
+      var orderTotal = cart.querySelector('[data-order-total]');
       var summary = cart.querySelector('[data-summary-savings]');
       var summaryAmount = cart.querySelector('[data-summary-savings-amount]');
       var stickySavings = cart.querySelector('[data-sticky-savings]');
       var formatted = theme.Currency.formatMoney(savings, theme.settings.moneyFormat);
+
+      if (orderTotal) {
+        orderTotal.textContent = theme.Currency.formatMoney(cartData.original_total_price, theme.settings.moneyFormat);
+      }
 
       if (summary) {
         summary.classList.toggle('hide', savings <= 0);
@@ -218,8 +243,17 @@
       var note = document.getElementById('CartNote');
       if (!note) return;
       note.value = '';
+      clear.hidden = true;
       note.dispatchEvent(new Event('change', { bubbles: true }));
     });
+
+    var cartNote = document.getElementById('CartNote');
+    if (cartNote) {
+      cartNote.addEventListener('input', function() {
+        var clear = document.querySelector('[data-cart-note-clear]');
+        if (clear) clear.hidden = cartNote.value.trim() === '';
+      });
+    }
 
     var products = document.querySelector('.ventral-cart [data-products]');
     if (products) {
