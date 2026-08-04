@@ -697,15 +697,19 @@
   .vh-system__modal-visual--seat img:last-child { top: 175px; left: 304px; width: 276px; height: 243px; }
   .vh-system__modal-visual--drive img { top: 135px; left: 85px; width: 430px; height: 430px; }
   .vh-system__modal-visual--case img { top: 168px; left: 11px; width: 577px; height: 351px; }
-  }
 
   .vh-power {
+    position: relative;
+    display: block;
     height: 700px;
+    min-height: 700px;
+    overflow: hidden;
     background: #000;
   }
   .vh-power__layout {
     position: relative;
     height: 100%;
+    min-height: 700px;
   }
   .vh-power__image {
     position: absolute;
@@ -1755,12 +1759,14 @@
     .vh-power {
       display: block;
       height: auto;
+      min-height: 0;
       padding: 60px 0;
     }
 
     .vh-power__layout {
       display: flex;
       height: auto;
+      min-height: 0;
       flex-direction: column;
     }
 
@@ -4094,9 +4100,10 @@
   <div class="vh-faq">
     <div class="vh-shell">
       <h2>FAQ<span>s</span></h2>
+      {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
       <div class="vh-faq__grid">
         <div class="vh-faq__column">
-          {%- for block in section.blocks -%}
+          {%- for block in faq_blocks limit: 5 -%}
             {%- if block.type == 'faq_item' -%}
               <details class="vh-faq__item" {{ block.shopify_attributes }}>
                 <summary>
@@ -4128,13 +4135,13 @@
                     </svg>
                   </span>
                 </summary>
-                <div class="vh-faq__answer">{{ block.settings.answer }}</div>
+                <div class="vh-faq__answer">{{ block.settings.answer | newline_to_br }}</div>
               </details>
             {%- endif -%}
           {%- endfor -%}
         </div>
         <div class="vh-faq__column">
-          {%- for block in section.blocks -%}
+          {%- for block in faq_blocks offset: 5 -%}
             {%- if block.type == 'faq_item' -%}
               <details class="vh-faq__item" {{ block.shopify_attributes }}>
                 <summary>
@@ -4166,7 +4173,7 @@
                     </svg>
                   </span>
                 </summary>
-                <div class="vh-faq__answer">{{ block.settings.answer }}</div>
+                <div class="vh-faq__answer">{{ block.settings.answer | newline_to_br }}</div>
               </details>
             {%- endif -%}
           {%- endfor -%}
