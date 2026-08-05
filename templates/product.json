@@ -11,6 +11,30 @@
   "sections": {
     "main": {
       "type": "main-product",
+      "blocks": {
+        "product_tab": {
+          "type": "product_tab",
+          "settings": {}
+        },
+        "shipping_tab": {
+          "type": "shipping_tab",
+          "settings": {}
+        },
+        "video_tab": {
+          "type": "video_tab",
+          "settings": {}
+        },
+        "reviews_tab": {
+          "type": "reviews_tab",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "product_tab",
+        "shipping_tab",
+        "video_tab",
+        "reviews_tab"
+      ],
       "settings": {}
     }
   },

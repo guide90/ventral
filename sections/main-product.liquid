@@ -1,600 +1,1564 @@
 {%- liquid
-  assign isModal = false
-  if template == 'product.modal'
-    assign isModal = true
+  assign current_variant = product.selected_or_first_available_variant
+  assign form_id = 'VentralProductForm-' | append: section.id
+  assign rating_value = product.metafields.reviews.rating.value.rating | default: section.settings.rating_value | default: '5.0'
+  assign review_count = product.metafields.reviews.rating_count | default: section.settings.review_count | default: '82,589'
+  assign product_tab = null
+  assign shipping_tab = null
+  assign video_tab = null
+  assign reviews_tab = null
+  for block in section.blocks
+    case block.type
+      when 'product_tab'
+        assign product_tab = block
+      when 'shipping_tab'
+        assign shipping_tab = block
+      when 'video_tab'
+        assign video_tab = block
+      when 'reviews_tab'
+        assign reviews_tab = block
+    endcase
+  endfor
+  assign compare_price = current_variant.compare_at_price
+  assign sale_percent = 0
+  if compare_price > current_variant.price
+    assign saved_amount = compare_price | minus: current_variant.price
+    assign sale_percent = saved_amount | times: 100.0 | divided_by: compare_price | round
+  endif
+  assign gallery_media_count = product.media.size
+  if gallery_media_count == 0
+    assign gallery_media_count = 1
+  endif
+  assign configured_social_count = 0
+  for i in (1..3)
+    assign social_image_key = 'social_image_' | append: i | append: '_pc'
+    if section.settings[social_image_key] != blank
+      assign configured_social_count = configured_social_count | plus: 1
+    endif
+  endfor
+  assign social_render_count = configured_social_count
+  if social_render_count == 0
+    assign social_render_count = 3
   endif
 -%}
 
-{%- render 'product-template',
-  product: product,
-  section_id: section.id,
-  blocks: section.blocks,
-  image_container_width: section.settings.image_size,
-  product_zoom_enable: section.settings.product_zoom_enable,
-  sku_enable: section.settings.sku_enable,
-  isModal: isModal,
-  thumbnail_position: section.settings.thumbnail_position,
-  thumbnail_height: section.settings.thumbnail_height,
-  thumbnail_arrows: section.settings.thumbnail_arrows,
-  video_looping: section.settings.enable_video_looping,
-  video_style: section.settings.product_video_style,
-  context: 'main-product',
--%}
+<ventral-main-product
+  id="VentralMainProduct-{{ section.id }}"
+  class="vmp{% if section.settings.show_sticky_bar %} has-sticky{% endif %}"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-active-tab="product"
+  data-cart-add-url="{{ routes.cart_add_url }}"
+  data-cart-url="{{ routes.cart_url }}"
+>
+  <script type="application/json" data-vmp-variants>
+    {{ product.variants | json }}
+  </script>
+
+  <div class="vmp__hero">
+    <div class="vmp-gallery" data-vmp-gallery>
+      <div class="vmp-gallery__stage">
+        {%- if gallery_media_count > 1 -%}
+          <button
+            class="vmp-gallery__arrow vmp-gallery__arrow--prev"
+            type="button"
+            data-vmp-gallery-prev
+            aria-label="Previous product image"
+          >
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56C43.464 56 56 43.464 56 28Z" fill="black" fill-opacity="0.3"/>
+            <path d="M23.6152 28.709L29.708 34.8008L31.2305 33.2773L26.6621 28.708L31.2305 24.1396L29.707 22.6172L23.6152 28.709Z" fill="white"/>
+          </svg>
+          </button>
+        {%- endif -%}
+        <div class="vmp-gallery__slides" data-vmp-gallery-slides>
+          {%- if product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              <div
+                class="vmp-gallery__slide{% if forloop.first %} is-active{% endif %}"
+                data-vmp-slide="{{ forloop.index0 }}"
+                {% unless forloop.first %}
+                  hidden
+                {% endunless %}
+              >
+                {%- case media.media_type -%}
+                  {%- when 'video' -%}
+                    {{ media | video_tag: controls: true, preload: 'metadata', image_size: '1400x' }}
+                  {%- when 'external_video' -%}
+                    {{ media | external_video_tag }}
+                  {%- when 'model' -%}
+                    {{ media | model_viewer_tag: image_size: '1400x', reveal: 'interaction', toggleable: true }}
+                  {%- else -%}
+                    {{
+                      media.preview_image
+                      | image_url: width: 1600
+                      | image_tag:
+                        loading: 'eager',
+                        widths: '600, 900, 1200, 1600',
+                        sizes: '(max-width: 749px) 100vw, 664px',
+                        alt: media.alt
+                      | default: product.title
+                    }}
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            {%- assign fallback_product_image_pc = section.settings.fallback_product_image_pc -%}
+            {%- assign fallback_product_image_mobile = section.settings.fallback_product_image_mobile
+              | default: fallback_product_image_pc
+            -%}
+            <div class="vmp-gallery__slide is-active" data-vmp-slide="0">
+              {%- if fallback_product_image_pc != blank -%}
+                <picture class="vmp-picture">
+                  <source
+                    media="(max-width: 749px)"
+                    srcset="{{ fallback_product_image_mobile | image_url: width: 900 }}"
+                  >
+                  {{
+                    fallback_product_image_pc
+                    | image_url: width: 1600
+                    | image_tag:
+                      loading: 'eager',
+                      widths: '600, 900, 1200, 1600',
+                      sizes: '(max-width: 749px) 100vw, 664px',
+                      alt: product.title
+                  }}
+                </picture>
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if gallery_media_count > 1 -%}
+          <button
+            class="vmp-gallery__arrow vmp-gallery__arrow--next"
+            type="button"
+            data-vmp-gallery-next
+            aria-label="Next product image"
+          >
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 28C0 12.536 12.536 0 28 0C43.464 0 56 12.536 56 28C56 43.464 43.464 56 28 56C12.536 56 0 43.464 0 28Z" fill="black" fill-opacity="0.3"/>
+            <path d="M32.3848 28.709L26.292 34.8008L24.7695 33.2773L29.3379 28.708L24.7695 24.1396L26.293 22.6172L32.3848 28.709Z" fill="white"/>
+          </svg>
+          </button>
+        {%- endif -%}
+        <span class="vmp-gallery__counter" data-vmp-gallery-counter>1/{{ gallery_media_count }}</span>
+      </div>
+
+      <div class="vmp-gallery__rail">
+        {%- if gallery_media_count > 1 -%}
+          <button
+            class="vmp-gallery__rail-button vmp-gallery__rail-button--up"
+            type="button"
+            data-vmp-thumb-up
+            aria-label="Scroll thumbnails up"
+          >
+          <svg width="70" height="24" viewBox="0 0 70 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask id="path-1-inside-1_1677_575" fill="white">
+            <path d="M0 24H70V10C70 4.47715 65.5229 0 60 0H10C4.47715 0 0 4.47715 0 10V24Z"/>
+            </mask>
+            <path d="M0 24H70V10C70 4.47715 65.5229 0 60 0H10C4.47715 0 0 4.47715 0 10V24Z" fill="#F2F2F2"/>
+            <path d="M0 25H70V23H0V25ZM0 23M70 0H0H70M70 0M0 0V24V0M0 0M70 24V0V24" fill="#999999" mask="url(#path-1-inside-1_1677_575)"/>
+            <path d="M35 8.46387L40.6572 14.1201L39.2432 15.5352L35 11.293L30.7578 15.5352L29.3428 14.1211L35 8.46387Z" fill="#545454"/>
+          </svg>
+          </button>
+        {%- endif -%}
+        <div class="vmp-gallery__thumbs" data-vmp-gallery-thumbs>
+          {%- if product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              <button
+                type="button"
+                class="vmp-gallery__thumb{% if forloop.first %} is-active{% endif %}"
+                data-vmp-thumb="{{ forloop.index0 }}"
+                aria-label="View product media {{ forloop.index }}"
+                aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+              >
+                {{
+                  media.preview_image
+                  | image_url: width: 180
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '90, 180',
+                    sizes: '(max-width: 749px) 56px, 70px',
+                    alt: media.alt
+                  | default: product.title
+                }}
+              </button>
+            {%- endfor -%}
+          {%- else -%}
+            <button
+              type="button"
+              class="vmp-gallery__thumb is-active"
+              data-vmp-thumb="0"
+              aria-label="View product image"
+              aria-current="true"
+            >
+              {%- if section.settings.fallback_product_image_pc != blank -%}
+                {{
+                  section.settings.fallback_product_image_pc
+                  | image_url: width: 180
+                  | image_tag: loading: 'lazy', width: 70, height: 70, alt: product.title
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </button>
+          {%- endif -%}
+        </div>
+        {%- if gallery_media_count > 1 -%}
+          <button
+            class="vmp-gallery__rail-button vmp-gallery__rail-button--down"
+            type="button"
+            data-vmp-thumb-down
+            aria-label="Scroll thumbnails down"
+          >
+          <svg width="70" height="24" viewBox="0 0 70 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <mask id="path-1-inside-1_1677_602" fill="white">
+            <path d="M0 0H70V14C70 19.5228 65.5229 24 60 24H10C4.47715 24 0 19.5228 0 14V0Z"/>
+            </mask>
+            <path d="M0 0H70V14C70 19.5228 65.5229 24 60 24H10C4.47715 24 0 19.5228 0 14V0Z" fill="#F2F2F2"/>
+            <path d="M0 -1H70V1H0V-1ZM0 1M70 24H0H70M70 24M0 24V0V24M0 24M70 0V24V0" fill="#999999" mask="url(#path-1-inside-1_1677_602)"/>
+            <path d="M35.5 15.5361L41.1572 9.87988L39.7432 8.46484L35.5 12.707L31.2578 8.46484L29.8428 9.87891L35.5 15.5361Z" fill="#545454"/>
+          </svg>
+          </button>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="vmp-buybox">
+      <h1 class="vmp-buybox__title">
+        {{
+          product.title
+          | default: 'When The Platform Feels Steady, Your Focus Returns To The Mission, Not The Motion'
+        }}
+      </h1>
+      <a class="vmp-rating" href="#VmpPanel-reviews-{{ section.id }}" data-vmp-open-tab="reviews">
+        <strong>{{ rating_value }}</strong>
+        <span class="vmp-stars" aria-label="{{ rating_value }} out of 5 stars">★★★★★</span>
+        <span>{{ review_count }} Reviews</span>
+      </a>
+      <div class="vmp-price" aria-live="polite">
+        <span class="vmp-price__current" data-vmp-price>{{ current_variant.price | money }}</span>
+        <span class="vmp-price__discount{% if sale_percent == 0 %} is-hidden{% endif %}" data-vmp-discount>
+          {%- if sale_percent > 0 %}-{{ sale_percent }}%{% endif -%}
+        </span>
+        <s
+          class="vmp-price__compare{% unless compare_price > current_variant.price %} is-hidden{% endunless %}"
+          data-vmp-compare
+        >
+          {%- if compare_price > current_variant.price %}{{ compare_price | money }}{% endif -%}
+        </s>
+      </div>
+      <p class="vmp-installments">
+        Or 4 Interest-Free Payments Of
+        <strong data-vmp-quarter-price>{{ current_variant.price | divided_by: 4 | money }}</strong> With Klarna |
+        Afterpay
+      </p>
+      <div class="vmp-buybox__points rte">{{ section.settings.purchase_points }}</div>
+
+      {%- form 'product', product, id: form_id, class: 'vmp-form', novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}" data-vmp-variant-id>
+        {%- unless product.has_only_default_variant -%}
+          <div class="vmp-options">
+            {%- for option in product.options_with_values -%}
+              <fieldset class="vmp-option" data-vmp-option="{{ option.position }}">
+                <legend>
+                  {{ option.name }}: <span data-vmp-option-label>{{ option.selected_value }}</span>
+                </legend>
+                <div class="vmp-option__values">
+                  {%- for value in option.values -%}
+                    <label class="vmp-option__value{% if option.selected_value == value %} is-selected{% endif %}">
+                      <input
+                        type="radio"
+                        name="options[{{ option.name | escape }}]"
+                        value="{{ value | escape }}"
+                        {% if option.selected_value == value %}
+                          checked
+                        {% endif %}
+                      >
+                      <span>{{ value }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+
+        <div class="vmp-actions">
+          <div class="vmp-quantity" data-vmp-quantity>
+            <button type="button" data-vmp-quantity-minus aria-label="Decrease quantity">−</button>
+            <input
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              inputmode="numeric"
+              aria-label="Quantity"
+              data-vmp-quantity-input
+            >
+            <button type="button" data-vmp-quantity-plus aria-label="Increase quantity">+</button>
+          </div>
+          <button
+            type="submit"
+            name="add"
+            class="vmp-button vmp-button--primary"
+            data-vmp-add-to-cart
+            {% unless current_variant.available %}
+              disabled
+            {% endunless %}
+          >
+            <span data-vmp-add-label>
+              {%- if current_variant.available %}Add To Cart{% else %}Sold Out{% endif -%}
+            </span>
+          </button>
+        </div>
+        {%- case section.settings.secondary_purchase_action -%}
+          {%- when 'dynamic' -%}
+            <div
+              class="vmp-dynamic-checkout{% unless current_variant.available %} is-hidden{% endunless %}"
+              data-vmp-secondary
+            >
+              {{ form | payment_button }}
+            </div>
+          {%- when 'buy_now' -%}
+            <button
+              type="button"
+              class="vmp-button vmp-button--secondary"
+              data-vmp-buy-now
+              {% unless current_variant.available %}
+                disabled
+              {% endunless %}
+            >
+              {% if current_variant.available %}Buy Now{% else %}Sold Out{% endif %}
+            </button>
+        {%- endcase -%}
+      {%- endform -%}
+
+      <div class="vmp-payments" aria-label="Accepted payment methods">
+        {%- assign payment_types = shop.enabled_payment_types -%}
+        {%- if payment_types == blank -%}
+          {%- assign payment_types = 'visa,master,american_express,paypal,shopify_pay,klarna' | split: ',' -%}
+        {%- endif -%}
+        {%- for type in payment_types limit: 10 -%}
+          {{ type | payment_type_svg_tag }}
+        {%- endfor -%}
+      </div>
+      <div class="vmp-benefits">
+        <div>
+          <span class="vmp-benefits__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.06445 8.41895C3.18733 8.41895 3.28898 8.43692 3.38379 8.47852L3.39453 8.4834L3.40527 8.4873L10.2402 11.125L10.2451 11.127C10.5386 11.2363 10.8334 11.477 11.0566 11.8027C11.2793 12.1278 11.4053 12.5011 11.4053 12.8398V21.6396C11.3822 22.154 11.0546 22.4336 10.667 22.4336C10.535 22.4335 10.4117 22.4129 10.3232 22.374L10.3145 22.3701L10.3047 22.3662L3.56934 19.7285L3.56641 19.7275L3.45996 19.6807C2.93393 19.4163 2.50015 18.7276 2.5 18.0137V9.21289C2.5 8.90491 2.58252 8.70308 2.67676 8.58887C2.7632 8.48425 2.88536 8.41904 3.06445 8.41895ZM21.7861 8.41895C22.1792 8.41895 22.5 8.70333 22.5 9.21289V18.0137C22.4999 18.3479 22.3703 18.7185 22.1416 19.0449C21.9123 19.3721 21.6104 19.6154 21.3145 19.7256L21.3135 19.7266L14.4795 22.2881L14.4541 22.2969C14.4471 22.2971 14.4366 22.2984 14.4219 22.2979C14.3908 22.2968 14.3588 22.2941 14.3076 22.29C14.268 22.2869 14.2151 22.2832 14.1592 22.2822V22.2812C13.9365 22.2812 13.8232 22.2182 13.7617 22.1533C13.6965 22.0843 13.6191 21.9377 13.6191 21.6396V12.8398C13.6191 12.1168 14.0382 11.4332 14.5557 11.1719L14.6602 11.125L14.6631 11.124L21.3994 8.48633L21.4092 8.48242L21.418 8.47852C21.5038 8.44085 21.625 8.41898 21.7861 8.41895ZM12.3018 2.43359C12.782 2.43359 13.2073 2.50549 13.499 2.625L13.5117 2.62988L21.2383 5.5459V5.54688L21.248 5.5498C21.4989 5.63874 21.58 5.73127 21.6045 5.7666C21.6275 5.79975 21.6328 5.82904 21.6328 5.86523C21.6324 5.87077 21.6287 5.89784 21.5996 5.93848C21.5633 5.98912 21.4671 6.08849 21.2256 6.1875L13.541 9.09668C13.2327 9.20019 12.7982 9.27051 12.3262 9.27051C11.8465 9.27046 11.4215 9.19941 11.1299 9.08008L11.1221 9.07715L11.1152 9.07422L3.38867 6.18262L3.38086 6.17969L3.22266 6.11328C3.09258 6.04811 3.04185 5.9894 3.02344 5.96289C3.00069 5.93 2.99516 5.9011 2.99512 5.86523C2.99512 5.86367 2.99648 5.8355 3.02832 5.79102C3.05546 5.75311 3.1165 5.68758 3.24707 5.61523L3.40332 5.54102L11.0918 2.62988L11.1045 2.625C11.3962 2.5055 11.8216 2.43361 12.3018 2.43359Z" stroke="#AAAAAA"/>
+            </svg></span
+          ><span
+            >Free<br>
+            Shipping</span
+          >
+        </div>
+        <div>
+          <span class="vmp-benefits__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18.9004 2.43359L19.0049 2.44238C19.1078 2.45889 19.2061 2.49699 19.293 2.55371C19.4099 2.63003 19.5009 2.73623 19.5557 2.85742L19.5576 2.86328L21.4277 6.86816C21.4764 6.97352 21.5014 7.09105 21.5 7.21484V20.2168C21.4998 20.8813 20.9505 21.4333 20.2549 21.4336H3.74512C3.41223 21.4332 3.0942 21.3026 2.86133 21.0732C2.62904 20.8443 2.50012 20.5357 2.5 20.2158V7.20508L2.50488 7.11816C2.51422 7.03162 2.53768 6.94604 2.57422 6.86426L4.39648 2.87012L4.40039 2.86133C4.49602 2.63998 4.70182 2.48088 4.94531 2.44238L5.05273 2.43359H18.9004ZM5.56934 2.74316C5.42334 2.7434 5.27946 2.78519 5.15625 2.86523C5.03786 2.94214 4.94362 3.0516 4.88379 3.18066L3.52637 6.01855V6.02051C3.43823 6.20649 3.42664 6.41994 3.49512 6.61426L3.49609 6.61816C3.5488 6.76379 3.64448 6.88902 3.76855 6.97949C3.88522 7.06456 4.03024 7.12248 4.19141 7.12988H19.7119L19.7344 7.12793C19.8583 7.11655 19.9781 7.07478 20.084 7.00684L20.085 7.00781C20.1859 6.94307 20.2693 6.85452 20.3311 6.75098L20.333 6.75195C20.3353 6.74824 20.3367 6.74398 20.3389 6.74023C20.3397 6.73883 20.341 6.73774 20.3418 6.73633L20.3408 6.73535C20.4009 6.63209 20.4373 6.51703 20.4453 6.39844V6.39648C20.4532 6.27123 20.431 6.14565 20.3799 6.03125L20.374 6.02051L19.0186 3.18066H19.0176C18.9579 3.05174 18.8643 2.94212 18.7461 2.86523H18.7451C18.622 2.78549 18.4787 2.74309 18.332 2.74316H5.56934Z" stroke="#AAAAAA"/>
+              <path d="M6.5 12H16.5L14 9" stroke="#AAAAAA"/>
+              <path d="M17.5 15H7.5L10 18" stroke="#AAAAAA"/>
+            </svg></span
+          ><span
+            >30-Day<br>
+            Returns</span
+          >
+        </div>
+        <div>
+          <span class="vmp-benefits__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.2148 1.43359C13.1634 1.4336 12.1464 1.63376 11.1865 2.02539C10.3294 2.37458 9.55565 2.86192 8.88281 3.47656L8.60059 3.74805C7.57481 4.78256 6.8579 6.0752 6.5166 7.5L6.45312 7.78711C6.15044 9.27394 6.26986 10.8275 6.79492 12.2852L6.90137 12.582L6.67969 12.8066L2.37402 17.1553V17.1562C1.81128 17.7274 1.5 18.4874 1.5 19.3086C1.5 19.3153 1.49997 19.3196 1.5 19.3232L1.50684 19.3584L1.50488 19.4102C1.48441 20.1738 1.75986 20.9363 2.32227 21.5049L2.33789 21.5205L2.35156 21.5371C2.85761 22.1465 3.55305 22.4307 4.31348 22.4307H4.35938L4.37305 22.4316C4.40433 22.4334 4.44083 22.4336 4.49414 22.4336C5.32829 22.4335 6.07143 22.1078 6.60254 21.5234L6.60938 21.5156L6.61719 21.5078L10.8018 17.2783L11.041 17.0361L11.3535 17.1699C12.3951 17.6164 13.4872 17.8438 14.6084 17.8438C15.6563 17.8437 16.6703 17.6414 17.6221 17.25H17.623C18.6007 16.8464 19.4696 16.2571 20.2021 15.499L20.207 15.4951L20.4014 15.29C21.3559 14.2512 22.0194 12.9541 22.3203 11.5166C22.4509 10.8894 22.5105 10.2586 22.498 9.62891V9.62598C22.4855 8.71885 22.3257 7.80916 22.0127 6.93848L22.4824 6.76953L22.0117 6.93848L22.0078 6.92578L21.8682 6.5L17.0195 11.3994L16.6641 11.7588L16.3086 11.3984L12.6396 7.68457L12.292 7.33301L12.6396 6.98145L17.4961 2.07227L17.0732 1.93066V1.93164L17.0645 1.92773C16.3105 1.65772 15.5371 1.50111 14.7666 1.45215H14.749L14.7285 1.4502C14.7248 1.44988 14.7188 1.44996 14.7012 1.44922C14.6898 1.44874 14.6709 1.4468 14.6494 1.44531L14.6484 1.44629C14.4997 1.43851 14.3574 1.43359 14.2148 1.43359Z" stroke="#AAAAAA"/>
+            </svg></span
+          ><span
+            >2-Year<br>
+            Warranty</span
+          >
+        </div>
+        <div>
+          <span class="vmp-benefits__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_1683_11036)">
+              <path d="M22.4922 3.89062V10.8535C22.4922 13.9513 22.699 16.1921 20.8516 18.5176C18.9881 20.8631 15.4432 22.714 12.5 23.418C9.55679 22.714 6.01185 20.8631 4.14844 18.5176C2.30102 16.1921 2.50781 13.9512 2.50781 10.8535V3.89062L12.499 0.460938L22.4922 3.89062Z" stroke="#AAAAAA"/>
+              <path d="M12.5 7.63281C13.1013 7.63284 13.5968 7.82468 14.0146 8.20703C14.4312 8.58816 14.623 9.022 14.623 9.5332V11.2324H15.123C15.3818 11.2325 15.5693 11.3087 15.7197 11.4463C15.8678 11.5818 15.9345 11.7334 15.9346 11.9326V15.5332C15.9345 15.7323 15.8676 15.8832 15.7197 16.0186C15.5693 16.1562 15.3819 16.2324 15.123 16.2324H9.87695C9.618 16.2324 9.43078 16.1563 9.28027 16.0186C9.1323 15.8831 9.06552 15.7323 9.06543 15.5332V11.9326C9.06547 11.7334 9.13222 11.5818 9.28027 11.4463C9.43072 11.3088 9.6182 11.2324 9.87695 11.2324H10.377V9.5332C10.377 9.02197 10.5688 8.58818 10.9854 8.20703C11.4032 7.8247 11.8987 7.63281 12.5 7.63281ZM12.5 7.83301C12.0158 7.83301 11.5798 7.9863 11.2275 8.30859C10.8729 8.63308 10.6885 9.05257 10.6885 9.5332V11.2324H14.3115V9.5332C14.3115 9.05255 14.1261 8.63308 13.7715 8.30859C13.4193 7.98655 12.984 7.83303 12.5 7.83301Z" stroke="#AAAAAA"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_1683_11036">
+              <rect width="24" height="24" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg></span
+          ><span
+            >Secure<br>
+            Checkout</span
+          >
+        </div>
+      </div>
+      {%- if section.settings.eco_message != blank -%}
+        <p class="vmp-eco">{{ section.settings.eco_message }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="vmp-tabs" data-vmp-tabs>
+    <div class="vmp-tabs__nav-wrap">
+      <div class="vmp-tabs__nav" role="tablist" aria-label="Product information">
+        <button
+          id="VmpTab-product-{{ section.id }}"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          aria-controls="VmpPanel-product-{{ section.id }}"
+          class="is-active"
+          data-vmp-tab="product"
+        >
+          {{ product_tab.settings.label | default: 'Product' }}
+        </button>
+        <button
+          id="VmpTab-shipping-{{ section.id }}"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          aria-controls="VmpPanel-shipping-{{ section.id }}"
+          data-vmp-tab="shipping"
+        >
+          {{ shipping_tab.settings.label | default: 'Shipping & Returns' }}
+        </button>
+        <button
+          id="VmpTab-video-{{ section.id }}"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          aria-controls="VmpPanel-video-{{ section.id }}"
+          data-vmp-tab="video"
+        >
+          {{ video_tab.settings.label | default: 'Video' }}
+        </button>
+        <button
+          id="VmpTab-reviews-{{ section.id }}"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          aria-controls="VmpPanel-reviews-{{ section.id }}"
+          data-vmp-tab="reviews"
+        >
+          {{ reviews_tab.settings.label | default: 'Reviews' }}
+        </button>
+      </div>
+    </div>
+
+    <section
+      id="VmpPanel-product-{{ section.id }}"
+      class="vmp-panel vmp-panel--product is-active"
+      role="tabpanel"
+      aria-labelledby="VmpTab-product-{{ section.id }}"
+      data-vmp-panel="product"
+      {{ product_tab.shopify_attributes }}
+    >
+      {%- assign product_tab_image_pc = product_tab.settings.image_pc -%}
+      {%- assign product_tab_image_mobile = product_tab.settings.image_mobile | default: product_tab_image_pc -%}
+      <div class="vmp-product-art">
+        {%- if product_tab_image_pc != blank -%}
+          <picture class="vmp-picture">
+            <source media="(max-width: 749px)" srcset="{{ product_tab_image_mobile | image_url: width: 900 }}">
+            {{
+              product_tab_image_pc
+              | image_url: width: 2400
+              | image_tag:
+                loading: 'lazy',
+                widths: '900, 1200, 1600, 1920, 2400',
+                sizes: '100vw',
+                alt: product_tab.settings.alt
+              | default: 'Product specifications and technical details'
+            }}
+          </picture>
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </section>
+
+    <section
+      id="VmpPanel-shipping-{{ section.id }}"
+      class="vmp-panel vmp-panel--shipping"
+      role="tabpanel"
+      aria-labelledby="VmpTab-shipping-{{ section.id }}"
+      data-vmp-panel="shipping"
+      hidden
+      {{ shipping_tab.shopify_attributes }}
+    >
+      <div class="vmp-shipping">
+        <h2>
+          Shipping And<br>
+          Return Policy
+        </h2>
+        <div class="vmp-shipping__row">
+          <h3>Shipping &amp; Delivery</h3>
+          <p>
+            We offer free shipping within the United States. For orders outside the United States, shipping costs are
+            calculated based on the destination, shipping distance, and product weight, and the final shipping fee will
+            be displayed at checkout. Delivery times may vary depending on your location, shipping method, and carrier
+            availability. Most U.S. orders arrive within 3–5 business days after shipment, while international orders
+            typically arrive within 7–15 business days after shipment. Oversized products such as paddle boards may
+            require special handling, which could affect delivery times.
+          </p>
+        </div>
+        <div class="vmp-shipping__row">
+          <h3>Order Processing</h3>
+          <p>
+            We are committed to providing a fast and reliable shipping experience. Once your order is placed and payment
+            is verified, you will receive an order confirmation email, and we will begin preparing your order
+            immediately. Orders are typically processed within 1–3 business days (excluding weekends and holidays). Once
+            your order has been shipped, you will receive a shipping confirmation email with tracking information.
+          </p>
+        </div>
+        <div class="vmp-shipping__features">
+          <div>
+            <span class="vmp-shipping__icon">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 43.4652V59H76V17H25.8585L25.8584 43.4652H3Z" stroke="#212121" stroke-width="2.5"/>
+                <rect x="11.25" y="53.25" width="15.5" height="15.5" rx="7.75" fill="#F3F3F3" stroke="#212121" stroke-width="2.5"/>
+                <rect x="52.25" y="53.25" width="15.5" height="15.5" rx="7.75" fill="#F3F3F3" stroke="#212121" stroke-width="2.5"/>
+                <path d="M11 44L14.2143 32H26" stroke="#212121" stroke-width="2.5"/>
+              </svg></span
+            ><strong>Fast Delivery</strong><span>3–5 Business Days</span>
+          </div>
+          <div>
+            <span class="vmp-shipping__icon">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.2451 27.8555C11.6516 27.8555 12.0049 27.9119 12.3408 28.0547L12.3662 28.0654L12.3926 28.0752L33.2227 35.8633L33.2295 35.8652L33.2363 35.8682C34.1993 36.2157 35.137 36.9689 35.8379 37.96C36.5383 38.9505 36.9385 40.0887 36.9385 41.1318V67.0859C36.8787 68.6973 35.8049 69.6836 34.415 69.6836C33.986 69.6836 33.5649 69.6198 33.2441 69.4834L33.2207 69.4736L33.1982 69.4658L12.6699 61.6777L12.6621 61.6748C10.7871 60.977 9.25009 58.7113 9.25 56.4072V30.4238C9.25002 29.4854 9.50903 28.8413 9.83887 28.4541C10.1519 28.0869 10.606 27.8555 11.2451 27.8555ZM68.3018 27.8555C69.7008 27.8555 70.75 28.8438 70.75 30.4238V56.4072C70.7499 57.4391 70.3387 58.5738 69.6191 59.5684C68.8996 60.5629 67.9405 61.3214 66.9717 61.6709L66.9697 61.6719L46.1396 69.2344L46.0732 69.2588L46.0107 69.29C46.0708 69.2603 46.0645 69.2897 45.8447 69.2822C45.7413 69.2787 45.6362 69.2695 45.4834 69.2578C45.3641 69.2487 45.2141 69.2391 45.0566 69.2363V69.2344C44.3109 69.2344 43.8801 69.0254 43.6309 68.7695C43.3778 68.5097 43.1368 68.0218 43.1367 67.1152V41.1318C43.1367 38.8031 44.6193 36.5532 46.4736 35.8633L46.4814 35.8604L67.0098 28.0732L67.0322 28.0645L67.0547 28.0547C67.3689 27.9211 67.7866 27.8555 68.3018 27.8555ZM39.3965 10.1836C40.8851 10.1836 42.2241 10.3977 43.1611 10.7695L43.1777 10.7754L43.1934 10.7812L66.7402 19.3926L66.7637 19.4004C67.5732 19.6784 67.8736 19.9813 67.9844 20.1357C68.0883 20.2809 68.1084 20.4108 68.1084 20.54C68.1084 20.5593 68.1047 20.6863 67.9668 20.873C67.8252 21.0646 67.4909 21.3862 66.7188 21.6943L43.3008 30.2861C42.3215 30.6092 40.9513 30.8213 39.4717 30.8213C37.9828 30.8213 36.6432 30.6073 35.7061 30.2354L35.6885 30.2285L35.6709 30.2227L12.124 21.6855L12.1143 21.6826L12.1045 21.6787L11.8242 21.5742C11.2227 21.328 10.9807 21.0796 10.8838 20.9443C10.7797 20.7991 10.7598 20.6693 10.7598 20.54C10.7598 20.5213 10.7628 20.3935 10.9014 20.2061C11.043 20.0145 11.3769 19.6927 12.1484 19.3848L35.6006 10.7812L35.6152 10.7754L35.6309 10.7695C36.568 10.3976 37.9076 10.1836 39.3965 10.1836Z" stroke="#212121" stroke-width="2.5"/>
+              </svg></span
+            ><strong>Protective Packaging</strong><span>Designed for oversized outdoor gear</span>
+          </div>
+          <div>
+            <span class="vmp-shipping__icon">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_1677_1336)">
+                <path d="M48.5 3.18359C55.8495 3.18359 61.8688 5.71128 66.0615 10.332C70.2656 14.9654 72.75 21.8338 72.75 30.7188C72.75 41.3649 66.6267 50.8747 60.3242 57.8203C57.1897 61.2747 54.0513 64.0498 51.6963 65.9609C50.5198 66.9157 49.5411 67.6528 48.8594 68.1494C48.729 68.2444 48.6079 68.3281 48.5 68.4053C48.3921 68.3281 48.271 68.2444 48.1406 68.1494C47.4589 67.6528 46.4802 66.9157 45.3037 65.9609C42.9487 64.0498 39.8103 61.2747 36.6758 57.8203C30.3733 50.8747 24.25 41.3649 24.25 30.7188C24.25 21.8338 26.7344 14.9654 30.9385 10.332C35.1312 5.71128 41.1505 3.18359 48.5 3.18359Z" stroke="#212121" stroke-width="2.5"/>
+                <rect x="40.25" y="20.1836" width="16.5" height="16.5" rx="8.25" stroke="#212121" stroke-width="2.5"/>
+                <path d="M3 47.9648C8.66667 47.6409 22 49.8588 22 53.5514C22 58.1671 18.5 59.1389 13 62.297C7.5 65.4551 10 74.6861 27 74.929C44 75.1719 54 65.6976 62 64.4829C70 63.2682 71.5 65.6991 80 67.6425" stroke="#212121" stroke-width="2.5" stroke-dasharray="5 5"/>
+                </g>
+                <defs>
+                <clipPath id="clip0_1677_1336">
+                <rect width="80" height="80" fill="white"/>
+                </clipPath>
+                </defs>
+              </svg></span
+            ><strong>Track Your Order</strong><span>Follow your shipment anytime</span>
+          </div>
+          <div>
+            <span class="vmp-shipping__icon">
+              <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M70.2256 15.4746V36.2383C70.2256 45.376 70.8483 52.0995 65.334 59.0547C59.7805 66.0591 49.2325 71.5666 40.5 73.6475C31.7675 71.5666 21.2205 66.0592 15.667 59.0547C10.1526 52.0995 10.7744 45.3758 10.7744 36.2383V15.4746L40.5 5.25488L70.2256 15.4746Z" stroke="#212121" stroke-width="2.5"/>
+                <path d="M27.8711 34.8545C27.9215 34.8545 27.9562 34.8579 27.9805 34.8623C28.0036 34.8665 28.0217 34.8727 28.0381 34.8799L28.0635 34.8916L28.0898 34.9014L36.8896 38.2969L36.8965 38.2998L36.9033 38.3018C37.1418 38.3906 37.4277 38.6094 37.6592 38.9473C37.8892 39.283 38.0019 39.6453 38.002 39.9385V51.2363C37.9934 51.4429 37.9247 51.5529 37.8779 51.6016C37.8347 51.6465 37.7706 51.6836 37.6582 51.6836C37.6057 51.6836 37.5572 51.6796 37.5176 51.6729C37.4987 51.6696 37.4841 51.6661 37.4736 51.6631C37.4639 51.6603 37.459 51.6582 37.459 51.6582L37.4121 51.6387L28.7412 48.2432L28.7334 48.2402C28.2629 48.0595 27.7501 47.3653 27.75 46.5996V35.2695C27.75 34.9968 27.8182 34.8821 27.8359 34.8574C27.843 34.8562 27.8545 34.8545 27.8711 34.8545ZM52.9375 34.8545C53.0516 34.8545 53.1117 34.893 53.1475 34.9307C53.1856 34.971 53.25 35.0699 53.25 35.2695V46.5996C53.25 46.8819 53.1364 47.2405 52.8984 47.5801C52.6594 47.9212 52.3635 48.1453 52.1191 48.2363L52.1162 48.2373L43.3984 51.5029C43.3867 51.502 43.3731 51.5013 43.3564 51.5C43.3252 51.4975 43.2846 51.4946 43.2412 51.4922C43.2055 51.4902 43.1642 51.4889 43.1191 51.4883V51.4873C43.0912 51.4873 43.0686 51.4813 43.0508 51.4795C43.0413 51.4366 43.0293 51.3686 43.0293 51.2686V39.9385C43.0294 39.1483 43.5312 38.4708 43.9814 38.2979L43.9893 38.2949L52.6602 34.8994L52.707 34.8799C52.7082 34.8794 52.7246 34.8725 52.7627 34.8662C52.8042 34.8594 52.8618 34.8545 52.9375 34.8545ZM39.7617 26.1836C40.3313 26.1836 40.7943 26.2696 41.0732 26.3838L41.0898 26.3906L41.1064 26.3965L50.6377 29.9941L41.1758 33.5781C40.8539 33.688 40.3568 33.7725 39.7939 33.7725C39.2241 33.7724 38.7613 33.6865 38.4824 33.5723L38.4648 33.5645L38.4473 33.5576L28.9209 29.9932L38.4199 26.3965L38.4355 26.3906L38.4512 26.3838C38.73 26.2697 39.1924 26.1836 39.7617 26.1836Z" stroke="#212121" stroke-width="2.5"/>
+              </svg></span
+            ><strong>Shipping Protection</strong><span>Support when you need it</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="VmpPanel-video-{{ section.id }}"
+      class="vmp-panel vmp-panel--video"
+      role="tabpanel"
+      aria-labelledby="VmpTab-video-{{ section.id }}"
+      data-vmp-panel="video"
+      hidden
+      {{ video_tab.shopify_attributes }}
+    >
+      <div class="vmp-video">
+        <h2>{{ video_tab.settings.heading | default: 'Easy To Use, Even For Beginners' }}</h2>
+        <div class="vmp-video__frame" data-vmp-video-shell>
+          <div class="vmp-video__cover" data-vmp-video-cover>
+            {%- assign video_cover_pc = video_tab.settings.cover_image_pc -%}
+            {%- assign video_cover_mobile = video_tab.settings.cover_image_mobile | default: video_cover_pc -%}
+            {%- if video_cover_pc != blank -%}
+              <picture class="vmp-picture">
+                <source media="(max-width: 749px)" srcset="{{ video_cover_mobile | image_url: width: 900 }}">
+                {{
+                  video_cover_pc
+                  | image_url: width: 1800
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '600, 1000, 1400, 1800',
+                    sizes: '(max-width: 749px) 100vw, 1264px',
+                    alt: video_tab.settings.heading
+                }}
+              </picture>
+            {%- elsif video_tab.settings.video.preview_image != blank -%}
+              {{
+                video_tab.settings.video.preview_image
+                | image_url: width: 1800
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '600, 1000, 1400, 1800',
+                  sizes: '(max-width: 749px) 100vw, 1264px',
+                  alt: video_tab.settings.heading
+              }}
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+            {%- if video_tab.settings.video != blank or video_tab.settings.external_video != blank -%}
+              <button type="button" class="vmp-video__play" data-vmp-video-play aria-label="Play product video">
+                <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M105.673 33.5865C102.897 27.0308 98.9348 21.1528 93.891 16.109C88.8472 11.0652 82.9562 7.09004 76.4135 4.32701C69.6363 1.45971 62.4289 0 55 0C47.5711 0 40.3768 1.44668 33.5865 4.32701C27.0308 7.10308 21.1528 11.0652 16.109 16.109C11.0652 21.1528 7.09005 27.0438 4.32702 33.5865C1.45972 40.3637 0 47.5711 0 55C0 62.4289 1.45972 69.6232 4.32702 76.4135C7.10308 82.9692 11.0652 88.8471 16.109 93.891C21.1528 98.9348 27.0438 102.91 33.5865 105.673C40.3637 108.54 47.5711 110 55 110C62.4289 110 69.6232 108.54 76.4135 105.673C82.9692 102.897 88.8472 98.9348 93.891 93.891C98.9348 88.8471 102.91 82.9561 105.673 76.4135C108.54 69.6362 110 62.4289 110 55C110 47.5711 108.553 40.3768 105.673 33.5865Z" fill="black" fill-opacity="0.3"/>
+                  <path d="M68.9323 54.1804L50.4588 41.201C49.6101 40.6115 48.4717 41.2113 48.4717 42.2456V68.2044C48.4717 69.2386 49.6101 69.8385 50.4588 69.249L68.9427 56.2695C69.6671 55.7628 69.6568 54.6872 68.9323 54.1804Z" fill="white"/>
+                </svg>
+              </button>
+            {%- endif -%}
+          </div>
+          {%- if video_tab.settings.video != blank or video_tab.settings.external_video != blank -%}
+            <div class="vmp-video__player" data-vmp-video-player hidden>
+              {%- if video_tab.settings.video != blank -%}
+                {{
+                  video_tab.settings.video
+                  | video_tag: controls: true, autoplay: false, loop: false, muted: false, image_size: '1800x'
+                }}
+              {%- elsif video_tab.settings.external_video.type == 'youtube' -%}
+                <iframe
+                  src="https://www.youtube.com/embed/{{ video_tab.settings.external_video.id }}"
+                  title="{{ video_tab.settings.heading | escape }}"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              {%- else -%}
+                <iframe
+                  src="https://player.vimeo.com/video/{{ video_tab.settings.external_video.id }}"
+                  title="{{ video_tab.settings.heading | escape }}"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="VmpPanel-reviews-{{ section.id }}"
+      class="vmp-panel vmp-panel--reviews"
+      role="tabpanel"
+      aria-labelledby="VmpTab-reviews-{{ section.id }}"
+      data-vmp-panel="reviews"
+      hidden
+      {{ reviews_tab.shopify_attributes }}
+    >
+      <div class="vmp-reviews">
+        <h2>{{ reviews_tab.settings.heading | default: 'Customer Reviews' }}</h2>
+        <div class="vmp-reviews__app">
+          {%- for block in section.blocks -%}
+            {%- if block.type == '@app' -%}
+              <div {{ block.shopify_attributes }}>{% render block %}</div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  {%- if section.settings.show_social_gallery -%}
+    <section class="vmp-social" data-vmp-social aria-labelledby="VmpSocialHeading-{{ section.id }}">
+      <div class="vmp-social__inner">
+        <header class="vmp-social__header">
+          <h2 id="VmpSocialHeading-{{ section.id }}">
+            {{ section.settings.social_heading | default: 'Social Media Gallery' }}
+          </h2>
+          <a
+            class="vmp-social__more"
+            href="{{ section.settings.social_button_url | default: routes.all_products_collection_url }}"
+          >
+            {{- section.settings.social_button_label | default: 'More Items' }}
+            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.0737 0.351562L18.4965 1.75714L1.42301 18.6241L0.000214174 17.2185L17.0737 0.351562Z" fill="white"/>
+              <rect x="18.6885" width="2" height="16" transform="rotate(90 18.6885 0)" fill="white"/>
+              <rect x="16.6885" width="2" height="16" fill="white"/>
+            </svg>
+          </a>
+        </header>
+        <div class="vmp-social__viewport" data-vmp-social-viewport>
+          <div class="vmp-social__track">
+            {%- assign social_rendered_index = 0 -%}
+            {%- for i in (1..3) -%}
+              {%- liquid
+                assign image_pc_key = 'social_image_' | append: i | append: '_pc'
+                assign image_mobile_key = 'social_image_' | append: i | append: '_mobile'
+                assign caption_key = 'social_caption_' | append: i
+                assign url_key = 'social_url_' | append: i
+                assign gallery_image_pc = section.settings[image_pc_key]
+                assign gallery_image_mobile = section.settings[image_mobile_key] | default: gallery_image_pc
+                assign gallery_caption = section.settings[caption_key]
+                assign gallery_url = section.settings[url_key] | default: '#'
+              -%}
+              {%- if configured_social_count == 0 or gallery_image_pc != blank -%}
+              <article class="vmp-social__card" data-vmp-social-card="{{ social_rendered_index }}">
+                <a class="vmp-social__media" href="{{ gallery_url }}" aria-label="{{ gallery_caption | escape }}">
+                  {%- if gallery_image_pc != blank -%}
+                    <picture class="vmp-picture">
+                      <source media="(max-width: 749px)" srcset="{{ gallery_image_mobile | image_url: width: 900 }}">
+                      {{
+                        gallery_image_pc
+                        | image_url: width: 900
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '360, 540, 720, 900',
+                          sizes: '(max-width: 749px) 300px, 411px',
+                          alt: gallery_caption
+                      }}
+                    </picture>
+                  {%- else -%}
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                  <span class="vmp-social__play" aria-hidden="true">
+                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M96.0664 30.5332C93.5427 24.5735 89.9408 19.2299 85.3555 14.6445C80.7702 10.0592 75.4147 6.4455 69.4669 3.93365C63.3057 1.32701 56.7536 0 50 0C43.2465 0 36.7062 1.31517 30.5332 3.93365C24.5735 6.45735 19.2299 10.0592 14.6446 14.6445C10.0592 19.2299 6.4455 24.5853 3.93365 30.5332C1.32702 36.6943 0 43.2464 0 50C0 56.7536 1.32702 63.2938 3.93365 69.4668C6.45735 75.4265 10.0592 80.7701 14.6446 85.3555C19.2299 89.9408 24.5853 93.5545 30.5332 96.0664C36.6943 98.673 43.2465 100 50 100C56.7536 100 63.2939 98.673 69.4669 96.0664C75.4266 93.5427 80.7702 89.9408 85.3555 85.3555C89.9408 80.7701 93.5546 75.4147 96.0664 69.4668C98.673 63.3057 100 56.7536 100 50C100 43.2464 98.6849 36.7062 96.0664 30.5332Z" fill="black" fill-opacity="0.6"/>
+                      <path d="M58.6006 49.2841L41.8064 37.4846C41.0349 36.9487 40 37.494 40 38.4342V62.0331C40 62.9733 41.0349 63.5187 41.8064 62.9827L58.61 51.1833C59.2686 50.7226 59.2592 49.7448 58.6006 49.2841Z" fill="white"/>
+                    </svg>
+                  </span>
+                </a>
+                <p>{{ gallery_caption }}</p>
+              </article>
+              {%- assign social_rendered_index = social_rendered_index | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+        {%- if social_render_count > 1 -%}
+        <div class="vmp-social__controls" data-vmp-social-controls>
+          <div class="vmp-social__progress" aria-label="Social gallery slides">
+            {%- assign social_progress_index = 0 -%}
+            {%- for i in (1..3) -%}
+              {%- liquid
+                assign progress_image_key = 'social_image_' | append: i | append: '_pc'
+                assign progress_image = section.settings[progress_image_key]
+              -%}
+              {%- if configured_social_count == 0 or progress_image != blank -%}
+                <button
+                  type="button"
+                  class="{% if social_progress_index == 0 %}is-active{% endif %}"
+                  data-vmp-social-dot="{{ social_progress_index }}"
+                  aria-label="Show social gallery item {{ social_progress_index | plus: 1 }}"
+                  aria-current="{% if social_progress_index == 0 %}true{% else %}false{% endif %}"
+                ></button>
+                {%- assign social_progress_index = social_progress_index | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="vmp-social__arrows">
+            <button type="button" data-vmp-social-prev aria-label="Previous gallery item">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26 0.5C40.0833 0.5 51.5 11.9167 51.5 26C51.5 40.0833 40.0833 51.5 26 51.5C11.9167 51.5 0.5 40.0833 0.5 26C0.5 11.9167 11.9167 0.5 26 0.5Z" fill="white" stroke="#BFBFBF"/>
+                <rect width="3.46562" height="13.8625" transform="matrix(0.707321 -0.706892 0.707321 0.706892 18.0781 25.7695)" fill="#666666"/>
+                <rect width="3.46562" height="13.8625" transform="matrix(-0.707321 -0.706892 0.707321 -0.706892 19.916 27.6055)" fill="#666666"/>
+              </svg>
+            </button>
+            <button type="button" data-vmp-social-next aria-label="Next gallery item">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M26 0.5C11.9167 0.5 0.5 11.9167 0.5 26C0.5 40.0833 11.9167 51.5 26 51.5C40.0833 51.5 51.5 40.0833 51.5 26C51.5 11.9167 40.0833 0.5 26 0.5Z" fill="white" stroke="#BFBFBF"/>
+                <rect width="3.46562" height="13.8625" transform="matrix(-0.707321 -0.706892 -0.707321 0.706892 33.9219 25.7695)" fill="#666666"/>
+                <rect width="3.46562" height="13.8625" transform="matrix(0.707321 -0.706892 -0.707321 -0.706892 32.084 27.6055)" fill="#666666"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        {%- endif -%}
+        <a
+          class="vmp-social__mobile-more"
+          href="{{ section.settings.social_button_url | default: routes.all_products_collection_url }}"
+        >
+          {{- section.settings.social_button_label | default: 'Explore More' }}
+          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.0737 0.351562L18.4965 1.75714L1.42301 18.6241L0.000214174 17.2185L17.0737 0.351562Z" fill="white"/>
+            <rect x="18.6885" width="2" height="16" transform="rotate(90 18.6885 0)" fill="white"/>
+            <rect x="16.6885" width="2" height="16" fill="white"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.show_sticky_bar -%}
+    <div class="vmp-sticky" data-vmp-sticky>
+      <div class="vmp-sticky__inner">
+        <div class="vmp-sticky__product">
+          <span class="vmp-sticky__thumb">
+            {%- if product.featured_media != blank -%}
+              {{
+                product.featured_media.preview_image
+                | image_url: width: 160
+                | image_tag: loading: 'lazy', width: 80, height: 80, alt: product.title
+              }}
+            {%- elsif section.settings.fallback_product_image_pc != blank -%}
+              {{
+                section.settings.fallback_product_image_pc
+                | image_url: width: 160
+                | image_tag: loading: 'lazy', width: 80, height: 80, alt: product.title
+              }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </span>
+          <span class="vmp-sticky__title">{{ product.title }}</span>
+        </div>
+        <div class="vmp-sticky__price">
+          <strong data-vmp-sticky-price>{{ current_variant.price | money }}</strong>
+          <span
+            ><b data-vmp-sticky-discount>
+              {%- if sale_percent > 0 %}{{ sale_percent }}%{% endif -%}
+            </b>
+            <s data-vmp-sticky-compare>
+              {%- if compare_price > current_variant.price %}{{ compare_price | money }}{% endif -%}
+            </s></span
+          >
+        </div>
+        <div class="vmp-sticky__purchase">
+          <div class="vmp-quantity vmp-quantity--sticky">
+            <button type="button" data-vmp-sticky-minus aria-label="Decrease quantity">−</button>
+            <input type="number" value="1" min="1" inputmode="numeric" aria-label="Quantity" data-vmp-sticky-quantity>
+            <button type="button" data-vmp-sticky-plus aria-label="Increase quantity">+</button>
+          </div>
+          <button
+            type="button"
+            class="vmp-sticky__buy-now"
+            data-vmp-sticky-buy-now
+            {% unless current_variant.available %}
+              disabled
+            {% endunless %}
+          >
+            Buy it now
+          </button>
+          <button
+            type="button"
+            class="vmp-sticky__add"
+            data-vmp-sticky-add
+            {% unless current_variant.available %}
+              disabled
+            {% endunless %}
+          >
+            <span data-vmp-sticky-label>
+              {%- if current_variant.available %}Add To Cart{% else %}Sold Out{% endif -%}
+            </span>
+            <small data-vmp-sticky-installment>Pay in 4 · {{ current_variant.price | divided_by: 4 | money }}</small>
+          </button>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</ventral-main-product>
+
+<script>
+  (function () {
+    'use strict';
+
+    function toArray(value) {
+      return Array.prototype.slice.call(value || []);
+    }
+
+    function sameOptions(left, right) {
+      return (
+        left.length === right.length &&
+        left.every(function (value, index) {
+          return value === right[index];
+        })
+      );
+    }
+
+    class VentralMainProduct extends HTMLElement {
+      connectedCallback() {
+        if (this.dataset.initialized === 'true') return;
+        this.dataset.initialized = 'true';
+
+        this.variants = this.readVariants();
+        this.form = this.querySelector('.vmp-form');
+        this.variantInput = this.querySelector('[data-vmp-variant-id]');
+        this.quantityInput = this.querySelector('[data-vmp-quantity-input]');
+        this.stickyQuantity = this.querySelector('[data-vmp-sticky-quantity]');
+
+        this.initGallery();
+        this.initOptions();
+        this.initQuantity();
+        this.initTabs();
+        this.initForm();
+        this.initStickyBar();
+        this.initSocialGallery();
+      }
+
+      readVariants() {
+        var script = this.querySelector('[data-vmp-variants]');
+        if (!script) return [];
+        try {
+          return JSON.parse(script.textContent || '[]');
+        } catch (error) {
+          console.warn('Ventral product variants could not be read.', error);
+          return [];
+        }
+      }
+
+      money(cents) {
+        if (window.theme && theme.Currency && typeof theme.Currency.formatMoney === 'function') {
+          return theme.Currency.formatMoney(cents, theme.settings && theme.settings.moneyFormat);
+        }
+        if (window.Shopify && typeof Shopify.formatMoney === 'function') {
+          return Shopify.formatMoney(cents);
+        }
+        return '$' + (Number(cents || 0) / 100).toFixed(2);
+      }
+
+      initGallery() {
+        this.slides = toArray(this.querySelectorAll('[data-vmp-slide]'));
+        this.thumbs = toArray(this.querySelectorAll('[data-vmp-thumb]'));
+        this.galleryIndex = 0;
+
+        this.thumbs.forEach(
+          function (thumb) {
+            thumb.addEventListener(
+              'click',
+              function () {
+                this.showSlide(Number(thumb.dataset.vmpThumb || 0));
+              }.bind(this)
+            );
+          }.bind(this)
+        );
+
+        var previous = this.querySelector('[data-vmp-gallery-prev]');
+        var next = this.querySelector('[data-vmp-gallery-next]');
+        if (previous)
+          previous.addEventListener(
+            'click',
+            function () {
+              this.showSlide(this.galleryIndex - 1);
+            }.bind(this)
+          );
+        if (next)
+          next.addEventListener(
+            'click',
+            function () {
+              this.showSlide(this.galleryIndex + 1);
+            }.bind(this)
+          );
+
+        var thumbViewport = this.querySelector('[data-vmp-gallery-thumbs]');
+        var thumbUp = this.querySelector('[data-vmp-thumb-up]');
+        var thumbDown = this.querySelector('[data-vmp-thumb-down]');
+        if (thumbUp && thumbViewport)
+          thumbUp.addEventListener('click', function () {
+            thumbViewport.scrollBy({ top: -160, behavior: 'smooth' });
+          });
+        if (thumbDown && thumbViewport)
+          thumbDown.addEventListener('click', function () {
+            thumbViewport.scrollBy({ top: 160, behavior: 'smooth' });
+          });
+      }
+
+      showSlide(nextIndex) {
+        if (!this.slides.length) return;
+        var length = this.slides.length;
+        this.galleryIndex = (nextIndex + length) % length;
+
+        this.slides.forEach(
+          function (slide, index) {
+            var active = index === this.galleryIndex;
+            slide.classList.toggle('is-active', active);
+            slide.hidden = !active;
+            if (!active) {
+              toArray(slide.querySelectorAll('video')).forEach(function (video) {
+                video.pause();
+              });
+            }
+          }.bind(this)
+        );
+
+        this.thumbs.forEach(
+          function (thumb) {
+            var active = Number(thumb.dataset.vmpThumb || 0) === this.galleryIndex;
+            thumb.classList.toggle('is-active', active);
+            thumb.setAttribute('aria-current', active ? 'true' : 'false');
+          }.bind(this)
+        );
+
+        var counter = this.querySelector('[data-vmp-gallery-counter]');
+        if (counter) counter.textContent = this.galleryIndex + 1 + '/' + length;
+      }
+
+      initOptions() {
+        this.optionGroups = toArray(this.querySelectorAll('[data-vmp-option]'));
+        this.optionGroups.forEach(
+          function (group) {
+            group.addEventListener(
+              'change',
+              function (event) {
+                if (!event.target.matches("input[type='radio']")) return;
+                toArray(group.querySelectorAll('.vmp-option__value')).forEach(function (label) {
+                  label.classList.toggle('is-selected', label.contains(event.target));
+                });
+                var valueLabel = group.querySelector('[data-vmp-option-label]');
+                if (valueLabel) valueLabel.textContent = event.target.value;
+                this.selectVariant();
+              }.bind(this)
+            );
+          }.bind(this)
+        );
+      }
+
+      selectVariant() {
+        if (!this.optionGroups.length || !this.variants.length) return;
+        var selected = this.optionGroups.map(function (group) {
+          var checked = group.querySelector('input:checked');
+          return checked ? checked.value : '';
+        });
+        var variant = this.variants.find(function (candidate) {
+          return sameOptions(candidate.options || [], selected);
+        });
+        this.updateVariant(variant);
+      }
+
+      updateVariant(variant) {
+        var available = Boolean(variant && variant.available);
+        if (this.variantInput) {
+          this.variantInput.value = variant ? variant.id : '';
+          this.variantInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+        var price = variant ? variant.price : 0;
+        var compare = variant && variant.compare_at_price > price ? variant.compare_at_price : 0;
+        var discount = compare ? Math.round(((compare - price) / compare) * 100) : 0;
+
+        this.setText('[data-vmp-price]', this.money(price));
+        this.setText('[data-vmp-quarter-price]', this.money(Math.round(price / 4)));
+        this.setText('[data-vmp-sticky-price]', this.money(price));
+        this.setText('[data-vmp-sticky-quarter]', this.money(Math.round(price / 4)));
+        this.setText('[data-vmp-discount]', discount ? '-' + discount + '%' : '');
+        this.setText('[data-vmp-sticky-discount]', discount ? discount + '%' : '');
+        this.setText('[data-vmp-compare]', compare ? this.money(compare) : '');
+        this.setText('[data-vmp-sticky-compare]', compare ? this.money(compare) : '');
+
+        this.toggleHidden('[data-vmp-discount]', !discount);
+        this.toggleHidden('[data-vmp-compare]', !compare);
+
+        var addButton = this.querySelector('[data-vmp-add-to-cart]');
+        var buyButton = this.querySelector('[data-vmp-buy-now]');
+        var stickyButton = this.querySelector('[data-vmp-sticky-add]');
+        var stickyBuyButton = this.querySelector('[data-vmp-sticky-buy-now]');
+        var secondary = this.querySelector('[data-vmp-secondary]');
+
+        if (addButton) addButton.disabled = !available;
+        if (buyButton) {
+          buyButton.disabled = !available;
+          buyButton.textContent = available ? 'Buy Now' : 'Sold Out';
+        }
+        if (stickyButton) stickyButton.disabled = !available;
+        if (stickyBuyButton) stickyBuyButton.disabled = !available;
+        if (secondary) secondary.classList.toggle('is-hidden', !available);
+
+        this.setText('[data-vmp-add-label]', available ? 'Add To Cart' : 'Sold Out');
+        this.setText('[data-vmp-sticky-label]', available ? 'Add To Cart' : 'Sold Out');
+        var stickySmall = stickyButton && stickyButton.querySelector('small');
+        if (stickySmall && !available) stickySmall.textContent = 'Choose another item';
+        if (stickySmall && available)
+          stickySmall.innerHTML =
+            'Pay in 4 · <span data-vmp-sticky-quarter>' + this.money(Math.round(price / 4)) + '</span>';
+
+        this.dispatchEvent(
+          new CustomEvent('variant:change', {
+            bubbles: true,
+            detail: { variant: variant || null },
+          })
+        );
+      }
+
+      setText(selector, value) {
+        toArray(this.querySelectorAll(selector)).forEach(function (element) {
+          element.textContent = value;
+        });
+      }
+
+      toggleHidden(selector, hidden) {
+        toArray(this.querySelectorAll(selector)).forEach(function (element) {
+          element.classList.toggle('is-hidden', hidden);
+        });
+      }
+
+      initQuantity() {
+        var update = function (value) {
+          value = Math.max(1, parseInt(value, 10) || 1);
+          if (this.quantityInput) this.quantityInput.value = value;
+          if (this.stickyQuantity) this.stickyQuantity.value = value;
+        }.bind(this);
+
+        var bindPair = function (minusSelector, plusSelector, input) {
+          var minus = this.querySelector(minusSelector);
+          var plus = this.querySelector(plusSelector);
+          if (minus)
+            minus.addEventListener('click', function () {
+              update((input && input.value) - 1);
+            });
+          if (plus)
+            plus.addEventListener('click', function () {
+              update((parseInt(input && input.value, 10) || 1) + 1);
+            });
+          if (input)
+            input.addEventListener('change', function () {
+              update(input.value);
+            });
+        }.bind(this);
+
+        bindPair('[data-vmp-quantity-minus]', '[data-vmp-quantity-plus]', this.quantityInput);
+        bindPair('[data-vmp-sticky-minus]', '[data-vmp-sticky-plus]', this.stickyQuantity);
+      }
+
+      initTabs() {
+        this.tabButtons = toArray(this.querySelectorAll('[data-vmp-tab]'));
+        this.tabPanels = toArray(this.querySelectorAll('[data-vmp-panel]'));
+
+        if (this.tabsInitialized) return;
+        this.tabsInitialized = true;
+
+        this.addEventListener(
+          'click',
+          function (event) {
+            var button = event.target.closest('[data-vmp-tab]');
+            if (button && this.contains(button)) {
+              this.openTab(button.dataset.vmpTab);
+              return;
+            }
+
+            var videoButton = event.target.closest('[data-vmp-video-play]');
+            if (videoButton && this.contains(videoButton)) {
+              this.playVideo();
+              return;
+            }
+
+            var link = event.target.closest('[data-vmp-open-tab]');
+            if (!link || !this.contains(link)) return;
+            event.preventDefault();
+            this.openTab(link.dataset.vmpOpenTab);
+            var tabs = this.querySelector('[data-vmp-tabs]');
+            if (tabs) tabs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }.bind(this)
+        );
+
+        this.addEventListener(
+          'keydown',
+          function (event) {
+            var button = event.target.closest('[data-vmp-tab]');
+            if (!button || (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft')) return;
+            event.preventDefault();
+            this.tabButtons = toArray(this.querySelectorAll('[data-vmp-tab]'));
+            var index = this.tabButtons.indexOf(button);
+            var direction = event.key === 'ArrowRight' ? 1 : -1;
+            var next = (index + direction + this.tabButtons.length) % this.tabButtons.length;
+            this.tabButtons[next].focus();
+            this.openTab(this.tabButtons[next].dataset.vmpTab);
+          }.bind(this)
+        );
+      }
+
+      openTab(name) {
+        this.tabButtons = toArray(this.querySelectorAll('[data-vmp-tab]'));
+        this.tabPanels = toArray(this.querySelectorAll('[data-vmp-panel]'));
+        this.dataset.activeTab = name;
+        this.tabButtons.forEach(function (button) {
+          var active = button.dataset.vmpTab === name;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        this.tabPanels.forEach(function (panel) {
+          var active = panel.dataset.vmpPanel === name;
+          panel.classList.toggle('is-active', active);
+          panel.hidden = !active;
+        });
+      }
+
+      playVideo() {
+        var cover = this.querySelector('[data-vmp-video-cover]');
+        var player = this.querySelector('[data-vmp-video-player]');
+        if (!player) return;
+        if (cover) cover.hidden = true;
+        player.hidden = false;
+        var video = player.querySelector('video');
+        if (video && typeof video.play === 'function') video.play();
+        var frame = player.querySelector('iframe');
+        if (frame && frame.src.indexOf('autoplay=1') === -1) {
+          frame.src += (frame.src.indexOf('?') === -1 ? '?' : '&') + 'autoplay=1';
+        }
+      }
+
+      initForm() {
+        if (!this.form) return;
+        this.form.addEventListener(
+          'submit',
+          function (event) {
+            event.preventDefault();
+            this.addToCart(false, this.querySelector('[data-vmp-add-to-cart]'));
+          }.bind(this)
+        );
+
+        var buyNow = this.querySelector('[data-vmp-buy-now]');
+        if (buyNow) {
+          buyNow.addEventListener(
+            'click',
+            function () {
+              this.addToCart(true, buyNow);
+            }.bind(this)
+          );
+        }
+      }
+
+      async addToCart(goToCheckout, button) {
+        if (!this.form || !this.variantInput || !this.variantInput.value || (button && button.disabled)) return;
+        if (button) button.classList.add('is-loading');
+
+        var payload = new FormData(this.form);
+        try {
+          var response = await fetch(this.dataset.cartAddUrl || '/cart/add.js', {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body: payload,
+          });
+          var item = await response.json();
+          if (!response.ok) throw new Error(item.description || 'Unable to add this item to cart.');
+
+          if (goToCheckout) {
+            window.location.href = '/checkout';
+            return;
+          }
+
+          document.dispatchEvent(
+            new CustomEvent('ajaxProduct:added', {
+              bubbles: true,
+              detail: { product: item, addToCartBtn: button },
+            })
+          );
+          document.dispatchEvent(new CustomEvent('cart:build'));
+        } catch (error) {
+          window.alert(error.message || 'Unable to add this item to cart.');
+        } finally {
+          if (button) button.classList.remove('is-loading');
+        }
+      }
+
+      initStickyBar() {
+        var stickyAdd = this.querySelector('[data-vmp-sticky-add]');
+        if (stickyAdd) {
+          stickyAdd.addEventListener(
+            'click',
+            function () {
+              if (this.quantityInput && this.stickyQuantity) this.quantityInput.value = this.stickyQuantity.value;
+              this.addToCart(false, stickyAdd);
+            }.bind(this)
+          );
+        }
+
+        var stickyBuyNow = this.querySelector('[data-vmp-sticky-buy-now]');
+        if (stickyBuyNow) {
+          stickyBuyNow.addEventListener(
+            'click',
+            function () {
+              if (this.quantityInput && this.stickyQuantity) this.quantityInput.value = this.stickyQuantity.value;
+              this.addToCart(true, stickyBuyNow);
+            }.bind(this)
+          );
+        }
+      }
+
+      initSocialGallery() {
+        var viewport = this.querySelector('[data-vmp-social-viewport]');
+        if (!viewport) return;
+        var cards = toArray(viewport.querySelectorAll('[data-vmp-social-card]'));
+        var dots = toArray(this.querySelectorAll('[data-vmp-social-dot]'));
+        if (!cards.length) return;
+        var previous = this.querySelector('[data-vmp-social-prev]');
+        var next = this.querySelector('[data-vmp-social-next]');
+        var activeIndex = 0;
+        var updateControls = function (index) {
+          activeIndex = (index + cards.length) % cards.length;
+          dots.forEach(function (dot, dotIndex) {
+            var active = dotIndex === activeIndex;
+            dot.classList.toggle('is-active', active);
+            dot.setAttribute('aria-current', active ? 'true' : 'false');
+          });
+        };
+        var showCard = function (index) {
+          index = (index + cards.length) % cards.length;
+          updateControls(index);
+          viewport.scrollTo({ left: cards[index].offsetLeft, behavior: 'smooth' });
+        };
+        if (previous)
+          previous.addEventListener('click', function () {
+            showCard(activeIndex - 1);
+          });
+        if (next)
+          next.addEventListener('click', function () {
+            showCard(activeIndex + 1);
+          });
+        dots.forEach(function (dot, index) {
+          dot.addEventListener('click', function () {
+            showCard(index);
+          });
+        });
+
+        var scrollFrame = null;
+        viewport.addEventListener(
+          'scroll',
+          function () {
+            if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
+            scrollFrame = window.requestAnimationFrame(function () {
+              var closest = 0;
+              var closestDistance = Infinity;
+              cards.forEach(function (card, index) {
+                var distance = Math.abs(card.offsetLeft - viewport.scrollLeft);
+                if (distance < closestDistance) {
+                  closestDistance = distance;
+                  closest = index;
+                }
+              });
+              updateControls(closest);
+            });
+          },
+          { passive: true }
+        );
+      }
+    }
+
+    if (!customElements.get('ventral-main-product')) {
+      customElements.define('ventral-main-product', VentralMainProduct);
+    }
+  })();
+</script>
 
 {% schema %}
 {
-  "name": "t:sections.main-product.name",
+  "name": "Ventral product page",
+  "tag": "section",
+  "class": "ventral-main-product-section",
   "settings": [
     {
+      "type": "header",
+      "content": "Purchase panel"
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Fallback rating",
+      "default": "5.0"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Fallback review count",
+      "default": "82,589"
+    },
+    {
+      "type": "richtext",
+      "id": "purchase_points",
+      "label": "How it works points",
+      "default": "<p><strong>How It Works</strong></p><ul><li>Track every movement with precision</li><li>AI coaching shows you what to do next</li><li>Real-time audio feedback reacts as you ride</li></ul>"
+    },
+    {
+      "type": "text",
+      "id": "eco_message",
+      "label": "Eco message",
+      "default": "Engineered for speed and precision using less material."
+    },
+    {
+      "type": "select",
+      "id": "secondary_purchase_action",
+      "label": "Second purchase button",
+      "default": "dynamic",
+      "options": [
+        { "value": "buy_now", "label": "Buy now" },
+        { "value": "dynamic", "label": "Dynamic checkout / quick pay" },
+        { "value": "none", "label": "Hidden" }
+      ]
+    },
+    {
       "type": "checkbox",
-      "id": "sku_enable",
-      "label": "t:sections.main-product.settings.sku_enable.label"
+      "id": "show_sticky_bar",
+      "label": "Show sticky purchase bar",
+      "default": true
     },
     {
       "type": "header",
-      "content": "t:sections.main-product.settings.header_media"
+      "content": "Product fallback media"
     },
     {
-      "type": "paragraph",
-      "content": "t:sections.main-product.settings.content"
+      "type": "image_picker",
+      "id": "fallback_product_image_pc",
+      "label": "Fallback product image - PC"
     },
     {
-      "type": "select",
-      "id": "image_size",
-      "label": "t:sections.main-product.settings.image_size.label",
-      "default": "medium",
-      "options": [
-        {
-          "value": "none",
-          "label": "Auto / Ventral split layout"
-        },
-        {
-          "value": "small",
-          "label": "t:sections.main-product.settings.image_size.options.small.label"
-        },
-        {
-          "value": "medium",
-          "label": "t:sections.main-product.settings.image_size.options.medium.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.main-product.settings.image_size.options.large.label"
-        }
-      ]
+      "type": "image_picker",
+      "id": "fallback_product_image_mobile",
+      "label": "Fallback product image - Mobile",
+      "info": "Uses the PC image when empty."
+    },
+    {
+      "type": "header",
+      "content": "Social Media Gallery"
     },
     {
       "type": "checkbox",
-      "id": "product_zoom_enable",
-      "label": "t:sections.main-product.settings.product_zoom_enable.label",
+      "id": "show_social_gallery",
+      "label": "Show gallery",
       "default": true
     },
     {
-      "type": "select",
-      "id": "thumbnail_position",
-      "label": "t:sections.main-product.settings.thumbnail_position.label",
-      "default": "beside",
-      "options": [
-        {
-          "value": "beside",
-          "label": "t:sections.main-product.settings.thumbnail_position.options.beside.label"
-        },
-        {
-          "value": "below",
-          "label": "t:sections.main-product.settings.thumbnail_position.options.below.label"
-        }
-      ]
+      "type": "text",
+      "id": "social_heading",
+      "label": "Heading",
+      "default": "Social Media Gallery"
     },
     {
-      "type": "select",
-      "id": "thumbnail_height",
-      "label": "t:sections.main-product.settings.thumbnail_height.label",
-      "info": "t:sections.main-product.settings.thumbnail_height.info",
-      "default": "flexible",
-      "options": [
-        {
-          "value": "fixed",
-          "label": "t:sections.main-product.settings.thumbnail_height.options.fixed.label"
-        },
-        {
-          "value": "flexible",
-          "label": "t:sections.main-product.settings.thumbnail_height.options.flexible.label"
-        }
-      ]
+      "type": "text",
+      "id": "social_button_label",
+      "label": "Button label",
+      "default": "More Items"
     },
     {
-      "type": "checkbox",
-      "id": "thumbnail_arrows",
-      "label": "t:sections.main-product.settings.thumbnail_arrows.label"
+      "type": "url",
+      "id": "social_button_url",
+      "label": "Button link"
     },
     {
-      "type": "checkbox",
-      "id": "enable_video_looping",
-      "label": "t:sections.main-product.settings.enable_video_looping.label",
-      "default": true
+      "type": "image_picker",
+      "id": "social_image_1_pc",
+      "label": "Card 1 image - PC"
     },
     {
-      "type": "select",
-      "id": "product_video_style",
-      "label": "t:sections.main-product.settings.product_video_style.label",
-      "default": "muted",
-      "options": [
-        {
-          "value": "muted",
-          "label": "t:sections.main-product.settings.product_video_style.options.muted.label"
-        },
-        {
-          "value": "unmuted",
-          "label": "t:sections.main-product.settings.product_video_style.options.unmuted.label"
-        }
-      ],
-      "info": "t:sections.main-product.settings.product_video_style.info"
+      "type": "image_picker",
+      "id": "social_image_1_mobile",
+      "label": "Card 1 image - Mobile",
+      "info": "Uses the PC image when empty."
     },
     {
-      "type": "checkbox",
-      "id": "enable_button_quantity",
-      "label": "Show quantity inside buy buttons",
-      "default": true
+      "type": "text",
+      "id": "social_caption_1",
+      "label": "Card 1 caption",
+      "default": "How to Choose the Right Paddle Board for Fall Adventures"
     },
     {
-      "type": "checkbox",
-      "id": "show_checkout_btn",
-      "label": "Show dynamic checkout button",
-      "default": true
+      "type": "url",
+      "id": "social_url_1",
+      "label": "Card 1 link"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_image_2_pc",
+      "label": "Card 2 image - PC"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_image_2_mobile",
+      "label": "Card 2 image - Mobile",
+      "info": "Uses the PC image when empty."
+    },
+    {
+      "type": "text",
+      "id": "social_caption_2",
+      "label": "Card 2 caption",
+      "default": "Share Your Story. Earn Rewards"
+    },
+    {
+      "type": "url",
+      "id": "social_url_2",
+      "label": "Card 2 link"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_image_3_pc",
+      "label": "Card 3 image - PC"
+    },
+    {
+      "type": "image_picker",
+      "id": "social_image_3_mobile",
+      "label": "Card 3 image - Mobile",
+      "info": "Uses the PC image when empty."
+    },
+    {
+      "type": "text",
+      "id": "social_caption_3",
+      "label": "Card 3 caption",
+      "default": "The Best Sunset Paddle Boarding Locations in the U.S."
+    },
+    {
+      "type": "url",
+      "id": "social_url_3",
+      "label": "Card 3 link"
     }
   ],
-  "blocks": [{
-  "type": "@app"
-},
-{
-  "type": "price",
-  "name": "t:product_block.price.name",
-  "limit": 1
-},
-{
-  "type": "quantity_selector",
-  "name": "t:product_block.quantity_selector.name",
-  "limit": 1
-},
-{
-  "type": "complementary_products",
-  "name": "Complementary products",
-  "limit": 1,
-  "settings": [
+  "blocks": [
     {
-      "type": "paragraph",
-      "content": "t:sections.product-complementary.settings.paragraph.content"
+      "type": "@app"
     },
     {
-      "type": "text",
-      "id": "product_complementary_heading",
-      "label": "t:sections.product-complementary.settings.product_complementary_heading.label",
-      "default": "Pairs well with"
-    },
-    {
-      "type": "range",
-      "id": "complementary_count",
-      "label": "t:sections.product-complementary.settings.complementary_count.label",
-      "default": 4,
-      "min": 2,
-      "max": 10,
-      "step": 1
-    },
-    {
-      "type": "range",
-      "id": "per_slide",
-      "label": "t:sections.product-complementary.settings.per_slide.label",
-      "default": 2,
-      "min": 2,
-      "max": 4,
-      "step": 1
-    },
-    {
-      "type": "select",
-      "id": "control_type",
-      "label": "t:sections.product-complementary.settings.control_type.label",
-      "options": [
-        {
-          "value": "dots",
-          "label": "t:sections.product-complementary.settings.control_type.options.dots.label"
-        },
-        {
-          "value": "arrows",
-          "label": "t:sections.product-complementary.settings.control_type.options.arrows.label"
-        }
-      ],
-      "default": "dots"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.product-complementary.settings.header.content"
-    },
-    {
-      "type": "select",
-      "id": "image_style",
-      "label": "t:sections.product-complementary.settings.image_style.label",
-      "options": [
-        {
-          "value": "default",
-          "label": "t:sections.product-complementary.settings.image_style.options.default.label"
-        },
-        {
-          "value": "circle",
-          "label": "t:sections.product-complementary.settings.image_style.options.circle.label"
-        }
-      ],
-      "default": "default"
-    }
-  ]
-},
-{
-  "type": "size_chart",
-  "name": "t:product_block.size_chart.name",
-  "limit": 1,
-  "settings": [
-    {
-      "type": "page",
-      "id": "size_chart",
-      "label": "t:product_block.size_chart.settings.page.label"
-    }
-  ]
-},
-{
-  "type": "variant_picker",
-  "name": "Variant picker",
-  "limit": 1,
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "variant_labels",
-      "label": "t:product_block.variant_picker.settings.variant_labels.label",
-      "default": true
-    },
-    {
-      "type": "select",
-      "id": "picker_type",
-      "label": "t:product_block.variant_picker.settings.picker_type.label",
-      "options": [
-        {
-          "value": "button",
-          "label": "t:product_block.variant_picker.settings.picker_type.options.button.label"
-        },
-        {
-          "value": "dropdown",
-          "label": "t:product_block.variant_picker.settings.picker_type.options.dropdown.label"
-        }
-      ],
-      "default": "button"
-    },
-    {
-      "type": "checkbox",
-      "id": "product_dynamic_variants_enable",
-      "label": "t:product_block.variant_picker.settings.product_dynamic_variants_enable.label",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "color_swatches",
-      "label": "Enable color swatches",
-      "info": "Requires type to be set to 'Buttons'. [Learn how to set up swatches](https://archetypethemes.co/blogs/impulse/how-do-i-set-up-color-swatches)"
-    }
-  ]
-},
-{
-  "type": "title",
-  "name": "Subtitle",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Text"
-    }
-  ]
-},
-{
-  "type": "liquid",
-  "name": "Custom liquid",
-  "settings": [
-    {
-      "type": "liquid",
-      "id": "liquid",
-      "label": "Liquid"
-    }
-  ]
-},
-{
-  "type": "liquid-image",
-  "name": "Responsive image",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Desktop image"
-    },
-    {
-      "type": "image_picker",
-      "id": "mobile_image",
-      "label": "Mobile image"
-    }
-  ]
-},
-{
-  "type": "split_line",
-  "name": "Divider",
-  "settings": [
-    {
-      "type": "color",
-      "id": "color",
-      "label": "Color",
-      "default": "#dddddd"
-    }
-  ]
-},
-{
-  "type": "product-gift",
-  "name": "Gift products",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "info",
-      "label": "Description"
-    },
-    {
-      "type": "product_list",
-      "id": "bundle",
-      "label": "Products"
-    }
-  ]
-},
-{
-  "type": "description",
-  "name": "t:product_block.description.name",
-  "limit": 1,
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "is_tab",
-      "label": "t:product_block.description.settings.is_tab.label"
-    }
-  ]
-},
-{
-  "type": "buy_buttons",
-  "name": "t:product_block.buy_buttons.name",
-  "limit": 1,
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_dynamic_checkout",
-      "label": "t:product_block.buy_buttons.settings.show_dynamic_checkout.label",
-      "info": "t:product_block.buy_buttons.settings.show_dynamic_checkout.info",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "surface_pickup_enable",
-      "label": "t:product_block.buy_buttons.settings.surface_pickup_enable.label",
-      "info": "t:product_block.buy_buttons.settings.surface_pickup_enable.info",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_gift_card_recipient",
-      "default": false,
-      "label": "t:common.gift_card.show_gift_card_recipient.label",
-      "info": "t:common.gift_card.show_gift_card_recipient.info"
-    }
-  ]
-},
-{
-  "type": "inventory_status",
-  "name": "t:product_block.inventory_status.name",
-  "limit": 1,
-  "settings": [
-    {
-      "type": "range",
-      "id": "inventory_threshold",
-      "label": "t:product_block.inventory_status.settings.inventory_threshold.label",
-      "default": 10,
-      "min": 0,
-      "max": 20,
-      "step": 2
-    },
-    {
-      "type": "checkbox",
-      "id": "inventory_transfers_enable",
-      "label": "t:product_block.inventory_status.settings.inventory_transfers_enable.label",
-      "info": "t:product_block.inventory_status.settings.inventory_transfers_enable.info",
-      "default": true
-    }
-  ]
-},
-{
-  "type": "sales_point",
-  "name": "t:product_block.sales_point.name",
-  "settings": [
-    {
-      "type": "select",
-      "id": "icon",
-      "label": "t:product_block.sales_point.settings.icon.label",
-      "default": "globe",
-      "options": [
-        {
-          "value": "checkmark",
-          "label": "t:product_block.sales_point.settings.icon.options.checkmark.label"
-        },
-        {
-          "value": "gift",
-          "label": "t:product_block.sales_point.settings.icon.options.gift.label"
-        },
-        {
-          "value": "globe",
-          "label": "t:product_block.sales_point.settings.icon.options.globe.label"
-        },
-        {
-          "value": "heart",
-          "label": "t:product_block.sales_point.settings.icon.options.heart.label"
-        },
-        {
-          "value": "leaf",
-          "label": "t:product_block.sales_point.settings.icon.options.leaf.label"
-        },
-        {
-          "value": "lock",
-          "label": "t:product_block.sales_point.settings.icon.options.lock.label"
-        },
-        {
-          "value": "package",
-          "label": "t:product_block.sales_point.settings.icon.options.package.label"
-        },
-        {
-          "value": "phone",
-          "label": "t:product_block.sales_point.settings.icon.options.phone.label"
-        },
-        {
-          "value": "ribbon",
-          "label": "t:product_block.sales_point.settings.icon.options.ribbon.label"
-        },
-        {
-          "value": "shield",
-          "label": "t:product_block.sales_point.settings.icon.options.shield.label"
-        },
-        {
-          "value": "tag",
-          "label": "t:product_block.sales_point.settings.icon.options.tag.label"
-        },
-        {
-          "value": "truck",
-          "label": "t:product_block.sales_point.settings.icon.options.truck.label"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "id": "text",
-      "label": "t:product_block.sales_point.settings.text.label",
-      "default": "Free worldwide shipping"
-    }
-  ]
-},
-{
-  "type": "text",
-  "name": "t:product_block.text.name",
-  "settings": [
-    {
-      "type": "text",
-      "id": "text",
-      "default": "Text block",
-      "label": "t:product_block.text.settings.text.label"
-    }
-  ]
-},
-{
-  "type": "trust_badge",
-  "name": "t:product_block.trust_badge.name",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "trust_image",
-      "label": "t:product_block.trust_badge.settings.trust_image.label"
-    }
-  ]
-},
-{
-  "type": "tab",
-  "name": "t:product_block.tab.name",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "t:product_block.tab.settings.title.label",
-      "default": "Shipping information"
-    },
-    {
-      "type": "richtext",
-      "id": "content",
-      "label": "t:product_block.tab.settings.content.label",
-      "default": "<p>Use collapsible tabs for more detailed information that will help customers make a purchasing decision.</p><p>Ex: Shipping and return policies, size guides, and other common questions.</p>"
-    },
-    {
-      "type": "page",
-      "id": "page",
-      "label": "t:product_block.tab.settings.page.label"
-    }
-  ]
-},
-{
-  "type": "share",
-  "name": "t:product_block.share_on_social.name",
-  "limit": 1,
-  "settings": [
-    {
-      "type": "paragraph",
-      "content": "t:product_block.share_on_social.settings.content"
-    }
-  ]
-},
-{
-  "type": "separator",
-  "name": "t:product_block.separator.name"
-},
-{
-  "type": "contact",
-  "name": "t:product_block.contact_form.name",
-  "limit": 1,
-  "settings": [
-    {
-      "type": "paragraph",
-      "content": "t:product_block.contact_form.settings.content"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "t:product_block.contact_form.settings.title.label",
-      "default": "Ask a question"
-    },
-    {
-      "type": "checkbox",
-      "id": "phone",
-      "label": "t:product_block.contact_form.settings.phone.label"
-    }
-  ]
-},
-    {
-      "type": "custom",
-      "name": "t:product_block.html.name",
+      "type": "product_tab",
+      "name": "Product tab",
+      "limit": 1,
       "settings": [
-    {
-      "type": "liquid",
-      "id": "code",
-      "label": "t:product_block.html.settings.code.label",
-      "default": "<h4>Custom code block</h4><p>Use this advanced section to add custom HTML, app scripts, or liquid.</p>",
-      "info": "t:product_block.html.settings.code.info"
-    }
+        { "type": "text", "id": "label", "label": "Tab label", "default": "Product" },
+        { "type": "image_picker", "id": "image_pc", "label": "Full product tab image - PC" },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Full product tab image - Mobile",
+          "info": "Uses the PC image when empty."
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image alt text",
+          "default": "Product specifications and technical details"
+        }
       ]
-},
-{
-  "type": "faq_item",
-  "name": "FAQ item",
-  "settings": [
-    {
-      "type": "text",
-      "id": "question",
-      "label": "Question",
-      "default": "Are Ventral paddle boards beginner friendly?"
     },
     {
-      "type": "richtext",
-      "id": "answer",
-      "label": "Answer",
-      "default": "<p>Use this area to answer common product questions.</p>"
+      "type": "shipping_tab",
+      "name": "Shipping tab",
+      "limit": 1,
+      "settings": [{ "type": "text", "id": "label", "label": "Tab label", "default": "Shipping & Returns" }]
+    },
+    {
+      "type": "video_tab",
+      "name": "Video tab",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tab label", "default": "Video" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Easy To Use, Even For Beginners" },
+        { "type": "image_picker", "id": "cover_image_pc", "label": "Video cover image - PC" },
+        {
+          "type": "image_picker",
+          "id": "cover_image_mobile",
+          "label": "Video cover image - Mobile",
+          "info": "Uses the PC image when empty."
+        },
+        { "type": "video", "id": "video", "label": "Shopify hosted video" },
+        { "type": "video_url", "id": "external_video", "label": "YouTube or Vimeo URL", "accept": ["youtube", "vimeo"] }
+      ]
+    },
+    {
+      "type": "reviews_tab",
+      "name": "Reviews tab",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Tab label", "default": "Reviews" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Customer Reviews" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ventral product page",
+      "blocks": [
+        { "type": "product_tab" },
+        { "type": "shipping_tab" },
+        { "type": "video_tab" },
+        { "type": "reviews_tab" }
+      ]
     }
   ]
-}
-]
 }
 {% endschema %}
