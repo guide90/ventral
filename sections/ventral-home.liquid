@@ -452,10 +452,12 @@
   }
   .vh-system__offer {
     position: relative;
-    width: 830px;
-    height: 730px;
+    width: 100%;
+    max-width: 830px;
+    height: auto;
     overflow: hidden;
     border-radius: 24px;
+    aspect-ratio: 830 / 730;
     background: #dbdbe2;
     color: #354050;
   }
@@ -465,17 +467,17 @@
     max-width: none;
     object-fit: contain;
   }
-  .vh-system__offer-board { top: 81px; left: 30px; width: 460px; height: 153px; }
-  .vh-system__offer-seat { top: 210px; left: 50px; width: 135px; height: 144px; }
+  .vh-system__offer-board { top: 11.0959%; left: 3.6145%; width: 55.4217%; height: 20.9589%; }
+  .vh-system__offer-seat { top: 28.7671%; left: 6.0241%; width: 16.2651%; height: 19.726%; }
   .vh-system__offer-paddle {
-    top: 222px;
-    left: 177px;
-    width: 295px;
-    height: 34px;
+    top: 30.411%;
+    left: 21.3253%;
+    width: 35.5422%;
+    height: 4.6575%;
     transform: rotate(14.6deg);
   }
-  .vh-system__offer-drive { top: 81px; left: 491px; width: 304px; height: 279px; }
-  .vh-system__offer-case { top: 422px; left: 436px; width: 363px; height: 211px; }
+  .vh-system__offer-drive { top: 11.0959%; left: 59.1566%; width: 36.6265%; height: 38.2192%; }
+  .vh-system__offer-case { top: 57.8082%; left: 52.5301%; width: 43.7349%; height: 28.9041%; }
   .vh-system__offer-step {
     position: absolute;
     z-index: 2;
@@ -483,8 +485,8 @@
     align-items: center;
     gap: 8px;
   }
-  .vh-system__offer-step--one { top: 30px; left: 30px; }
-  .vh-system__offer-step--two { top: 426px; left: 30px; }
+  .vh-system__offer-step--one { top: 4.1096%; left: 3.6145%; }
+  .vh-system__offer-step--two { top: 58.3562%; left: 3.6145%; }
   .vh-system__offer-number {
     display: grid;
     width: 30px;
@@ -508,9 +510,9 @@
   .vh-system__offer-description {
     position: absolute;
     z-index: 2;
-    top: 465px;
-    left: 68px;
-    width: 291px;
+    top: 63.6986%;
+    left: 8.1928%;
+    width: 35.0602%;
     margin: 0;
     color: #354050;
     font-size: 14px;
@@ -518,7 +520,7 @@
   }
   .vh-system__offer-divider {
     position: absolute;
-    top: 402px;
+    top: 55.0685%;
     right: 0;
     left: 0;
     height: 1px;
@@ -527,8 +529,8 @@
   .vh-system__offer-weight {
     position: absolute;
     z-index: 2;
-    top: 344px;
-    width: 250px;
+    top: 47.1233%;
+    width: 30.1205%;
     margin: 0;
     color: #959c9d;
     font-size: 14px;
@@ -540,16 +542,17 @@
     font-size: 18px;
     font-weight: 900;
   }
-  .vh-system__offer-weight--board { left: 135px; }
-  .vh-system__offer-weight--drive { left: 537px; }
+  .vh-system__offer-weight--board { left: 16.2651%; }
+  .vh-system__offer-weight--drive { left: 64.6988%; }
   .vh-system__offer-price {
     position: absolute;
     z-index: 2;
-    top: 628px;
-    left: 210px;
+    top: 86.0274%;
+    left: 25.3012%;
     display: flex;
-    min-width: 410px;
-    height: 72px;
+    width: 49.3976%;
+    min-width: 0;
+    height: 9.863%;
     padding: 11px 24px;
     align-items: center;
     border: 1px solid #fff;
@@ -616,10 +619,10 @@
     border-radius: 50%;
     background: #fff;
   }
-  .vh-system__hotspot--board { top: 107px; left: 424px; }
-  .vh-system__hotspot--seat { top: 270px; left: 114px; }
-  .vh-system__hotspot--drive { top: 221px; left: 594px; }
-  .vh-system__hotspot--case { top: 562px; left: 694px; }
+  .vh-system__hotspot--board { top: 14.6575%; left: 51.0843%; }
+  .vh-system__hotspot--seat { top: 36.9863%; left: 13.7349%; }
+  .vh-system__hotspot--drive { top: 30.274%; left: 71.5663%; }
+  .vh-system__hotspot--case { top: 76.9863%; left: 83.6145%; }
   .vh-system__modal[hidden] {
     display: none;
   }
@@ -2820,7 +2823,7 @@
     .vh-system__offer-board { top: 9.56%; left: .85%; width: 98.49%; height: 22.91%; }
     .vh-system__offer-seat { top: 26.49%; left: 2.28%; width: 34.19%; height: 25.5%; }
     .vh-system__offer-paddle {
-      top: 29.68%;
+      top: 34.48%;
       left: 25.64%;
       width: 74.47%;
       height: 5.87%;
