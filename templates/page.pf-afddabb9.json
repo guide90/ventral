@@ -12,7 +12,7 @@
     "pf-afddabb9": {
       "type": "pf-afddabb9",
       "settings": {
-        "pf_9abb21ac_value": "The Smart Mid-Mount Drive consists of four key components:Removable Propulsion Module; Removable LiFePO₄ Battery Module; Integrated 3-Button Foot-Control Base; Tool-Free Quick-Release PropellerThe battery is not built into the motor. It is a separate removable LiFePO₄ battery module that connects to the propulsion system. This modular design allows for easy installation, charging, replacement, and transportation.",
+        "pf_9abb21ac_value": "The Smart Mid-Mount Drive consists of four key components: Removable Propulsion Module; Removable LiFePO₄ Battery Module; Integrated 3-Button Foot-Control Base; Tool-Free Quick-Release Propeller.<br>The battery is not built into the motor. It is a separate removable LiFePO₄ battery module that connects to the propulsion system. This modular design allows for easy installation, charging, replacement, and transportation.",
         "pf_223bc29d_value": " Double-Layer Protection. Twice the Confidence on the Water.Engineered with dual-layer PVC + drop-stitch core &amp; polyester mesh — tougher against gear, rocks, and wear. Built to last, built for adventure.<br>",
         "pf_d1065a43_value": " Double-Layer Protection. Twice the Confidence on the Water.Engineered with dual-layer PVC + drop-stitch core &amp; polyester mesh — tougher against gear, rocks, and wear. Built to last, built for adventure.<br>",
         "pf_66d3333f_value": " Double-Layer Protection. Twice the Confidence on the Water.Engineered with dual-layer PVC + drop-stitch core &amp; polyester mesh — tougher against gear, rocks, and wear. Built to last, built for adventure.",
@@ -20,8 +20,6 @@
         "pf_44ccaf83_value": " Double-Layer Protection. Twice the Confidence on the Water.Engineered with dual-layer PVC + drop-stitch core &amp; polyester mesh — tougher against gear, rocks, and wear. Built to last, built for adventure.",
         "pf_b818cbd8_value": "The mid-mount drive is positioned for easier manual access, allowing you to lift and clear the propeller when conditions require. Reduce speed and operate carefully in weeds or shallow water.",
         "pf_0066e9c7_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
-        "pf_3bde8e00_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
-        "pf_17fbfcbc_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
         "pf_833bb399_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
         "pf_bee6de06_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
         "pf_2f464542_value": "The TwinTube Stabilizer Hull rides on two water-contact air beams that deliver dynamic buoyancy compensation — far steadier than a standard kayak, so you can stand and fish with confidence. ",
@@ -87,6 +85,7 @@
         "pf_4ccc27fd_value": "Instant Control at Your Fingertips.",
         "pf_a0e6f14d_value": "A Deck Built Around How You Fish. ",
         "pf_7e5980f2_value": "Reserve Super <br>Early Bird Price",
+        "pf_02c217fb_value": "HOLD YOUR SPOT, NOT YOUR PADDLE. ",
         "pf_6381bd3d_value": "Reserve Super Early<br>Bird Price",
         "pf_ebcdb221_value": "Pack Down. Load Up. Go Again.  ",
         "pf_5cefb322_value": "Keep Both Hands<br>on the Rod.",
@@ -108,7 +107,6 @@
         "pf_87251951_value": "One System. Ready to Fish. ",
         "pf_3d2029e6_value": "One System. Ready to Fish. ",
         "pf_51213bde_value": "One System. Ready to Fish. ",
-        "pf_02c217fb_value": "One System. Ready to Fish. ",
         "pf_9002ad6f_value": "Keep Both Hands on the Rod.",
         "pf_9c4fde64_value": "A Full Day on the<br>Water.",
         "pf_e51a5bdc_value": "Stand Up with Confidence. ",
