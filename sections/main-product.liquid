@@ -65,10 +65,14 @@
             data-vmp-gallery-prev
             aria-label="Previous product image"
           >
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56C43.464 56 56 43.464 56 28Z" fill="black" fill-opacity="0.3"/>
-            <path d="M23.6152 28.709L29.708 34.8008L31.2305 33.2773L26.6621 28.708L31.2305 24.1396L29.707 22.6172L23.6152 28.709Z" fill="white"/>
-          </svg>
+            <svg class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--desktop" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56C43.464 56 56 43.464 56 28Z" fill="black" fill-opacity="0.3"/>
+              <path d="M23.6152 28.709L29.708 34.8008L31.2305 33.2773L26.6621 28.708L31.2305 24.1396L29.707 22.6172L23.6152 28.709Z" fill="white"/>
+            </svg>
+            <svg class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--mobile" xmlns="http://www.w3.org/2000/svg" width="36" height="52" viewBox="0 0 36 52" fill="none">
+              <path opacity="0.25" d="M10 0C6.45639 0 3.07837 0.709419 0 1.99316V50.0059C3.07846 51.2897 6.45626 52 10 52C24.3593 51.9999 36 40.3593 36 26C36 11.6407 24.3593 0.000105561 10 0Z" fill="black"/>
+              <path d="M11.2656 26.6572L16.9219 32.3145L18.3369 30.9004L14.0947 26.6572L18.3369 22.415L16.9229 21L11.2656 26.6572Z" fill="white"/>
+            </svg>
           </button>
         {%- endif -%}
         <div class="vmp-gallery__slides" data-vmp-gallery-slides>
@@ -137,10 +141,14 @@
             data-vmp-gallery-next
             aria-label="Next product image"
           >
-          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 28C0 12.536 12.536 0 28 0C43.464 0 56 12.536 56 28C56 43.464 43.464 56 28 56C12.536 56 0 43.464 0 28Z" fill="black" fill-opacity="0.3"/>
-            <path d="M32.3848 28.709L26.292 34.8008L24.7695 33.2773L29.3379 28.708L24.7695 24.1396L26.293 22.6172L32.3848 28.709Z" fill="white"/>
-          </svg>
+            <svg class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--desktop" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 28C0 12.536 12.536 0 28 0C43.464 0 56 12.536 56 28C56 43.464 43.464 56 28 56C12.536 56 0 43.464 0 28Z" fill="black" fill-opacity="0.3"/>
+              <path d="M32.3848 28.709L26.292 34.8008L24.7695 33.2773L29.3379 28.708L24.7695 24.1396L26.293 22.6172L32.3848 28.709Z" fill="white"/>
+            </svg>
+            <svg class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--mobile" xmlns="http://www.w3.org/2000/svg" width="36" height="52" viewBox="0 0 36 52" fill="none">
+              <path opacity="0.25" d="M26 0C29.5436 0 32.9216 0.709419 36 1.99316V50.0059C32.9215 51.2897 29.5437 52 26 52C11.6407 51.9999 0 40.3593 0 26C0 11.6407 11.6407 0.000105561 26 0Z" fill="black"/>
+              <path d="M24.7344 26.6572L19.0781 32.3145L17.6631 30.9004L21.9053 26.6572L17.6631 22.415L19.0771 21L24.7344 26.6572Z" fill="white"/>
+            </svg>
           </button>
         {%- endif -%}
         <span class="vmp-gallery__counter" data-vmp-gallery-counter>1/{{ gallery_media_count }}</span>
@@ -154,14 +162,14 @@
             data-vmp-thumb-up
             aria-label="Scroll thumbnails up"
           >
-          <svg width="70" height="24" viewBox="0 0 70 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="path-1-inside-1_1677_575" fill="white">
-            <path d="M0 24H70V10C70 4.47715 65.5229 0 60 0H10C4.47715 0 0 4.47715 0 10V24Z"/>
-            </mask>
-            <path d="M0 24H70V10C70 4.47715 65.5229 0 60 0H10C4.47715 0 0 4.47715 0 10V24Z" fill="#F2F2F2"/>
-            <path d="M0 25H70V23H0V25ZM0 23M70 0H0H70M70 0M0 0V24V0M0 0M70 24V0V24" fill="#999999" mask="url(#path-1-inside-1_1677_575)"/>
-            <path d="M35 8.46387L40.6572 14.1201L39.2432 15.5352L35 11.293L30.7578 15.5352L29.3428 14.1211L35 8.46387Z" fill="#545454"/>
-          </svg>
+            <svg width="70" height="24" viewBox="0 0 70 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="path-1-inside-1_1677_575" fill="white">
+              <path d="M0 24H70V10C70 4.47715 65.5229 0 60 0H10C4.47715 0 0 4.47715 0 10V24Z"/>
+              </mask>
+              <path d="M0 24H70V10C70 4.47715 65.5229 0 60 0H10C4.47715 0 0 4.47715 0 10V24Z" fill="#F2F2F2"/>
+              <path d="M0 25H70V23H0V25ZM0 23M70 0H0H70M70 0M0 0V24V0M0 0M70 24V0V24" fill="#999999" mask="url(#path-1-inside-1_1677_575)"/>
+              <path d="M35 8.46387L40.6572 14.1201L39.2432 15.5352L35 11.293L30.7578 15.5352L29.3428 14.1211L35 8.46387Z" fill="#545454"/>
+            </svg>
           </button>
         {%- endif -%}
         <div class="vmp-gallery__thumbs" data-vmp-gallery-thumbs>
@@ -213,48 +221,52 @@
             data-vmp-thumb-down
             aria-label="Scroll thumbnails down"
           >
-          <svg width="70" height="24" viewBox="0 0 70 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <mask id="path-1-inside-1_1677_602" fill="white">
-            <path d="M0 0H70V14C70 19.5228 65.5229 24 60 24H10C4.47715 24 0 19.5228 0 14V0Z"/>
-            </mask>
-            <path d="M0 0H70V14C70 19.5228 65.5229 24 60 24H10C4.47715 24 0 19.5228 0 14V0Z" fill="#F2F2F2"/>
-            <path d="M0 -1H70V1H0V-1ZM0 1M70 24H0H70M70 24M0 24V0V24M0 24M70 0V24V0" fill="#999999" mask="url(#path-1-inside-1_1677_602)"/>
-            <path d="M35.5 15.5361L41.1572 9.87988L39.7432 8.46484L35.5 12.707L31.2578 8.46484L29.8428 9.87891L35.5 15.5361Z" fill="#545454"/>
-          </svg>
+            <svg width="70" height="24" viewBox="0 0 70 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <mask id="path-1-inside-1_1677_602" fill="white">
+              <path d="M0 0H70V14C70 19.5228 65.5229 24 60 24H10C4.47715 24 0 19.5228 0 14V0Z"/>
+              </mask>
+              <path d="M0 0H70V14C70 19.5228 65.5229 24 60 24H10C4.47715 24 0 19.5228 0 14V0Z" fill="#F2F2F2"/>
+              <path d="M0 -1H70V1H0V-1ZM0 1M70 24H0H70M70 24M0 24V0V24M0 24M70 0V24V0" fill="#999999" mask="url(#path-1-inside-1_1677_602)"/>
+              <path d="M35.5 15.5361L41.1572 9.87988L39.7432 8.46484L35.5 12.707L31.2578 8.46484L29.8428 9.87891L35.5 15.5361Z" fill="#545454"/>
+            </svg>
           </button>
         {%- endif -%}
       </div>
     </div>
 
     <div class="vmp-buybox">
-      <h1 class="vmp-buybox__title">
-        {{
-          product.title
-          | default: 'When The Platform Feels Steady, Your Focus Returns To The Mission, Not The Motion'
-        }}
-      </h1>
-      <a class="vmp-rating" href="#VmpPanel-reviews-{{ section.id }}" data-vmp-open-tab="reviews">
-        <strong>{{ rating_value }}</strong>
-        <span class="vmp-stars" aria-label="{{ rating_value }} out of 5 stars">★★★★★</span>
-        <span>{{ review_count }} Reviews</span>
-      </a>
-      <div class="vmp-price" aria-live="polite">
-        <span class="vmp-price__current" data-vmp-price>{{ current_variant.price | money }}</span>
-        <span class="vmp-price__discount{% if sale_percent == 0 %} is-hidden{% endif %}" data-vmp-discount>
-          {%- if sale_percent > 0 %}-{{ sale_percent }}%{% endif -%}
-        </span>
-        <s
-          class="vmp-price__compare{% unless compare_price > current_variant.price %} is-hidden{% endunless %}"
-          data-vmp-compare
-        >
-          {%- if compare_price > current_variant.price %}{{ compare_price | money }}{% endif -%}
-        </s>
+      <div class="vmp-buybox__header">
+        <h1 class="vmp-buybox__title">
+          {{
+            product.title
+            | default: 'When The Platform Feels Steady, Your Focus Returns To The Mission, Not The Motion'
+          }}
+        </h1>
+        <a class="vmp-rating" href="#VmpPanel-reviews-{{ section.id }}" data-vmp-open-tab="reviews">
+          <strong>{{ rating_value }}</strong>
+          <span class="vmp-stars" aria-label="{{ rating_value }} out of 5 stars">★★★★★</span>
+          <span>{{ review_count }} Reviews</span>
+        </a>
       </div>
-      <p class="vmp-installments">
-        Or 4 Interest-Free Payments Of
-        <strong data-vmp-quarter-price>{{ current_variant.price | divided_by: 4 | money }}</strong> With Klarna |
-        Afterpay
-      </p>
+      <div class="vmp-buybox__pricing">
+        <div class="vmp-price" aria-live="polite">
+          <span class="vmp-price__current" data-vmp-price>{{ current_variant.price | money }}</span>
+          <span class="vmp-price__discount{% if sale_percent == 0 %} is-hidden{% endif %}" data-vmp-discount>
+            {%- if sale_percent > 0 %}-{{ sale_percent }}%{% endif -%}
+          </span>
+          <s
+            class="vmp-price__compare{% unless compare_price > current_variant.price %} is-hidden{% endunless %}"
+            data-vmp-compare
+          >
+            {%- if compare_price > current_variant.price %}{{ compare_price | money }}{% endif -%}
+          </s>
+        </div>
+        <p class="vmp-installments">
+          Or 4 Interest-Free Payments Of
+          <strong data-vmp-quarter-price>{{ current_variant.price | divided_by: 4 | money }}</strong> With Klarna |
+          Afterpay
+        </p>
+      </div>
       <div class="vmp-buybox__points rte">{{ section.settings.purchase_points }}</div>
 
       {%- form 'product', product, id: form_id, class: 'vmp-form', novalidate: 'novalidate' -%}
@@ -397,9 +409,6 @@
           >
         </div>
       </div>
-      {%- if section.settings.eco_message != blank -%}
-        <p class="vmp-eco">{{ section.settings.eco_message }}</p>
-      {%- endif -%}
     </div>
   </div>
 
@@ -695,76 +704,82 @@
                 assign gallery_url = section.settings[url_key] | default: '#'
               -%}
               {%- if configured_social_count == 0 or gallery_image_pc != blank -%}
-              <article class="vmp-social__card" data-vmp-social-card="{{ social_rendered_index }}">
-                <a class="vmp-social__media" href="{{ gallery_url }}" aria-label="{{ gallery_caption | escape }}">
-                  {%- if gallery_image_pc != blank -%}
-                    <picture class="vmp-picture">
-                      <source media="(max-width: 749px)" srcset="{{ gallery_image_mobile | image_url: width: 900 }}">
-                      {{
-                        gallery_image_pc
-                        | image_url: width: 900
-                        | image_tag:
-                          loading: 'lazy',
-                          widths: '360, 540, 720, 900',
-                          sizes: '(max-width: 749px) 300px, 411px',
-                          alt: gallery_caption
-                      }}
-                    </picture>
-                  {%- else -%}
-                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {%- endif -%}
-                  <span class="vmp-social__play" aria-hidden="true">
-                    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M96.0664 30.5332C93.5427 24.5735 89.9408 19.2299 85.3555 14.6445C80.7702 10.0592 75.4147 6.4455 69.4669 3.93365C63.3057 1.32701 56.7536 0 50 0C43.2465 0 36.7062 1.31517 30.5332 3.93365C24.5735 6.45735 19.2299 10.0592 14.6446 14.6445C10.0592 19.2299 6.4455 24.5853 3.93365 30.5332C1.32702 36.6943 0 43.2464 0 50C0 56.7536 1.32702 63.2938 3.93365 69.4668C6.45735 75.4265 10.0592 80.7701 14.6446 85.3555C19.2299 89.9408 24.5853 93.5545 30.5332 96.0664C36.6943 98.673 43.2465 100 50 100C56.7536 100 63.2939 98.673 69.4669 96.0664C75.4266 93.5427 80.7702 89.9408 85.3555 85.3555C89.9408 80.7701 93.5546 75.4147 96.0664 69.4668C98.673 63.3057 100 56.7536 100 50C100 43.2464 98.6849 36.7062 96.0664 30.5332Z" fill="black" fill-opacity="0.6"/>
-                      <path d="M58.6006 49.2841L41.8064 37.4846C41.0349 36.9487 40 37.494 40 38.4342V62.0331C40 62.9733 41.0349 63.5187 41.8064 62.9827L58.61 51.1833C59.2686 50.7226 59.2592 49.7448 58.6006 49.2841Z" fill="white"/>
-                    </svg>
-                  </span>
-                </a>
-                <p>{{ gallery_caption }}</p>
-              </article>
-              {%- assign social_rendered_index = social_rendered_index | plus: 1 -%}
+                <article class="vmp-social__card" data-vmp-social-card="{{ social_rendered_index }}">
+                  <a class="vmp-social__media" href="{{ gallery_url }}" aria-label="{{ gallery_caption | escape }}">
+                    {%- if gallery_image_pc != blank -%}
+                      <picture class="vmp-picture">
+                        <source media="(max-width: 749px)" srcset="{{ gallery_image_mobile | image_url: width: 900 }}">
+                        {{
+                          gallery_image_pc
+                          | image_url: width: 900
+                          | image_tag:
+                            loading: 'lazy',
+                            widths: '360, 540, 720, 900',
+                            sizes: '(max-width: 749px) 300px, 411px',
+                            alt: gallery_caption
+                        }}
+                      </picture>
+                    {%- else -%}
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                    <span class="vmp-social__play" aria-hidden="true">
+                      <svg
+                        width="100"
+                        height="100"
+                        viewBox="0 0 100 100"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M96.0664 30.5332C93.5427 24.5735 89.9408 19.2299 85.3555 14.6445C80.7702 10.0592 75.4147 6.4455 69.4669 3.93365C63.3057 1.32701 56.7536 0 50 0C43.2465 0 36.7062 1.31517 30.5332 3.93365C24.5735 6.45735 19.2299 10.0592 14.6446 14.6445C10.0592 19.2299 6.4455 24.5853 3.93365 30.5332C1.32702 36.6943 0 43.2464 0 50C0 56.7536 1.32702 63.2938 3.93365 69.4668C6.45735 75.4265 10.0592 80.7701 14.6446 85.3555C19.2299 89.9408 24.5853 93.5545 30.5332 96.0664C36.6943 98.673 43.2465 100 50 100C56.7536 100 63.2939 98.673 69.4669 96.0664C75.4266 93.5427 80.7702 89.9408 85.3555 85.3555C89.9408 80.7701 93.5546 75.4147 96.0664 69.4668C98.673 63.3057 100 56.7536 100 50C100 43.2464 98.6849 36.7062 96.0664 30.5332Z" fill="black" fill-opacity="0.6"/>
+                        <path d="M58.6006 49.2841L41.8064 37.4846C41.0349 36.9487 40 37.494 40 38.4342V62.0331C40 62.9733 41.0349 63.5187 41.8064 62.9827L58.61 51.1833C59.2686 50.7226 59.2592 49.7448 58.6006 49.2841Z" fill="white"/>
+                      </svg>
+                    </span>
+                  </a>
+                  <p>{{ gallery_caption }}</p>
+                </article>
+                {%- assign social_rendered_index = social_rendered_index | plus: 1 -%}
               {%- endif -%}
             {%- endfor -%}
           </div>
         </div>
         {%- if social_render_count > 1 -%}
-        <div class="vmp-social__controls" data-vmp-social-controls>
-          <div class="vmp-social__progress" aria-label="Social gallery slides">
-            {%- assign social_progress_index = 0 -%}
-            {%- for i in (1..3) -%}
-              {%- liquid
-                assign progress_image_key = 'social_image_' | append: i | append: '_pc'
-                assign progress_image = section.settings[progress_image_key]
-              -%}
-              {%- if configured_social_count == 0 or progress_image != blank -%}
-                <button
-                  type="button"
-                  class="{% if social_progress_index == 0 %}is-active{% endif %}"
-                  data-vmp-social-dot="{{ social_progress_index }}"
-                  aria-label="Show social gallery item {{ social_progress_index | plus: 1 }}"
-                  aria-current="{% if social_progress_index == 0 %}true{% else %}false{% endif %}"
-                ></button>
-                {%- assign social_progress_index = social_progress_index | plus: 1 -%}
-              {%- endif -%}
-            {%- endfor -%}
+          <div class="vmp-social__controls" data-vmp-social-controls>
+            <div class="vmp-social__progress" aria-label="Social gallery slides">
+              {%- assign social_progress_index = 0 -%}
+              {%- for i in (1..3) -%}
+                {%- liquid
+                  assign progress_image_key = 'social_image_' | append: i | append: '_pc'
+                  assign progress_image = section.settings[progress_image_key]
+                -%}
+                {%- if configured_social_count == 0 or progress_image != blank -%}
+                  <button
+                    type="button"
+                    class="{% if social_progress_index == 0 %}is-active{% endif %}"
+                    data-vmp-social-dot="{{ social_progress_index }}"
+                    aria-label="Show social gallery item {{ social_progress_index | plus: 1 }}"
+                    aria-current="{% if social_progress_index == 0 %}true{% else %}false{% endif %}"
+                  ></button>
+                  {%- assign social_progress_index = social_progress_index | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            <div class="vmp-social__arrows">
+              <button type="button" data-vmp-social-prev aria-label="Previous gallery item">
+                <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M26 0.5C40.0833 0.5 51.5 11.9167 51.5 26C51.5 40.0833 40.0833 51.5 26 51.5C11.9167 51.5 0.5 40.0833 0.5 26C0.5 11.9167 11.9167 0.5 26 0.5Z" fill="white" stroke="#BFBFBF"/>
+                  <rect width="3.46562" height="13.8625" transform="matrix(0.707321 -0.706892 0.707321 0.706892 18.0781 25.7695)" fill="#666666"/>
+                  <rect width="3.46562" height="13.8625" transform="matrix(-0.707321 -0.706892 0.707321 -0.706892 19.916 27.6055)" fill="#666666"/>
+                </svg>
+              </button>
+              <button type="button" data-vmp-social-next aria-label="Next gallery item">
+                <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M26 0.5C11.9167 0.5 0.5 11.9167 0.5 26C0.5 40.0833 11.9167 51.5 26 51.5C40.0833 51.5 51.5 40.0833 51.5 26C51.5 11.9167 40.0833 0.5 26 0.5Z" fill="white" stroke="#BFBFBF"/>
+                  <rect width="3.46562" height="13.8625" transform="matrix(-0.707321 -0.706892 -0.707321 0.706892 33.9219 25.7695)" fill="#666666"/>
+                  <rect width="3.46562" height="13.8625" transform="matrix(0.707321 -0.706892 -0.707321 -0.706892 32.084 27.6055)" fill="#666666"/>
+                </svg>
+              </button>
+            </div>
           </div>
-          <div class="vmp-social__arrows">
-            <button type="button" data-vmp-social-prev aria-label="Previous gallery item">
-              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M26 0.5C40.0833 0.5 51.5 11.9167 51.5 26C51.5 40.0833 40.0833 51.5 26 51.5C11.9167 51.5 0.5 40.0833 0.5 26C0.5 11.9167 11.9167 0.5 26 0.5Z" fill="white" stroke="#BFBFBF"/>
-                <rect width="3.46562" height="13.8625" transform="matrix(0.707321 -0.706892 0.707321 0.706892 18.0781 25.7695)" fill="#666666"/>
-                <rect width="3.46562" height="13.8625" transform="matrix(-0.707321 -0.706892 0.707321 -0.706892 19.916 27.6055)" fill="#666666"/>
-              </svg>
-            </button>
-            <button type="button" data-vmp-social-next aria-label="Next gallery item">
-              <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M26 0.5C11.9167 0.5 0.5 11.9167 0.5 26C0.5 40.0833 11.9167 51.5 26 51.5C40.0833 51.5 51.5 40.0833 51.5 26C51.5 11.9167 40.0833 0.5 26 0.5Z" fill="white" stroke="#BFBFBF"/>
-                <rect width="3.46562" height="13.8625" transform="matrix(-0.707321 -0.706892 -0.707321 0.706892 33.9219 25.7695)" fill="#666666"/>
-                <rect width="3.46562" height="13.8625" transform="matrix(0.707321 -0.706892 -0.707321 -0.706892 32.084 27.6055)" fill="#666666"/>
-              </svg>
-            </button>
-          </div>
-        </div>
         {%- endif -%}
         <a
           class="vmp-social__mobile-more"
@@ -842,7 +857,7 @@
             <span data-vmp-sticky-label>
               {%- if current_variant.available %}Add To Cart{% else %}Sold Out{% endif -%}
             </span>
-            <small data-vmp-sticky-installment>Pay in 4 · {{ current_variant.price | divided_by: 4 | money }}</small>
+            <small data-vmp-sticky-installment>Pay in 4 -{{ current_variant.price | divided_by: 4 | money }}</small>
           </button>
         </div>
       </div>
@@ -1060,7 +1075,7 @@
         if (stickySmall && !available) stickySmall.textContent = 'Choose another item';
         if (stickySmall && available)
           stickySmall.innerHTML =
-            'Pay in 4 · <span data-vmp-sticky-quarter>' + this.money(Math.round(price / 4)) + '</span>';
+            'Pay in 4 -<span data-vmp-sticky-quarter>' + this.money(Math.round(price / 4)) + '</span>';
 
         this.dispatchEvent(
           new CustomEvent('variant:change', {
