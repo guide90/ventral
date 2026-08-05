@@ -207,24 +207,27 @@
       </form>
     {%- endif -%}
 
-    <section class="ventral-cart__faq" aria-labelledby="VentralCartFaqTitle">
-      <h2 id="VentralCartFaqTitle">FAQ</h2>
-      <div class="ventral-cart__faq-card">
-        <details class="ventral-cart__faq-item" open>
-          <summary>Do I need a trailer?</summary>
-          <p>No. Ventral is designed to deflate, pack down, and load for transport after the session.</p>
-        </details>
-        <details class="ventral-cart__faq-item">
-          <summary>What is included?</summary>
-        </details>
-        <details class="ventral-cart__faq-item">
-          <summary>When will my order arrive?</summary>
-        </details>
-        <details class="ventral-cart__faq-item">
-          <summary>Can I return my order if I change my mind?</summary>
-        </details>
-      </div>
-    </section>
+    {%- if section.blocks.size > 0 -%}
+      <section class="ventral-cart__faq" aria-labelledby="VentralCartFaqTitle">
+        <h2 id="VentralCartFaqTitle">{{ section.settings.faq_heading | escape }}</h2>
+        <div class="ventral-cart__faq-card">
+          {%- for block in section.blocks -%}
+            <details
+              class="ventral-cart__faq-item"
+              {% if block.settings.open_by_default %}
+                open
+              {% endif %}
+              {{ block.shopify_attributes }}
+            >
+              <summary>{{ block.settings.question | escape }}</summary>
+              {%- if block.settings.answer != blank -%}
+                {{ block.settings.answer }}
+              {%- endif -%}
+            </details>
+          {%- endfor -%}
+        </div>
+      </section>
+    {%- endif -%}
   </div>
 </div>
 
@@ -322,6 +325,41 @@
 
 {% schema %}
 {
-  "name": "t:sections.main-cart.name"
+  "name": "t:sections.main-cart.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "FAQ heading",
+      "default": "FAQ"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Answer</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_by_default",
+          "label": "Open by default",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12
 }
 {% endschema %}

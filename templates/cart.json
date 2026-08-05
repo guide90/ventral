@@ -11,10 +11,52 @@
   "sections": {
     "main": {
       "type": "main-cart",
-      "settings": {}
-    },
+      "blocks": {
+        "faq_trailer": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need a trailer?",
+            "answer": "<p>No. Ventral is designed to deflate, pack down, and load for transport after the session.</p>",
+            "open_by_default": true
+          }
+        },
+        "faq_included": {
+          "type": "faq",
+          "settings": {
+            "question": "What is included?",
+            "answer": "",
+            "open_by_default": false
+          }
+        },
+        "faq_arrival": {
+          "type": "faq",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "",
+            "open_by_default": false
+          }
+        },
+        "faq_returns": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I return my order if I change my mind?",
+            "answer": "",
+            "open_by_default": false
+          }
+        }
+      },
+      "block_order": [
+        "faq_trailer",
+        "faq_included",
+        "faq_arrival",
+        "faq_returns"
+      ],
+      "settings": {
+        "faq_heading": "FAQ"
+      }
+    }
   },
   "order": [
-    "main",
+    "main"
   ]
 }
