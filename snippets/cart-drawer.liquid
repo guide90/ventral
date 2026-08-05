@@ -1,89 +1,383 @@
-{% if settings.cart_type == 'drawer' %}
-  <div id="CartDrawer" class="drawer drawer--right">
-    <form id="CartDrawerForm" action="{{ routes.cart_url }}" method="post" novalidate class="drawer__contents" data-location="cart-drawer">
-      <div class="drawer__fixed-header">
-        <div class="drawer__header appear-animation appear-delay-1">
-          <div class="drawer__title">{{ 'cart.general.title' | t }}</div>
-          <div class="drawer__close">
-            <button type="button" class="drawer__close-button js-drawer-close">
-              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64"><title>icon-X</title><path d="m19 17.61 27.12 27.13m0-27.12L19 44.74"/></svg>
+{%- if settings.cart_type == 'drawer' -%}
+  {%- liquid
+    assign drawer_has_sold_out = false
+    for item in cart.items
+      if item.variant and item.variant.available == false
+        assign drawer_has_sold_out = true
+      endif
+    endfor
+
+    assign drawer_item_count_text = cart.item_count | append: ' items'
+    if cart.item_count == 1
+      assign drawer_item_count_text = '1 item'
+    endif
+
+    assign drawer_total_discounts = cart.total_discounts | money
+  -%}
+
+  <div id="CartDrawer" class="drawer drawer--right{% if cart.item_count == 0 %} is-empty{% endif %}">
+    <form
+      id="CartDrawerForm"
+      action="{{ routes.cart_url }}"
+      method="post"
+      novalidate
+      class="drawer__contents ventral-cart-drawer"
+      data-location="cart-drawer"
+    >
+      <div class="drawer__fixed-header ventral-cart-drawer__fixed-header">
+        <div class="drawer__header ventral-cart-drawer__header">
+          <div class="drawer__title ventral-cart-drawer__title">
+            <span>My Cart:</span>
+            <small data-drawer-count>{{ drawer_item_count_text }}</small>
+          </div>
+          <div class="drawer__close ventral-cart-drawer__close">
+            <button type="button" class="drawer__close-button js-drawer-close" aria-label="{{ 'cart.general.close_cart' | t }}">
+              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 64 64">
+                <title>icon-X</title>
+                <path d="m19 17.61 27.12 27.13m0-27.12L19 44.74"/>
+              </svg>
               <span class="icon__fallback-text">{{ 'cart.general.close_cart' | t }}</span>
             </button>
           </div>
         </div>
       </div>
 
-      <div class="drawer__inner">
-        <div class="drawer__scrollable">
-          <div data-products class="appear-animation appear-delay-2"></div>
-
-          {% if settings.cart_notes_enable %}
-            <div class="appear-animation appear-delay-3">
-              <label for="CartNoteDrawer">{{ 'cart.general.note' | t }}</label>
-              <textarea name="note" class="input-full cart-notes" id="CartNoteDrawer">{{ cart.note }}</textarea>
+      <div class="drawer__inner ventral-cart-drawer__inner">
+        <div class="drawer__scrollable ventral-cart-drawer__scrollable">
+          <div class="ventral-cart-drawer__filled">
+            <div data-products class="ventral-cart-drawer__products">
+              <div
+                class="cart__items"
+                data-count="{{ cart.item_count }}"
+                {% if cart.total_discounts > 0 %}
+                  data-cart-savings="{{ cart.total_discounts }}"
+                {% endif %}
+                data-cart-subtotal="{{ cart.total_price }}"
+              >
+                {%- for item in cart.items -%}
+                  {%- render 'cart-item', product: item, sizeVariable: '100px', fallback: '100px' -%}
+                {%- endfor -%}
+              </div>
             </div>
-          {% endif %}
-        </div>
 
-        <div class="drawer__footer appear-animation appear-delay-4">
-          <div data-discounts>
-            {% if cart.cart_level_discount_applications != blank %}
-              <div class="cart__item-sub cart__item-row">
-                <div>{{ 'cart.general.discounts' | t }}</div>
-                <div class="text-right">
-                  {% for cart_discount in cart.cart_level_discount_applications %}
-                    <div>
-                      {{ cart_discount.title }} (-{{ cart_discount.total_allocated_amount | money }})
-                    </div>
-                  {% endfor %}
+            <div class="ventral-cart-drawer__summary">
+              <div class="ventral-cart-drawer__totals">
+                <div class="ventral-cart-drawer__total-row ventral-cart-drawer__total-row--order">
+                  <span>Order Total:<small data-drawer-order-count>{{ drawer_item_count_text }}</small></span>
+                  <strong data-drawer-order-total>{{ cart.original_total_price | money }}</strong>
+                </div>
+
+                <div
+                  class="ventral-cart-drawer__total-row ventral-cart-drawer__total-row--saving{% unless cart.total_discounts > 0 %} hide{% endunless %}"
+                  data-drawer-savings
+                >
+                  <span>Total savings</span>
+                  <strong data-drawer-savings-amount>{{ drawer_total_discounts }}</strong>
+                </div>
+                <div class="cart__item-row cart__savings hide" data-savings></div>
+
+                <div data-discounts class="ventral-cart-drawer__discounts">
+                  <div class="cart__discounts{% if cart.cart_level_discount_applications == blank %} hide{% endif %}">
+                    {%- for cart_discount in cart.cart_level_discount_applications -%}
+                      <div class="cart__item-sub cart__item-row">
+                        <div>{{ cart_discount.title }}</div>
+                        <div class="text-right">-{{ cart_discount.total_allocated_amount | money }}</div>
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                </div>
+
+                <div class="ventral-cart-drawer__total-row ventral-cart-drawer__total-row--fee">
+                  <span>&#25910;&#36153;&#26679;&#24335;/&#26080;&#23601;&#38544;&#34255;</span>
+                  <strong>$0.00</strong>
+                </div>
+
+                <div class="ventral-cart-drawer__subtotal-row">
+                  <span>Subtotal:</span>
+                  <strong data-subtotal>{{ cart.total_price | money }}</strong>
                 </div>
               </div>
-            {% endif %}
-          </div>
 
-          <div class="cart__item-sub cart__item-row">
-            <div class="cart__subtotal">{{ 'cart.general.subtotal' | t }}</div>
-            <div data-subtotal>{{ cart.total_price | money }}</div>
-          </div>
+              <div class="ventral-cart-drawer__notes">
+                <details class="ventral-cart-drawer__notes-details"{% if cart.note != blank %} open{% endif %}>
+                  <summary>
+                    <span>Add order notes</span>
+                    <button
+                      type="button"
+                      class="ventral-cart-drawer__note-clear"
+                      data-drawer-note-clear
+                      {% if cart.note == blank %}
+                        hidden
+                      {% endif %}
+                    >
+                      Clear
+                    </button>
+                  </summary>
+                  <textarea
+                    name="note"
+                    class="input-full cart-notes"
+                    id="CartNoteDrawer"
+                    placeholder="Add remarks..."
+                  >{{ cart.note }}</textarea>
+                </details>
+                <div class="ventral-cart-drawer__shipping-note">
+                  Shipping,Taxes, and discounts are applied at checkout
+                </div>
+              </div>
 
-          <div class="cart__item-row cart__savings text-center hide" data-savings></div>
+              {%- if settings.cart_terms_conditions_enable -%}
+                <div class="cart__item-row cart__terms">
+                  <input type="checkbox" id="CartTermsDrawer" class="cart__terms-checkbox">
+                  <label for="CartTermsDrawer">
+                    {% if settings.cart_terms_conditions_page != blank %}
+                      {{ 'cart.general.terms_html' | t: url: settings.cart_terms_conditions_page.url }}
+                    {% else %}
+                      {{ 'cart.general.terms' | t }}
+                    {% endif %}
+                  </label>
+                </div>
+              {%- endif -%}
 
-          <div class="cart__item-row text-center ajaxcart__note">
-            <small>
-              {{ 'cart.general.shipping_at_checkout' | t }}<br />
-            </small>
-          </div>
+              <div class="cart__checkout-wrapper ventral-cart-drawer__checkout-wrapper">
+                <button
+                  type="submit"
+                  name="checkout"
+                  data-terms-required="{{ settings.cart_terms_conditions_enable }}"
+                  class="btn btn--no-animate cart__checkout ventral-cart-drawer__checkout{% if drawer_has_sold_out %} ventral-cart-drawer__checkout--disabled{% endif %}"
+                  {% if drawer_has_sold_out %}
+                    disabled aria-disabled="true"
+                  {% endif %}
+                >
+                  {%- if drawer_has_sold_out -%}
+                    <span>sold out</span>
+                    <small>Choose another item</small>
+                  {%- else -%}
+                    Check out
+                  {%- endif -%}
+                </button>
 
-          {% if settings.cart_terms_conditions_enable %}
-            <div class="cart__item-row cart__terms">
-              <input type="checkbox" id="CartTermsDrawer" class="cart__terms-checkbox">
-              <label for="CartTermsDrawer">
-                {% if settings.cart_terms_conditions_page != blank %}
-                  {{ 'cart.general.terms_html' | t: url: settings.cart_terms_conditions_page.url }}
-                {% else %}
-                  {{ 'cart.general.terms' | t }}
-                {% endif %}
-              </label>
+                {%- if additional_checkout_buttons and drawer_has_sold_out == false -%}
+                  <div class="additional-checkout-buttons additional-checkout-buttons--vertical">
+                    {{ content_for_additional_checkout_buttons }}
+                  </div>
+                {%- endif -%}
+              </div>
             </div>
-          {% endif %}
-
-          <div class="cart__checkout-wrapper">
-            <button type="submit" name="checkout" data-terms-required="{{ settings.cart_terms_conditions_enable }}" class="btn cart__checkout">
-              {{ 'cart.general.checkout' | t }}
-            </button>
-
-            {% if additional_checkout_buttons and settings.cart_additional_buttons %}
-              <div class="additional-checkout-buttons additional-checkout-buttons--vertical">{{ content_for_additional_checkout_buttons }}</div>
-            {% endif %}
           </div>
-        </div>
-      </div>
 
-      <div class="drawer__cart-empty appear-animation appear-delay-2">
-        <div class="drawer__scrollable">
-          {{ 'cart.general.empty' | t }}
+          <div class="ventral-cart-drawer__empty">
+            <div class="ventral-cart-drawer__empty-icon" aria-hidden="true">
+              <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.90234 8.51562H19.7677L22.9758 23.671M22.9758 23.671L27.1774 44.3312H52.3768L58.0971 23.671C58.0971 23.671 47.542 23.671 40.7787 23.671C34.0155 23.671 22.9758 23.671 22.9758 23.671Z" stroke="#BFBFBF" stroke-width="3"/>
+                <path d="M9.90234 8.51339L19.7677 8.48438L22.9753 23.8048M22.9753 23.8048C22.9753 23.8048 27.1973 23.8048 32.019 23.8048M22.9753 23.8048L25.0761 34.1349M40.7783 23.8048V44.465M40.7783 23.8048C38.1975 23.8048 34.9941 23.8048 32.019 23.8048M40.7783 23.8048C43.2519 23.8048 46.2328 23.8048 49.019 23.8048M40.7783 44.465H33.9776M40.7783 44.465H46.5773M33.9776 44.465H27.177L25.0761 34.1349M33.9776 44.465L32.019 23.8048M46.5773 44.465H52.3763L55.2365 34.1349M46.5773 44.465L49.019 23.8048M49.019 23.8048C53.8506 23.8048 58.0966 23.8048 58.0966 23.8048L55.2365 34.1349M25.0761 34.1349H55.2365" stroke="#BFBFBF" stroke-width="1.5"/>
+                <rect x="26.918" y="58.0156" width="6.24272" height="6.24272" rx="3.12136" transform="rotate(-90 26.918 58.0156)" stroke="#BFBFBF" stroke-width="3"/>
+                <rect x="45.7344" y="58.0156" width="6.24272" height="6.24272" rx="3.12136" transform="rotate(-90 45.7344 58.0156)" stroke="#BFBFBF" stroke-width="3"/>
+              </svg>
+            </div>
+            <p>No results found. Please <a href="{{ routes.all_products_collection_url }}">add some items.</a></p>
+          </div>
+
+          <div
+            class="ventral-cart-drawer__faq-slot"
+            data-cart-drawer-faq
+            data-faq-url="{{ routes.cart_url }}"
+            hidden
+          ></div>
+        </div>
+
+        <div class="ventral-cart-drawer__sticky">
+          <div class="ventral-cart-drawer__sticky-total">
+            <span>Subtotal:</span>
+            <strong>
+              <small data-drawer-sticky-savings{% unless cart.total_discounts > 0 %} hidden{% endunless %}>-{{ drawer_total_discounts }}</small>
+              <span data-drawer-sticky-subtotal>{{ cart.total_price | money }}</span>
+            </strong>
+          </div>
+          <button
+            type="submit"
+            name="checkout"
+            class="btn btn--no-animate cart__checkout ventral-cart-drawer__checkout ventral-cart-drawer__sticky-checkout{% if drawer_has_sold_out %} ventral-cart-drawer__checkout--disabled{% endif %}"
+            {% if drawer_has_sold_out %}
+              disabled aria-disabled="true"
+            {% endif %}
+          >
+            {%- if drawer_has_sold_out -%}
+              <span>sold out</span>
+              <small>Choose another item</small>
+            {%- else -%}
+              Check out
+            {%- endif -%}
+          </button>
         </div>
       </div>
     </form>
   </div>
-{% endif %}
+
+  <script>
+    (function () {
+      var drawer = document.getElementById('CartDrawer');
+      if (!drawer || drawer.dataset.ventralCartReady === 'true') return;
+      drawer.dataset.ventralCartReady = 'true';
+
+      var form = document.getElementById('CartDrawerForm');
+      var products = drawer.querySelector('[data-products]');
+      var faqSlot = drawer.querySelector('[data-cart-drawer-faq]');
+
+      function formatMoney(cents) {
+        if (window.theme && theme.Currency) {
+          return theme.Currency.formatMoney(cents, theme.settings.moneyFormat);
+        }
+        return '$' + ((cents || 0) / 100).toFixed(2);
+      }
+
+      function synchronizeDrawer(cartData) {
+        var items = drawer.querySelector('.cart__items');
+        var count = cartData ? cartData.item_count : parseInt((items && items.dataset.count) || '{{ cart.item_count }}', 10);
+        var countText = count === 1 ? '1 item' : count + ' items';
+
+        drawer.classList.toggle('is-empty', count === 0);
+        drawer.querySelectorAll('[data-drawer-count], [data-drawer-order-count]').forEach(function (node) {
+          node.textContent = countText;
+        });
+
+        if (cartData) {
+          var orderTotal = drawer.querySelector('[data-drawer-order-total]');
+          var subtotal = drawer.querySelector('[data-subtotal]');
+          var stickySubtotal = drawer.querySelector('[data-drawer-sticky-subtotal]');
+          var savingsRow = drawer.querySelector('[data-drawer-savings]');
+          var savingsAmount = drawer.querySelector('[data-drawer-savings-amount]');
+          var stickySavings = drawer.querySelector('[data-drawer-sticky-savings]');
+          var savings = cartData.total_discount || cartData.total_discounts || 0;
+
+          if (orderTotal) orderTotal.textContent = formatMoney(cartData.original_total_price);
+          if (subtotal) subtotal.textContent = formatMoney(cartData.total_price);
+          if (stickySubtotal) stickySubtotal.textContent = formatMoney(cartData.total_price);
+          if (savingsRow) savingsRow.classList.toggle('hide', savings <= 0);
+          if (savingsAmount) savingsAmount.textContent = formatMoney(savings);
+          if (stickySavings) {
+            stickySavings.textContent = '-' + formatMoney(savings);
+            stickySavings.hidden = savings <= 0;
+          }
+        } else {
+          var currentSubtotal = drawer.querySelector('[data-subtotal]');
+          var currentStickySubtotal = drawer.querySelector('[data-drawer-sticky-subtotal]');
+          if (currentSubtotal && currentStickySubtotal) {
+            currentStickySubtotal.textContent = currentSubtotal.textContent;
+          }
+        }
+
+        var hasSoldOut = !!drawer.querySelector('.ventral-cart-item--sold-out');
+        drawer.querySelectorAll('.ventral-cart-drawer__checkout').forEach(function (button) {
+          button.disabled = hasSoldOut;
+          button.setAttribute('aria-disabled', hasSoldOut ? 'true' : 'false');
+          button.classList.toggle('ventral-cart-drawer__checkout--disabled', hasSoldOut);
+          button.innerHTML = hasSoldOut
+            ? '<span>sold out</span><small>Choose another item</small>'
+            : 'Check out';
+        });
+        drawer.querySelectorAll('.additional-checkout-buttons').forEach(function (buttons) {
+          buttons.classList.toggle('hide', hasSoldOut);
+        });
+      }
+
+      function refreshCartData() {
+        return fetch('{{ routes.cart_url }}.js', { credentials: 'same-origin' })
+          .then(function (response) { return response.json(); })
+          .then(synchronizeDrawer)
+          .catch(function () {});
+      }
+
+      function installDrawerFaq(sourceFaq) {
+        if (!faqSlot || !sourceFaq) return;
+        var faq = sourceFaq.cloneNode(true);
+        var heading = faq.querySelector('h2');
+        faq.classList.remove('ventral-cart__faq--page');
+        faq.classList.add('ventral-cart__faq--drawer');
+        faq.setAttribute('aria-labelledby', 'VentralCartDrawerFaqTitle');
+        if (heading) heading.id = 'VentralCartDrawerFaqTitle';
+        faqSlot.innerHTML = '';
+        faqSlot.appendChild(faq);
+        faqSlot.hidden = false;
+        faqSlot.dataset.loaded = 'true';
+        faqSlot.dataset.loading = 'false';
+      }
+
+      function loadDrawerFaq() {
+        if (!faqSlot || faqSlot.dataset.loaded === 'true' || faqSlot.dataset.loading === 'true') return;
+        faqSlot.dataset.loading = 'true';
+
+        var pageFaq = document.querySelector('.ventral-cart__faq--page');
+        if (pageFaq) {
+          installDrawerFaq(pageFaq);
+          return;
+        }
+
+        fetch(faqSlot.dataset.faqUrl, { credentials: 'same-origin' })
+          .then(function (response) { return response.text(); })
+          .then(function (html) {
+            var doc = new DOMParser().parseFromString(html, 'text/html');
+            installDrawerFaq(doc.querySelector('.ventral-cart__faq--page'));
+          })
+          .catch(function () {
+            faqSlot.dataset.loading = 'false';
+          });
+      }
+
+      document.addEventListener('click', function (event) {
+        var clear = event.target.closest('[data-drawer-note-clear]');
+        if (!clear || !drawer.contains(clear)) return;
+        event.preventDefault();
+        var note = document.getElementById('CartNoteDrawer');
+        if (!note) return;
+        note.value = '';
+        clear.hidden = true;
+        note.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+
+      var cartNote = document.getElementById('CartNoteDrawer');
+      if (cartNote) {
+        cartNote.addEventListener('input', function () {
+          var clear = drawer.querySelector('[data-drawer-note-clear]');
+          if (clear) clear.hidden = cartNote.value.trim() === '';
+        });
+      }
+
+      if (products) {
+        new MutationObserver(function () {
+          window.setTimeout(synchronizeDrawer, 0);
+        }).observe(products, { childList: true, subtree: true });
+      }
+
+      document.addEventListener('cart:updated', function (event) {
+        synchronizeDrawer(event.detail && event.detail.cart);
+      });
+      document.addEventListener('ajaxProduct:added', function () {
+        window.setTimeout(refreshCartData, 150);
+      });
+      document.addEventListener('cart:open', loadDrawerFaq);
+      document.addEventListener('shopify:section:load', function (event) {
+        var cartSection = event.target && event.target.querySelector('.ventral-cart');
+        if (!cartSection || !faqSlot) return;
+        var pageFaq = cartSection.querySelector('.ventral-cart__faq--page');
+        if (!pageFaq) {
+          faqSlot.innerHTML = '';
+          faqSlot.hidden = true;
+          faqSlot.dataset.loaded = 'false';
+          faqSlot.dataset.loading = 'false';
+          return;
+        }
+        faqSlot.dataset.loaded = 'false';
+        faqSlot.dataset.loading = 'false';
+        installDrawerFaq(pageFaq);
+      });
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadDrawerFaq, { once: true });
+      } else {
+        loadDrawerFaq();
+      }
+
+      synchronizeDrawer();
+    })();
+  </script>
+{%- endif -%}

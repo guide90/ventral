@@ -1,0 +1,33 @@
+{%- liquid
+  assign faq_heading = heading | default: 'FAQ'
+  assign faq_heading_id = heading_id | default: 'VentralCartFaqTitle'
+  assign faq_context = context | default: 'page'
+-%}
+
+{%- if blocks.size > 0 -%}
+  <section
+    class="ventral-cart__faq ventral-cart__faq--{{ faq_context }}"
+    aria-labelledby="{{ faq_heading_id }}"
+    data-cart-faq-component
+  >
+    <h2 id="{{ faq_heading_id }}">{{ faq_heading | escape }}</h2>
+    <div class="ventral-cart__faq-card">
+      {%- for block in blocks -%}
+        <details
+          class="ventral-cart__faq-item"
+          {% if block.settings.open_by_default %}
+            open
+          {% endif %}
+          {% if editor_attributes %}
+            {{ block.shopify_attributes }}
+          {% endif %}
+        >
+          <summary>{{ block.settings.question | escape }}</summary>
+          {%- if block.settings.answer != blank -%}
+            {{ block.settings.answer }}
+          {%- endif -%}
+        </details>
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}

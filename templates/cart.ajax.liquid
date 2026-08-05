@@ -21,14 +21,10 @@
   {% endfor %}
 </div>
 <div class="cart__discounts{% if cart.cart_level_discount_applications == blank %} hide{% endif %}">
-  <div class="cart__item-sub cart__item-row">
-    <div>{{ 'cart.general.discounts' | t }}</div>
-    <div class="text-right">
-      {% for cart_discount in cart.cart_level_discount_applications %}
-        <div>
-          {{ cart_discount.title }} (-{{ cart_discount.total_allocated_amount | money }})
-        </div>
-      {% endfor %}
+  {% for cart_discount in cart.cart_level_discount_applications %}
+    <div class="cart__item-sub cart__item-row">
+      <div>{{ cart_discount.title }}</div>
+      <div class="text-right">-{{ cart_discount.total_allocated_amount | money }}</div>
     </div>
-  </div>
+  {% endfor %}
 </div>

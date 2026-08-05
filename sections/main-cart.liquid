@@ -207,27 +207,13 @@
       </form>
     {%- endif -%}
 
-    {%- if section.blocks.size > 0 -%}
-      <section class="ventral-cart__faq" aria-labelledby="VentralCartFaqTitle">
-        <h2 id="VentralCartFaqTitle">{{ section.settings.faq_heading | escape }}</h2>
-        <div class="ventral-cart__faq-card">
-          {%- for block in section.blocks -%}
-            <details
-              class="ventral-cart__faq-item"
-              {% if block.settings.open_by_default %}
-                open
-              {% endif %}
-              {{ block.shopify_attributes }}
-            >
-              <summary>{{ block.settings.question | escape }}</summary>
-              {%- if block.settings.answer != blank -%}
-                {{ block.settings.answer }}
-              {%- endif -%}
-            </details>
-          {%- endfor -%}
-        </div>
-      </section>
-    {%- endif -%}
+    {%- render 'cart-faq',
+      blocks: section.blocks,
+      heading: section.settings.faq_heading,
+      heading_id: 'VentralCartFaqTitle',
+      context: 'page',
+      editor_attributes: true
+    -%}
   </div>
 </div>
 
