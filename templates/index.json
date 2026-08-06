@@ -352,6 +352,10 @@
         "tough_image_right_mobile": "shopify://shop_images/PC-9-2.png",
         "comparison_image": "shopify://shop_images/pc-bg.png",
         "comparison_image_mobile": "shopify://shop_images/m-bg.png",
+        "carry_video": "shopify://files/videos/20260806-164458.mp4",
+        "carry_video_mobile": "shopify://files/videos/20260806-164458.mp4",
+        "carry_title": "Carry It Your Way",
+        "carry_description": "A portable design makes it easy to carry, move, and store wherever you go.",
         "cta_image": "shopify://shop_images/Adventure_Starts_Here..png",
         "cta_image_mobile": "shopify://shop_images/M-Adventure_Starts_Here..png"
       }
