@@ -15,6 +15,7 @@
         "feature_precise": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/collection-feature-precise.jpg",
             "title": "Precise",
             "description": "ADVANCED STABILITY"
           }
@@ -22,6 +23,7 @@
         "feature_confident": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/collection-feature-confident.png",
             "title": "Confident",
             "description": "CONTROL ON THE WATER"
           }
@@ -29,6 +31,7 @@
         "feature_capable": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/collection-feature-capable.png",
             "title": "Capable",
             "description": "BUILT FOR EVERY CAST"
           }
@@ -36,21 +39,31 @@
         "feature_visionary": {
           "type": "feature",
           "settings": {
+            "image": "shopify://shop_images/collection-feature-visionary.jpg",
             "title": "Visionary",
             "description": "SMART STORAGE"
           }
         },
         "gallery_1": {
           "type": "gallery_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/collection-gallery-1.jpg",
+            "alt": ""
+          }
         },
         "gallery_2": {
           "type": "gallery_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/collection-gallery-2.png",
+            "alt": ""
+          }
         },
         "gallery_3": {
           "type": "gallery_image",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/collection-gallery-3.jpg",
+            "alt": ""
+          }
         }
       },
       "block_order": [
@@ -63,6 +76,8 @@
         "gallery_3"
       ],
       "settings": {
+        "banner_image": "shopify://shop_images/collection-banner-desktop.png",
+        "banner_image_mobile": "shopify://shop_images/collection-banner-mobile.png",
         "banner_heading": "Fishing Starts Here",
         "banner_text": "Built for Stability. Ready for Every Cast.",
         "feature_heading": "Why Choose Us",
@@ -70,6 +85,10 @@
         "product_heading": "Product Grid",
         "product_heading_mobile": "Why Choose Us",
         "product_text": "Ventral. Level the Sea.",
+        "featured_product": "ventral-smart-portable-electric-fishing-paddle-board",
+        "product_lifestyle_image": "shopify://shop_images/collection-product-lifestyle.jpg",
+        "product_card_title": "",
+        "product_card_description": "",
         "price_label": "Super Early-Bird Price：",
         "product_button_text": "Shop Collection",
         "gallery_heading": "Lifestyle Gallery"
