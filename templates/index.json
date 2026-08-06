@@ -12,30 +12,6 @@
     "ventral_home": {
       "type": "ventral-home",
       "blocks": {
-        "press_1": {
-          "type": "press",
-          "settings": {
-            "name": "SUPBOARDGUIDE.COM"
-          }
-        },
-        "press_2": {
-          "type": "press",
-          "settings": {
-            "name": "SUPBOARDER"
-          }
-        },
-        "press_3": {
-          "type": "press",
-          "settings": {
-            "name": "PADDLEING.COM"
-          }
-        },
-        "press_4": {
-          "type": "press",
-          "settings": {
-            "name": "Paddlethrill"
-          }
-        },
         "icast_1": {
           "type": "icast_slide",
           "settings": {
@@ -295,10 +271,6 @@
         }
       },
       "block_order": [
-        "press_1",
-        "press_2",
-        "press_3",
-        "press_4",
         "icast_1",
         "icast_slide_bCbEjW",
         "precision_1",
