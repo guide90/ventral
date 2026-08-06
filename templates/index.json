@@ -202,6 +202,76 @@
             "title": "Grab It and Go"
           }
         },
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is Ventral?",
+            "answer": "A powered inflatable fishing kayak built around a mid-mount drive, open deck, storage zones, and seated or standing fishing."
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long can it run?",
+            "answer": "Draft copy may reference up to six hours in Eco mode. Final runtime depends on test conditions."
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I stand and cast?",
+            "answer": "Yes, the wide deck is designed for stand-and-cast fishing."
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are accessories included?",
+            "answer": "Accessories shown in visuals are setup examples unless the final reward list says otherwise."
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I care for my Ventral Fishing Board after saltwater use?",
+            "answer": "After each saltwater session, we recommend rinsing the board, Drive system, motor components, and accessories with fresh water to remove salt residue. Allow all components to dry completely before storage.\nRegular rinsing and proper maintenance will help protect the materials, electrical connections, and moving parts, ensuring long-term performance."
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do I need a trailer?",
+            "answer": "No. Ventral is designed to deflate, pack down, and load for transport after the session."
+          }
+        },
+        "faq_7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I use it in salt water?",
+            "answer": "Ventral is intended for fresh-water and salt-water fishing use, with final care guidance to confirm."
+          }
+        },
+        "faq_8": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is included?",
+            "answer": "Final Kickstarter reward contents will be confirmed on the campaign page."
+          }
+        },
+        "faq_9": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does it handle weeds or shallow water?",
+            "answer": "The mid-mount drive can be lifted straight up for manual clearing."
+          }
+        },
+        "faq_10": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I prevent or remove weeds from getting tangled in the motor?",
+            "answer": "Ventral Fishing Board features a Smart Mid-Mount Drive designed to reduce common weed interference compared with traditional rear-mounted motors.\nIf weeds or debris become caught during operation, simply stop the motor and follow the recommended clearing procedure before continuing. The easy-access mid-mount design allows for quick inspection and cleaning without needing to reach around the rear of the board.\nWe recommend avoiding dense vegetation areas whenever possible to ensure optimal performance and protect the propulsion system."
+          }
+        },
         "video_1": {
           "type": "video",
           "settings": {
@@ -248,6 +318,16 @@
         "story_4",
         "story_5",
         "story_6",
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8",
+        "faq_9",
+        "faq_10",
         "video_1",
         "video_FyWnLV",
         "video_Xd3mQY"
@@ -266,8 +346,8 @@
         "system_image": "shopify://shop_images/pc-5-1_a4dd1b23-0aa0-4a98-b99c-57f05760f4ec.png",
         "power_image": "shopify://shop_images/PC-6.png",
         "power_image_mobile": "shopify://shop_images/6.png",
-        "tough_image_left": "shopify://shop_images/2_3x_c9aee3d8-1454-48fa-a3dd-ebdbc1894605.png",
-        "tough_image_left_mobile": "shopify://shop_images/2_3x_c9aee3d8-1454-48fa-a3dd-ebdbc1894605.png",
+        "tough_image_left": "shopify://shop_images/20260804-174758.png",
+        "tough_image_left_mobile": "shopify://shop_images/20260804-174758.png",
         "tough_image_right": "shopify://shop_images/PC-9-2.png",
         "tough_image_right_mobile": "shopify://shop_images/PC-9-2.png",
         "comparison_image": "shopify://shop_images/pc-bg.png",
