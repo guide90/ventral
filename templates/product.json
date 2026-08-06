@@ -14,19 +14,33 @@
       "blocks": {
         "product_tab": {
           "type": "product_tab",
-          "settings": {}
+          "settings": {
+            "label": "Product",
+            "image_pc": "shopify://shop_images/product-detail.png",
+            "alt": "Product specifications and technical details"
+          }
         },
         "shipping_tab": {
           "type": "shipping_tab",
-          "settings": {}
+          "settings": {
+            "label": "Shipping & Returns"
+          }
         },
         "video_tab": {
           "type": "video_tab",
-          "settings": {}
+          "settings": {
+            "label": "Video",
+            "heading": "Easy To Use, Even For Beginners",
+            "video": "shopify://files/videos/坐.mp4",
+            "external_video": ""
+          }
         },
         "reviews_tab": {
           "type": "reviews_tab",
-          "settings": {}
+          "settings": {
+            "label": "Reviews",
+            "heading": "Customer Reviews"
+          }
         }
       },
       "block_order": [
@@ -35,7 +49,24 @@
         "video_tab",
         "reviews_tab"
       ],
-      "settings": {}
+      "settings": {
+        "rating_value": "5.0",
+        "review_count": "82,589",
+        "purchase_points": "<p><strong>How It Works</strong></p><ul><li>Track every movement with precision</li><li>AI coaching shows you what to do next</li><li>Real-time audio feedback reacts as you ride</li></ul>",
+        "eco_message": "Engineered for speed and precision using less material.",
+        "secondary_purchase_action": "dynamic",
+        "show_sticky_bar": true,
+        "show_social_gallery": true,
+        "social_heading": "Social Media Gallery",
+        "social_button_label": "More Items",
+        "social_button_url": "",
+        "social_caption_1": "How to Choose the Right Paddle Board for Fall Adventures",
+        "social_url_1": "",
+        "social_caption_2": "Share Your Story. Earn Rewards",
+        "social_url_2": "",
+        "social_caption_3": "The Best Sunset Paddle Boarding Locations in the U.S.",
+        "social_url_3": ""
+      }
     }
   },
   "order": [

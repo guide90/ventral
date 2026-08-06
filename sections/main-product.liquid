@@ -541,6 +541,7 @@
             {%- endif -%}
           {%- endfor -%}
         {%- else -%}
+          <p class="vmp-product-art__hint">Add "Product detail image" blocks in the theme editor to display multiple images in this tab.</p>
           {%- assign product_tab_image_pc = product_tab.settings.image_pc -%}
           {%- assign product_tab_image_mobile = product_tab.settings.image_mobile | default: product_tab_image_pc -%}
           {%- assign product_tab_image_alt = product_tab.settings.alt
@@ -736,12 +737,17 @@
       <div class="vmp-reviews">
         <h2>{{ reviews_tab.settings.heading | default: 'Customer Reviews' }}</h2>
         <div class="vmp-reviews__app">
+          {%- assign review_app_count = 0 -%}
           {%- for block in section.blocks -%}
             {%- if block.type == '@app' -%}
+              {%- assign review_app_count = review_app_count | plus: 1 -%}
               <div {{ block.shopify_attributes }}>{% render block %}</div>
             {%- endif -%}
           {%- endfor -%}
         </div>
+        {%- if review_app_count == 0 -%}
+          <p class="vmp-reviews__hint">Add a review app (such as Judge.me) in the theme editor to display customer reviews here.</p>
+        {%- endif -%}
       </div>
     </section>
   </div>
@@ -1411,6 +1417,7 @@
       initSocialGallery() {
         var viewport = this.querySelector('[data-vmp-social-viewport]');
         if (!viewport) return;
+        var track = viewport.querySelector('[data-vmp-social-track]');
         var cards = toArray(viewport.querySelectorAll('[data-vmp-social-card]'));
         var dots = toArray(this.querySelectorAll('[data-vmp-social-dot]'));
         if (!cards.length) return;
@@ -1428,7 +1435,16 @@
         var showCard = function (index) {
           index = (index + cards.length) % cards.length;
           updateControls(index);
-          viewport.scrollTo({ left: cards[index].offsetLeft, behavior: 'smooth' });
+          if (!track) return;
+          var card = cards[index];
+          if (!card) return;
+          var mobile = window.matchMedia('(max-width: 749px)').matches;
+          if (mobile) {
+            viewport.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
+          } else {
+            var scrollLeft = card.offsetLeft - card.offsetParent.offsetLeft;
+            track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+          }
         };
         if (previous)
           previous.addEventListener('click', function () {
@@ -1450,10 +1466,11 @@
           function () {
             if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
             scrollFrame = window.requestAnimationFrame(function () {
+              var scrollLeft = viewport.scrollLeft;
               var closest = 0;
               var closestDistance = Infinity;
               cards.forEach(function (card, index) {
-                var distance = Math.abs(card.offsetLeft - viewport.scrollLeft);
+                var distance = Math.abs(card.offsetLeft - scrollLeft);
                 if (distance < closestDistance) {
                   closestDistance = distance;
                   closest = index;

@@ -454,6 +454,7 @@
     border-left: 1px solid rgba(255, 255, 255, 0.45);
     background: #585858;
     cursor: pointer;
+    transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), flex-basis 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   #VentralCollection-{{ section.id }} .vc-feature__item:first-child {
@@ -518,15 +519,20 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-feature__copy p {
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    overflow: hidden;
     color: #fff;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.4;
+    transition: max-height 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s ease;
   }
 
   #VentralCollection-{{ section.id }} .vc-feature__item.is-active .vc-feature__copy p {
-    display: block;
+    max-height: 200px;
+    opacity: 1;
     margin-top: 12px;
   }
 
@@ -828,7 +834,7 @@
       display: flex;
       width: 100%;
       height: 290px;
-      margin-top: 43px;
+      margin-top: 20px;
       gap: 0;
       overflow-x: auto;
       overflow-y: hidden;
@@ -870,6 +876,10 @@
       margin-top: 8px;
       font-size: 12px;
       line-height: 1.2;
+      max-height: none;
+      opacity: 1;
+      overflow: visible;
+      transition: none;
     }
 
     #VentralCollection-{{ section.id }} .vc-feature-progress {
@@ -923,10 +933,13 @@
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__lifestyle-image {
-      top: -77px;
-      left: -63.333%;
-      width: 224.667%;
-      height: 337px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__details h3 {
@@ -1004,7 +1017,7 @@
 
     #VentralCollection-{{ section.id }} .vc-gallery {
       height: 160px;
-      margin-top: 41px;
+      margin-top: 40px;
       padding: 0 max(12px, calc((100vw - 340px) / 2));
       gap: 12px;
       scroll-padding-inline: max(12px, calc((100vw - 340px) / 2));
@@ -1034,21 +1047,18 @@
 
     const nearestItemIndex = (container, items) => {
       const scrollLeft = container.scrollLeft;
-      const viewWidth = container.clientWidth;
-      let activeIndex = 0;
-
+      const viewCenter = scrollLeft + container.clientWidth / 2;
+      let bestIndex = 0;
+      let bestDistance = Infinity;
       for (let i = 0; i < items.length; i++) {
-        const itemLeft = items[i].offsetLeft;
-        const itemWidth = items[i].offsetWidth;
-        const itemCenter = itemLeft + itemWidth / 2;
-        // Item becomes active once its center has crossed >50% into the viewport
-        if (itemCenter > scrollLeft + viewWidth * 0.5) {
-          activeIndex = i;
-          break;
+        const itemCenter = items[i].offsetLeft + items[i].offsetWidth / 2;
+        const distance = Math.abs(itemCenter - viewCenter);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = i;
         }
-        activeIndex = i;
       }
-      return activeIndex;
+      return bestIndex;
     };
 
     const scrollItemIntoView = (container, item) => {
@@ -1124,15 +1134,34 @@
     }));
 
     let galleryScrollFrame = null;
-    viewport?.addEventListener('scroll', () => {
+    const galleryScrollHandler = () => {
       if (galleryScrollFrame) return;
       galleryScrollFrame = requestAnimationFrame(() => {
         galleryScrollFrame = null;
         setGallery(nearestItemIndex(viewport, galleryItems));
       });
-    }, { passive: true });
+    };
+    viewport?.addEventListener('scroll', galleryScrollHandler, { passive: true });
 
-    // Desktop drag-to-scroll
+    // Desktop init: scroll to item 1, suppress scroll handler to prevent wrong dot sync
+    const isDesktopInit = window.matchMedia('(min-width: 769px)').matches;
+    if (isDesktopInit) {
+      let suppressScroll = true;
+      viewport.addEventListener('scroll', () => {
+        if (suppressScroll) return;
+        galleryScrollHandler();
+      }, { passive: true });
+
+      setGallery(1);
+      requestAnimationFrame(() => {
+        scrollItemIntoView(viewport, galleryItems[1]);
+        requestAnimationFrame(() => {
+          suppressScroll = false;
+        });
+      });
+    } else {
+      setGallery(0);
+    }
     if (viewport) {
       let isDragging = false;
       let startX = 0;
@@ -1165,7 +1194,18 @@
         if (isDragging) event.preventDefault();
       }, true);
     }
-    setGallery(0);
+    // Suppress the scroll event fired by init scroll — dots are set by setGallery above
+    const suppressInitScroll = () => {
+      viewport.removeEventListener('scroll', suppressInitScroll);
+    };
+
+    const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+    const galleryInitIndex = isDesktop ? 1 : 0;
+    setGallery(galleryInitIndex);
+    if (isDesktop) {
+      viewport?.addEventListener('scroll', suppressInitScroll, { passive: true });
+      requestAnimationFrame(() => scrollItemIntoView(viewport, galleryItems[1]));
+    }
 
     if (Shopify.designMode) {
       document.addEventListener('shopify:block:select', (event) => {
