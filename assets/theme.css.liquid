@@ -14949,7 +14949,7 @@ iframe.zoid-component-frame {
   margin: 0 !important;
 }
 
-.ventral-cart .additional-checkout-buttons [data-shopify-buttoncontainer] > * {
+.ventral-cart .additional-checkout-buttons [data-shopify-buttoncontainer]>* {
   min-height: 52px !important;
   border-radius: 90px !important;
 }
@@ -15085,6 +15085,7 @@ iframe.zoid-component-frame {
 }
 
 @media only screen and (max-width: 768px) {
+
   .template-cart,
   .template-cart .main-content {
     background: #fff;
@@ -15319,7 +15320,7 @@ iframe.zoid-component-frame {
     width: 100%;
   }
 
-  .ventral-cart__sticky-total > span {
+  .ventral-cart__sticky-total>span {
     color: var(--cart-text);
     font-size: 16px;
     font-weight: 500;
@@ -15548,7 +15549,7 @@ iframe.zoid-component-frame {
   border-bottom: 1px solid var(--drawer-cart-line);
 }
 
-#CartDrawer .ventral-cart-item + .ventral-cart-item {
+#CartDrawer .ventral-cart-item+.ventral-cart-item {
   padding-top: 16px;
 }
 
@@ -15833,7 +15834,7 @@ iframe.zoid-component-frame {
   text-transform: none;
 }
 
-#CartDrawer .ventral-cart-drawer__total-row > span {
+#CartDrawer .ventral-cart-drawer__total-row>span {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
@@ -15866,7 +15867,7 @@ iframe.zoid-component-frame {
   color: var(--drawer-cart-sale);
 }
 
-#CartDrawer .ventral-cart-drawer__total-row--fee > span,
+#CartDrawer .ventral-cart-drawer__total-row--fee>span,
 #CartDrawer .ventral-cart-drawer__total-row--fee strong {
   color: var(--drawer-cart-soft);
   font-size: 14px;
@@ -15905,7 +15906,7 @@ iframe.zoid-component-frame {
   border-bottom: 1px solid var(--drawer-cart-line);
 }
 
-#CartDrawer .ventral-cart-drawer__subtotal-row > span {
+#CartDrawer .ventral-cart-drawer__subtotal-row>span {
   color: var(--drawer-cart-text);
   font-size: 20px;
   font-weight: 800;
@@ -16058,7 +16059,7 @@ iframe.zoid-component-frame {
   margin: 0 !important;
 }
 
-#CartDrawer .additional-checkout-buttons [data-shopify-buttoncontainer] > * {
+#CartDrawer .additional-checkout-buttons [data-shopify-buttoncontainer]>* {
   min-height: 52px !important;
   border-radius: 90px !important;
 }
@@ -16180,7 +16181,7 @@ iframe.zoid-component-frame {
   width: 100%;
 }
 
-#CartDrawer .ventral-cart-drawer__sticky-total > span {
+#CartDrawer .ventral-cart-drawer__sticky-total>span {
   color: var(--drawer-cart-text);
   font-size: 16px;
   font-weight: 500;
@@ -16245,7 +16246,7 @@ iframe.zoid-component-frame {
     padding-bottom: 20px;
   }
 
-  #CartDrawer .ventral-cart-item + .ventral-cart-item {
+  #CartDrawer .ventral-cart-item+.ventral-cart-item {
     padding-top: 20px;
   }
 
@@ -17569,12 +17570,12 @@ iframe.zoid-component-frame {
   overflow: hidden;
 }
 
-.vmp-gallery__slide > img,
-.vmp-gallery__slide > video,
-.vmp-gallery__slide > iframe,
-.vmp-gallery__slide > model-viewer,
-.vmp-gallery__slide > .placeholder-svg,
-.vmp-gallery__slide .vmp-picture > img {
+.vmp-gallery__slide>img,
+.vmp-gallery__slide>video,
+.vmp-gallery__slide>iframe,
+.vmp-gallery__slide>model-viewer,
+.vmp-gallery__slide>.placeholder-svg,
+.vmp-gallery__slide .vmp-picture>img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -17643,7 +17644,6 @@ iframe.zoid-component-frame {
   padding: 0;
   overflow: hidden;
   border: 0;
-  border-radius: 10px;
   background: transparent;
   cursor: pointer;
 }
@@ -17743,7 +17743,7 @@ iframe.zoid-component-frame {
   line-height: 1;
 }
 
-.vmp-rating > span:last-child {
+.vmp-rating>span:last-child {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -17759,18 +17759,20 @@ iframe.zoid-component-frame {
 .vmp-price__current {
   font-size: 30px;
   font-weight: 600;
-  line-height: 34px;
+  line-height: 30px;
 }
 
 .vmp-price__discount {
   color: var(--vmp-sale);
-  font-size: 24px;
+  font-size: 30px;
+  line-height: 30px;
   font-weight: 600;
 }
 
 .vmp-price__compare {
   color: #999;
   font-size: 16px;
+  line-height: 24px;
   font-weight: 400;
 }
 
@@ -17778,7 +17780,7 @@ iframe.zoid-component-frame {
   margin: 0;
   color: #545454;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 12px;
   text-transform: capitalize;
 }
 
@@ -17787,15 +17789,17 @@ iframe.zoid-component-frame {
   font-weight: 600;
 }
 
-.vmp-buybox__points {
+.vmp-buybox__points,
+.vmp-buybox__points p,
+.vmp-buybox__points strong {
   margin: 0;
   color: var(--vmp-ink);
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .vmp-buybox__points p {
-  margin: 0 0 7px;
+  margin: 0 0 4px;
 }
 
 .vmp-buybox__points ul {
@@ -17804,7 +17808,7 @@ iframe.zoid-component-frame {
 }
 
 .vmp-buybox__points li {
-  margin: 1px 0;
+  margin: 0;
 }
 
 .vmp-form,
@@ -17860,15 +17864,23 @@ iframe.zoid-component-frame {
 }
 
 .vmp .vmp-actions {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 0;
+  position: relative;
+  display: block;
   height: 66px;
   margin-top: 0;
   overflow: hidden;
   border: 3px solid var(--vmp-deep-blue);
   border-radius: 90px;
   background: var(--vmp-deep-blue);
+}
+
+.vmp .vmp-actions > .vmp-quantity {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 110px;
 }
 
 .vmp .vmp-quantity {
@@ -17898,6 +17910,20 @@ iframe.zoid-component-frame {
 
 .vmp-quantity button {
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vmp-quantity button[data-vmp-quantity-minus] svg,
+.vmp-quantity button[data-vmp-sticky-minus] svg {
+  width: 10px;
+  height: 2px;
+}
+
+.vmp .vmp-quantity button:disabled {
+  color: #bfbfbf;
+  cursor: default;
 }
 
 .vmp-quantity input {
@@ -17925,7 +17951,11 @@ iframe.zoid-component-frame {
 }
 
 .vmp .vmp-button--primary {
-  border-radius: 0 12px 12px 0;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  min-height: 100%;
+  border-radius: 90px;
   background: var(--vmp-deep-blue);
 }
 
@@ -17974,7 +18004,7 @@ iframe.zoid-component-frame {
   border-top: 1px solid #eee;
 }
 
-.vmp-benefits > div {
+.vmp-benefits>div {
   display: flex;
   gap: 5px;
   align-items: center;
@@ -18027,7 +18057,7 @@ iframe.zoid-component-frame {
   scrollbar-width: none;
 }
 
-.vmp .vmp-tabs__nav > button {
+.vmp .vmp-tabs__nav>button {
   display: flex;
   min-width: 0;
   height: 60px;
@@ -18046,7 +18076,7 @@ iframe.zoid-component-frame {
   cursor: pointer;
 }
 
-.vmp .vmp-tabs__nav > button.is-active {
+.vmp .vmp-tabs__nav>button.is-active {
   border-radius: 8px 8px 0 0;
   color: #fff;
   background: var(--vmp-blue);
@@ -18067,13 +18097,20 @@ iframe.zoid-component-frame {
   background: linear-gradient(180deg, #222 0 30%, #164c70 100%);
 }
 
+.vmp-product-art__item {
+  width: 100%;
+}
+
 .vmp-product-art .vmp-picture,
-.vmp-product-art img {
+.vmp-product-art img,
+.vmp-product-art__item > .placeholder-svg {
+  display: block;
   width: 100%;
   height: auto;
 }
 
-.vmp-product-art > .placeholder-svg {
+.vmp-product-art>.placeholder-svg,
+.vmp-product-art__item>.placeholder-svg {
   width: 100%;
   min-height: 680px;
   aspect-ratio: 1920 / 1100;
@@ -18136,7 +18173,7 @@ iframe.zoid-component-frame {
   margin-top: 26px;
 }
 
-.vmp-shipping__features > div {
+.vmp-shipping__features>div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18159,7 +18196,7 @@ iframe.zoid-component-frame {
   line-height: 22px;
 }
 
-.vmp-shipping__features > div > span:last-child {
+.vmp-shipping__features>div>span:last-child {
   color: #999;
   font-size: 12px;
   line-height: 18px;
@@ -18198,9 +18235,9 @@ iframe.zoid-component-frame {
   inset: 0;
 }
 
-.vmp-video__cover > img,
-.vmp-video__cover .vmp-picture > img,
-.vmp-video__cover > .placeholder-svg,
+.vmp-video__cover>img,
+.vmp-video__cover .vmp-picture>img,
+.vmp-video__cover>.placeholder-svg,
 .vmp-video__player video,
 .vmp-video__player iframe {
   width: 100%;
@@ -18724,11 +18761,14 @@ iframe.zoid-component-frame {
   }
 
   .vmp .vmp-actions {
-    grid-template-columns: 24% 1fr;
     height: 56px;
     margin-top: 0;
     border-width: 2px;
     border-radius: 90px;
+  }
+
+  .vmp .vmp-actions > .vmp-quantity {
+    width: 24%;
   }
 
   .vmp .vmp-quantity {
@@ -18741,7 +18781,7 @@ iframe.zoid-component-frame {
   }
 
   .vmp .vmp-button--primary {
-    border-radius: 0 90px 90px 0;
+    border-radius: 90px;
   }
 
   .vmp .vmp-button--secondary {
@@ -18776,7 +18816,7 @@ iframe.zoid-component-frame {
     padding: 9px 0 7px;
   }
 
-  .vmp-benefits > div {
+  .vmp-benefits>div {
     gap: 3px;
     font-size: 8px;
     line-height: 10px;
@@ -18807,7 +18847,7 @@ iframe.zoid-component-frame {
     margin: 0;
   }
 
-  .vmp .vmp-tabs__nav > button {
+  .vmp .vmp-tabs__nav>button {
     min-width: 0;
     height: 48px;
     padding: 0 4px;
@@ -18816,7 +18856,7 @@ iframe.zoid-component-frame {
     white-space: normal;
   }
 
-  .vmp .vmp-tabs__nav > button.is-active {
+  .vmp .vmp-tabs__nav>button.is-active {
     border-radius: 0;
   }
 
@@ -18824,7 +18864,8 @@ iframe.zoid-component-frame {
     min-height: 640px;
   }
 
-  .vmp-product-art > .placeholder-svg {
+  .vmp-product-art>.placeholder-svg,
+  .vmp-product-art__item>.placeholder-svg {
     min-height: 640px;
     aspect-ratio: 375 / 760;
   }
@@ -18880,7 +18921,7 @@ iframe.zoid-component-frame {
     line-height: 14px;
   }
 
-  .vmp-shipping__features > div > span:last-child {
+  .vmp-shipping__features>div>span:last-child {
     max-width: 120px;
     font-size: 8px;
     line-height: 11px;
@@ -19189,6 +19230,10 @@ iframe.zoid-component-frame {
   opacity: 1;
 }
 
+.vmp .vmp-quantity button:disabled:hover {
+  color: #bfbfbf;
+}
+
 .vmp .vmp-button--primary:hover,
 .vmp .vmp-sticky__add:hover {
   color: #fff;
@@ -19212,13 +19257,13 @@ iframe.zoid-component-frame {
   background: #e5e5e5;
 }
 
-.vmp .vmp-tabs__nav > button:hover {
+.vmp .vmp-tabs__nav>button:hover {
   color: #545454;
   background: #fff;
   opacity: 1;
 }
 
-.vmp .vmp-tabs__nav > button.is-active:hover {
+.vmp .vmp-tabs__nav>button.is-active:hover {
   color: #fff;
   background: var(--vmp-blue);
 }
@@ -19248,6 +19293,7 @@ iframe.zoid-component-frame {
 }
 
 @media (max-width: 749px) {
+
   .vmp .shopify-payment-button__button--unbranded:hover,
   .vmp .shopify-payment-button__button--unbranded:hover:not([disabled]) {
     padding: 8px 18px;

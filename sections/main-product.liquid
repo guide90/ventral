@@ -4,6 +4,7 @@
   assign rating_value = product.metafields.reviews.rating.value.rating | default: section.settings.rating_value | default: '5.0'
   assign review_count = product.metafields.reviews.rating_count | default: section.settings.review_count | default: '82,589'
   assign product_tab = null
+  assign product_detail_image_count = 0
   assign shipping_tab = null
   assign video_tab = null
   assign reviews_tab = null
@@ -11,6 +12,8 @@
     case block.type
       when 'product_tab'
         assign product_tab = block
+      when 'product_detail_image'
+        assign product_detail_image_count = product_detail_image_count | plus: 1
       when 'shipping_tab'
         assign shipping_tab = block
       when 'video_tab'
@@ -65,11 +68,25 @@
             data-vmp-gallery-prev
             aria-label="Previous product image"
           >
-            <svg class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--desktop" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--desktop"
+              width="56"
+              height="56"
+              viewBox="0 0 56 56"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="M56 28C56 12.536 43.464 0 28 0C12.536 0 0 12.536 0 28C0 43.464 12.536 56 28 56C43.464 56 56 43.464 56 28Z" fill="black" fill-opacity="0.3"/>
               <path d="M23.6152 28.709L29.708 34.8008L31.2305 33.2773L26.6621 28.708L31.2305 24.1396L29.707 22.6172L23.6152 28.709Z" fill="white"/>
             </svg>
-            <svg class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--mobile" xmlns="http://www.w3.org/2000/svg" width="36" height="52" viewBox="0 0 36 52" fill="none">
+            <svg
+              class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--mobile"
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="52"
+              viewBox="0 0 36 52"
+              fill="none"
+            >
               <path opacity="0.25" d="M10 0C6.45639 0 3.07837 0.709419 0 1.99316V50.0059C3.07846 51.2897 6.45626 52 10 52C24.3593 51.9999 36 40.3593 36 26C36 11.6407 24.3593 0.000105561 10 0Z" fill="black"/>
               <path d="M11.2656 26.6572L16.9219 32.3145L18.3369 30.9004L14.0947 26.6572L18.3369 22.415L16.9229 21L11.2656 26.6572Z" fill="white"/>
             </svg>
@@ -141,11 +158,25 @@
             data-vmp-gallery-next
             aria-label="Next product image"
           >
-            <svg class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--desktop" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg
+              class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--desktop"
+              width="56"
+              height="56"
+              viewBox="0 0 56 56"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="M0 28C0 12.536 12.536 0 28 0C43.464 0 56 12.536 56 28C56 43.464 43.464 56 28 56C12.536 56 0 43.464 0 28Z" fill="black" fill-opacity="0.3"/>
               <path d="M32.3848 28.709L26.292 34.8008L24.7695 33.2773L29.3379 28.708L24.7695 24.1396L26.293 22.6172L32.3848 28.709Z" fill="white"/>
             </svg>
-            <svg class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--mobile" xmlns="http://www.w3.org/2000/svg" width="36" height="52" viewBox="0 0 36 52" fill="none">
+            <svg
+              class="vmp-gallery__arrow-icon vmp-gallery__arrow-icon--mobile"
+              xmlns="http://www.w3.org/2000/svg"
+              width="36"
+              height="52"
+              viewBox="0 0 36 52"
+              fill="none"
+            >
               <path opacity="0.25" d="M26 0C29.5436 0 32.9216 0.709419 36 1.99316V50.0059C32.9215 51.2897 29.5437 52 26 52C11.6407 51.9999 0 40.3593 0 26C0 11.6407 11.6407 0.000105561 26 0Z" fill="black"/>
               <path d="M24.7344 26.6572L19.0781 32.3145L17.6631 30.9004L21.9053 26.6572L17.6631 22.415L19.0771 21L24.7344 26.6572Z" fill="white"/>
             </svg>
@@ -300,7 +331,18 @@
 
         <div class="vmp-actions">
           <div class="vmp-quantity" data-vmp-quantity>
-            <button type="button" data-vmp-quantity-minus aria-label="Decrease quantity">−</button>
+            <button type="button" data-vmp-quantity-minus aria-label="Decrease quantity" disabled>
+              <svg
+                width="10"
+                height="2"
+                viewBox="0 0 10 2"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="10" height="2" fill="currentColor"/>
+              </svg>
+            </button>
             <input
               type="number"
               name="quantity"
@@ -310,7 +352,11 @@
               aria-label="Quantity"
               data-vmp-quantity-input
             >
-            <button type="button" data-vmp-quantity-plus aria-label="Increase quantity">+</button>
+            <button type="button" data-vmp-quantity-plus aria-label="Increase quantity">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M6 4H10V6H6V10H4V6H0V4H4V0H6V4Z" fill="#212121"/>
+              </svg>
+            </button>
           </div>
           <button
             type="submit"
@@ -467,25 +513,55 @@
       data-vmp-panel="product"
       {{ product_tab.shopify_attributes }}
     >
-      {%- assign product_tab_image_pc = product_tab.settings.image_pc -%}
-      {%- assign product_tab_image_mobile = product_tab.settings.image_mobile | default: product_tab_image_pc -%}
       <div class="vmp-product-art">
-        {%- if product_tab_image_pc != blank -%}
-          <picture class="vmp-picture">
-            <source media="(max-width: 749px)" srcset="{{ product_tab_image_mobile | image_url: width: 900 }}">
-            {{
-              product_tab_image_pc
-              | image_url: width: 2400
-              | image_tag:
-                loading: 'lazy',
-                widths: '900, 1200, 1600, 1920, 2400',
-                sizes: '100vw',
-                alt: product_tab.settings.alt
-              | default: 'Product specifications and technical details'
-            }}
-          </picture>
+        {%- if product_detail_image_count > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'product_detail_image' -%}
+              {%- assign detail_image_pc = block.settings.image_pc -%}
+              {%- assign detail_image_mobile = block.settings.image_mobile | default: detail_image_pc -%}
+              {%- assign detail_image_alt = block.settings.alt | default: product.title -%}
+              <div class="vmp-product-art__item" {{ block.shopify_attributes }}>
+                {%- if detail_image_pc != blank -%}
+                  <picture class="vmp-picture">
+                    <source media="(max-width: 749px)" srcset="{{ detail_image_mobile | image_url: width: 1200 }}">
+                    {{
+                      detail_image_pc
+                      | image_url: width: 3000
+                      | image_tag:
+                        loading: 'lazy',
+                        widths: '900, 1200, 1600, 1920, 2400, 3000',
+                        sizes: '100vw',
+                        alt: detail_image_alt
+                    }}
+                  </picture>
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
         {%- else -%}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- assign product_tab_image_pc = product_tab.settings.image_pc -%}
+          {%- assign product_tab_image_mobile = product_tab.settings.image_mobile | default: product_tab_image_pc -%}
+          {%- assign product_tab_image_alt = product_tab.settings.alt
+            | default: 'Product specifications and technical details'
+          -%}
+          {%- if product_tab_image_pc != blank -%}
+            <picture class="vmp-picture">
+              <source media="(max-width: 749px)" srcset="{{ product_tab_image_mobile | image_url: width: 1200 }}">
+              {{
+                product_tab_image_pc
+                | image_url: width: 3000
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '900, 1200, 1600, 1920, 2400, 3000',
+                  sizes: '100vw',
+                  alt: product_tab_image_alt
+              }}
+            </picture>
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
         {%- endif -%}
       </div>
     </section>
@@ -832,9 +908,24 @@
         </div>
         <div class="vmp-sticky__purchase">
           <div class="vmp-quantity vmp-quantity--sticky">
-            <button type="button" data-vmp-sticky-minus aria-label="Decrease quantity">−</button>
+            <button type="button" data-vmp-sticky-minus aria-label="Decrease quantity" disabled>
+              <svg
+                width="10"
+                height="2"
+                viewBox="0 0 10 2"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect width="10" height="2" fill="currentColor"/>
+              </svg>
+            </button>
             <input type="number" value="1" min="1" inputmode="numeric" aria-label="Quantity" data-vmp-sticky-quantity>
-            <button type="button" data-vmp-sticky-plus aria-label="Increase quantity">+</button>
+            <button type="button" data-vmp-sticky-plus aria-label="Increase quantity">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M6 4H10V6H6V10H4V6H0V4H4V0H6V4Z" fill="#212121"/>
+              </svg>
+            </button>
           </div>
           <button
             type="button"
@@ -956,17 +1047,23 @@
             }.bind(this)
           );
 
-        var thumbViewport = this.querySelector('[data-vmp-gallery-thumbs]');
+        this.thumbViewport = this.querySelector('[data-vmp-gallery-thumbs]');
         var thumbUp = this.querySelector('[data-vmp-thumb-up]');
         var thumbDown = this.querySelector('[data-vmp-thumb-down]');
-        if (thumbUp && thumbViewport)
-          thumbUp.addEventListener('click', function () {
-            thumbViewport.scrollBy({ top: -160, behavior: 'smooth' });
-          });
-        if (thumbDown && thumbViewport)
-          thumbDown.addEventListener('click', function () {
-            thumbViewport.scrollBy({ top: 160, behavior: 'smooth' });
-          });
+        if (thumbUp)
+          thumbUp.addEventListener(
+            'click',
+            function () {
+              this.showSlide(this.galleryIndex - 1);
+            }.bind(this)
+          );
+        if (thumbDown)
+          thumbDown.addEventListener(
+            'click',
+            function () {
+              this.showSlide(this.galleryIndex + 1);
+            }.bind(this)
+          );
       }
 
       showSlide(nextIndex) {
@@ -987,16 +1084,41 @@
           }.bind(this)
         );
 
+        var activeThumb = null;
         this.thumbs.forEach(
           function (thumb) {
             var active = Number(thumb.dataset.vmpThumb || 0) === this.galleryIndex;
             thumb.classList.toggle('is-active', active);
             thumb.setAttribute('aria-current', active ? 'true' : 'false');
+            if (active) activeThumb = thumb;
           }.bind(this)
         );
 
+        this.scrollThumbnailIntoView(activeThumb);
+
         var counter = this.querySelector('[data-vmp-gallery-counter]');
         if (counter) counter.textContent = this.galleryIndex + 1 + '/' + length;
+      }
+
+      scrollThumbnailIntoView(thumb) {
+        var viewport = this.thumbViewport;
+        if (!thumb || !viewport) return;
+
+        var mobile = window.matchMedia('(max-width: 749px)').matches;
+        var viewportStart = mobile ? viewport.scrollLeft : viewport.scrollTop;
+        var viewportSize = mobile ? viewport.clientWidth : viewport.clientHeight;
+        var thumbStart = mobile ? thumb.offsetLeft : thumb.offsetTop;
+        var thumbSize = mobile ? thumb.offsetWidth : thumb.offsetHeight;
+        var thumbEnd = thumbStart + thumbSize;
+
+        if (thumbStart >= viewportStart && thumbEnd <= viewportStart + viewportSize) return;
+
+        var target = thumbStart - (viewportSize - thumbSize) / 2;
+        viewport.scrollTo({
+          left: mobile ? target : viewport.scrollLeft,
+          top: mobile ? viewport.scrollTop : target,
+          behavior: 'smooth',
+        });
       }
 
       initOptions() {
@@ -1102,6 +1224,11 @@
           value = Math.max(1, parseInt(value, 10) || 1);
           if (this.quantityInput) this.quantityInput.value = value;
           if (this.stickyQuantity) this.stickyQuantity.value = value;
+          toArray(this.querySelectorAll('[data-vmp-quantity-minus], [data-vmp-sticky-minus]')).forEach(function (
+            button
+          ) {
+            button.disabled = value <= 1;
+          });
         }.bind(this);
 
         var bindPair = function (minusSelector, plusSelector, input) {
@@ -1123,6 +1250,7 @@
 
         bindPair('[data-vmp-quantity-minus]', '[data-vmp-quantity-plus]', this.quantityInput);
         bindPair('[data-vmp-sticky-minus]', '[data-vmp-sticky-plus]', this.stickyQuantity);
+        update(this.quantityInput ? this.quantityInput.value : this.stickyQuantity && this.stickyQuantity.value);
       }
 
       initTabs() {
@@ -1515,18 +1643,42 @@
       "limit": 1,
       "settings": [
         { "type": "text", "id": "label", "label": "Tab label", "default": "Product" },
-        { "type": "image_picker", "id": "image_pc", "label": "Full product tab image - PC" },
+        {
+          "type": "image_picker",
+          "id": "image_pc",
+          "label": "Legacy product tab image - PC",
+          "info": "Used only when no Product detail image blocks have been added."
+        },
         {
           "type": "image_picker",
           "id": "image_mobile",
-          "label": "Full product tab image - Mobile",
-          "info": "Uses the PC image when empty."
+          "label": "Legacy product tab image - Mobile",
+          "info": "Used only when no Product detail image blocks have been added. Uses the PC image when empty."
         },
         {
           "type": "text",
           "id": "alt",
           "label": "Image alt text",
           "default": "Product specifications and technical details"
+        }
+      ]
+    },
+    {
+      "type": "product_detail_image",
+      "name": "Product detail image",
+      "settings": [
+        { "type": "image_picker", "id": "image_pc", "label": "Detail image - PC" },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Detail image - Mobile",
+          "info": "Uses the PC image when empty."
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image alt text",
+          "default": "Product detail"
         }
       ]
     },
