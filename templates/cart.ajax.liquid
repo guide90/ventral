@@ -10,21 +10,45 @@
 {% endcomment %}
 {% layout none %}
 
+{%- liquid
+  assign cart_item_savings = 0
+  for item in cart.items
+    assign item_reference_price = item.original_price
+    if item.variant.compare_at_price != blank and item.variant.compare_at_price > item_reference_price
+      assign item_reference_price = item.variant.compare_at_price
+    endif
+    if item_reference_price > item.final_price
+      assign item_unit_savings = item_reference_price | minus: item.final_price
+      assign item_line_savings = item_unit_savings | times: item.quantity
+      assign cart_item_savings = cart_item_savings | plus: item_line_savings
+    endif
+  endfor
+
+  assign cart_level_savings = 0
+  for cart_discount in cart.cart_level_discount_applications
+    assign cart_level_savings = cart_level_savings | plus: cart_discount.total_allocated_amount
+  endfor
+  assign cart_total_savings = cart_item_savings | plus: cart_level_savings
+  assign cart_order_total = cart.total_price | plus: cart_total_savings
+-%}
+
 <div class="cart__items"
   data-count="{{ cart.item_count }}"
-  {% if cart.total_discounts > 0 %}
-    data-cart-savings="{{ cart.total_discounts }}"
-  {% endif %}
-  data-cart-subtotal="{{ cart.total_price }}">
+  data-cart-savings="{{ cart_total_savings }}"
+  data-cart-savings-formatted="{{ cart_total_savings | money_with_currency | escape }}"
+  data-cart-order-total="{{ cart_order_total }}"
+  data-cart-order-total-formatted="{{ cart_order_total | money_with_currency | escape }}"
+  data-cart-subtotal="{{ cart.total_price }}"
+  data-cart-subtotal-formatted="{{ cart.total_price | money_with_currency | escape }}">
   {% for item in cart.items %}
-    {%- render 'cart-item', product: item, sizeVariable: '90px', fallback: '60px', -%}
+    {%- render 'cart-item', product: item, sizeVariable: '110px', fallback: '100px', -%}
   {% endfor %}
 </div>
 <div class="cart__discounts{% if cart.cart_level_discount_applications == blank %} hide{% endif %}">
   {% for cart_discount in cart.cart_level_discount_applications %}
     <div class="cart__item-sub cart__item-row">
       <div>{{ cart_discount.title }}</div>
-      <div class="text-right">-{{ cart_discount.total_allocated_amount | money }}</div>
+      <div class="text-right">-{{ cart_discount.total_allocated_amount | money_with_currency }}</div>
     </div>
   {% endfor %}
 </div>

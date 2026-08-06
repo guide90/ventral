@@ -1,18 +1,35 @@
 {%- if settings.cart_type == 'drawer' -%}
   {%- liquid
     assign drawer_has_sold_out = false
+    assign drawer_item_savings = 0
     for item in cart.items
       if item.variant and item.variant.available == false
         assign drawer_has_sold_out = true
       endif
+
+      assign item_reference_price = item.original_price
+      if item.variant.compare_at_price != blank and item.variant.compare_at_price > item_reference_price
+        assign item_reference_price = item.variant.compare_at_price
+      endif
+      if item_reference_price > item.final_price
+        assign item_unit_savings = item_reference_price | minus: item.final_price
+        assign item_line_savings = item_unit_savings | times: item.quantity
+        assign drawer_item_savings = drawer_item_savings | plus: item_line_savings
+      endif
     endfor
+
+    assign drawer_cart_level_savings = 0
+    for cart_discount in cart.cart_level_discount_applications
+      assign drawer_cart_level_savings = drawer_cart_level_savings | plus: cart_discount.total_allocated_amount
+    endfor
+    assign drawer_total_savings = drawer_item_savings | plus: drawer_cart_level_savings
+    assign drawer_order_total = cart.total_price | plus: drawer_total_savings
 
     assign drawer_item_count_text = cart.item_count | append: ' items'
     if cart.item_count == 1
       assign drawer_item_count_text = '1 item'
     endif
 
-    assign drawer_total_discounts = cart.total_discounts | money
   -%}
 
   <div id="CartDrawer" class="drawer drawer--right{% if cart.item_count == 0 %} is-empty{% endif %}">
@@ -49,10 +66,12 @@
               <div
                 class="cart__items"
                 data-count="{{ cart.item_count }}"
-                {% if cart.total_discounts > 0 %}
-                  data-cart-savings="{{ cart.total_discounts }}"
-                {% endif %}
+                data-cart-savings="{{ drawer_total_savings }}"
+                data-cart-savings-formatted="{{ drawer_total_savings | money_with_currency | escape }}"
+                data-cart-order-total="{{ drawer_order_total }}"
+                data-cart-order-total-formatted="{{ drawer_order_total | money_with_currency | escape }}"
                 data-cart-subtotal="{{ cart.total_price }}"
+                data-cart-subtotal-formatted="{{ cart.total_price | money_with_currency | escape }}"
               >
                 {%- for item in cart.items -%}
                   {%- render 'cart-item', product: item, sizeVariable: '100px', fallback: '100px' -%}
@@ -64,15 +83,15 @@
               <div class="ventral-cart-drawer__totals">
                 <div class="ventral-cart-drawer__total-row ventral-cart-drawer__total-row--order">
                   <span>Order Total:<small data-drawer-order-count>{{ drawer_item_count_text }}</small></span>
-                  <strong data-drawer-order-total>{{ cart.original_total_price | money }}</strong>
+                  <strong data-drawer-order-total>{{ drawer_order_total | money_with_currency }}</strong>
                 </div>
 
                 <div
-                  class="ventral-cart-drawer__total-row ventral-cart-drawer__total-row--saving{% unless cart.total_discounts > 0 %} hide{% endunless %}"
+                  class="ventral-cart-drawer__total-row ventral-cart-drawer__total-row--saving{% unless drawer_total_savings > 0 %} hide{% endunless %}"
                   data-drawer-savings
                 >
                   <span>Total savings</span>
-                  <strong data-drawer-savings-amount>{{ drawer_total_discounts }}</strong>
+                  <strong data-drawer-savings-amount>{{ drawer_total_savings | money_with_currency }}</strong>
                 </div>
                 <div class="cart__item-row cart__savings hide" data-savings></div>
 
@@ -81,20 +100,15 @@
                     {%- for cart_discount in cart.cart_level_discount_applications -%}
                       <div class="cart__item-sub cart__item-row">
                         <div>{{ cart_discount.title }}</div>
-                        <div class="text-right">-{{ cart_discount.total_allocated_amount | money }}</div>
+                        <div class="text-right">-{{ cart_discount.total_allocated_amount | money_with_currency }}</div>
                       </div>
                     {%- endfor -%}
                   </div>
                 </div>
 
-                <div class="ventral-cart-drawer__total-row ventral-cart-drawer__total-row--fee">
-                  <span>&#25910;&#36153;&#26679;&#24335;/&#26080;&#23601;&#38544;&#34255;</span>
-                  <strong>$0.00</strong>
-                </div>
-
                 <div class="ventral-cart-drawer__subtotal-row">
                   <span>Subtotal:</span>
-                  <strong data-subtotal>{{ cart.total_price | money }}</strong>
+                  <strong data-subtotal>{{ cart.total_price | money_with_currency }}</strong>
                 </div>
               </div>
 
@@ -189,8 +203,8 @@
           <div class="ventral-cart-drawer__sticky-total">
             <span>Subtotal:</span>
             <strong>
-              <small data-drawer-sticky-savings{% unless cart.total_discounts > 0 %} hidden{% endunless %}>-{{ drawer_total_discounts }}</small>
-              <span data-drawer-sticky-subtotal>{{ cart.total_price | money }}</span>
+              <small data-drawer-sticky-savings{% unless drawer_total_savings > 0 %} hidden{% endunless %}>-{{ drawer_total_savings | money_with_currency }}</small>
+              <span data-drawer-sticky-subtotal>{{ cart.total_price | money_with_currency }}</span>
             </strong>
           </div>
           <button
@@ -223,13 +237,6 @@
       var products = drawer.querySelector('[data-products]');
       var faqSlot = drawer.querySelector('[data-cart-drawer-faq]');
 
-      function formatMoney(cents) {
-        if (window.theme && theme.Currency) {
-          return theme.Currency.formatMoney(cents, theme.settings.moneyFormat);
-        }
-        return '$' + ((cents || 0) / 100).toFixed(2);
-      }
-
       function synchronizeDrawer(cartData) {
         var items = drawer.querySelector('.cart__items');
         var count = cartData ? cartData.item_count : parseInt((items && items.dataset.count) || '{{ cart.item_count }}', 10);
@@ -240,29 +247,33 @@
           node.textContent = countText;
         });
 
-        if (cartData) {
+        if (items) {
           var orderTotal = drawer.querySelector('[data-drawer-order-total]');
           var subtotal = drawer.querySelector('[data-subtotal]');
           var stickySubtotal = drawer.querySelector('[data-drawer-sticky-subtotal]');
           var savingsRow = drawer.querySelector('[data-drawer-savings]');
           var savingsAmount = drawer.querySelector('[data-drawer-savings-amount]');
           var stickySavings = drawer.querySelector('[data-drawer-sticky-savings]');
-          var savings = cartData.total_discount || cartData.total_discounts || 0;
+          var savings = parseInt(items.dataset.cartSavings || '0', 10);
 
-          if (orderTotal) orderTotal.textContent = formatMoney(cartData.original_total_price);
-          if (subtotal) subtotal.textContent = formatMoney(cartData.total_price);
-          if (stickySubtotal) stickySubtotal.textContent = formatMoney(cartData.total_price);
-          if (savingsRow) savingsRow.classList.toggle('hide', savings <= 0);
-          if (savingsAmount) savingsAmount.textContent = formatMoney(savings);
-          if (stickySavings) {
-            stickySavings.textContent = '-' + formatMoney(savings);
-            stickySavings.hidden = savings <= 0;
+          if (orderTotal && items.dataset.cartOrderTotalFormatted) {
+            orderTotal.textContent = items.dataset.cartOrderTotalFormatted;
           }
-        } else {
-          var currentSubtotal = drawer.querySelector('[data-subtotal]');
-          var currentStickySubtotal = drawer.querySelector('[data-drawer-sticky-subtotal]');
-          if (currentSubtotal && currentStickySubtotal) {
-            currentStickySubtotal.textContent = currentSubtotal.textContent;
+          if (subtotal && items.dataset.cartSubtotalFormatted) {
+            subtotal.textContent = items.dataset.cartSubtotalFormatted;
+          }
+          if (stickySubtotal && items.dataset.cartSubtotalFormatted) {
+            stickySubtotal.textContent = items.dataset.cartSubtotalFormatted;
+          }
+          if (savingsRow) savingsRow.classList.toggle('hide', savings <= 0);
+          if (savingsAmount && items.dataset.cartSavingsFormatted) {
+            savingsAmount.textContent = items.dataset.cartSavingsFormatted;
+          }
+          if (stickySavings) {
+            if (items.dataset.cartSavingsFormatted) {
+              stickySavings.textContent = '-' + items.dataset.cartSavingsFormatted;
+            }
+            stickySavings.hidden = savings <= 0;
           }
         }
 
@@ -292,6 +303,7 @@
         var faq = sourceFaq.cloneNode(true);
         var heading = faq.querySelector('h2');
         faq.classList.remove('ventral-cart__faq--page');
+        faq.classList.remove('ventral-cart__faq--page-empty');
         faq.classList.add('ventral-cart__faq--drawer');
         faq.setAttribute('aria-labelledby', 'VentralCartDrawerFaqTitle');
         if (heading) heading.id = 'VentralCartDrawerFaqTitle';
@@ -306,7 +318,7 @@
         if (!faqSlot || faqSlot.dataset.loaded === 'true' || faqSlot.dataset.loading === 'true') return;
         faqSlot.dataset.loading = 'true';
 
-        var pageFaq = document.querySelector('.ventral-cart__faq--page');
+        var pageFaq = document.querySelector('.ventral-cart__faq--page, .ventral-cart__faq--page-empty');
         if (pageFaq) {
           installDrawerFaq(pageFaq);
           return;
@@ -316,7 +328,7 @@
           .then(function (response) { return response.text(); })
           .then(function (html) {
             var doc = new DOMParser().parseFromString(html, 'text/html');
-            installDrawerFaq(doc.querySelector('.ventral-cart__faq--page'));
+            installDrawerFaq(doc.querySelector('.ventral-cart__faq--page, .ventral-cart__faq--page-empty'));
           })
           .catch(function () {
             faqSlot.dataset.loading = 'false';
@@ -358,7 +370,7 @@
       document.addEventListener('shopify:section:load', function (event) {
         var cartSection = event.target && event.target.querySelector('.ventral-cart');
         if (!cartSection || !faqSlot) return;
-        var pageFaq = cartSection.querySelector('.ventral-cart__faq--page');
+        var pageFaq = cartSection.querySelector('.ventral-cart__faq--page, .ventral-cart__faq--page-empty');
         if (!pageFaq) {
           faqSlot.innerHTML = '';
           faqSlot.hidden = true;

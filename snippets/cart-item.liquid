@@ -5,23 +5,31 @@
   endif
 
   assign item_is_free = false
-  if product.final_line_price == 0
+  if product.final_price == 0
     assign item_is_free = true
   endif
 
+  assign item_reference_price = product.original_price
+  if product.variant.compare_at_price != blank and product.variant.compare_at_price > item_reference_price
+    assign item_reference_price = product.variant.compare_at_price
+  endif
+
   assign discount_percent = blank
-  if product.original_price > product.final_price and product.original_price > 0
-    assign discount_amount = product.original_price | minus: product.final_price
-    assign discount_percent = discount_amount | times: 100 | divided_by: product.original_price | round
+  if item_reference_price > product.final_price and item_reference_price > 0
+    assign discount_amount = item_reference_price | minus: product.final_price
+    assign discount_percent = discount_amount | times: 100.0 | divided_by: item_reference_price | round
   endif
 -%}
 
-<div class="cart__item ventral-cart-item{% if item_is_sold_out %} ventral-cart-item--sold-out{% endif %}{% if item_is_free %} ventral-cart-item--free{% endif %}" data-key="{{ product.key }}">
+<div
+  class="cart__item ventral-cart-item{% if item_is_sold_out %} ventral-cart-item--sold-out{% endif %}{% if item_is_free %} ventral-cart-item--free{% endif %}"
+  data-key="{{ product.key }}"
+>
   <div class="cart__item--image ventral-cart-item__media" data-aos>
     {% if product.image != blank %}
       <a href="{{ product.url }}" class="image-wrap ventral-cart-item__image-wrap" style="display: block;">
         {%- render 'image-element',
-          img: product,
+          img: product.image,
           alt: product.product.title,
           sizes: sizes,
           sizeVariable: sizeVariable,
@@ -47,7 +55,9 @@
       {%- unless product.product.has_only_default_variant -%}
         <div class="cart__item--variants ventral-cart-item__meta">
           {%- for option in product.options_with_values -%}
-            <div><span>{{ option.name }}:</span> {{ option.value }}</div>
+            <div>
+              <span>{{ option.name }}:</span> {{ option.value }}
+            </div>
           {%- endfor -%}
         </div>
       {%- endunless -%}
@@ -75,17 +85,21 @@
     </div>
 
     <div class="cart__item--price cart__item-price-col ventral-cart-item__price">
-      {%- if product.original_price != product.final_price -%}
+      {%- if item_reference_price > product.final_price -%}
         <span class="visually-hidden">{{ 'products.general.sale_price' | t }}</span>
-        <span class="cart__price ventral-cart-item__current-price">{{ product.final_price | money }}</span>
+        <span class="cart__price ventral-cart-item__current-price">
+          {{- product.final_price | money_with_currency -}}
+        </span>
         <span class="ventral-cart-item__compare">
           {%- if discount_percent != blank -%}
             <span class="cart__discount">{{ discount_percent }}% OFF</span>
           {%- endif -%}
-          <small class="cart__price cart__price--strikethrough">{{ product.original_price | money }}</small>
+          <small class="cart__price cart__price--strikethrough">{{ item_reference_price | money_with_currency }}</small>
         </span>
       {%- else -%}
-        <span class="cart__price ventral-cart-item__current-price">{{ product.original_price | money }}</span>
+        <span class="cart__price ventral-cart-item__current-price">
+          {{- product.final_price | money_with_currency -}}
+        </span>
       {%- endif -%}
 
       {%- if product.unit_price_measurement -%}
@@ -98,7 +112,7 @@
           </span>
         {%- endcapture -%}
 
-        <div class="product__unit-price">{{ product.unit_price | money }}/{{ unit_price_base_unit }}</div>
+        <div class="product__unit-price">{{ product.unit_price | money_with_currency }}/{{ unit_price_base_unit }}</div>
       {%- endif -%}
     </div>
 
@@ -108,25 +122,58 @@
       {%- else -%}
         <div class="js-qty__wrapper">
           <label for="cart_updates_{{ product.key }}" class="hidden-label">{{ 'cart.label.quantity' | t }}</label>
-          <input type="text"
+          <input
+            type="text"
             id="cart_updates_{{ product.key }}"
             name="updates[]"
             class="js-qty__num"
             value="{{ product.quantity }}"
             min="0"
             pattern="[0-9]*"
-            data-id="{{ product.key }}">
-          <button type="button"
+            data-id="{{ product.key }}"
+          >
+          <button
+            type="button"
             class="js-qty__adjust js-qty__adjust--minus"
-            aria-label="{{ 'cart.general.reduce_quantity' | t }}">
-              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 20 20"><path fill="#444" d="M17.543 11.029H2.1A1.032 1.032 0 0 1 1.071 10c0-.566.463-1.029 1.029-1.029h15.443c.566 0 1.029.463 1.029 1.029 0 .566-.463 1.029-1.029 1.029z"/></svg>
-              <span class="icon__fallback-text" aria-hidden="true">&minus;</span>
+            aria-label="{{ 'cart.general.reduce_quantity' | t }}"
+          >
+            {%- if product.quantity == 1 -%}
+              <svg
+                class="ventral-cart-item__trash-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="21"
+                height="26"
+                viewBox="0 0 21 26"
+                fill="none"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <rect y="8.66797" width="13.3333" height="1" fill="#BFBFBF"/>
+                <rect x="1.66797" y="19.332" width="9.33333" height="1" fill="#BFBFBF"/>
+                <rect x="3.33203" y="6" width="6.66667" height="1" fill="#BFBFBF"/>
+                <rect x="4.33203" y="6" width="3.66667" height="1" transform="rotate(90 4.33203 6)" fill="#BFBFBF"/>
+                <rect x="10" y="6" width="3.66667" height="1" transform="rotate(90 10 6)" fill="#BFBFBF"/>
+                <rect x="5.66797" y="11.332" width="6.33333" height="1" transform="rotate(90 5.66797 11.332)" fill="#BFBFBF"/>
+                <rect x="8.66797" y="11.332" width="6.33333" height="1" transform="rotate(90 8.66797 11.332)" fill="#BFBFBF"/>
+                <rect x="2.66797" y="9.66797" width="10.6667" height="1" transform="rotate(90 2.66797 9.66797)" fill="#BFBFBF"/>
+                <rect x="11.668" y="9.66797" width="10.6667" height="1" transform="rotate(90 11.668 9.66797)" fill="#BFBFBF"/>
+              </svg>
+            {%- else -%}
+              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-minus" viewBox="0 0 20 20">
+                <path fill="#BFBFBF" d="M17.543 11.029H2.1A1.032 1.032 0 0 1 1.071 10c0-.566.463-1.029 1.029-1.029h15.443c.566 0 1.029.463 1.029 1.029 0 .566-.463 1.029-1.029 1.029z"/>
+              </svg>
+            {%- endif -%}
+            <span class="icon__fallback-text" aria-hidden="true">&minus;</span>
           </button>
-          <button type="button"
+          <button
+            type="button"
             class="js-qty__adjust js-qty__adjust--plus"
-            aria-label="{{ 'cart.general.increase_quantity' | t }}">
-              <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 20 20"><path fill="#444" d="M17.409 8.929h-6.695V2.258c0-.566-.506-1.029-1.071-1.029s-1.071.463-1.071 1.029v6.671H1.967C1.401 8.929.938 9.435.938 10s.463 1.071 1.029 1.071h6.605V17.7c0 .566.506 1.029 1.071 1.029s1.071-.463 1.071-1.029v-6.629h6.695c.566 0 1.029-.506 1.029-1.071s-.463-1.071-1.029-1.071z"/></svg>
-              <span class="icon__fallback-text" aria-hidden="true">+</span>
+            aria-label="{{ 'cart.general.increase_quantity' | t }}"
+          >
+            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-plus" viewBox="0 0 20 20">
+              <path fill="#212121" d="M17.409 8.929h-6.695V2.258c0-.566-.506-1.029-1.071-1.029s-1.071.463-1.071 1.029v6.671H1.967C1.401 8.929.938 9.435.938 10s.463 1.071 1.029 1.071h6.605V17.7c0 .566.506 1.029 1.071 1.029s1.071-.463 1.071-1.029v-6.629h6.695c.566 0 1.029-.506 1.029-1.071s-.463-1.071-1.029-1.071z"/>
+            </svg>
+            <span class="icon__fallback-text" aria-hidden="true">+</span>
           </button>
         </div>
       {%- endif -%}

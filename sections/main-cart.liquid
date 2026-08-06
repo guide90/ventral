@@ -1,12 +1,29 @@
 {%- liquid
   assign cart_has_sold_out = false
+  assign cart_item_savings = 0
   for item in cart.items
     if item.variant and item.variant.available == false
       assign cart_has_sold_out = true
     endif
+
+    assign item_reference_price = item.original_price
+    if item.variant.compare_at_price != blank and item.variant.compare_at_price > item_reference_price
+      assign item_reference_price = item.variant.compare_at_price
+    endif
+    if item_reference_price > item.final_price
+      assign item_unit_savings = item_reference_price | minus: item.final_price
+      assign item_line_savings = item_unit_savings | times: item.quantity
+      assign cart_item_savings = cart_item_savings | plus: item_line_savings
+    endif
   endfor
 
-  assign cart_total_discounts = cart.total_discounts | money
+  assign cart_level_savings = 0
+  for cart_discount in cart.cart_level_discount_applications
+    assign cart_level_savings = cart_level_savings | plus: cart_discount.total_allocated_amount
+  endfor
+  assign cart_total_savings = cart_item_savings | plus: cart_level_savings
+  assign cart_order_total = cart.total_price | plus: cart_total_savings
+
   assign cart_item_count_text = cart.item_count | append: ' items'
   if cart.item_count == 1
     assign cart_item_count_text = '1 item'
@@ -42,21 +59,33 @@
         class="ventral-cart__form"
       >
         <div class="ventral-cart__layout">
-          <div class="ventral-cart__items-card">
-            <div data-products>
-              <div
-                class="cart__items"
-                data-count="{{ cart.item_count }}"
-                {% if cart.total_discounts > 0 %}
-                  data-cart-savings="{{ cart.total_discounts }}"
-                {% endif %}
-                data-cart-subtotal="{{ cart.total_price }}"
-              >
-                {%- for item in cart.items -%}
-                  {%- render 'cart-item', product: item, sizeVariable: '150px', fallback: '90px' -%}
-                {%- endfor -%}
+          <div class="ventral-cart__primary">
+            <div class="ventral-cart__items-card">
+              <div data-products>
+                <div
+                  class="cart__items"
+                  data-count="{{ cart.item_count }}"
+                  data-cart-savings="{{ cart_total_savings }}"
+                  data-cart-savings-formatted="{{ cart_total_savings | money_with_currency | escape }}"
+                  data-cart-order-total="{{ cart_order_total }}"
+                  data-cart-order-total-formatted="{{ cart_order_total | money_with_currency | escape }}"
+                  data-cart-subtotal="{{ cart.total_price }}"
+                  data-cart-subtotal-formatted="{{ cart.total_price | money_with_currency | escape }}"
+                >
+                  {%- for item in cart.items -%}
+                    {%- render 'cart-item', product: item, sizeVariable: '110px', fallback: '110px' -%}
+                  {%- endfor -%}
+                </div>
               </div>
             </div>
+
+            {%- render 'cart-faq',
+              blocks: section.blocks,
+              heading: section.settings.faq_heading,
+              heading_id: 'VentralCartFaqTitle',
+              context: 'page',
+              editor_attributes: true
+            -%}
           </div>
 
           <aside class="ventral-cart__summary-card" aria-label="Cart summary">
@@ -66,15 +95,15 @@
                   <span
                     >Order Total:<small>{{ cart_item_count_text }}</small></span
                   >
-                  <strong data-order-total>{{ cart.original_total_price | money }}</strong>
+                  <strong data-order-total>{{ cart_order_total | money_with_currency }}</strong>
                 </div>
 
                 <div
-                  class="ventral-cart__total-row ventral-cart__total-row--saving{% unless cart.total_discounts > 0 %} hide{% endunless %}"
+                  class="ventral-cart__total-row ventral-cart__total-row--saving{% unless cart_total_savings > 0 %} hide{% endunless %}"
                   data-summary-savings
                 >
                   <span>Total savings</span>
-                  <strong data-summary-savings-amount>{{ cart_total_discounts }}</strong>
+                  <strong data-summary-savings-amount>{{ cart_total_savings | money_with_currency }}</strong>
                 </div>
                 <div class="cart__item-row cart__savings hide" data-savings></div>
 
@@ -83,20 +112,15 @@
                     {%- for cart_discount in cart.cart_level_discount_applications -%}
                       <div class="ventral-cart__total-row ventral-cart__total-row--discount">
                         <span>{{ cart_discount.title }}</span>
-                        <strong>-{{ cart_discount.total_allocated_amount | money }}</strong>
+                        <strong>-{{ cart_discount.total_allocated_amount | money_with_currency }}</strong>
                       </div>
                     {%- endfor -%}
                   </div>
                 </div>
 
-                <div class="ventral-cart__total-row ventral-cart__total-row--fee">
-                  <span>&#25910;&#36153;&#26679;&#24335;/&#26080;&#23601;&#38544;&#34255;</span>
-                  <strong>$0.00</strong>
-                </div>
-
                 <div class="ventral-cart__subtotal-row cart__item-sub cart__item-row">
                   <span class="cart__subtotal">Subtotal:</span>
-                  <strong data-subtotal>{{ cart.total_price | money }}</strong>
+                  <strong data-subtotal>{{ cart.total_price | money_with_currency }}</strong>
                 </div>
               </div>
 
@@ -180,12 +204,12 @@
             <strong>
               <small
                 data-sticky-savings
-                {% unless cart.total_discounts > 0 %}
+                {% unless cart_total_savings > 0 %}
                   hidden
                 {% endunless %}
-                >-{{ cart_total_discounts -}}
+                >-{{ cart_total_savings | money_with_currency -}}
               </small>
-              <span data-subtotal-sticky>{{ cart.total_price | money }}</span>
+              <span data-subtotal-sticky>{{ cart.total_price | money_with_currency }}</span>
             </strong>
           </div>
           <button
@@ -210,9 +234,9 @@
     {%- render 'cart-faq',
       blocks: section.blocks,
       heading: section.settings.faq_heading,
-      heading_id: 'VentralCartFaqTitle',
-      context: 'page',
-      editor_attributes: true
+      heading_id: 'VentralCartEmptyFaqTitle',
+      context: 'page-empty',
+      editor_attributes: false
     -%}
   </div>
 </div>
@@ -223,18 +247,39 @@
       var cart = document.querySelector('.ventral-cart');
       if (!cart) return;
 
-      var subtotal = cart.querySelector('[data-subtotal]');
-      var stickySubtotal = cart.querySelector('[data-subtotal-sticky]');
-      if (subtotal && stickySubtotal) {
-        stickySubtotal.textContent = subtotal.textContent;
-      }
-
       var items = cart.querySelector('.cart__items');
       var count = items ? parseInt(items.dataset.count || '0', 10) : 0;
+      var savings = items ? parseInt(items.dataset.cartSavings || '0', 10) : 0;
+      var subtotal = cart.querySelector('[data-subtotal]');
+      var stickySubtotal = cart.querySelector('[data-subtotal-sticky]');
+      var formattedSubtotal = items && items.dataset.cartSubtotalFormatted;
+      if (formattedSubtotal) {
+        if (subtotal) subtotal.textContent = formattedSubtotal;
+        if (stickySubtotal) stickySubtotal.textContent = formattedSubtotal;
+      }
+
       var countText = count === 1 ? '1 item' : count + ' items';
       cart.querySelectorAll('.ventral-cart__count, .ventral-cart__total-row--order small').forEach(function (node) {
         node.textContent = countText;
       });
+
+      var orderTotal = cart.querySelector('[data-order-total]');
+      var summarySavings = cart.querySelector('[data-summary-savings]');
+      var summarySavingsAmount = cart.querySelector('[data-summary-savings-amount]');
+      var stickySavings = cart.querySelector('[data-sticky-savings]');
+      if (orderTotal && items && items.dataset.cartOrderTotalFormatted) {
+        orderTotal.textContent = items.dataset.cartOrderTotalFormatted;
+      }
+      if (summarySavings) summarySavings.classList.toggle('hide', savings <= 0);
+      if (summarySavingsAmount && items && items.dataset.cartSavingsFormatted) {
+        summarySavingsAmount.textContent = items.dataset.cartSavingsFormatted;
+      }
+      if (stickySavings) {
+        stickySavings.hidden = savings <= 0;
+        if (items && items.dataset.cartSavingsFormatted) {
+          stickySavings.textContent = '-' + items.dataset.cartSavingsFormatted;
+        }
+      }
 
       var hasSoldOut = !!cart.querySelector('.ventral-cart-item--sold-out');
       cart.querySelectorAll('.ventral-cart__checkout, .ventral-cart__sticky-checkout').forEach(function (button) {
@@ -246,33 +291,6 @@
       cart.querySelectorAll('.additional-checkout-buttons').forEach(function (buttons) {
         buttons.classList.toggle('hide', hasSoldOut);
       });
-    }
-
-    function syncSavings(cartData) {
-      var cart = document.querySelector('.ventral-cart');
-      if (!cart || !cartData || !window.theme || !theme.Currency) return;
-
-      var savings = cartData.total_discount || cartData.total_discounts || 0;
-      var orderTotal = cart.querySelector('[data-order-total]');
-      var summary = cart.querySelector('[data-summary-savings]');
-      var summaryAmount = cart.querySelector('[data-summary-savings-amount]');
-      var stickySavings = cart.querySelector('[data-sticky-savings]');
-      var formatted = theme.Currency.formatMoney(savings, theme.settings.moneyFormat);
-
-      if (orderTotal) {
-        orderTotal.textContent = theme.Currency.formatMoney(cartData.original_total_price, theme.settings.moneyFormat);
-      }
-
-      if (summary) {
-        summary.classList.toggle('hide', savings <= 0);
-      }
-      if (summaryAmount) {
-        summaryAmount.textContent = formatted;
-      }
-      if (stickySavings) {
-        stickySavings.textContent = '-' + formatted;
-        stickySavings.hidden = savings <= 0;
-      }
     }
 
     document.addEventListener('click', function (event) {
@@ -301,9 +319,8 @@
     document.addEventListener('cart:quantity.cart-page', function () {
       window.setTimeout(syncVentralCart, 300);
     });
-    document.addEventListener('cart:updated', function (event) {
-      syncSavings(event.detail && event.detail.cart);
-      window.setTimeout(syncVentralCart, 50);
+    document.addEventListener('cart:updated', function () {
+      window.setTimeout(syncVentralCart, 300);
     });
     syncVentralCart();
   })();
