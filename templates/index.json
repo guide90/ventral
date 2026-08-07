@@ -12,30 +12,6 @@
     "ventral_home": {
       "type": "ventral-home",
       "blocks": {
-        "press_1": {
-          "type": "press",
-          "settings": {
-            "name": "SUPBOARDGUIDE.COM"
-          }
-        },
-        "press_2": {
-          "type": "press",
-          "settings": {
-            "name": "SUPBOARDER"
-          }
-        },
-        "press_3": {
-          "type": "press",
-          "settings": {
-            "name": "PADDLEING.COM"
-          }
-        },
-        "press_4": {
-          "type": "press",
-          "settings": {
-            "name": "Paddlethrill"
-          }
-        },
         "icast_1": {
           "type": "icast_slide",
           "settings": {
@@ -295,10 +271,6 @@
         }
       },
       "block_order": [
-        "press_1",
-        "press_2",
-        "press_3",
-        "press_4",
         "icast_1",
         "icast_slide_bCbEjW",
         "precision_1",
@@ -337,8 +309,8 @@
         "reserve_link": "https://kayak.ventral.com/reserve",
         "hero_image": "shopify://shop_images/pc-1.jpg",
         "hero_image_mobile": "shopify://shop_images/m-1.jpg",
-        "philosophy_image": "shopify://shop_images/PC-3_a9a1fee0-f4dc-4872-be0e-b2b55d2b9af7.png",
-        "philosophy_image_mobile": "shopify://shop_images/3_0842be68-1400-4d7f-9f32-43c397948b23.png",
+        "philosophy_image": "shopify://shop_images/PC-20260806-164553.png",
+        "philosophy_image_mobile": "shopify://shop_images/20260806-164553.png",
         "why_board_image": "shopify://shop_images/PC-4_4df439ac-8f3f-4945-92cc-1c14f6117912.png",
         "why_board_image_mobile": "shopify://shop_images/4_0454df38-e053-4432-b5e1-3d9a65d4510d.png",
         "system_parts_image": "shopify://shop_images/pc-5.png",
