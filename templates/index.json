@@ -309,8 +309,8 @@
         "reserve_link": "https://kayak.ventral.com/reserve",
         "hero_image": "shopify://shop_images/pc-1.jpg",
         "hero_image_mobile": "shopify://shop_images/m-1.jpg",
-        "philosophy_image": "shopify://shop_images/PC-3_a9a1fee0-f4dc-4872-be0e-b2b55d2b9af7.png",
-        "philosophy_image_mobile": "shopify://shop_images/3_0842be68-1400-4d7f-9f32-43c397948b23.png",
+        "philosophy_image": "shopify://shop_images/PC-20260806-164553.png",
+        "philosophy_image_mobile": "shopify://shop_images/20260806-164553.png",
         "why_board_image": "shopify://shop_images/PC-4_4df439ac-8f3f-4945-92cc-1c14f6117912.png",
         "why_board_image_mobile": "shopify://shop_images/4_0454df38-e053-4432-b5e1-3d9a65d4510d.png",
         "system_parts_image": "shopify://shop_images/pc-5.png",
@@ -324,6 +324,10 @@
         "tough_image_right_mobile": "shopify://shop_images/PC-9-2.png",
         "comparison_image": "shopify://shop_images/pc-bg.png",
         "comparison_image_mobile": "shopify://shop_images/m-bg.png",
+        "carry_video": "shopify://files/videos/20260806-164458.mp4",
+        "carry_video_mobile": "shopify://files/videos/20260806-164458.mp4",
+        "carry_title": "Carry It Your Way",
+        "carry_description": "A portable design makes it easy to carry, move, and store wherever you go.",
         "cta_image": "shopify://shop_images/Adventure_Starts_Here..png",
         "cta_image_mobile": "shopify://shop_images/M-Adventure_Starts_Here..png"
       }

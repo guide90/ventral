@@ -205,8 +205,14 @@
         {%- endif -%}
 
         <div class="vc-product-card__packshot" aria-hidden="true">
-          {%- if product_packshot_image != blank -%}
-            {{ product_packshot_image
+          {%- liquid
+            assign product_main_image = featured_product.featured_image
+            if product_packshot_image != blank
+              assign product_main_image = product_packshot_image
+            endif
+          -%}
+          {%- if product_main_image != blank -%}
+            {{ product_main_image
               | image_url: width: 1200
               | image_tag:
                 widths: '240, 400, 600, 900, 1200',
@@ -229,9 +235,9 @@
         <div class="vc-product-card__price-row">
           <span class="vc-product-card__price-label">{{ section.settings.price_label | escape }}</span>
           {%- if featured_product != blank -%}
-            <span class="vc-product-card__price">{{ featured_product.price | money_without_trailing_zeros }}</span>
+            <span class="vc-product-card__price">{{ featured_product.price | money_without_trailing_zeros | remove: ',' }}</span>
             {%- if featured_product.compare_at_price_max > featured_product.price -%}
-              <s>{{ featured_product.compare_at_price_max | money_without_trailing_zeros }}</s>
+              <s>{{ featured_product.compare_at_price_max | money_without_trailing_zeros | remove: ',' }}</s>
             {%- endif -%}
           {%- else -%}
             <span class="vc-product-card__price">$2499</span>
@@ -448,6 +454,9 @@
     border-left: 1px solid rgba(255, 255, 255, 0.45);
     background: #585858;
     cursor: pointer;
+    transition: width 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), flex-basis 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+    display: flex;
+    flex-direction: column;
   }
 
   #VentralCollection-{{ section.id }} .vc-feature__item:first-child {
@@ -491,10 +500,9 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-feature__copy {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    margin-top: auto;
+    position: relative;
+    z-index: 1;
     min-height: 98px;
     padding: 36px 20px 20px;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.8) 100%);
@@ -512,15 +520,20 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-feature__copy p {
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    overflow: hidden;
     color: #fff;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.4;
+    transition: max-height 0.4s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 0.3s ease;
   }
 
   #VentralCollection-{{ section.id }} .vc-feature__item.is-active .vc-feature__copy p {
-    display: block;
+    max-height: 200px;
+    opacity: 1;
     margin-top: 12px;
   }
 
@@ -529,6 +542,9 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-product-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     min-height: 887px;
     padding: 120px 24px;
     background: #f5f5f7;
@@ -539,7 +555,8 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card {
-    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     width: min(1280px, 100%);
     height: 506px;
     margin: 40px auto 0;
@@ -549,37 +566,32 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__lifestyle {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 50%;
+    min-width: 0;
+    height: 506px;
     overflow: hidden;
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__lifestyle-image {
-    position: absolute;
-    top: -116px;
-    left: 0;
     width: 100%;
     height: 640px;
+    margin-top: -116px;
     object-fit: cover;
     object-position: center;
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__details {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 50%;
+    display: grid;
+    grid-template-rows: 73px 260px 34px 40px;
+    row-gap: 20px;
+    min-width: 0;
+    height: 506px;
+    padding: 19px 40px 20px;
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__details h3 {
-    position: absolute;
-    top: 19px;
-    right: 40px;
-    left: 40px;
+    grid-row: 1;
+    align-self: start;
+    margin: 0;
     color: #0a101a;
     font-size: 28px;
     font-weight: 700;
@@ -587,43 +599,30 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__description {
-    position: absolute;
-    top: 88px;
-    right: 40px;
-    left: 40px;
-    overflow: hidden;
-    color: #6b6b6b;
-    font-size: 14px;
-    line-height: 1.4;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    display: none;
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__packshot {
-    position: absolute;
-    top: 112px;
-    right: 40px;
-    left: 40px;
+    display: block;
+    grid-row: 2;
+    min-width: 0;
     height: 260px;
     overflow: hidden;
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__packshot-image {
-    position: absolute;
-    top: -44px;
-    left: 5px;
+    display: block;
     width: calc(100% - 5px);
     height: 318px;
+    margin: -44px 0 0 5px;
     object-fit: contain;
     object-position: center;
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__price-row {
-    position: absolute;
-    top: 392px;
-    left: 40px;
+    grid-row: 3;
     display: flex;
-    width: calc(100% - 80px);
+    width: 100%;
     height: 34px;
     align-items: center;
     gap: 8px;
@@ -652,11 +651,9 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-product-card__button {
-    position: absolute;
-    top: 446px;
-    right: 40px;
-    left: 40px;
+    grid-row: 4;
     display: flex;
+    width: 100%;
     height: 40px;
     align-items: center;
     justify-content: center;
@@ -692,7 +689,9 @@
     overflow-x: auto;
     overflow-y: hidden;
     scroll-padding-inline: max(24px, calc((100vw - 790px) / 2));
-    scroll-snap-type: x mandatory;
+    scroll-behavior: auto;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
     scrollbar-width: none;
   }
 
@@ -740,9 +739,9 @@
   }
 
   #VentralCollection-{{ section.id }} .vc-gallery__dot span {
-    position: absolute;
-    inset: 0 auto 0 0;
+    display: block;
     width: 100%;
+    height: 100%;
     border-radius: inherit;
     background: transparent;
   }
@@ -820,7 +819,7 @@
       display: flex;
       width: 100%;
       height: 290px;
-      margin-top: 43px;
+      margin-top: 20px;
       gap: 0;
       overflow-x: auto;
       overflow-y: hidden;
@@ -862,6 +861,10 @@
       margin-top: 8px;
       font-size: 12px;
       line-height: 1.2;
+      max-height: none;
+      opacity: 1;
+      overflow: visible;
+      transition: none;
     }
 
     #VentralCollection-{{ section.id }} .vc-feature-progress {
@@ -900,31 +903,39 @@
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card {
+      display: grid;
+      grid-template-columns: 150fr 201fr;
       width: 100%;
       height: 240px;
       margin-top: 20px;
       border-radius: 12px;
     }
 
-    #VentralCollection-{{ section.id }} .vc-product-card__details {
-      left: 42.735%;
-    }
-
     #VentralCollection-{{ section.id }} .vc-product-card__lifestyle {
-      width: 42.735%;
+      width: 100%;
+      height: 240px;
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__lifestyle-image {
-      top: -77px;
-      left: -63.333%;
-      width: 224.667%;
-      height: 337px;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    #VentralCollection-{{ section.id }} .vc-product-card__details {
+      display: grid;
+      grid-template-rows: 55px 64px 45px 16px 24px;
+      row-gap: 0;
+      height: 240px;
+      padding: 20px 12px 16px;
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__details h3 {
-      top: 20px;
-      right: 12px;
-      left: 12px;
+      grid-row: 1;
+      align-self: start;
+      margin: 0;
       display: -webkit-box;
       overflow: hidden;
       font-size: 16px;
@@ -942,46 +953,54 @@
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__price-row {
-      top: 139px;
-      left: 12px;
-      display: block;
-      width: calc(100% - 24px);
+      grid-row: 3;
+      display: grid;
+      grid-template-columns: 93px minmax(0, 1fr);
+      grid-template-rows: 15px 30px;
+      width: 100%;
       height: 45px;
+      align-items: end;
+      white-space: nowrap;
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__price-label {
-      position: absolute;
-      top: 0;
-      left: 0;
+      position: static;
+      grid-row: 1;
+      grid-column: 1 / -1;
+      align-self: start;
       font-size: 12px;
       font-weight: 600;
       line-height: 1.2;
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__price {
-      position: absolute;
-      top: 22px;
-      left: 0;
+      position: static;
+      grid-row: 2;
+      grid-column: 1;
+      align-self: end;
       font-size: 24px;
       line-height: 1;
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__price-row s {
-      position: absolute;
-      top: 25px;
-      left: 93px;
+      position: static;
+      grid-row: 2;
+      grid-column: 2;
+      align-self: end;
+      margin-bottom: 1px;
+      color: #a2a2a2;
       font-size: 16px;
       line-height: 1;
     }
 
     #VentralCollection-{{ section.id }} .vc-product-card__button {
-      top: 200px;
-      right: 12px;
-      left: 12px;
+      grid-row: 5;
       height: 24px;
       padding: 0 12px;
       border: 0;
+      border-radius: 100px;
       font-size: 14px;
+      font-weight: 500;
     }
 
     #VentralCollection-{{ section.id }} .vc-gallery-section {
@@ -996,10 +1015,12 @@
 
     #VentralCollection-{{ section.id }} .vc-gallery {
       height: 160px;
-      margin-top: 41px;
+      margin-top: 40px;
       padding: 0 max(12px, calc((100vw - 340px) / 2));
       gap: 12px;
       scroll-padding-inline: max(12px, calc((100vw - 340px) / 2));
+      overscroll-behavior-x: contain;
+      touch-action: pan-x;
     }
 
     #VentralCollection-{{ section.id }} .vc-gallery__item {
@@ -1023,18 +1044,19 @@
     section.dataset.initialized = 'true';
 
     const nearestItemIndex = (container, items) => {
-      const viewportCenter = container.scrollLeft + container.clientWidth / 2;
-      let nearestIndex = 0;
-      let nearestDistance = Infinity;
-      items.forEach((item, index) => {
-        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-        const distance = Math.abs(itemCenter - viewportCenter);
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nearestIndex = index;
+      const scrollLeft = container.scrollLeft;
+      const viewCenter = scrollLeft + container.clientWidth / 2;
+      let bestIndex = 0;
+      let bestDistance = Infinity;
+      for (let i = 0; i < items.length; i++) {
+        const itemCenter = items[i].offsetLeft + items[i].offsetWidth / 2;
+        const distance = Math.abs(itemCenter - viewCenter);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = i;
         }
-      });
-      return nearestIndex;
+      }
+      return bestIndex;
     };
 
     const scrollItemIntoView = (container, item) => {
@@ -1110,14 +1132,78 @@
     }));
 
     let galleryScrollFrame = null;
-    viewport?.addEventListener('scroll', () => {
+    const galleryScrollHandler = () => {
       if (galleryScrollFrame) return;
       galleryScrollFrame = requestAnimationFrame(() => {
         galleryScrollFrame = null;
         setGallery(nearestItemIndex(viewport, galleryItems));
       });
-    }, { passive: true });
-    setGallery(0);
+    };
+    viewport?.addEventListener('scroll', galleryScrollHandler, { passive: true });
+
+    // Desktop init: scroll to item 1, suppress scroll handler to prevent wrong dot sync
+    const isDesktopInit = window.matchMedia('(min-width: 769px)').matches;
+    if (isDesktopInit) {
+      let suppressScroll = true;
+      viewport.addEventListener('scroll', () => {
+        if (suppressScroll) return;
+        galleryScrollHandler();
+      }, { passive: true });
+
+      setGallery(1);
+      requestAnimationFrame(() => {
+        scrollItemIntoView(viewport, galleryItems[1]);
+        requestAnimationFrame(() => {
+          suppressScroll = false;
+        });
+      });
+    } else {
+      setGallery(0);
+    }
+    if (viewport) {
+      let isDragging = false;
+      let startX = 0;
+      let scrollStart = 0;
+
+      viewport.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        startX = event.clientX;
+        scrollStart = viewport.scrollLeft;
+        viewport.style.cursor = 'grabbing';
+        viewport.style.userSelect = 'none';
+      });
+
+      window.addEventListener('mousemove', (event) => {
+        if (!isDragging) return;
+        const dx = event.clientX - startX;
+        viewport.scrollLeft = scrollStart - dx;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.style.cursor = '';
+        viewport.style.userSelect = '';
+        // No snap — dot updates naturally via scroll event
+      });
+
+      // Prevent link clicks during drag
+      viewport.addEventListener('click', (event) => {
+        if (isDragging) event.preventDefault();
+      }, true);
+    }
+    // Suppress the scroll event fired by init scroll — dots are set by setGallery above
+    const suppressInitScroll = () => {
+      viewport.removeEventListener('scroll', suppressInitScroll);
+    };
+
+    const isDesktop = window.matchMedia('(min-width: 769px)').matches;
+    const galleryInitIndex = isDesktop ? 1 : 0;
+    setGallery(galleryInitIndex);
+    if (isDesktop) {
+      viewport?.addEventListener('scroll', suppressInitScroll, { passive: true });
+      requestAnimationFrame(() => scrollItemIntoView(viewport, galleryItems[1]));
+    }
 
     if (Shopify.designMode) {
       document.addEventListener('shopify:block:select', (event) => {
@@ -1178,7 +1264,7 @@
       "default": "Everything you need for a better day on the water."
     },
     { "type": "header", "content": "Product" },
-    { "type": "text", "id": "product_heading", "label": "Desktop heading", "default": "Product Grid" },
+    { "type": "text", "id": "product_heading", "label": "Desktop heading", "default": "Why Choose Us" },
     { "type": "text", "id": "product_heading_mobile", "label": "Mobile heading", "default": "Why Choose Us" },
     { "type": "text", "id": "product_text", "label": "Description", "default": "Ventral. Level the Sea." },
     { "type": "product", "id": "featured_product", "label": "Product source" },
